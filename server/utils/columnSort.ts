@@ -24,7 +24,7 @@ export const buildSortUrl = ({
   const { sort = defaultSort, order = defaultOrder || SortOrder.ascending } = query
   // Build new query string
   const newOrder = order === SortOrder.ascending ? SortOrder.descending : SortOrder.ascending
-  const queryStringItems = {
+  const queryStringItems: Record<string, any> = {
     ...query,
     sort: sort !== sortField ? sortField : sort,
     order: sort !== sortField ? SortOrder.ascending : newOrder,
