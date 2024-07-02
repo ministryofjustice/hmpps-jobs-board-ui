@@ -1,23 +1,28 @@
-import { jwtDecode } from 'jwt-decode'
-import { convertToTitleCase } from '../utils/utils'
-import type { User } from '../data/manageUsersApiClient'
-import ManageUsersApiClient from '../data/manageUsersApiClient'
-
-export interface UserDetails extends User {
-  displayName: string
-  roles: string[]
-}
+import { convertToTitleCase } from '../utils/index'
+import type HmppsAuthClient from '../data/hmppsAuthClient'
+import ManageUsersApiClient from '../data/manageUsersApi/manageUsersApiClient'
+import NomisUserRolesApiClient from '../data/nomisUserRolesApi/nomisUserRolesApiClient'
+import UserDetails from '../data/manageUsersApi/userDetails'
 
 export default class UserService {
-  constructor(private readonly manageUsersApiClient: ManageUsersApiClient) {}
+  constructor(private readonly hmppsAuthClient: HmppsAuthClient) {}
 
   async getUser(token: string): Promise<UserDetails> {
-    const user = await this.manageUsersApiClient.getUser(token)
-    return { ...user, roles: this.getUserRoles(token), displayName: convertToTitleCase(user.name) }
+    const user = await new ManageUsersApiClient().getUser(token)
+    return { ...user, displayName: convertToTitleCase(user.name), username: user.name }
   }
 
-  getUserRoles(token: string): string[] {
-    const { authorities: roles = [] } = jwtDecode(token) as { authorities?: string[] }
-    return roles.map(role => role.substring(role.indexOf('_') + 1))
+  async getUserByUsername(currentUserName: string, username: string): Promise<UserDetails> {
+    const systemToken = await this.hmppsAuthClient.getSystemClientToken(currentUserName)
+
+    const user = await new ManageUsersApiClient().getUserByUsername(systemToken, username)
+    return { ...user, displayName: convertToTitleCase(user.name), username: user.name }
+  }
+
+  async getDpsUserRoles(username: string): Promise<string[]> {
+    const systemToken = await this.hmppsAuthClient.getSystemClientToken(username)
+    const roles = await new NomisUserRolesApiClient(systemToken).getDpsUserRoles(username)
+
+    return roles
   }
 }

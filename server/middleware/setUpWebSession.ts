@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import session, { MemoryStore, Store } from 'express-session'
+import session from 'express-session'
 import RedisStore from 'connect-redis'
 import express, { Router } from 'express'
 import { createRedisClient } from '../data/redisClient'
@@ -7,20 +7,13 @@ import config from '../config'
 import logger from '../../logger'
 
 export default function setUpWebSession(): Router {
-  let store: Store
-  if (config.redis.enabled) {
-    const client = createRedisClient()
-    client.connect().catch((err: Error) => logger.error(`Error connecting to Redis`, err))
-    store = new RedisStore({ client })
-  } else {
-    store = new MemoryStore()
-  }
+  const client = createRedisClient()
+  client.connect().catch((err: Error) => logger.error(`Error connecting to Redis`, err))
 
   const router = express.Router()
   router.use(
     session({
-      store,
-      name: 'hmpps-jobs-board-ui.session',
+      store: new RedisStore({ client }),
       cookie: { secure: config.https, sameSite: 'lax', maxAge: config.session.expiryMinutes * 60 * 1000 },
       secret: config.session.secret,
       resave: false, // redis implements touch so shouldn't need this
@@ -33,6 +26,14 @@ export default function setUpWebSession(): Router {
   // Only changes every minute so that it's not sent with every request.
   router.use((req, res, next) => {
     req.session.nowInMinutes = Math.floor(Date.now() / 60e3)
+    next()
+  })
+
+  // Setup an area of session for storing temporary user data
+  router.use((req, res, next) => {
+    if (!req.session.data) {
+      req.session.data = {}
+    }
     next()
   })
 

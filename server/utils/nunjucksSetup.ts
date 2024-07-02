@@ -1,25 +1,23 @@
-/* eslint-disable no-param-reassign */
-import path from 'path'
+/* eslint-disable */
 import nunjucks from 'nunjucks'
 import express from 'express'
-import { initialiseName } from './utils'
-import { ApplicationInfo } from '../applicationInfo'
+import * as pathModule from 'path'
 import config from '../config'
+import { decryptUrlParameter, encryptUrlParameter } from './urlParameterEncryption'
 
 const production = process.env.NODE_ENV === 'production'
 
-export default function nunjucksSetup(app: express.Express, applicationInfo: ApplicationInfo): void {
+export default function nunjucksSetup(app: express.Express, path: pathModule.PlatformPath): void {
   app.set('view engine', 'njk')
 
+  app.locals.dpsHomeUrl = config.dpsHomeUrl
   app.locals.asset_path = '/assets/'
-  app.locals.applicationName = 'Hmpps Jobs Board Ui'
-  app.locals.environmentName = config.environmentName
-  app.locals.environmentNameColour = config.environmentName === 'PRE-PRODUCTION' ? 'govuk-tag--green' : ''
+  app.locals.applicationName = 'Get someone ready to work'
 
   // Cachebusting version string
   if (production) {
-    // Version only changes with new commits
-    app.locals.version = applicationInfo.gitShortHash
+    // Version only changes on reboot
+    app.locals.version = Date.now().toString()
   } else {
     // Version changes every request
     app.use((req, res, next) => {
@@ -31,8 +29,10 @@ export default function nunjucksSetup(app: express.Express, applicationInfo: App
   const njkEnv = nunjucks.configure(
     [
       path.join(__dirname, '../../server/views'),
-      'node_modules/govuk-frontend/dist/',
+      'node_modules/govuk-frontend/dist',
+      'node_modules/govuk-frontend/dist/components/',
       'node_modules/@ministryofjustice/frontend/',
+      'node_modules/@ministryofjustice/frontend/moj/components/',
     ],
     {
       autoescape: true,
@@ -40,5 +40,42 @@ export default function nunjucksSetup(app: express.Express, applicationInfo: App
     },
   )
 
-  njkEnv.addFilter('initialiseName', initialiseName)
+  njkEnv.addFilter('initialiseName', (fullName: string) => {
+    // this check is for the authError page
+    if (!fullName) {
+      return null
+    }
+    const array = fullName.split(' ')
+    return `${array[0][0]}. ${array.reverse()[0]}`
+  })
+
+  njkEnv.addFilter('findError', (array, formFieldId) => {
+    if (!array) return null
+    const item = array.find((error: { href: string }) => error.href === `#${formFieldId}`)
+    if (item) {
+      return {
+        text: item.text,
+      }
+    }
+    return null
+  })
+
+  njkEnv.addFilter(
+    'setSelected',
+    (items, selected) =>
+      items &&
+      items.map((entry: { value: any }) => ({
+        ...entry,
+        selected: entry && entry.value === selected,
+      })),
+  )
+
+  njkEnv.addFilter('fixed', (num: number, length: number) => {
+    return num.toFixed(length || 2)
+  })
+
+  njkEnv.addGlobal('dpsUrl', config.dpsHomeUrl)
+  njkEnv.addGlobal('phaseName', config.phaseName)
+  njkEnv.addGlobal('encryptUrlParameter', encryptUrlParameter)
+  njkEnv.addGlobal('decryptUrlParameter', decryptUrlParameter)
 }
