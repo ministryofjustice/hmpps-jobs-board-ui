@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import arrayToQueryString from './arrayToQueryString'
 
 const mapToQueryString = (params: Record<string, any>): string =>
