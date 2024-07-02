@@ -12,7 +12,7 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
 
   app.locals.dpsHomeUrl = config.dpsHomeUrl
   app.locals.asset_path = '/assets/'
-  app.locals.applicationName = 'Get someone ready to work'
+  app.locals.applicationName = 'Jobs upload'
 
   // Cachebusting version string
   if (production) {
