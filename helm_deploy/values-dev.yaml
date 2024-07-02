@@ -20,6 +20,5 @@ generic-service:
     COMPONENT_API_URL: "https://frontend-components-dev.hmpps.service.justice.gov.uk"
     SYSTEM_PHASE: DEV
 
-
 generic-prometheus-alerts:
   alertSeverity: prison-education-alerts
