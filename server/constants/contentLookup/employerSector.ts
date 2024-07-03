@@ -1,0 +1,22 @@
+export default {
+  ADMIN_SUPPORT: 'Administration and support services',
+  AGRICULTURE: 'Agriculture (including horticulture, forestry and fishing)',
+  ARTS_ENTERTAINMENT: 'Arts and entertainment',
+  CONSTRUCTION: 'Construction',
+  EDUCATION: 'Education',
+  ENERGY: 'Energy',
+  FINANCE: 'Finance (including insurance)',
+  HEALTH_SOCIAL: 'Health and social work',
+  HOSPITALITY_CATERING: 'Hospitality and Catering',
+  LOGISTICS: 'Logistics (including transportation and storage)',
+  MANUFACTURING: 'Manufacturing',
+  MINING: 'Mining',
+  OTHER: 'Other services',
+  PROFESSIONALS_SCIENTISTS_TECHNICIANS:
+    'Professionals, scientists and technicians (including accounting, legal, architecture, consultancy and engineering)',
+  PROPERTY: 'Property',
+  PUBLIC_ADMIN_DEFENCE: 'Public administration and defence',
+  WASTE_MANAGEMENT: 'Recycling and waste management (including water supply)',
+  RETAIL: 'Retail (includes wholesale and motor vehicle repair)',
+  TECHNOLOGY: 'Technology (includes information and communication)',
+}

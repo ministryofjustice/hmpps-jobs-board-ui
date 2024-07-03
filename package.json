@@ -133,7 +133,7 @@
     "reflect-metadata": "^0.2.2",
     "superagent": "^8.1.2",
     "url-value-parser": "^2.2.0",
-    "uuid": "^9.0.1"
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.11",
@@ -156,7 +156,7 @@
     "@types/ramda": "^0.30.0",
     "@types/superagent": "^8.1.7",
     "@types/supertest": "^6.0.2",
-    "@types/uuid": "^9.0.8",
+    "@types/uuid": "^10",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "audit-ci": "^6.6.1",

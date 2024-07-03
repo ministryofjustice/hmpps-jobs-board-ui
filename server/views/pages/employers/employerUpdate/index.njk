@@ -1,0 +1,196 @@
+{% extends "../../../partials/layout.njk" %}
+{% from "../../../partials/navBar.njk" import navBar with context %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "moj/components/pagination/macro.njk" import mojPagination %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+
+{% set title = "Employer details"%}
+
+{% block beforeContent %}
+    {{ govukBackLink({ text: "Back", href: backLocation }) }}
+{% endblock %}
+
+{% block content %}
+  {{ errorSummary(errors) }}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <span class="govuk-caption-l">Add an employer - step 1 of 2</span>
+        <h1 class="govuk-heading-l">
+          {{ title }}
+        </h1>
+
+        <form class="form" method="post" novalidate="">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+
+          {{ govukInput({
+              id: "employerName",
+              name: "employerName",
+              value: employerName,
+              type: "text",
+              label: {
+                text: "Employer name"
+              },
+              errorMessage: errors.employerName
+            }) }}
+
+          {{ govukSelect({
+              id: "employerSector",
+              name: "employerSector",
+              value: employerSector,
+              label: {
+                text: 'Employer sector'
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Select employer sector"
+                },
+                {
+                  value: "ADMIN_SUPPORT",
+                  text: contentLookup.employerSector["ADMIN_SUPPORT"]
+                },
+                {
+                  value: "AGRICULTURE",
+                  text: contentLookup.employerSector["AGRICULTURE"]
+                },
+                {
+                  value: "ARTS_ENTERTAINMENT",
+                  text: contentLookup.employerSector["ARTS_ENTERTAINMENT"]
+                },
+                {
+                  value: "CONSTRUCTION",
+                  text: contentLookup.employerSector["CONSTRUCTION"]
+                },
+                {
+                  value: "EDUCATION",
+                  text: contentLookup.employerSector["EDUCATION"]
+                },
+                {
+                  value: "ENERGY",
+                  text: contentLookup.employerSector["ENERGY"]
+                },
+                {
+                  value: "FINANCE",
+                  text: contentLookup.employerSector["FINANCE"]
+                },
+                {
+                  value: "HEALTH_SOCIAL",
+                  text: contentLookup.employerSector["HEALTH_SOCIAL"]
+                },
+                {
+                  value: "HOSPITALITY_CATERING",
+                  text: contentLookup.employerSector["HOSPITALITY_CATERING"]
+                },
+                {
+                  value: "LOGISTICS",
+                  text: contentLookup.employerSector["LOGISTICS"]
+                },
+                {
+                  value: "MANUFACTURING",
+                  text: contentLookup.employerSector["MANUFACTURING"]
+                },
+                {
+                  value: "MINING",
+                  text: contentLookup.employerSector["MINING"]
+                },
+                {
+                  value: "OTHER",
+                  text: contentLookup.employerSector["OTHER"]
+                },
+                {
+                  value: "PROFESSIONALS_SCIENTISTS_TECHNICIANS",
+                  text: contentLookup.employerSector["PROFESSIONALS_SCIENTISTS_TECHNICIANS"]
+                },
+                {
+                  value: "PROPERTY",
+                  text: contentLookup.employerSector["PROPERTY"]
+                },
+                {
+                  value: "PUBLIC_ADMIN_DEFENCE",
+                  text: contentLookup.employerSector["PUBLIC_ADMIN_DEFENCE"]
+                },
+                {
+                  value: "WASTE_MANAGEMENT",
+                  text: contentLookup.employerSector["WASTE_MANAGEMENT"]
+                },
+                {
+                  value: "RETAIL",
+                  text: contentLookup.employerSector["RETAIL"]
+                },
+                {
+                  value: "TECHNOLOGY",
+                  text: contentLookup.employerSector["TECHNOLOGY"]
+                }
+              ],
+              errorMessage: errors.employerSector
+            }) 
+          }}
+
+          {{ govukSelect({
+              id: "employerStatus",
+              name: "employerStatus",
+              value: employerStatus,
+              label: {
+                text: 'Employer status'
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Select employer status"
+                },
+                {
+                  value: "GOLD",
+                  text: contentLookup.employerStatus["GOLD"]
+                },
+                {
+                  value: "KEY_PARTNER",
+                  text: contentLookup.employerStatus["KEY_PARTNER"]
+                },
+                {
+                  value: "SILVER",
+                  text: contentLookup.employerStatus["SILVER"]
+                }
+              ],
+              errorMessage: errors.employerStatus
+            }) 
+          }}
+
+          {{ 
+            govukTextarea({
+              id: "employerDescription",
+              name: "employerDescription",
+              rows: "3",
+              value: employerDescription,
+              type: "text",
+              value: employerDescription,
+              label: {
+                text: "Employer description"
+              },
+              errorMessage: errors.employerDescription
+            }) 
+          }}
+
+          {{  
+            govukButton({
+              text: "Continue",
+              type: "submit",
+              attributes: {
+                "data-qa": "submit-button",
+                "data-ga-category": "submit-selected-data"
+              }
+            }) 
+          }}
+
+        </form>
+
+      </div>
+    </div>
+{% endblock %}
