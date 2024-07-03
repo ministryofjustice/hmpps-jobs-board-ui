@@ -1,29 +1,21 @@
 import express, { Express } from 'express'
 import cookieSession from 'cookie-session'
-import { NotFound } from 'http-errors'
+import createError from 'http-errors'
+import path from 'path'
 
-import routes from '../index'
-import nunjucksSetup from '../../utils/nunjucksSetup'
-import errorHandler from '../../errorHandler'
-import * as auth from '../../authentication/auth'
-import type { Services } from '../../services'
-import type { ApplicationInfo } from '../../applicationInfo'
+import routes from '../routes/index'
+import nunjucksSetup from '../utils/nunjucksSetup'
+import errorHandler from '../errorHandler'
+import * as auth from '../authentication/auth'
+import { Services } from '../services'
 
-const testAppInfo: ApplicationInfo = {
-  applicationName: 'test',
-  buildNumber: '1',
-  gitRef: 'long ref',
-  gitShortHash: 'short ref',
-  branchName: 'main',
-}
-
-export const user: Express.User = {
-  name: 'FIRST LAST',
+export const user = {
+  firstName: 'first',
+  lastName: 'last',
   userId: 'id',
   token: 'token',
   username: 'user1',
   displayName: 'First Last',
-  active: true,
   activeCaseLoadId: 'MDI',
   authSource: 'NOMIS',
 }
@@ -35,20 +27,19 @@ function appSetup(services: Services, production: boolean, userSupplier: () => E
 
   app.set('view engine', 'njk')
 
-  nunjucksSetup(app, testAppInfo)
+  nunjucksSetup(app, path)
   app.use(cookieSession({ keys: [''] }))
   app.use((req, res, next) => {
     req.user = userSupplier()
     req.flash = flashProvider
-    res.locals = {
-      user: { ...req.user },
-    }
+    res.locals = {}
+    res.locals.user = { ...req.user }
     next()
   })
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
   app.use(routes(services))
-  app.use((req, res, next) => next(new NotFound()))
+  app.use((req, res, next) => next(createError(404, 'Not found')))
   app.use(errorHandler(production))
 
   return app
