@@ -10,10 +10,11 @@ context('Sign In', () => {
     cy.task('stubManageUser')
     cy.task('putEmployer')
     cy.signIn()
-    cy.visit('/employers/employer/new/update')
   })
 
   it('Validation error display', () => {
+    cy.visit('/employers/employer/new/update')
+
     const employerUpdatePage = new EmployerUpdatePage('Employer details')
 
     employerUpdatePage.submitButton().click()
@@ -36,6 +37,8 @@ context('Sign In', () => {
   })
 
   it('Create employer flow', () => {
+    cy.visit('/employers/employer/new/update')
+
     const employerUpdatePage = new EmployerUpdatePage('Employer details')
     employerUpdatePage.headerCaption().contains('Add an employer - step 1 of 2')
 
@@ -60,6 +63,8 @@ context('Sign In', () => {
   })
 
   it('Create employer - change links flow', () => {
+    cy.visit('/employers/employer/new/update')
+
     const employerUpdatePage = new EmployerUpdatePage('Employer details')
     employerUpdatePage.headerCaption().contains('Add an employer - step 1 of 2')
 
