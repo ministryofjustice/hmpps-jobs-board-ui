@@ -8,8 +8,8 @@ export default function validationSchema(): ObjectSchema {
     employerName: joi.string().empty('').required().min(3).max(100).messages({
       'any.required': 'Employer name must be 3 characters or more',
       'any.empty': 'Employer name must be 3 characters or more',
-      'any.max': 'Employer name must be 100 characters or less',
-      'any.min': 'Employer name must be 3 characters or more',
+      'string.max': 'Employer name must be 100 characters or less',
+      'string.min': 'Employer name must be 3 characters or more',
     }),
     employerSector: joi
       .string()
@@ -54,7 +54,7 @@ export default function validationSchema(): ObjectSchema {
     employerDescription: joi.string().empty('').required().max(500).messages({
       'any.required': 'Enter employer description details',
       'any.empty': 'Enter employer description details',
-      'any.max': 'Employer Description must be 500 characters or less',
+      'string.max': 'Employer Description must be 500 characters or less',
     }),
   })
 }
