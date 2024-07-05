@@ -1,0 +1,100 @@
+{% extends "../../../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "moj/components/pagination/macro.njk" import mojPagination %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+
+{% set title = "Check your answers before adding employer"%}
+
+{% block beforeContent %}
+    {{ govukBackLink({ text: "Back", href: backLocation }) }}
+{% endblock %}
+
+{% block content %}
+  {{ errorSummary(errors) }}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <span class="govuk-caption-l" data-qa="headerCaption">Add an employer - step 2 of 2</span>
+        <h1 class="govuk-heading-l">
+          {{ title }}
+        </h1>
+
+        <h2 class="govuk-heading-m">Employer details</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Employer name
+            </dt>
+            <dd class="govuk-summary-list__value" data-qa="employerName">
+              {{ employerName }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id) + '#employerName' }}" data-qa="employerNameLink">
+                Change<span class="govuk-visually-hidden"> employer name</span>
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Employer sector
+            </dt>
+            <dd class="govuk-summary-list__value" data-qa="employerSector">
+              {{ contentLookup.employerSector[employerSector] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id) + '#employerSector' }}" data-qa="employerSectorLink">
+                Change<span class="govuk-visually-hidden"> employer sector</span>
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Employer status
+            </dt>
+            <dd class="govuk-summary-list__value" data-qa="employerStatus">
+              {{ contentLookup.employerStatus[employerStatus] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id) + '#employerStatus' }}" data-qa="employerStatusLink">
+                Change<span class="govuk-visually-hidden"> employer status</span>
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Employer description
+            </dt>
+            <dd class="govuk-summary-list__value" data-qa="employerDescription">
+              {{ employerDescription | nl2br | safe }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id) + '#employerDescription' }}" data-qa="employerDescriptionLink">
+                Change<span class="govuk-visually-hidden"> employer description</span>
+              </a>
+            </dd>
+          </div>
+        </dl>
+
+        <form class="form" method="post" novalidate="">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+          {{  
+            govukButton({
+              text: "Add employer and save",
+              type: "submit",
+              attributes: {
+                "data-qa": "submit-button",
+                "data-ga-category": "submit-selected-data"
+              }
+            }) 
+          }}
+        </form>
+
+      </div>
+    </div>
+{% endblock %}
