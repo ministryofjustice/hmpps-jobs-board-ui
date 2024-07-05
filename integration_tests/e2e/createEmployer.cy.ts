@@ -59,7 +59,7 @@ context('Sign In', () => {
 
     employerUpdatePage.submitButton().click()
 
-    const indexPage = new IndexPage('This site is under construction...')
+    const indexPage = new IndexPage('Add jobs and employers')
   })
 
   it('Create employer - change links flow', () => {

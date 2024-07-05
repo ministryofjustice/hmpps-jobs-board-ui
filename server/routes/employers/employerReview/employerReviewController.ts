@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express'
+import { v7 as uuidv7 } from 'uuid'
 
 import { deleteSessionData, getSessionData, setSessionData } from '../../../utils/index'
 import addressLookup from '../../addressLookup'
@@ -24,7 +25,8 @@ export default class EmployerReviewController {
 
       // Render data
       const data = {
-        backLocation: id === 'new' ? addressLookup.employers.employerUpdate(id) : addressLookup.homePage(),
+        backLocation:
+          id === 'new' ? addressLookup.employers.employerUpdate(id) : addressLookup.employers.employerList(),
         ...employer,
       }
 
@@ -45,28 +47,20 @@ export default class EmployerReviewController {
       const { employerName, employerSector, employerStatus, employerDescription } = employer
 
       // Update application progress API
-      if (id === 'new') {
-        await this.employerService.createEmployer(res.locals.user.username, {
-          employerName,
-          employerSector,
-          employerStatus,
-          employerDescription,
-        })
-      } else {
-        await this.employerService.updateEmployer(res.locals.user.username, {
-          employerId: id,
-          employerName,
-          employerSector,
-          employerStatus,
-          employerDescription,
-        })
+      const employerUpdate = {
+        employerId: id === 'new' ? uuidv7() : id,
+        employerName,
+        employerSector,
+        employerStatus,
+        employerDescription,
       }
+      await this.employerService.createUpdateEmployer(res.locals.user.username, employerUpdate)
 
       // Delete current record
       deleteSessionData(req, ['employer', id])
 
       // Redirect to employers
-      res.redirect(addressLookup.homePage())
+      res.redirect(addressLookup.employers.employerList())
     } catch (err) {
       next(err)
     }

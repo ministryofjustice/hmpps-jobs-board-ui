@@ -1,4 +1,3 @@
-import { v7 as uuidv7 } from 'uuid'
 import EmployerApiClient from '../data/employerApi/employerApiClient'
 import HmppsAuthClient from '../data/hmppsAuthClient'
 import EmployerSector from '../enums/employerSector'
@@ -7,31 +6,7 @@ import EmployerStatus from '../enums/employerStatus'
 export default class EmployerService {
   constructor(private readonly hmppsAuthClient: HmppsAuthClient) {}
 
-  async createEmployer(
-    username: string,
-    params: {
-      employerName: string
-      employerSector: string
-      employerStatus: string
-      employerDescription: string
-    },
-  ) {
-    const { employerName, employerSector, employerStatus, employerDescription } = params
-
-    const systemToken = await this.hmppsAuthClient.getSystemClientToken(username)
-
-    // Generate new id and put
-    const result = new EmployerApiClient(systemToken).putEmployer(uuidv7(), {
-      name: employerName,
-      sector: employerSector as EmployerSector,
-      status: employerStatus as EmployerStatus,
-      description: employerDescription,
-    })
-
-    return result
-  }
-
-  async updateEmployer(
+  async createUpdateEmployer(
     username: string,
     params: {
       employerId: string

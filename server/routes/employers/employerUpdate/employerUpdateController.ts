@@ -13,7 +13,8 @@ export default class EmployerUpdateController {
 
       // Render data
       const data = {
-        backLocation: id === 'new' ? addressLookup.homePage() : addressLookup.employers.employerReview(id),
+        backLocation:
+          id === 'new' ? addressLookup.employers.employerList() : addressLookup.employers.employerReview(id),
         ...employer,
       }
 

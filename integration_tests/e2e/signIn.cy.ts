@@ -23,13 +23,13 @@ context('Sign In', () => {
 
   it('User name visible in header', () => {
     cy.signIn()
-    const indexPage = new IndexPage('This site is under construction...')
+    const indexPage = new IndexPage('Add jobs and employers')
     indexPage.headerUserName().should('contain.text', 'J. Smith')
   })
 
   it('User can sign out', () => {
     cy.signIn()
-    const indexPage = new IndexPage('This site is under construction...')
+    const indexPage = new IndexPage('Add jobs and employers')
     indexPage.signOut().click()
     Page.verifyOnPage(AuthSignInPage)
   })
@@ -37,7 +37,7 @@ context('Sign In', () => {
   it('User can manage their details', () => {
     cy.signIn()
     cy.task('stubAuthManageDetails')
-    const indexPage = new IndexPage('This site is under construction...')
+    const indexPage = new IndexPage('Add jobs and employers')
 
     indexPage.manageDetails().get('a').invoke('removeAttr', 'target')
     indexPage.manageDetails().click()
@@ -46,7 +46,7 @@ context('Sign In', () => {
 
   it('Token verification failure takes user to sign in page', () => {
     cy.signIn()
-    const indexPage = new IndexPage('This site is under construction...')
+    const indexPage = new IndexPage('Add jobs and employers')
     cy.task('stubVerifyToken', false)
 
     // can't do a visit here as cypress requires only one domain
@@ -55,7 +55,7 @@ context('Sign In', () => {
 
   it('Token verification failure clears user session', () => {
     cy.signIn()
-    const indexPage = new IndexPage('This site is under construction...')
+    const indexPage = new IndexPage('Add jobs and employers')
     cy.task('stubVerifyToken', false)
 
     // can't do a visit here as cypress requires only one domain

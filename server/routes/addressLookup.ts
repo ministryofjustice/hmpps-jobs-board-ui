@@ -1,6 +1,6 @@
 export default {
-  homePage: () => '/',
   employers: {
+    employerList: () => '/',
     employerReview: (id: string) => `/employers/employer/${id}`,
     employerUpdate: (id = 'new') => `/employers/employer/${id}/update`,
   },

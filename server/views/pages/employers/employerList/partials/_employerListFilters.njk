@@ -1,0 +1,67 @@
+<div class="govuk-form-group filter-box govuk-!-margin-top-4">
+    <form method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+            <h2 class="govuk-heading-s govuk-!-margin-bottom-2">
+                Filter by
+            </h2>
+            </div>
+        </div>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-third">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="employerNameFilter">
+                        Employers's name
+                    </label>
+                    <input class="govuk-input" id="employerNameFilter" name="employerNameFilter" type="search" value="{{ employerNameFilter }}">
+                </div>
+            </div>
+
+            <div class="govuk-grid-column-one-third">
+                <div class="govuk-form-group">
+                    <label class="govuk-heading-s govuk-!-margin-bottom-1" for="employerSectorFilter">
+                        Employer sector
+                    </label>
+                    <select class="govuk-select" id="employerSectorFilter" name="employerSectorFilter">
+                        <option value="" {{ "selected" if employerSectorFilter === "" }}>All</option>
+                        <option value="ADMIN_SUPPORT" {{ "selected" if employerSectorFilter === "ADMIN_SUPPORT" }}>{{ contentLookup.employerSector["ADMIN_SUPPORT"] }}</option>
+                        <option value="AGRICULTURE" {{ "selected" if employerSectorFilter === "AGRICULTURE" }}>{{ contentLookup.employerSector["AGRICULTURE"] }}</option>
+                        <option value="ARTS_ENTERTAINMENT" {{ "selected" if employerSectorFilter === "ARTS_ENTERTAINMENT" }}>{{ contentLookup.employerSector["ARTS_ENTERTAINMENT"] }}</option>
+                        <option value="CONSTRUCTION" {{ "selected" if employerSectorFilter === "CONSTRUCTION" }}>{{ contentLookup.employerSector["CONSTRUCTION"] }}</option>
+                        <option value="EDUCATION" {{ "selected" if employerSectorFilter === "EDUCATION" }}>{{ contentLookup.employerSector["EDUCATION"] }}</option>
+                        <option value="ENERGY" {{ "selected" if employerSectorFilter === "ENERGY" }}>{{ contentLookup.employerSector["ENERGY"] }}</option>
+                        <option value="FINANCE" {{ "selected" if employerSectorFilter === "FINANCE" }}>{{ contentLookup.employerSector["FINANCE"] }}</option>
+                        <option value="HEALTH_SOCIAL" {{ "selected" if employerSectorFilter === "HEALTH_SOCIAL" }}>{{ contentLookup.employerSector["HEALTH_SOCIAL"] }}</option>
+                        <option value="HOSPITALITY_CATERING" {{ "selected" if employerSectorFilter === "HOSPITALITY_CATERING" }}>{{ contentLookup.employerSector["HOSPITALITY_CATERING"] }}</option>
+                        <option value="LOGISTICS" {{ "selected" if employerSectorFilter === "LOGISTICS" }}>{{ contentLookup.employerSector["LOGISTICS"] }}</option>
+                        <option value="MANUFACTURING" {{ "selected" if employerSectorFilter === "MANUFACTURING" }}>{{ contentLookup.employerSector["MANUFACTURING"] }}</option>
+                        <option value="MINING" {{ "selected" if employerSectorFilter === "MINING" }}>{{ contentLookup.employerSector["MINING"] }}</option>
+                        <option value="OTHER" {{ "selected" if employerSectorFilter === "OTHER" }}>{{ contentLookup.employerSector["OTHER"] }}</option>
+                        <option value="PROFESSIONALS_SCIENTISTS_TECHNICIANS" {{ "selected" if employerSectorFilter === "PROFESSIONALS_SCIENTISTS_TECHNICIANS" }}>{{ contentLookup.employerSector["PROFESSIONALS_SCIENTISTS_TECHNICIANS"] }}</option>
+                        <option value="PROPERTY" {{ "selected" if employerSectorFilter === "PROPERTY" }}>{{ contentLookup.employerSector["PROPERTY"] }}</option>
+                        <option value="PUBLIC_ADMIN_DEFENCE" {{ "selected" if employerSectorFilter === "PUBLIC_ADMIN_DEFENCE" }}>{{ contentLookup.employerSector["PUBLIC_ADMIN_DEFENCE"] }}</option>
+                        <option value="WASTE_MANAGEMENT" {{ "selected" if employerSectorFilter === "WASTE_MANAGEMENT" }}>{{ contentLookup.employerSector["WASTE_MANAGEMENT"] }}</option>
+                        <option value="RETAIL" {{ "selected" if employerSectorFilter === "RETAIL" }}>{{ contentLookup.employerSector["RETAIL"] }}</option>
+                        <option value="TECHNOLOGY" {{ "selected" if employerSectorFilter === "TECHNOLOGY" }}>{{ contentLookup.employerSector["TECHNOLOGY"] }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <div class="govuk-button-group govuk-!-margin-top-3 govuk-!-margin-bottom-0">
+                    <button class="govuk-button" data-module="govuk-button" id="applyFiltersButton">
+                        Apply filters
+                    </button>
+                    {% if filtered %}
+                        <a class="govuk-link" id="filter-clear-link" href="{{ addressLookup.candidateMatching.prisonerListApplications() }}">Clear</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

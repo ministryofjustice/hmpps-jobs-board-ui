@@ -45,24 +45,8 @@ describe('employerService', () => {
     expect(employerApiClient.getEmployer).toHaveBeenCalledWith('id')
   })
 
-  it('#createEmployer - should get token and call correct api method', async () => {
-    const result = await employerService.createEmployer('user', {
-      ...employer,
-    })
-
-    expect(result).toEqual({ data: 'mock_data' })
-
-    expect(hmppsAuthClientMock.getSystemClientToken).toHaveBeenCalledWith('user')
-    expect(employerApiClient.putEmployer).toHaveBeenCalledWith('123456789', {
-      name: employer.employerName,
-      sector: employer.employerSector as EmployerSector,
-      status: employer.employerStatus as EmployerStatus,
-      description: employer.employerDescription,
-    })
-  })
-
-  it('#updateEmployer - should get token and call correct api method', async () => {
-    const result = await employerService.updateEmployer('user', {
+  it('#createUpdateEmployer - should get token and call correct api method', async () => {
+    const result = await employerService.createUpdateEmployer('user', {
       employerId: '987654321',
       ...employer,
     })
