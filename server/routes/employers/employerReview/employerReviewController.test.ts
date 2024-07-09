@@ -20,6 +20,7 @@ describe('EmployerReviewController', () => {
 
   const mockData = {
     backLocation: '/employers/employer/new/update',
+    id: 'new',
     ...employer,
   }
 

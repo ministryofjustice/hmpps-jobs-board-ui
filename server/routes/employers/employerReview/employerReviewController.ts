@@ -12,19 +12,15 @@ export default class EmployerReviewController {
     const { id } = req.params
 
     try {
-      let employer
-      if (id === 'new') {
-        employer = getSessionData(req, ['employer', id])
-        if (!employer) {
-          res.redirect(addressLookup.employers.employerUpdate())
-          return
-        }
-      } else {
-        employer = req.context.employer
+      const employer = getSessionData(req, ['employer', id])
+      if (!employer) {
+        res.redirect(addressLookup.employers.employerUpdate())
+        return
       }
 
       // Render data
       const data = {
+        id,
         backLocation:
           id === 'new' ? addressLookup.employers.employerUpdate(id) : addressLookup.employers.employerList(),
         ...employer,

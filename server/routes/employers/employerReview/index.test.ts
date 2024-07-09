@@ -1,9 +1,11 @@
 import { Router } from 'express'
 import Controller from './employerReviewController'
+import getEmployerReviewResolver from '../../../middleware/resolvers/getEmployerReviewResolver'
 import { Services } from '../../../services'
 import routes from './index'
 
 jest.mock('./employerReviewController')
+jest.mock('../../../middleware/resolvers/getEmployerReviewResolver')
 
 describe('employerReview routes', () => {
   let router: Router
@@ -18,6 +20,7 @@ describe('employerReview routes', () => {
       get: jest.fn(),
       post: jest.fn(),
     }))
+    ;(getEmployerReviewResolver as jest.Mock).mockImplementation(() => jest.fn())
   })
 
   it('should register GET route for page', () => {
@@ -25,6 +28,7 @@ describe('employerReview routes', () => {
 
     expect(router.get).toHaveBeenCalledWith(
       '/employers/employer/:id',
+      [expect.any(Function)], // getEmployerReviewResolver
       expect.any(Function), // controller.get
     )
   })
