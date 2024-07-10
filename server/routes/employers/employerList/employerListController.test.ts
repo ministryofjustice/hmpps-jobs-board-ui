@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { plainToClass } from 'class-transformer'
 import expressMocks from '../../../testutils/expressMocks'
 import Controller from './employerListController'
 import validateFormSchema from '../../../utils/validateFormSchema'
 import { getSessionData, setSessionData } from '../../../utils/session'
+import EmployerViewModel from '../../../viewModels/employerViewModel'
 
 jest.mock('../../../utils/validateFormSchema', () => ({
   ...jest.requireActual('../../../utils/validateFormSchema'),
@@ -19,17 +21,15 @@ describe('EmployerListController', () => {
   req.context.employers = {
     content: [
       {
-        name: 'mock_name',
-        createdAt: 'mock_createdAt',
-        status: 'mock_status',
-      },
-      {
-        name: 'mock_name2',
-        createdAt: 'mock_createdAt',
-        status: 'mock_status',
+        id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
+        name: 'ASDA',
+        description: 'Some text',
+        sector: 'RETAIL',
+        status: 'GOLD',
+        createdAt: '2024-07-04T15:21:02.497176',
       },
     ],
-    totalElements: 2,
+    totalElements: 1,
   }
 
   req.params.sort = 'name'
@@ -41,25 +41,11 @@ describe('EmployerListController', () => {
 
   const mockData = {
     employerListResults: {
-      content: [
-        {
-          name: 'mock_name',
-          createdAt: 'mock_createdAt',
-          status: 'mock_status',
-        },
-        {
-          name: 'mock_name2',
-          createdAt: 'mock_createdAt',
-          status: 'mock_status',
-        },
-      ],
-      totalElements: 2,
+      content: plainToClass(EmployerViewModel, req.context.employers.content),
+      totalElements: 1,
     },
     employerNameFilter: '',
     employerSectorFilter: '',
-    errors: {
-      details: 'mock_error',
-    },
     filtered: '',
     order: 'descending',
     paginationData: {},
@@ -94,29 +80,7 @@ describe('EmployerListController', () => {
       await controller.get(req, res, next)
       next.mockReset()
 
-      expect(res.render).toHaveBeenCalledWith('pages/employers/employerList/index', {
-        employerListResults: {
-          content: [
-            {
-              name: 'mock_name',
-              createdAt: 'mock_createdAt',
-              status: 'mock_status',
-            },
-            {
-              name: 'mock_name2',
-              createdAt: 'mock_createdAt',
-              status: 'mock_status',
-            },
-          ],
-          totalElements: 2,
-        },
-        employerNameFilter: '',
-        employerSectorFilter: '',
-        filtered: '',
-        order: 'descending',
-        paginationData: {},
-        sort: 'name',
-      })
+      expect(res.render).toHaveBeenCalledWith('pages/employers/employerList/index', mockData)
       expect(next).toHaveBeenCalledTimes(0)
     })
   })

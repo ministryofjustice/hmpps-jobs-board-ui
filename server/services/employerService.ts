@@ -34,4 +34,19 @@ export default class EmployerService {
 
     return new EmployerApiClient(systemToken).getEmployer(id)
   }
+
+  async employerSearch(
+    username: string,
+    params: {
+      page?: number
+      sort?: string
+      order?: string
+      employerNameFilter?: string
+      employerSectorFilter?: string
+    },
+  ) {
+    const systemToken = await this.hmppsAuthClient.getSystemClientToken(username)
+
+    return new EmployerApiClient(systemToken).employerSearch(params)
+  }
 }

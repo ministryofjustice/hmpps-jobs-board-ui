@@ -42,7 +42,7 @@ export default {
   production,
   https: production,
   staticResourceCacheDuration: '1h',
-  paginationPageSize: 20,
+  paginationPageSize: 10,
   redis: {
     enabled: get('REDIS_ENABLED', 'false', requiredInProduction) === 'true',
     host: get('REDIS_HOST', 'localhost', requiredInProduction),

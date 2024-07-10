@@ -5,12 +5,10 @@ interface GetEmployerResponse {
   id: string
   name: string
   description: string
-  createdBy: string
-  createdWhen: string
-  modifiedBy: string
-  modifiedWhen: string
   sector: EmployerSector
   status: EmployerStatus
+  createdAt: string
+  createdBy: string
 }
 
 export default GetEmployerResponse

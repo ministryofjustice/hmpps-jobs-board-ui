@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RequestHandler } from 'express'
+import { plainToClass } from 'class-transformer'
 import PaginationService from '../../../services/paginationServices'
 import config from '../../../config'
 import { getSessionData, setSessionData } from '../../../utils/session'
 import validateFormSchema from '../../../utils/validateFormSchema'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
+import EmployerViewModel from '../../../viewModels/employerViewModel'
 
 export default class EmployerListController {
   constructor(private readonly paginationService: PaginationService) {}
@@ -40,7 +42,10 @@ export default class EmployerListController {
 
       // Render data
       const data = {
-        employerListResults,
+        employerListResults: {
+          ...employerListResults,
+          content: plainToClass(EmployerViewModel, employerListResults.content),
+        },
         sort,
         order,
         paginationData,
