@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import IndexPage from '../pages/index'
 import EmployerUpdatePage from '../pages/employers/employerUpdate'
 import EmployerReviewPage from '../pages/employers/employerReview'
 
@@ -8,7 +7,7 @@ context('Sign In', () => {
     cy.task('reset')
     cy.task('stubSignIn')
     cy.task('stubManageUser')
-    cy.task('putEmployer')
+    // cy.task('putEmployer', 'A1234A')
     cy.signIn()
   })
 
@@ -59,7 +58,7 @@ context('Sign In', () => {
 
     employerUpdatePage.submitButton().click()
 
-    const indexPage = new IndexPage('This site is under construction...')
+    // const indexPage = new IndexPage('This site is under construction...')
   })
 
   it('Create employer - change links flow', () => {

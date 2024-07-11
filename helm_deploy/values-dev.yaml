@@ -6,9 +6,10 @@ generic-service:
 
   ingress:
     host: jobs-board-dev.hmpps.service.justice.gov.uk
+    contextColour: green
 
   env:
-    ENVIRONMENT_NAME: DEV
+    ENVIRONMENT: DEV
     ENVIRONMENT_NAME: 'DEV'
     S3_REGION: eu-west-2
     INGRESS_URL: "https://jobs-board-dev.hmpps.service.justice.gov.uk"
