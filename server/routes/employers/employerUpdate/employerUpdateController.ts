@@ -15,7 +15,9 @@ export default class EmployerUpdateController {
       const data = {
         id,
         backLocation:
-          id === 'new' ? addressLookup.employers.employerList() : addressLookup.employers.employerReview(id),
+          id === 'new'
+            ? `${addressLookup.employers.employerList()}?sort=name&order=ascending`
+            : addressLookup.employers.employerReview(id),
         ...employer,
       }
 

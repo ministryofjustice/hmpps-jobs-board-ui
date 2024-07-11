@@ -56,7 +56,7 @@ export default class EmployerReviewController {
       deleteSessionData(req, ['employer', id])
 
       // Redirect to employers
-      res.redirect(addressLookup.employers.employerList())
+      res.redirect(`${addressLookup.employers.employerList()}?sort=name&order=ascending`)
     } catch (err) {
       next(err)
     }

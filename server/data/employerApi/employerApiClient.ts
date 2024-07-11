@@ -41,13 +41,18 @@ export default class EmployerApiClient {
     employerNameFilter?: string
     employerSectorFilter?: string
   }) {
-    const { employerNameFilter = '', page, employerSectorFilter, sort, order = 'ascending' } = params
+    const { employerNameFilter = '', page = 0, employerSectorFilter, sort, order } = params
 
-    const employer = await this.restClient.get<GetEmployerResponse>({
-      path: `/employers/01907e1e-bb85-7bb7-9018-33a2070a367d`,
+    const nameParam = employerNameFilter ? `&name=${employerNameFilter}` : ''
+    const sectorParam = employerSectorFilter ? `&sector=${employerSectorFilter}` : ''
+    const sortParam = sort ? `&sort=${sort}` : ''
+    const orderParam = order ? `&order=${order}` : ''
+
+    let employers = await this.restClient.get<GetEmployerResponse[]>({
+      path: `/employers?page=${page}${nameParam}${sectorParam}${sortParam}${orderParam}`,
     })
 
-    let employers = [employer, ...mockEmployers] as GetEmployerResponse[]
+    // let employers = [employer, ...mockEmployers] as GetEmployerResponse[]
 
     if (employerNameFilter) {
       employers = employers.filter(p => p.name.toLowerCase().indexOf(employerNameFilter.toLocaleLowerCase()) > -1)

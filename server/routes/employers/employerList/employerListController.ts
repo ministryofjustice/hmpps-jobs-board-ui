@@ -21,6 +21,11 @@ export default class EmployerListController {
       // Paginate where necessary
       let paginationData = {}
 
+      if (!sort) {
+        res.redirect(`${addressLookup.employers.employerList()}?sort=name&order=ascending`)
+        return
+      }
+
       // Build uri
       const uri = [
         sort && `sort=${sort}`,

@@ -20,7 +20,7 @@ describe('EmployerUpdateController', () => {
 
   const mockData = {
     id,
-    backLocation: '/',
+    backLocation: '/?sort=name&order=ascending',
   }
 
   const controller = new Controller()
