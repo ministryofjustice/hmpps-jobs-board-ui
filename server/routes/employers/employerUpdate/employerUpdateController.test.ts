@@ -19,6 +19,7 @@ describe('EmployerUpdateController', () => {
   const { id } = req.params
 
   const mockData = {
+    id,
     backLocation: '/',
   }
 

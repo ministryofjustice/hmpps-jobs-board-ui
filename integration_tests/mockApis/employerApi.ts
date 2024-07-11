@@ -17,7 +17,7 @@ const getEmployer = (id: string) =>
   stubFor({
     request: {
       method: 'GET',
-      urlPathPattern: `/employers/${id}`,
+      urlPathTemplate: `/employers/{id}`,
     },
     response: {
       status: 200,

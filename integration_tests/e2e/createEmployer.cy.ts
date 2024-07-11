@@ -9,6 +9,7 @@ context('Sign In', () => {
     cy.task('stubSignIn')
     cy.task('stubManageUser')
     cy.task('putEmployer')
+    cy.task('getEmployer')
     cy.signIn()
   })
 
