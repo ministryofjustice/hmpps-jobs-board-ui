@@ -1,4 +1,4 @@
-{% if employerListResults.totalElements === 0 %}
+{% if employerListResults.page.totalElements === 0 %}
   {% if employerSectorFilter and employerNameFilter %}
     <span class="govuk-heading-m" id="no-results-message">0 results for "{{ employerNameFilter }}" in {{ contentLookup.employerSector[employerSectorFilter] }}</span>
     <p>Check your spelling and search again, or select another sector.</p>

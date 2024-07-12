@@ -7,10 +7,10 @@ const getEmployerListResolver =
   (employerService: EmployerService): RequestHandler =>
   async (req, res, next): Promise<void> => {
     const { username } = res.locals.user
-    const { page, sort = '', order = '', employerSectorFilter = '', employerNameFilter = '' } = req.query
+    const { page = '1', sort = '', order = '', employerSectorFilter = '', employerNameFilter = '' } = req.query
 
     try {
-      const employers = await employerService.employerSearch(username, {
+      const employers = await employerService.getEmployers(username, {
         page: Number(page),
         sort: sort.toString(),
         order: order.toString(),

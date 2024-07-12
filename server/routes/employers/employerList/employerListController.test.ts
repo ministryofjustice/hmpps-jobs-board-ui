@@ -29,7 +29,9 @@ describe('EmployerListController', () => {
         createdAt: '2024-07-04T15:21:02.497176',
       },
     ],
-    totalElements: 1,
+    page: {
+      totalElements: 1,
+    },
   }
 
   req.params.sort = 'name'
@@ -42,7 +44,9 @@ describe('EmployerListController', () => {
   const mockData = {
     employerListResults: {
       content: plainToClass(EmployerViewModel, req.context.employers.content),
-      totalElements: 1,
+      page: {
+        totalElements: 1,
+      },
     },
     employerNameFilter: '',
     employerSectorFilter: '',

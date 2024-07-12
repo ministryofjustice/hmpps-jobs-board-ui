@@ -9,7 +9,7 @@ context('Sign In', () => {
     cy.task('reset')
     cy.task('stubSignIn')
     cy.task('stubManageUser')
-    cy.task('getEmployer')
+    cy.task('getEmployers', { page: 1 })
   })
 
   it('Unauthenticated user directed to auth', () => {

@@ -36,8 +36,8 @@ export default class EmployerListController {
       ].filter(val => !!val)
 
       // Build pagination or error messages
-      if (employerListResults.totalElements) {
-        if (employerListResults.totalElements > parseInt(paginationPageSize.toString(), 10)) {
+      if (employerListResults.page.totalElements) {
+        if (employerListResults.page.totalElements > parseInt(paginationPageSize.toString(), 10)) {
           paginationData = this.paginationService.getPagination(
             employerListResults,
             new URL(`${req.protocol}://${req.get('host')}${addressLookup.employers.employerList()}?${uri.join('&')}`),

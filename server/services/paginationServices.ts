@@ -54,34 +54,32 @@ export default class PaginationService {
       return url.href
     }
 
-    const previousPage = pageData.pageable.pageNumber <= 0 ? null : pageData.pageable.pageNumber
-    const zeroBasedPage = pageData.pageable.pageNumber
+    const previousPage = pageData.page.number <= 0 ? null : pageData.page.number
+    const zeroBasedPage = pageData.page.number
     const resultsBeforeNow = zeroBasedPage * this.paginationPageSize
 
     // check there are more elements than the configured page size before displaying the "next" link
     const nextPage =
-      resultsBeforeNow + this.paginationPageSize >= pageData.totalElements ? null : pageData.pageable.pageNumber + 2
+      resultsBeforeNow + this.paginationPageSize >= pageData.page.totalElements ? null : pageData.page.number + 2
 
     // calculate the range of 10 items to display in pagination
-    const maxPageNumber =
-      pageData.pageable.pageNumber < 6 ? 10 : Math.min(pageData.totalPages, pageData.pageable.pageNumber + 5)
+    const maxPageNumber = pageData.page.number < 6 ? 10 : Math.min(pageData.page.totalPages, pageData.page.number + 5)
 
-    const minPageNumber =
-      pageData.pageable.pageNumber < 6 ? 0 : Math.min(maxPageNumber - 10, pageData.pageable.pageNumber - 5)
+    const minPageNumber = pageData.page.number < 6 ? 0 : Math.min(maxPageNumber - 10, pageData.page.number - 5)
 
-    const items = [...Array(pageData.totalPages).keys()]
+    const items = [...Array(pageData.page.totalPages).keys()]
       .filter(n => n >= minPageNumber)
       .filter(n => n < maxPageNumber)
       .map(n => ({
         text: n + 1,
         href: urlForPage(n + 1),
-        selected: n === pageData.pageable.pageNumber,
+        selected: n === pageData.page.number,
       })) as Array<unknown>
     return <MojPaginationObject>{
       results: {
-        from: pageData.pageable.offset + 1,
-        to: pageData.pageable.offset + pageData.numberOfElements,
-        count: pageData.totalElements,
+        from: pageData.page.size * pageData.page.number + 1,
+        to: pageData.page.size * pageData.page.number + pageData.content.length,
+        count: pageData.page.totalElements,
       },
       previous: previousPage && {
         text: 'Previous',
