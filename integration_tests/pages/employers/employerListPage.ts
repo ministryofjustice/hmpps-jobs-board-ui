@@ -5,12 +5,14 @@ export default class EmployerListPage extends Page {
 
   employerLink = (index: number) => cy.get(`#employer-link-${index}`)
 
+  // pagination
   nextLink = () => cy.get('.moj-pagination__item--next')
 
   previousLink = () => cy.get('.moj-pagination__item--prev')
 
   paginationResults = () => cy.get('.moj-pagination__results')
 
+  // Filters
   employerNameFilterField = (): PageElement => cy.get('#employerNameFilter')
 
   employerSectorFilterField = (): PageElement => cy.get('#employerSectorFilter')
