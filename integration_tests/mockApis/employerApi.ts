@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import _ from 'lodash'
+
+import mockEmployers from '../mockData/mockEmployers'
 import { stubFor } from './wiremock'
 
 const putEmployer = () =>
@@ -13,11 +17,11 @@ const putEmployer = () =>
     },
   })
 
-const getEmployer = (id: string) =>
+const getEmployer = () =>
   stubFor({
     request: {
       method: 'GET',
-      urlPathPattern: `/employers/${id}`,
+      urlPathTemplate: `/employers/{id}`,
     },
     response: {
       status: 200,
@@ -31,7 +35,70 @@ const getEmployer = (id: string) =>
     },
   })
 
+const getEmployers = (
+  params: {
+    page?: number
+    sort?: string
+    order?: string
+    employerNameFilter?: string
+    employerSectorFilter?: string
+  } = {},
+) => {
+  const { page = 1, employerNameFilter, employerSectorFilter, sort, order } = params
+  const pageSize = 20
+
+  let employers = mockEmployers
+
+  if (employerNameFilter) {
+    employers = employers.filter(p => p.name.toLowerCase().indexOf(employerNameFilter.toLocaleLowerCase()) > -1)
+  }
+
+  if (employerSectorFilter) {
+    employers = employers.filter(p => employerSectorFilter.split(',').includes(p.sector))
+  }
+
+  if (sort) {
+    employers = _.orderBy(employers, [sort], [order === 'ascending' ? 'asc' : 'desc'])
+  }
+
+  const chunkedEmployers = _.chunk(employers, pageSize)
+  const currentPage: number = page ? page - 1 : 0
+  const contents = chunkedEmployers
+
+  const pageMetaData = {
+    page: {
+      size: pageSize,
+      number: currentPage,
+      totalElements: employers.length,
+      totalPages: chunkedEmployers.length,
+    },
+  }
+
+  const results = {
+    content: contents[currentPage],
+    ...pageMetaData,
+  } as any
+
+  return stubFor({
+    request: {
+      method: 'GET',
+      urlPath: `/employers`,
+      queryParameters: {
+        page: {
+          matches: '.*',
+        },
+      },
+    },
+    response: {
+      status: 200,
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+      jsonBody: results,
+    },
+  })
+}
+
 export default {
   putEmployer,
   getEmployer,
+  getEmployers,
 }

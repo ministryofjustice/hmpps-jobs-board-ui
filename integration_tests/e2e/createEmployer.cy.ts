@@ -9,6 +9,8 @@ context('Sign In', () => {
     cy.task('stubSignIn')
     cy.task('stubManageUser')
     cy.task('putEmployer')
+    cy.task('getEmployer')
+    cy.task('getEmployers', { page: 1 })
     cy.signIn()
   })
 
@@ -59,7 +61,7 @@ context('Sign In', () => {
 
     employerUpdatePage.submitButton().click()
 
-    const indexPage = new IndexPage('This site is under construction...')
+    const indexPage = new IndexPage('Add jobs and employers')
   })
 
   it('Create employer - change links flow', () => {

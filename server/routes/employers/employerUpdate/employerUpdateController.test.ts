@@ -19,7 +19,8 @@ describe('EmployerUpdateController', () => {
   const { id } = req.params
 
   const mockData = {
-    backLocation: '/',
+    id,
+    backLocation: '/?sort=name&order=ascending',
   }
 
   const controller = new Controller()
