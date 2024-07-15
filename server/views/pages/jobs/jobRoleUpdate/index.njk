@@ -9,7 +9,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "../../../macros/error-summary/macro.njk" import errorSummary %}
 
-{% set title = "Employer details"%}
+{% set title = "Job role and source"%}
 
 {% block beforeContent %}
     {{ govukBackLink({ text: "Back", href: backLocation }) }}
@@ -21,7 +21,7 @@
   <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-        <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if id === 'new' else 'Update' }} an employer - step 1 of 2</span>
+        <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if id === 'new' else 'Update' }} a job - step 1 of 5</span>
         <h1 class="govuk-heading-l">
           {{ title }}
         </h1>
@@ -30,28 +30,105 @@
           <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
 
           {{ govukInput({
-              id: "employerName",
-              name: "employerName",
-              value: employerName,
+              id: "jobTitle",
+              name: "jobTitle",
+              value: jobTitle,
               type: "text",
               label: {
-                text: "Employer name"
+                text: "Job Title"
               },
-              errorMessage: errors.employerName
-            }) 
+              errorMessage: errors.jobTitle
+            })
           }}
 
           {{ govukSelect({
-              id: "employerSector",
-              name: "employerSector",
-              value: employerSector,
+              id: "jobSector",
+              name: "jobSector",
+              value: jobSector,
               label: {
-                text: 'Employer sector'
+                text: 'Job sector'
               },
               items: [
                 {
                   value: "",
-                  text: "Choose employer sector"
+                  text: "Choose job sector"
+                },
+                {
+                    value: "OUTDOOR",
+                    text: contentLookup.jobSector["OUTDOOR"]
+                },
+                {
+                    value: "CLEANING_AND_MAINTENANCE",
+                    text: contentLookup.jobSector["CLEANING_AND_MAINTENANCE"]
+                },
+                {
+                    value: "CONSTRUCTION",
+                    text: contentLookup.jobSector["CONSTRUCTION"]
+                },
+                {
+                    value: "DRIVING",
+                    text: contentLookup.jobSector["DRIVING"]
+                },
+                {
+                    value: "BEAUTY",
+                    text: contentLookup.jobSector["BEAUTY"]
+                },
+                {
+                    value: "HOSPITALITY",
+                    text: contentLookup.jobSector["HOSPITALITY"]
+                },
+                {
+                    value: "TECHNICAL",
+                    text: contentLookup.jobSector["TECHNICAL"]
+                },
+                {
+                    value: "MANUFACTURING",
+                    text: contentLookup.jobSector["MANUFACTURING"]
+                },
+                {
+                    value: "OFFICE",
+                    text: contentLookup.jobSector["OFFICE"]
+                },
+                {
+                    value: "RETAIL",
+                    text: contentLookup.jobSector["RETAIL"]
+                },
+                {
+                    value: "SPORTS",
+                    text: contentLookup.jobSector["SPORTS"]
+                },
+                {
+                    value: "EDUCATION_TRAINING",
+                    text: contentLookup.jobSector["EDUCATION_TRAINING"]
+                },
+                {
+                    value: "WAREHOUSING",
+                    text: contentLookup.jobSector["WAREHOUSING"]
+                },
+                {
+                    value: "WASTE_MANAGEMENT",
+                    text: contentLookup.jobSector["WASTE_MANAGEMENT"]
+                },
+                {
+                    value: "OTHER",
+                    text: contentLookup.jobSector["OTHER"]
+                }  
+              ],
+              errorMessage: errors.jobSector
+            }) 
+          }}
+          
+          {{ govukSelect({
+              id: "industrySector",
+              name: "industrySector",
+              value: industrySector,
+              label: {
+                text: 'NFN Industry sector'
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose NFN industry sector"
                 },
                 {
                   value: "ADMIN_SUPPORT",
@@ -130,51 +207,7 @@
                   text: contentLookup.employerSector["TECHNOLOGY"]
                 }
               ],
-              errorMessage: errors.employerSector
-            }) 
-          }}
-
-          {{ govukSelect({
-              id: "employerStatus",
-              name: "employerStatus",
-              value: employerStatus,
-              label: {
-                text: 'Employer status'
-              },
-              items: [
-                {
-                  value: "",
-                  text: "Choose employer status"
-                },
-                {
-                  value: "GOLD",
-                  text: contentLookup.employerStatus["GOLD"]
-                },
-                {
-                  value: "KEY_PARTNER",
-                  text: contentLookup.employerStatus["KEY_PARTNER"]
-                },
-                {
-                  value: "SILVER",
-                  text: contentLookup.employerStatus["SILVER"]
-                }
-              ],
-              errorMessage: errors.employerStatus
-            }) 
-          }}
-
-          {{ 
-            govukTextarea({
-              id: "employerDescription",
-              name: "employerDescription",
-              rows: "3",
-              value: employerDescription,
-              type: "text",
-              value: employerDescription,
-              label: {
-                text: "Employer description"
-              },
-              errorMessage: errors.employerDescription
+              errorMessage: errors.industrySector
             }) 
           }}
 
