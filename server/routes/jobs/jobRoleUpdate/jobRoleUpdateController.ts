@@ -44,7 +44,6 @@ export default class jobRoleUpdateController {
       // If validation errors render errors
       const data = getSessionData(req, ['jobRoleUpdate', id, 'data'])
       const errors = validateFormSchema(req, validationSchema())
-
       if (errors) {
         res.render('pages/jobs/jobRoleUpdate/index', {
           ...data,

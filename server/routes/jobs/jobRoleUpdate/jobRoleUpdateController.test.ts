@@ -3,6 +3,7 @@ import Controller from './jobRoleUpdateController'
 import expressMocks from '../../../testutils/expressMocks'
 import validateFormSchema from '../../../utils/validateFormSchema'
 import { setSessionData } from '../../../utils/session'
+import addressLookup from '../../addressLookup'
 
 jest.mock('../../../utils/validateFormSchema', () => ({
   ...jest.requireActual('../../../utils/validateFormSchema'),
@@ -15,13 +16,29 @@ describe('jobRoleUpdateController', () => {
 
   res.locals.user = { username: 'MOCK_USER' }
 
+  req.context.allEmployers = [
+    {
+      id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
+      name: 'ASDA',
+      description: 'Some text\r\nSome more text',
+      sector: 'RETAIL',
+      status: 'GOLD',
+      createdAt: '2024-07-04T15:21:02.497176',
+    },
+  ]
+
   req.params.id = 'new'
   const { id } = req.params
 
   const mockData = {
     id,
     backLocation: '/jobs?sort=jobTitle&order=ascending',
-    employers: [] as any,
+    employers: [
+      {
+        text: 'ASDA',
+        value: '01907e1e-bb85-7bb7-9018-33a2070a367d',
+      },
+    ],
   }
 
   const controller = new Controller()
@@ -86,6 +103,21 @@ describe('jobRoleUpdateController', () => {
         ...mockData,
         errors,
       })
+    })
+
+    it('On success - Sets session and redirects to jobReview', async () => {
+      req.body.employerId = 'test id'
+      req.body.jobTitle = 'test job title'
+      req.body.jobSector = 'OUTDOOR'
+      req.body.industrySector = 'AGRICULTURE'
+      req.body.numberOfVacancies = '2'
+      req.body.jobSource = 'DWP'
+      req.body.jobSource2 = 'EAB'
+      req.body.charity = 'Test chrity'
+
+      controller.post(req, res, next)
+
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobReview(id))
     })
   })
 })

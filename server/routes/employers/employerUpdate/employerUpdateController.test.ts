@@ -3,6 +3,9 @@ import Controller from './employerUpdateController'
 import expressMocks from '../../../testutils/expressMocks'
 import validateFormSchema from '../../../utils/validateFormSchema'
 import { setSessionData } from '../../../utils/session'
+import EmployerSector from '../../../enums/employerSector'
+import EmployerStatus from '../../../enums/employerStatus'
+import addressLookup from '../../addressLookup'
 
 jest.mock('../../../utils/validateFormSchema', () => ({
   ...jest.requireActual('../../../utils/validateFormSchema'),
@@ -85,6 +88,17 @@ describe('EmployerUpdateController', () => {
         ...mockData,
         errors,
       })
+    })
+
+    it('On success - Sets session and redirects to employerReview', async () => {
+      req.body.employerName = 'Some name'
+      req.body.employerSector = EmployerSector.MINING
+      req.body.employerStatus = EmployerStatus.KEY_PARTNER
+      req.body.employerDescription = 'Some description'
+
+      controller.post(req, res, next)
+
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.employers.employerReview(id))
     })
   })
 })
