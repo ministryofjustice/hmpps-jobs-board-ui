@@ -6,7 +6,9 @@ $govuk-page-width: $moj-page-width;
 
 @import 'govuk/all';
 @import 'moj/all';
-
+/* stylelint-disable scss/at-import-partial-extension */
+@import '../../node_modules/accessible-autocomplete/dist/accessible-autocomplete.min';
+@import './components/accessible-autocomplete';
 @import './components/_header-bar';
 @import './components/_external-header-bar';
 @import './components/_footer';
@@ -38,4 +40,10 @@ $govuk-page-width: $moj-page-width;
   cursor: pointer;
   font-size: 1.1875rem;
   line-height: 1.3157894737;
+}
+
+.govuk-form-group--error {
+  .autocomplete__input {
+    border-color: #d4351c;
+  }
 }

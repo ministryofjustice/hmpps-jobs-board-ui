@@ -52,4 +52,10 @@ export default class EmployerApiClient {
       path: `/employers?${uri.join('&')}`,
     })
   }
+
+  async getAllEmployers() {
+    return this.restClient.get<PagedResponse<GetEmployerResponse>>({
+      path: `/employers?page=0&size=9999`,
+    })
+  }
 }

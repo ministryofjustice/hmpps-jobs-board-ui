@@ -7,7 +7,9 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "moj/components/pagination/macro.njk" import mojPagination %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+{% from "../../../macros/accessible-autocomplete/macro.njk" import accessibleAutocomplete %}
 
 {% set title = "Job role and source"%}
 
@@ -28,6 +30,27 @@
 
         <form class="form" method="post" novalidate="">
           <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+
+          {{ accessibleAutocomplete({
+            id: 'employerId', 
+            label: 'Employer name',
+            hint: 'Start typing the name of the employer.',
+            list: employers,
+            value: employerId,
+            errorMessage: errors.employerId,
+            class: 'govuk-!-margin-bottom-4',
+            nonce: cspNonce 
+            }) 
+          }}
+
+          {% set detailsHtml %}
+            <div>You must <a href="{{ addressLookup.employers.employerUpdate() }}" class="govuk-link govuk-link--no-visited-state">add the employer</a> before adding a job. Any data you've already entered on this screen will be lost. </div>
+          {% endset -%}
+
+          {{ govukDetails({
+            summaryText: "The employer is not listed",
+            html: detailsHtml
+          }) }}
 
           {{ govukInput({
               id: "jobTitle",
@@ -117,13 +140,16 @@
               errorMessage: errors.jobSector
             }) 
           }}
-          
+
           {{ govukSelect({
               id: "industrySector",
               name: "industrySector",
               value: industrySector,
               label: {
                 text: 'NFN Industry sector'
+              },
+              hint: {
+                text: "For reporting purposes only."
               },
               items: [
                 {
@@ -211,6 +237,141 @@
             }) 
           }}
 
+          {{ govukInput({
+              id: "numberOfVacancies",
+              name: "numberOfVacancies",
+              value: numberOfVacancies,
+              classes: "govuk-!-width-one-half",
+              inputmode: "numeric",   
+              spellcheck: false,
+              label: {
+                text: "Number of vacancies"
+              },
+              errorMessage: errors.numberOfVacancies
+            })
+          }}
+
+          {{ govukSelect({
+              id: "jobSource",
+              name: "jobSource",
+              value: jobSource,
+              label: {
+                text: "Job source"
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose job source"
+                },
+                {
+                  value: "DWP",
+                  text: contentLookup.jobSource["DWP"]
+                },
+                {
+                  value: "EAB",
+                  text: contentLookup.jobSource["EAB"]
+                },
+                {
+                  value: "EDUCATION",
+                  text: contentLookup.jobSource["EDUCATION"]
+                },
+                {
+                  value: "IAG",
+                  text: contentLookup.jobSource["IAG"]
+                },
+                {
+                  value: "NFN",
+                  text: contentLookup.jobSource["NFN"]
+                },
+                {
+                  value: "PRISON",
+                  text: contentLookup.jobSource["PRISON"]
+                },
+                {
+                  value: "THIRD_SECTOR",
+                  text: contentLookup.jobSource["THIRD_SECTOR"]
+                },
+                {
+                  value: "PEL",
+                  text: contentLookup.jobSource["PEL"]
+                },
+                {
+                  value: "OTHER",
+                  text: contentLookup.jobSource["OTHER"]
+                }
+              ],
+              errorMessage: errors.jobSource
+            }) 
+          }}
+
+          {{ govukSelect({
+              id: "jobSource2",
+              name: "jobSource2",
+              value: jobSource2,
+              label: {
+                text: "Job source 2  (optional)"
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose job source 2"
+                },
+                {
+                  value: "DWP",
+                  text: contentLookup.jobSource["DWP"]
+                },
+                {
+                  value: "EAB",
+                  text: contentLookup.jobSource["EAB"]
+                },
+                {
+                  value: "EDUCATION",
+                  text: contentLookup.jobSource["EDUCATION"]
+                },
+                {
+                  value: "IAG",
+                  text: contentLookup.jobSource["IAG"]
+                },
+                {
+                  value: "NFN",
+                  text: contentLookup.jobSource["NFN"]
+                },
+                {
+                  value: "PRISON",
+                  text: contentLookup.jobSource["PRISON"]
+                },
+                {
+                  value: "THIRD_SECTOR",
+                  text: contentLookup.jobSource["THIRD_SECTOR"]
+                },
+                {
+                  value: "PEL",
+                  text: contentLookup.jobSource["PEL"]
+                },
+                {
+                  value: "OTHER",
+                  text: contentLookup.jobSource["OTHER"]
+                }
+              ],
+              errorMessage: errors.jobSource2
+            }) 
+          }}
+
+          {{ govukInput({
+              id: "charity",
+              name: "charity",
+              value: charity,
+              type: "text",
+              label: {
+                text: "Is this job supported by a charity? (optional)"
+              },
+              hint: {
+                text: "Enter the name of the Third Sector organisation supporting the job."
+              },
+              errorMessage: errors.charity
+            })
+          }}
+          
           {{  
             govukButton({
               text: "Continue",

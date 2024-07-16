@@ -7,6 +7,7 @@ import addressLookup from '../../addressLookup'
 export default class jobRoleUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
+    const { allEmployers = [] } = req.context
 
     try {
       const job = getSessionData(req, ['job', id], {})
@@ -18,6 +19,10 @@ export default class jobRoleUpdateController {
           id === 'new'
             ? `${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`
             : addressLookup.jobs.jobReview(id),
+        employers: allEmployers.map((e: { id: string; name: string }) => ({
+          value: e.id,
+          text: e.name,
+        })),
         ...job,
       }
 
@@ -32,12 +37,14 @@ export default class jobRoleUpdateController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
-    const { jobTitle } = req.body
+    const { employerId, jobTitle, jobSector, industrySector, numberOfVacancies, jobSource, jobSource2, charity } =
+      req.body
 
     try {
       // If validation errors render errors
       const data = getSessionData(req, ['jobRoleUpdate', id, 'data'])
       const errors = validateFormSchema(req, validationSchema())
+
       if (errors) {
         res.render('pages/jobs/jobRoleUpdate/index', {
           ...data,
@@ -48,7 +55,17 @@ export default class jobRoleUpdateController {
       }
 
       // Update job in session
-      setSessionData(req, ['job', id], { ...data, jobTitle })
+      setSessionData(req, ['job', id], {
+        ...data,
+        employerId,
+        jobTitle,
+        jobSector,
+        industrySector,
+        numberOfVacancies,
+        jobSource,
+        jobSource2,
+        charity,
+      })
 
       // Redirect to jobs
       res.redirect(addressLookup.jobs.jobReview(id))

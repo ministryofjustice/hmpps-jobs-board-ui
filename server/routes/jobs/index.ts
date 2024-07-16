@@ -5,5 +5,5 @@ import jobRoleUpdateRoutes from './jobRoleUpdate'
 
 export default function attachRoutes(router: Router, services: Services): void {
   jobListRoutes(router, services)
-  jobRoleUpdateRoutes(router)
+  jobRoleUpdateRoutes(router, services)
 }

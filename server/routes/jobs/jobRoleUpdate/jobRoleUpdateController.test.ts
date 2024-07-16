@@ -21,6 +21,7 @@ describe('jobRoleUpdateController', () => {
   const mockData = {
     id,
     backLocation: '/jobs?sort=jobTitle&order=ascending',
+    employers: [] as any,
   }
 
   const controller = new Controller()
