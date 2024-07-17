@@ -66,8 +66,8 @@ export default class jobRoleUpdateController {
         charity,
       })
 
-      // Redirect to jobs
-      res.redirect(addressLookup.jobs.jobReview(id))
+      // Redirect to next page in flow
+      res.redirect(addressLookup.jobs.jobContractUpdate(id))
     } catch (err) {
       next(err)
     }
