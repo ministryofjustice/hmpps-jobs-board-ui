@@ -1,0 +1,325 @@
+{% extends "../../../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "moj/components/pagination/macro.njk" import mojPagination %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+{% from "../../../macros/accessible-autocomplete/macro.njk" import accessibleAutocomplete %}
+
+{% set title = "Job location and contract" %}
+
+{% block beforeContent %}
+    {{ govukBackLink({ text: "Back", href: backLocation }) }}
+{% endblock %}
+
+{% block content %}
+  {{ errorSummary(errors) }}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if id === 'new' else 'Update' }} a job - step 2 of 5</span>
+        <h1 class="govuk-heading-l">
+          {{ title }}
+        </h1>
+
+        <form class="form" method="post" novalidate="">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+
+          {{ govukInput({
+              id: "postcode",
+              name: "postcode",
+              value: postcode,
+              type: "text",
+              hint: {
+                text: "Enter postcode."
+              },
+              spellcheck: false,
+              classes: "govuk-input--width-10",
+              label: {
+                text: "Job location"
+              },
+              errorMessage: errors.postcode
+            })
+          }}
+
+          {{ govukInput({
+              id: "salaryFrom",
+              name: "salaryFrom",
+              value: salaryFrom,
+              prefix: {
+                text: "£"
+              },
+              hint: {
+                text: "Enter minimum salary amount using numbers."
+              },
+              spellcheck: false,
+              classes: "govuk-input--width-10",
+              label: {
+                text: "Salary from"
+              },
+              errorMessage: errors.salaryFrom
+            })
+          }}
+
+          {{ govukInput({
+              id: "salaryTo",
+              name: "salaryTo",
+              value: salaryTo,
+              prefix: {
+                text: "£"
+              },
+              spellcheck: false,
+              classes: "govuk-input--width-10",
+              label: {
+                text: "Salary to (Optional)"
+              },
+              errorMessage: errors.salaryTo
+            })
+          }}
+
+          {{ govukSelect({
+              id: "salaryPeriod",
+              name: "salaryPeriod",
+              value: salaryPeriod,
+              label: {
+                text: 'Salary period'
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose salary period"
+                },
+                {
+                  value: "PER_DAY",
+                  text: contentLookup.salaryPeriod["PER_DAY"]
+                },
+                {
+                  value: "PER_FORTNIGHT",
+                  text: contentLookup.salaryPeriod["PER_FORTNIGHT"]
+                },
+                {
+                  value: "PER_HOUR",
+                  text: contentLookup.salaryPeriod["PER_HOUR"]
+                },
+                {
+                  value: "PER_MONTH",
+                  text: contentLookup.salaryPeriod["PER_MONTH"]
+                },
+                {
+                  value: "PER_WEEK",
+                  text: contentLookup.salaryPeriod["PER_WEEK"]
+                },
+                {
+                  value: "PER_YEAR",
+                  text: contentLookup.salaryPeriod["PER_YEAR"]
+                },
+                {
+                  value: "PER_YEAR_PRO_RATA",
+                  text: contentLookup.salaryPeriod["PER_YEAR_PRO_RATA"]
+                }
+              ],
+              errorMessage: errors.salaryPeriod
+            }) 
+          }}
+
+          {{ govukInput({
+              id: "additionalSalaryInformation",
+              name: "additionalSalaryInformation",
+              value: additionalSalaryInformation,
+              type: "text",
+              label: {
+                text: "Additional salary information (Optional)"
+              },
+              errorMessage: errors.additionalSalaryInformation
+            })
+          }}
+
+          {{ govukRadios({
+            name: "nationalMinimumWage",
+            fieldset: {
+              legend: {
+                text: 'Does the salary pay at least the national minimum wage'
+              }
+            },
+            items: [
+              {
+                value: "YES",
+                text: contentLookup.yesNo["YES"],
+                checked: nationalMinimumWage === "YES"
+              },
+              {
+                value: "NO",
+                text: contentLookup.yesNo["NO"],
+                checked: nationalMinimumWage === "NO"
+              }
+            ],
+            errorMessage: errors.nationalMinimumWage
+          }) }}
+
+          {{ govukSelect({
+              id: "workPattern",
+              name: "workPattern",
+              value: workPattern,
+              label: {
+                text: 'Work pattern'
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose work pattern"
+                },
+                {
+                  value: "ANNUALISED_HOURS",
+                  text: contentLookup.workPattern["ANNUALISED_HOURS"]
+                },
+                {
+                  value: "COMPRESSED_HOURS",
+                  text: contentLookup.workPattern["COMPRESSED_HOURS"]
+                },
+                {
+                  value: "FLEXI_TIME",
+                  text: contentLookup.workPattern["FLEXI_TIME"]
+                },
+                {
+                  value: "FLEXIBLE_SHIFTS",
+                  text: contentLookup.workPattern["FLEXIBLE_SHIFTS"]
+                },
+                {
+                  value: "JOB_SHARE",
+                  text: contentLookup.workPattern["JOB_SHARE"]
+                },
+                {
+                  value: "STAGGERED_HOURS",
+                  text: contentLookup.workPattern["STAGGERED_HOURS"]
+                },
+                {
+                  value: "TERM_TIME_HOURS",
+                  text: contentLookup.workPattern["TERM_TIME_HOURS"]
+                },
+                {
+                  value: "UNSOCIABLE_HOURS",
+                  text: contentLookup.workPattern["UNSOCIABLE_HOURS"]
+                }
+              ],
+              errorMessage: errors.workPattern
+            }) 
+          }}
+
+          {{ govukSelect({
+              id: "hours",
+              name: "hours",
+              value: hours,
+              label: {
+                text: 'Hours'
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose hours per week"
+                },
+                {
+                  value: "FULL_TIME",
+                  text: contentLookup.hours["FULL_TIME"]
+                },
+                {
+                  value: "FULL_TIME_40_PLUS",
+                  text: contentLookup.hours["FULL_TIME_40_PLUS"]
+                },
+                {
+                  value: "PART_TIME",
+                  text: contentLookup.hours["PART_TIME"]
+                },
+                {
+                  value: "ZERO_HOURS",
+                  text: contentLookup.hours["ZERO_HOURS"]
+                }
+              ],
+              errorMessage: errors.hours
+            }) 
+          }}
+
+          {{ govukSelect({
+              id: "contractType",
+              name: "contractType",
+              value: contractType,
+              label: {
+                text: 'Contract type'
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose contract type"
+                },
+                {
+                  value: "FIXED_TERM_CONTRACT",
+                  text: contentLookup.contractType["FIXED_TERM_CONTRACT"]
+                },
+                {
+                  value: "PERMANENT",
+                  text: contentLookup.contractType["PERMANENT"]
+                },
+                {
+                  value: "SELF_EMPLOYMENT",
+                  text: contentLookup.contractType["SELF_EMPLOYMENT"]
+                },
+                {
+                  value: "TEMPORARY",
+                  text: contentLookup.contractType["TEMPORARY"]
+                }
+              ],
+              errorMessage: errors.contractType
+            }) 
+          }}
+
+          {{ govukSelect({
+              id: "baseLocation",
+              name: "baseLocation",
+              value: baseLocation,
+              label: {
+                text: 'Base location (Optional)'
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose base location"
+                },
+                {
+                  value: "REMOTE",
+                  text: contentLookup.baseLocation["REMOTE"]
+                },
+                {
+                  value: "HYBRID",
+                  text: contentLookup.baseLocation["HYBRID"]
+                },
+                {
+                  value: "WORKPLACE",
+                  text: contentLookup.baseLocation["WORKPLACE"]
+                }
+              ],
+              errorMessage: errors.baseLocation
+            }) 
+          }}
+
+          {{  
+            govukButton({
+              text: "Continue",
+              type: "submit",
+              attributes: {
+                "data-qa": "submit-button",
+                "data-ga-category": "submit-selected-data"
+              }
+            }) 
+          }}
+
+        </form>
+
+      </div>
+    </div>
+{% endblock %}

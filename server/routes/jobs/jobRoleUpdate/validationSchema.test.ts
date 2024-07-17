@@ -32,8 +32,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe("Select employer or select 'Add an employer'")
   })
 
-  it('On validation success - should allow a jobTitle with 100 characters', () => {
-    req.body.jobTitle = 'x'.repeat(100)
+  it('On validation success - should allow a jobTitle with 50 characters', () => {
+    req.body.jobTitle = 'x'.repeat(50)
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -49,13 +49,13 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Job title must be 3 characters or more')
   })
 
-  it('On validation error - should disallow a jobTitle longer than 100 characters', () => {
-    req.body.jobTitle = 'x'.repeat(101)
+  it('On validation error - should disallow a jobTitle longer than 50 characters', () => {
+    req.body.jobTitle = 'x'.repeat(51)
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Job title must be 100 characters or less')
+    expect(error.details[0].message).toBe('Job title must be 50 characters or less')
   })
 
   it('On validation error - should disallow a jobSector being blank', () => {

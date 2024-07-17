@@ -10,10 +10,11 @@ export default function validationSchema(): ObjectSchema {
       'any.required': "Select employer or select 'Add an employer'",
       'any.empty': "Select employer or select 'Add an employer'",
     }),
-    jobTitle: joi.string().empty('').required().min(3).max(100).messages({
+    jobTitle: joi.string().empty('').required().min(3).max(50).messages({
       'any.required': 'Job title must be 3 characters or more',
       'any.empty': 'Job title must be 3 characters or more',
-      'string.max': 'Job title must be 100 characters or less',
+      'string.max': 'Job title must be 50 characters or less',
+
       'string.min': 'Job title must be 3 characters or more',
     }),
     jobSector: joi

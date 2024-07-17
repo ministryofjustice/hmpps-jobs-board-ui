@@ -8,5 +8,6 @@ export default {
     jobList: () => '/jobs',
     jobReview: (id: string) => `/jobs/job/${id}`,
     jobRoleUpdate: (id = 'new') => `/jobs/job/${id}/role`,
+    jobContractUpdate: (id = 'new') => `/jobs/job/${id}/contract`,
   },
 }

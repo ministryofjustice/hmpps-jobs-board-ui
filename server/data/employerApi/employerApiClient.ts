@@ -42,8 +42,8 @@ export default class EmployerApiClient {
     const uri = [
       `page=${page - 1}`,
       `size=${config.paginationPageSize}`,
-      sort && `sort=${sort}`,
-      order && `order=${order}`,
+      sort && `sortby=${sort === 'ascending' ? 'asc' : 'desc'}`,
+      order && `sortOrder=${order}`,
       employerNameFilter && `name=${encodeURIComponent(employerNameFilter)}`,
       employerSectorFilter && `sector=${encodeURIComponent(employerSectorFilter)}`,
     ].filter(val => !!val)

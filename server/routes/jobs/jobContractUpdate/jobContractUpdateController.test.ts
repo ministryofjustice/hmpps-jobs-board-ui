@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Controller from './jobRoleUpdateController'
+import Controller from './jobContractUpdateController'
 import expressMocks from '../../../testutils/expressMocks'
 import validateFormSchema from '../../../utils/validateFormSchema'
-import { setSessionData } from '../../../utils/session'
+import { deleteSessionData, setSessionData } from '../../../utils/session'
 import addressLookup from '../../addressLookup'
+import SalaryPeriod from '../../../enums/salaryPeriod'
+import YesNoValue from '../../../enums/yesNoValue'
+import WorkPattern from '../../../enums/workPattern'
+import ContractType from '../../../enums/contractType'
+import Hours from '../../../enums/hours'
+import BaseLocation from '../../../enums/baseLocation'
 
 jest.mock('../../../utils/validateFormSchema', () => ({
   ...jest.requireActual('../../../utils/validateFormSchema'),
@@ -11,34 +17,17 @@ jest.mock('../../../utils/validateFormSchema', () => ({
   default: jest.fn(),
 }))
 
-describe('jobRoleUpdateController', () => {
+describe('jobContractUpdateController', () => {
   const { req, res, next } = expressMocks()
 
   res.locals.user = { username: 'MOCK_USER' }
-
-  req.context.allEmployers = [
-    {
-      id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
-      name: 'ASDA',
-      description: 'Some text\r\nSome more text',
-      sector: 'RETAIL',
-      status: 'GOLD',
-      createdAt: '2024-07-04T15:21:02.497176',
-    },
-  ]
 
   req.params.id = 'new'
   const { id } = req.params
 
   const mockData = {
     id,
-    backLocation: '/jobs?sort=jobTitle&order=ascending',
-    employers: [
-      {
-        text: 'ASDA',
-        value: '01907e1e-bb85-7bb7-9018-33a2070a367d',
-      },
-    ],
+    backLocation: '/jobs/job/new/role',
   }
 
   const controller = new Controller()
@@ -47,6 +36,7 @@ describe('jobRoleUpdateController', () => {
     beforeEach(() => {
       res.render.mockReset()
       next.mockReset()
+      setSessionData(req, ['job', id], {})
     })
 
     it('On error - Calls next with error', async () => {
@@ -58,10 +48,18 @@ describe('jobRoleUpdateController', () => {
       expect(next).toHaveBeenCalledTimes(1)
     })
 
+    it('On success - If no job redirects to jobRoleUpdate', async () => {
+      deleteSessionData(req, ['job', id])
+
+      controller.get(req, res, next)
+
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobRoleUpdate())
+    })
+
     it('On success - Calls render with the correct data', async () => {
       controller.get(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobRoleUpdate/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobContractUpdate/index', {
         ...mockData,
       })
       expect(next).toHaveBeenCalledTimes(0)
@@ -77,7 +75,7 @@ describe('jobRoleUpdateController', () => {
       res.redirect.mockReset()
       next.mockReset()
       validationMock.mockReset()
-      setSessionData(req, ['jobRoleUpdate', id], mockData)
+      setSessionData(req, ['jobContractUpdate', id], mockData)
     })
 
     it('Should create a new instance', () => {
@@ -99,25 +97,27 @@ describe('jobRoleUpdateController', () => {
       validationMock.mockImplementation(() => errors)
       controller.post(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobRoleUpdate/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobContractUpdate/index', {
         ...mockData,
         errors,
       })
     })
 
-    it('On success - Sets session and redirects to jobContractUpdate', async () => {
-      req.body.employerId = 'test id'
-      req.body.jobTitle = 'test job title'
-      req.body.jobSector = 'OUTDOOR'
-      req.body.industrySector = 'AGRICULTURE'
-      req.body.numberOfVacancies = '2'
-      req.body.jobSource = 'DWP'
-      req.body.jobSource2 = 'EAB'
-      req.body.charity = 'Test chrity'
+    it('On success - Sets session and redirects to jobReview', async () => {
+      req.body.postcode = 'NE157LR'
+      req.body.salaryFrom = '200'
+      req.body.salaryTo = '400'
+      req.body.salaryPeriod = SalaryPeriod.PER_DAY
+      req.body.additionalSalaryInformation = 'Some text'
+      req.body.nationalMinimumWage = YesNoValue.YES
+      req.body.workPattern = WorkPattern.FLEXI_TIME
+      req.body.contractType = ContractType.PERMANENT
+      req.body.hours = Hours.FULL_TIME
+      req.body.baseLocation = BaseLocation.WORKPLACE
 
       controller.post(req, res, next)
 
-      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobContractUpdate(id))
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobReview(id))
     })
   })
 })
