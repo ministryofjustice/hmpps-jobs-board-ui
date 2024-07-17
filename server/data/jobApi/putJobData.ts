@@ -9,19 +9,19 @@ import WorkPattern from '../../enums/workPattern'
 interface PutJobData {
   id: number
 
-  // First page - jobRoleUpdate
+  // First page
   employerId: string
   jobTitle: string
   jobSector: JobSector
   nfnIndustrySector: EmployerSector
   numberOfVacancies: number
-  jobSource1: string
+  jobSource: string
   jobSource2: string
   charity: string
 
   // Second page - jobContractUpdate
   postcode: string
-  salaryFrom: string
+  salaryFrom: number
   salaryTo: number
   salaryPeriod: SalaryPeriod
   additionalSalaryInformation: string
@@ -36,6 +36,8 @@ interface PutJobData {
   // essentialCriteria: string
   // desirableCriteria: string
   // jobDescription: string
+  // workPattern: ContractType
+  // hours: Hours
   // howToApply: string
 }
 

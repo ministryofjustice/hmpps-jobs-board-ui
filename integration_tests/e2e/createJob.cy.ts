@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import IndexPage from '../pages/index'
-import EmployerUpdatePage from '../pages/employers/employerUpdate'
-import EmployerReviewPage from '../pages/employers/employerReview'
 import JobRoleUpdatePage from '../pages/jobs/jobRoleUpdate'
 import JobContractUpdatePage from '../pages/jobs/jobContractUpdate'
 
