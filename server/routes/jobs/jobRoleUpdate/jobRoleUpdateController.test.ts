@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Controller from './employerUpdateController'
+import Controller from './jobRoleUpdateController'
 import expressMocks from '../../../testutils/expressMocks'
 import validateFormSchema from '../../../utils/validateFormSchema'
 import { setSessionData } from '../../../utils/session'
-import EmployerSector from '../../../enums/employerSector'
-import EmployerStatus from '../../../enums/employerStatus'
 import addressLookup from '../../addressLookup'
 
 jest.mock('../../../utils/validateFormSchema', () => ({
@@ -13,17 +11,34 @@ jest.mock('../../../utils/validateFormSchema', () => ({
   default: jest.fn(),
 }))
 
-describe('EmployerUpdateController', () => {
+describe('jobRoleUpdateController', () => {
   const { req, res, next } = expressMocks()
 
   res.locals.user = { username: 'MOCK_USER' }
+
+  req.context.allEmployers = [
+    {
+      id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
+      name: 'ASDA',
+      description: 'Some text\r\nSome more text',
+      sector: 'RETAIL',
+      status: 'GOLD',
+      createdAt: '2024-07-04T15:21:02.497176',
+    },
+  ]
 
   req.params.id = 'new'
   const { id } = req.params
 
   const mockData = {
     id,
-    backLocation: '/?sort=name&order=ascending',
+    backLocation: '/jobs?sort=jobTitle&order=ascending',
+    employers: [
+      {
+        text: 'ASDA',
+        value: '01907e1e-bb85-7bb7-9018-33a2070a367d',
+      },
+    ],
   }
 
   const controller = new Controller()
@@ -46,7 +61,7 @@ describe('EmployerUpdateController', () => {
     it('On success - Calls render with the correct data', async () => {
       controller.get(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/employers/employerUpdate/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobRoleUpdate/index', {
         ...mockData,
       })
       expect(next).toHaveBeenCalledTimes(0)
@@ -62,7 +77,7 @@ describe('EmployerUpdateController', () => {
       res.redirect.mockReset()
       next.mockReset()
       validationMock.mockReset()
-      setSessionData(req, ['employerUpdate', id], mockData)
+      setSessionData(req, ['jobRoleUpdate', id], mockData)
     })
 
     it('Should create a new instance', () => {
@@ -84,21 +99,25 @@ describe('EmployerUpdateController', () => {
       validationMock.mockImplementation(() => errors)
       controller.post(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/employers/employerUpdate/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobRoleUpdate/index', {
         ...mockData,
         errors,
       })
     })
 
-    it('On success - Sets session and redirects to employerReview', async () => {
-      req.body.employerName = 'Some name'
-      req.body.employerSector = EmployerSector.MINING
-      req.body.employerStatus = EmployerStatus.KEY_PARTNER
-      req.body.employerDescription = 'Some description'
+    it('On success - Sets session and redirects to jobReview', async () => {
+      req.body.employerId = 'test id'
+      req.body.jobTitle = 'test job title'
+      req.body.jobSector = 'OUTDOOR'
+      req.body.industrySector = 'AGRICULTURE'
+      req.body.numberOfVacancies = '2'
+      req.body.jobSource = 'DWP'
+      req.body.jobSource2 = 'EAB'
+      req.body.charity = 'Test chrity'
 
       controller.post(req, res, next)
 
-      expect(res.redirect).toHaveBeenCalledWith(addressLookup.employers.employerReview(id))
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobReview(id))
     })
   })
 })

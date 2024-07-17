@@ -49,4 +49,10 @@ export default class EmployerService {
 
     return new EmployerApiClient(systemToken).getEmployers(params)
   }
+
+  async getAllEmployers(username: string) {
+    const systemToken = await this.hmppsAuthClient.getSystemClientToken(username)
+
+    return new EmployerApiClient(systemToken).getAllEmployers()
+  }
 }

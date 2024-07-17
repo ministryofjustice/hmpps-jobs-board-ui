@@ -2,6 +2,10 @@
 
 {% block head %}
   <link href="/assets/stylesheets/application.css?{{ version }}" rel="stylesheet"/>
+  <script type="module" src="/assets/govukFrontendInit.js"></script>
+  <script src="/assets/moj/all.js"></script>
+  <script src="/assets/mojFrontendInit.js"></script>
+  <script src="/assets/accessible-autocomplete.min.js"></script>
 
   {% if feComponents.jsIncludes %}
       {% for js in feComponents.jsIncludes %}
@@ -38,7 +42,5 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  <script type="module" src="/assets/govukFrontendInit.js"></script>
-  <script src="/assets/moj/all.js"></script>
-  <script src="/assets/mojFrontendInit.js"></script>
+
 {% endblock %}
