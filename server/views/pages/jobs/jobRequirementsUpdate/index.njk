@@ -1,0 +1,142 @@
+{% extends "../../../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+
+
+{% set title = "Requirements and job description"%}
+
+{% block beforeContent %}
+    {{ govukBackLink({ text: "Back", href: backLocation }) }}
+{% endblock %}
+
+{% block content %}
+  {{ errorSummary(errors) }}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if id === 'new' else 'Update' }} a job - step 3 of 5</span>
+        <h1 class="govuk-heading-l">
+          {{ title }}
+        </h1>
+
+        <form class="form" method="post" novalidate="">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+
+          {{ govukTextarea({
+            id: "essentialCriteria",
+            name: "essentialCriteria",
+            rows: "5",
+            value: essentialCriteria,
+            type: "text",
+            label: {
+              text: "Essential job criteria"
+            },
+            hint: {
+              text: "For example, full UK driving licence."
+            },
+            errorMessage: errors.essentialCriteria
+          }) }}
+
+          {{ govukTextarea({
+            id: "desirableCriteria",
+            name: "desirableCriteria",
+            rows: "5",
+            value: desirableCriteria,
+            type: "text",
+            label: {
+              text: "Desirable job criteria (optional)"
+            },
+            errorMessage: errors.desirableCriteria
+          }) }}
+
+          {{ govukTextarea({
+            id: "jobDescription",
+            name: "jobDescription",
+            rows: "5",
+            value: jobDescription,
+            type: "text",
+            label: {
+              text: "Job description"
+            },
+            hint: {
+              text: "Describe the role and main tasks. Include any benefits and training opportunities."
+            },
+            errorMessage: errors.jobDescription
+          }) }}
+
+          {{ govukCheckboxes({
+            name: "offenceExclusions",
+            fieldset: {
+              legend: {
+                  text: "Offence exclusions"
+                }
+            },
+            hint: {
+              text: "Select all that apply."
+            },
+            items: [
+              {
+                value: "NONE",
+                checked: offenceExclusions.indexOf("NONE") > -1,
+                text: contentLookup.offenceExclusions["NONE"]
+              },
+              {
+                value: "CASE_BY_CASE",
+                checked: offenceExclusions.indexOf("CASE_BY_CASE") > -1,
+                text: contentLookup.offenceExclusions["CASE_BY_CASE"]
+              },
+              {
+                value: "ARSON",
+                checked: offenceExclusions.indexOf("ARSON") > -1,
+                text: contentLookup.offenceExclusions["ARSON"]
+              },
+              {
+                value: "DRIVING",
+                checked: offenceExclusions.indexOf("DRIVING") > -1,
+                text: contentLookup.offenceExclusions["DRIVING"]
+              },
+              {
+                value: "MURDER",
+                checked: offenceExclusions.indexOf("MURDER") > -1,
+                text: contentLookup.offenceExclusions["MURDER"]
+              },
+              {
+                value: "SEXUAL",
+                checked: offenceExclusions.indexOf("SEXUAL") > -1,
+                text: contentLookup.offenceExclusions["SEXUAL"]
+              },
+              {
+                value: "TERRORISM",
+                checked: offenceExclusions.indexOf("TERRORISM") > -1,
+                text: contentLookup.offenceExclusions["TERRORISM"]
+              },
+              {
+                value: "OTHER",
+                checked: offenceExclusions.indexOf("OTHER") > -1,
+                text: contentLookup.offenceExclusions["OTHER"]
+              }
+            ],
+            errorMessage: errors.offenceExclusions
+          }) }}
+
+          {{  
+            govukButton({
+              text: "Continue",
+              type: "submit",
+              attributes: {
+                "data-qa": "submit-button",
+                "data-ga-category": "submit-selected-data"
+              }
+            }) 
+          }}
+
+        </form>
+
+      </div>
+    </div>
+{% endblock %}

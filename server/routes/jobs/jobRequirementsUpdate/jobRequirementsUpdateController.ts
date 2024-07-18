@@ -4,7 +4,7 @@ import { getSessionData, setSessionData, validateFormSchema } from '../../../uti
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 
-export default class jobContractUpdateController {
+export default class jobRequirementsUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
 
@@ -20,14 +20,15 @@ export default class jobContractUpdateController {
       // Render data
       const data = {
         id,
-        backLocation: id === 'new' ? addressLookup.jobs.jobRoleUpdate(id) : addressLookup.jobs.jobReview(id),
+        backLocation: id === 'new' ? addressLookup.jobs.jobContractUpdate(id) : addressLookup.jobs.jobReview(id),
         ...job,
+        offenceExclusions: job.offenceExclusions || [],
       }
 
       // Set page data in session
-      setSessionData(req, ['jobContractUpdate', id, 'data'], data)
+      setSessionData(req, ['jobRequirementsUpdate', id, 'data'], data)
 
-      res.render('pages/jobs/jobContractUpdate/index', { ...data })
+      res.render('pages/jobs/jobRequirementsUpdate/index', { ...data })
     } catch (err) {
       next(err)
     }
@@ -35,27 +36,17 @@ export default class jobContractUpdateController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
-    const {
-      postcode,
-      salaryFrom,
-      salaryTo,
-      salaryPeriod,
-      additionalSalaryInformation,
-      nationalMinimumWage,
-      workPattern,
-      contractType,
-      hours,
-      baseLocation,
-    } = req.body
+    const { essentialCriteria, desirableCriteria, jobDescription, offenceExclusions } = req.body
 
     try {
       // If validation errors render errors
-      const data = getSessionData(req, ['jobContractUpdate', id, 'data'])
+      const data = getSessionData(req, ['jobRequirementsUpdate', id, 'data'])
       const errors = validateFormSchema(req, validationSchema())
       if (errors) {
-        res.render('pages/jobs/jobContractUpdate/index', {
+        res.render('pages/jobs/jobRequirementsUpdate/index', {
           ...data,
           ...req.body,
+          offenceExclusions: offenceExclusions || [],
           errors,
         })
         return
@@ -64,20 +55,14 @@ export default class jobContractUpdateController {
       // Update job in session
       setSessionData(req, ['job', id], {
         ...data,
-        postcode,
-        salaryFrom,
-        salaryTo,
-        salaryPeriod,
-        additionalSalaryInformation,
-        nationalMinimumWage,
-        workPattern,
-        contractType,
-        hours,
-        baseLocation,
+        essentialCriteria,
+        desirableCriteria,
+        jobDescription,
+        offenceExclusions,
       })
 
       // Redirect to next page in flow
-      res.redirect(addressLookup.jobs.jobRequirementsUpdate(id))
+      res.redirect(addressLookup.jobs.jobReview(id))
     } catch (err) {
       next(err)
     }

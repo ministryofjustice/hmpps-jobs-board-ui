@@ -3,7 +3,7 @@ import employerSector from './employerSector'
 import jobSector from './jobSector'
 import jobSource from './jobSource'
 import contractType from './contractType'
-import excludingOffences from './excludingOffences'
+import offenceExclusions from './offenceExclusions'
 import salaryPeriod from './salaryPeriod'
 import baseLocation from './baseLocation'
 import workPattern from './workPattern'
@@ -16,7 +16,7 @@ export default {
   jobSector,
   jobSource,
   contractType,
-  excludingOffences,
+  offenceExclusions,
   salaryPeriod,
   baseLocation,
   workPattern,

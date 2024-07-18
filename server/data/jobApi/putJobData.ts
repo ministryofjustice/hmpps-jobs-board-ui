@@ -5,6 +5,7 @@ import SalaryPeriod from '../../enums/salaryPeriod'
 import ContractType from '../../enums/contractType'
 import Hours from '../../enums/hours'
 import WorkPattern from '../../enums/workPattern'
+import OffenceExclusions from '../../enums/offenceExclusions'
 
 interface PutJobData {
   id: number
@@ -31,13 +32,13 @@ interface PutJobData {
   hours: Hours
   baseLocation: BaseLocation
 
+  // Third page
+  essentialCriteria: string
+  desirableCriteria: string
+  jobDescription: string
+  offenceExclusions: OffenceExclusions[]
+
   // ToDo: other pages
-  // offenceExclusions: ExcludingOffences[]
-  // essentialCriteria: string
-  // desirableCriteria: string
-  // jobDescription: string
-  // workPattern: ContractType
-  // hours: Hours
   // howToApply: string
 }
 
