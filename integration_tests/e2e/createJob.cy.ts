@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import JobRoleUpdatePage from '../pages/jobs/jobRoleUpdate'
 import JobContractUpdatePage from '../pages/jobs/jobContractUpdate'
+import JobRequirementsUpdatePage from '../pages/jobs/jobRequirementsUpdate'
 
 context('Sign In', () => {
   beforeEach(() => {
@@ -60,6 +61,45 @@ context('Sign In', () => {
     jobContractUpdatePage.workPatternPageErrorMessage().contains('Select a work pattern')
     jobContractUpdatePage.contractTypePageErrorMessage().contains('Select a contract type')
     jobContractUpdatePage.hoursPageErrorMessage().contains('Select the hours for this job')
+
+    // Field errors
+    jobContractUpdatePage.postcodeFieldErrorMessage().contains('Enter a job location')
+    jobContractUpdatePage.salaryFromFieldErrorMessage().contains('Enter minimum salary amount')
+    jobContractUpdatePage.salaryPeriodFieldErrorMessage().contains('Select a salary period')
+    jobContractUpdatePage
+      .nationalMinimumWageFieldErrorMessage()
+      .contains('Select whether the job pays minimum wage or not')
+    jobContractUpdatePage.workPatternFieldErrorMessage().contains('Select a work pattern')
+    jobContractUpdatePage.contractTypeFieldErrorMessage().contains('Select a contract type')
+    jobContractUpdatePage.hoursFieldErrorMessage().contains('Select the hours for this job')
+
+    // Move to next page
+    jobContractUpdatePage.postcodeField().type('NE157LR')
+    jobContractUpdatePage.salaryFromField().type('25000')
+    jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
+    jobContractUpdatePage.nationalMinimumWageYes().click()
+    jobContractUpdatePage.workPatternField().select('FLEXI_TIME')
+    jobContractUpdatePage.contractTypeField().select('PERMANENT')
+    jobContractUpdatePage.hoursField().select('FULL_TIME')
+
+    jobContractUpdatePage.submitButton().click()
+
+    const jobRequirementsUpdatePage = new JobRequirementsUpdatePage('Requirements and job description')
+    jobRequirementsUpdatePage.submitButton().click()
+
+    // Page errors
+    jobRequirementsUpdatePage.essentialCriteriaPageErrorMessage().contains('Enter essential job requirements')
+    jobRequirementsUpdatePage.jobDescriptionPageErrorMessage().contains('Enter job description')
+    jobRequirementsUpdatePage
+      .offenceExclusionsPageErrorMessage()
+      .contains('Select one or more options in offence exclusions')
+
+    // Field errors
+    jobRequirementsUpdatePage.essentialCriteriaFieldErrorMessage().contains('Enter essential job requirements')
+    jobRequirementsUpdatePage.jobDescriptionFieldErrorMessage().contains('Enter job description')
+    jobRequirementsUpdatePage
+      .offenceExclusionsFieldErrorMessage()
+      .contains('Select one or more options in offence exclusions')
   })
 
   it('Create job flow', () => {
@@ -91,5 +131,13 @@ context('Sign In', () => {
     jobContractUpdatePage.hoursField().select('FULL_TIME')
 
     jobContractUpdatePage.submitButton().click()
+
+    const jobRequirementsUpdatePage = new JobRequirementsUpdatePage('Requirements and job description')
+
+    jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
+    jobRequirementsUpdatePage.jobDescriptionField().type('Some text')
+    jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()
+
+    jobRequirementsUpdatePage.submitButton().click()
   })
 })
