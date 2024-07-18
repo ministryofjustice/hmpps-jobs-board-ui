@@ -15,6 +15,7 @@ context('Sign In', () => {
   it('Validation error display', () => {
     cy.visit('/jobs/job/new/role')
 
+    // Job role and source page
     const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
 
     jobRoleUpdatePage.submitButton().click()
@@ -48,6 +49,7 @@ context('Sign In', () => {
 
     jobRoleUpdatePage.submitButton().click()
 
+    // Job location and contract page
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
 
     jobContractUpdatePage.submitButton().click()
@@ -84,6 +86,7 @@ context('Sign In', () => {
 
     jobContractUpdatePage.submitButton().click()
 
+    // Requirements and job description
     const jobRequirementsUpdatePage = new JobRequirementsUpdatePage('Requirements and job description')
     jobRequirementsUpdatePage.submitButton().click()
 
@@ -105,6 +108,7 @@ context('Sign In', () => {
   it('Create job flow', () => {
     cy.visit('/jobs/job/new/role')
 
+    // Job role and source page
     const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
     jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 5')
 
@@ -120,7 +124,9 @@ context('Sign In', () => {
 
     jobRoleUpdatePage.submitButton().click()
 
+    // Job location and contract page
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
+    jobContractUpdatePage.headerCaption().contains('Add a job - step 2 of 5')
 
     jobContractUpdatePage.postcodeField().type('NE157LR')
     jobContractUpdatePage.salaryFromField().type('25000')
@@ -132,7 +138,9 @@ context('Sign In', () => {
 
     jobContractUpdatePage.submitButton().click()
 
+    // Requirements and job description page
     const jobRequirementsUpdatePage = new JobRequirementsUpdatePage('Requirements and job description')
+    jobContractUpdatePage.headerCaption().contains('Add a job - step 3 of 5')
 
     jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
     jobRequirementsUpdatePage.jobDescriptionField().type('Some text')
