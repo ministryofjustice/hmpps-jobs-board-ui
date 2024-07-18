@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import JobRoleUpdatePage from '../pages/jobs/jobRoleUpdate'
 import JobContractUpdatePage from '../pages/jobs/jobContractUpdate'
+import JobRequirementsUpdatePage from '../pages/jobs/jobRequirementsUpdate'
 
 context('Sign In', () => {
   beforeEach(() => {
@@ -14,6 +15,7 @@ context('Sign In', () => {
   it('Validation error display', () => {
     cy.visit('/jobs/job/new/role')
 
+    // Job role and source page
     const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
 
     jobRoleUpdatePage.submitButton().click()
@@ -47,6 +49,7 @@ context('Sign In', () => {
 
     jobRoleUpdatePage.submitButton().click()
 
+    // Job location and contract page
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
 
     jobContractUpdatePage.submitButton().click()
@@ -60,11 +63,52 @@ context('Sign In', () => {
     jobContractUpdatePage.workPatternPageErrorMessage().contains('Select a work pattern')
     jobContractUpdatePage.contractTypePageErrorMessage().contains('Select a contract type')
     jobContractUpdatePage.hoursPageErrorMessage().contains('Select the hours for this job')
+
+    // Field errors
+    jobContractUpdatePage.postcodeFieldErrorMessage().contains('Enter a job location')
+    jobContractUpdatePage.salaryFromFieldErrorMessage().contains('Enter minimum salary amount')
+    jobContractUpdatePage.salaryPeriodFieldErrorMessage().contains('Select a salary period')
+    jobContractUpdatePage
+      .nationalMinimumWageFieldErrorMessage()
+      .contains('Select whether the job pays minimum wage or not')
+    jobContractUpdatePage.workPatternFieldErrorMessage().contains('Select a work pattern')
+    jobContractUpdatePage.contractTypeFieldErrorMessage().contains('Select a contract type')
+    jobContractUpdatePage.hoursFieldErrorMessage().contains('Select the hours for this job')
+
+    // Move to next page
+    jobContractUpdatePage.postcodeField().type('NE157LR')
+    jobContractUpdatePage.salaryFromField().type('25000')
+    jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
+    jobContractUpdatePage.nationalMinimumWageYes().click()
+    jobContractUpdatePage.workPatternField().select('FLEXI_TIME')
+    jobContractUpdatePage.contractTypeField().select('PERMANENT')
+    jobContractUpdatePage.hoursField().select('FULL_TIME')
+
+    jobContractUpdatePage.submitButton().click()
+
+    // Requirements and job description
+    const jobRequirementsUpdatePage = new JobRequirementsUpdatePage('Requirements and job description')
+    jobRequirementsUpdatePage.submitButton().click()
+
+    // Page errors
+    jobRequirementsUpdatePage.essentialCriteriaPageErrorMessage().contains('Enter essential job requirements')
+    jobRequirementsUpdatePage.jobDescriptionPageErrorMessage().contains('Enter job description')
+    jobRequirementsUpdatePage
+      .offenceExclusionsPageErrorMessage()
+      .contains('Select one or more options in offence exclusions')
+
+    // Field errors
+    jobRequirementsUpdatePage.essentialCriteriaFieldErrorMessage().contains('Enter essential job requirements')
+    jobRequirementsUpdatePage.jobDescriptionFieldErrorMessage().contains('Enter job description')
+    jobRequirementsUpdatePage
+      .offenceExclusionsFieldErrorMessage()
+      .contains('Select one or more options in offence exclusions')
   })
 
   it('Create job flow', () => {
     cy.visit('/jobs/job/new/role')
 
+    // Job role and source page
     const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
     jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 5')
 
@@ -80,7 +124,9 @@ context('Sign In', () => {
 
     jobRoleUpdatePage.submitButton().click()
 
+    // Job location and contract page
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
+    jobContractUpdatePage.headerCaption().contains('Add a job - step 2 of 5')
 
     jobContractUpdatePage.postcodeField().type('NE157LR')
     jobContractUpdatePage.salaryFromField().type('25000')
@@ -91,5 +137,15 @@ context('Sign In', () => {
     jobContractUpdatePage.hoursField().select('FULL_TIME')
 
     jobContractUpdatePage.submitButton().click()
+
+    // Requirements and job description page
+    const jobRequirementsUpdatePage = new JobRequirementsUpdatePage('Requirements and job description')
+    jobContractUpdatePage.headerCaption().contains('Add a job - step 3 of 5')
+
+    jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
+    jobRequirementsUpdatePage.jobDescriptionField().type('Some text')
+    jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()
+
+    jobRequirementsUpdatePage.submitButton().click()
   })
 })
