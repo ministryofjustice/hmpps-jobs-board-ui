@@ -26,7 +26,7 @@ context('Sign In', () => {
     jobRoleUpdatePage.jobSectorPageErrorMessage().contains('Select a job sector')
     jobRoleUpdatePage.industrySectorPageErrorMessage().contains('Select an NFN industry sector')
     jobRoleUpdatePage.numberOfVacanciesPageErrorMessage().contains('Enter number of vacancies')
-    jobRoleUpdatePage.jobSourcePageErrorMessage().contains('Select a job source')
+    jobRoleUpdatePage.jobSourceOnePageErrorMessage().contains('Select a job source')
 
     // Field errors
     jobRoleUpdatePage.employerIdFieldErrorMessage().contains("Select employer or select 'Add an employer'")
@@ -34,7 +34,7 @@ context('Sign In', () => {
     jobRoleUpdatePage.jobSectorFieldErrorMessage().contains('Select a job sector')
     jobRoleUpdatePage.industrySectorFieldErrorMessage().contains('Select an NFN industry sector')
     jobRoleUpdatePage.numberOfVacanciesFieldErrorMessage().contains('Enter number of vacancies')
-    jobRoleUpdatePage.jobSourceFieldErrorMessage().contains('Select a job source')
+    jobRoleUpdatePage.jobSourceOneFieldErrorMessage().contains('Select a job source')
 
     // Move to next page
     jobRoleUpdatePage.employerIdField().type('ASDA')
@@ -43,8 +43,8 @@ context('Sign In', () => {
     jobRoleUpdatePage.jobSectorField().select('OFFICE')
     jobRoleUpdatePage.industrySectorField().select('ADMIN_SUPPORT')
     jobRoleUpdatePage.numberOfVacanciesField().type('1')
-    jobRoleUpdatePage.jobSourceField().select('NFN')
-    jobRoleUpdatePage.jobSource2Field().select('PEL')
+    jobRoleUpdatePage.jobSourceOneField().select('NFN')
+    jobRoleUpdatePage.jobSourceTwoField().select('PEL')
     jobRoleUpdatePage.charityField().type('Test charity')
 
     jobRoleUpdatePage.submitButton().click()
@@ -118,8 +118,8 @@ context('Sign In', () => {
     jobRoleUpdatePage.jobSectorField().select('OFFICE')
     jobRoleUpdatePage.industrySectorField().select('ADMIN_SUPPORT')
     jobRoleUpdatePage.numberOfVacanciesField().type('1')
-    jobRoleUpdatePage.jobSourceField().select('NFN')
-    jobRoleUpdatePage.jobSource2Field().select('PEL')
+    jobRoleUpdatePage.jobSourceOneField().select('NFN')
+    jobRoleUpdatePage.jobSourceTwoField().select('PEL')
     jobRoleUpdatePage.charityField().type('Test charity')
 
     jobRoleUpdatePage.submitButton().click()

@@ -12,8 +12,8 @@ describe('validationSchema', () => {
     req.body.jobSector = 'OUTDOOR'
     req.body.industrySector = 'AGRICULTURE'
     req.body.numberOfVacancies = '2'
-    req.body.jobSource = 'DWP'
-    req.body.jobSource2 = 'EAB'
+    req.body.jobSourceOne = 'DWP'
+    req.body.jobSourceTwo = 'EAB'
     req.body.charity = 'Test chrity'
   })
 
@@ -94,8 +94,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select an NFN industry sector')
   })
 
-  it('On validation error - should disallow a jobSource being blank', () => {
-    req.body.jobSource = ''
+  it('On validation error - should disallow a jobSourceOne being blank', () => {
+    req.body.jobSourceOne = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -103,8 +103,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select a job source')
   })
 
-  it('On validation error - should disallow a jobSource being an invalid value', () => {
-    req.body.jobSource = 'SOME_VALUE'
+  it('On validation error - should disallow a jobSourceOne being an invalid value', () => {
+    req.body.jobSourceOne = 'SOME_VALUE'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -112,16 +112,16 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select a job source')
   })
 
-  it('On validation success - should allow a jobSource2 being blank', () => {
-    req.body.jobSource2 = ''
+  it('On validation success - should allow a jobSourceTwo being blank', () => {
+    req.body.jobSourceTwo = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeFalsy()
   })
 
-  it('On validation error - should disallow a jobSource2 being an invalid value', () => {
-    req.body.jobSource2 = 'SOME_VALUE'
+  it('On validation error - should disallow a jobSourceTwo being an invalid value', () => {
+    req.body.jobSourceTwo = 'SOME_VALUE'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 

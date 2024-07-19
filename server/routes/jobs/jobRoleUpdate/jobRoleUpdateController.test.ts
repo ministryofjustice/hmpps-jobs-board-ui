@@ -111,8 +111,8 @@ describe('jobRoleUpdateController', () => {
       req.body.jobSector = 'OUTDOOR'
       req.body.industrySector = 'AGRICULTURE'
       req.body.numberOfVacancies = '2'
-      req.body.jobSource = 'DWP'
-      req.body.jobSource2 = 'EAB'
+      req.body.jobSourceOne = 'DWP'
+      req.body.jobSourceTwo = 'EAB'
       req.body.charity = 'Test chrity'
 
       controller.post(req, res, next)

@@ -16,8 +16,8 @@ interface PutJobData {
   jobSector: JobSector
   industrySector: EmployerSector
   numberOfVacancies: number // Integer
-  jobSourceOne: JobSource
-  jobSourceTwo?: JobSource
+  jobSourceOneOne: JobSource
+  jobSourceOneTwo?: JobSource
   charity?: string // length 100
 
   // Second page

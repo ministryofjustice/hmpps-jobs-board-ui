@@ -37,7 +37,7 @@ export default class JobRoleUpdateController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
-    const { employerId, jobTitle, jobSector, industrySector, numberOfVacancies, jobSource, jobSource2, charity } =
+    const { employerId, jobTitle, jobSector, industrySector, numberOfVacancies, jobSourceOne, jobSourceTwo, charity } =
       req.body
 
     try {
@@ -61,8 +61,8 @@ export default class JobRoleUpdateController {
         jobSector,
         industrySector,
         numberOfVacancies,
-        jobSource,
-        jobSource2,
+        jobSourceOne,
+        jobSourceTwo,
         charity,
       })
 
