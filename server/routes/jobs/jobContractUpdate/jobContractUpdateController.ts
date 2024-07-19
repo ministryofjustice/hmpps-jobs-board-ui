@@ -4,7 +4,7 @@ import { getSessionData, setSessionData, validateFormSchema } from '../../../uti
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 
-export default class jobContractUpdateController {
+export default class JobContractUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
 

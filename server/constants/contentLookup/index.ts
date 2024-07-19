@@ -8,6 +8,7 @@ import salaryPeriod from './salaryPeriod'
 import baseLocation from './baseLocation'
 import workPattern from './workPattern'
 import hours from './hours'
+import supportingDocumentation from './supportingDocumentation'
 import yesNo from './yesNo'
 
 export default {
@@ -21,5 +22,6 @@ export default {
   baseLocation,
   workPattern,
   hours,
+  supportingDocumentation,
   yesNo,
 }

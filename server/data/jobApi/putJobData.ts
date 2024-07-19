@@ -6,40 +6,46 @@ import ContractType from '../../enums/contractType'
 import Hours from '../../enums/hours'
 import WorkPattern from '../../enums/workPattern'
 import OffenceExclusions from '../../enums/offenceExclusions'
+import SupportingDocumentation from '../../enums/supportingDocumentation'
+import JobSource from '../../enums/jobSource'
 
 interface PutJobData {
-  id: number
-
   // First page
-  employerId: string
-  jobTitle: string
+  employerId: string // Id of employer
+  jobTitle: string // Length 50
   jobSector: JobSector
-  nfnIndustrySector: EmployerSector
-  numberOfVacancies: number
-  jobSource: string
-  jobSource2: string
-  charity: string
+  industrySector: EmployerSector
+  numberOfVacancies: number // Integer
+  jobSourceOne: JobSource
+  jobSourceTwo?: JobSource
+  charity?: string // length 100
 
-  // Second page - jobContractUpdate
+  // Second page
   postcode: string
-  salaryFrom: number
-  salaryTo: number
+  salaryFrom: number // Float, 2 decimal places
+  salaryTo?: number // Float, 2 decimal places
   salaryPeriod: SalaryPeriod
-  additionalSalaryInformation: string
+  additionalSalaryInformation?: string // length 100
   nationalMinimumWage: boolean
   workPattern: WorkPattern
   contractType: ContractType
   hours: Hours
-  baseLocation: BaseLocation
+  baseLocation?: BaseLocation
 
   // Third page
-  essentialCriteria: string
-  desirableCriteria: string
-  jobDescription: string
+  essentialCriteria: string // length 1000
+  desirableCriteria?: string // length 1000
+  jobDescription: string // length 3000
   offenceExclusions: OffenceExclusions[]
 
-  // ToDo: other pages
-  // howToApply: string
+  // Fourth page
+  howToApply: string // length 1000
+  closingDate: string // Datetime string
+  startDate?: string // Datetime string
+  rollingOpportunity: boolean
+  prisonLeaversJob: boolean
+  supportingDocumentation: SupportingDocumentation[]
+  supportingDocumentationDetails: string // length 200
 }
 
 export default PutJobData

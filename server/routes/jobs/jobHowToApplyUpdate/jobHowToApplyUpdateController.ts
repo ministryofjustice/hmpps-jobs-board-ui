@@ -4,7 +4,7 @@ import { getSessionData, setSessionData, validateFormSchema } from '../../../uti
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 
-export default class JobRequirementsUpdateController {
+export default class jobHowToApplyUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
 
@@ -20,15 +20,15 @@ export default class JobRequirementsUpdateController {
       // Render data
       const data = {
         id,
-        backLocation: id === 'new' ? addressLookup.jobs.jobContractUpdate(id) : addressLookup.jobs.jobReview(id),
+        backLocation: id === 'new' ? addressLookup.jobs.jobRequirementsUpdate(id) : addressLookup.jobs.jobReview(id),
         ...job,
-        offenceExclusions: job.offenceExclusions || [],
+        supportingDocumentation: job.supportingDocumentation || [],
       }
 
       // Set page data in session
-      setSessionData(req, ['jobRequirementsUpdate', id, 'data'], data)
+      setSessionData(req, ['jobHowToApplyUpdate', id, 'data'], data)
 
-      res.render('pages/jobs/jobRequirementsUpdate/index', { ...data })
+      res.render('pages/jobs/jobHowToApplyUpdate/index', { ...data })
     } catch (err) {
       next(err)
     }
@@ -36,17 +36,17 @@ export default class JobRequirementsUpdateController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
-    const { essentialCriteria, desirableCriteria, jobDescription, offenceExclusions } = req.body
+    const { howToApply, supportingDocumentation } = req.body
 
     try {
       // If validation errors render errors
-      const data = getSessionData(req, ['jobRequirementsUpdate', id, 'data'])
+      const data = getSessionData(req, ['jobHowToApplyUpdate', id, 'data'])
       const errors = validateFormSchema(req, validationSchema())
       if (errors) {
-        res.render('pages/jobs/jobRequirementsUpdate/index', {
+        res.render('pages/jobs/jobHowToApplyUpdate/index', {
           ...data,
           ...req.body,
-          offenceExclusions: offenceExclusions || [],
+          supportingDocumentation: supportingDocumentation || [],
           errors,
         })
         return
@@ -55,10 +55,8 @@ export default class JobRequirementsUpdateController {
       // Update job in session
       setSessionData(req, ['job', id], {
         ...data,
-        essentialCriteria,
-        desirableCriteria,
-        jobDescription,
-        offenceExclusions,
+        howToApply,
+        supportingDocumentation,
       })
 
       // Redirect to next page in flow

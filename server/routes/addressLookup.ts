@@ -10,5 +10,6 @@ export default {
     jobRoleUpdate: (id = 'new') => `/jobs/job/${id}/role`,
     jobContractUpdate: (id = 'new') => `/jobs/job/${id}/contract`,
     jobRequirementsUpdate: (id = 'new') => `/jobs/job/${id}/requirements`,
+    jobHowToApplysUpdate: (id = 'new') => `/jobs/job/${id}/how-to-apply`,
   },
 }

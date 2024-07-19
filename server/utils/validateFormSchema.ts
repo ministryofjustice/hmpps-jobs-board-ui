@@ -15,6 +15,8 @@ interface ErrorDetails {
 export default function validateFormSchema(req: Request, schema: ObjectSchema): FormValidationErrors | undefined {
   const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
+  console.log(JSON.stringify(schema.validate(req.body, { abortEarly: false, allowUnknown: true })))
+
   if (!error?.details) {
     return undefined
   }
