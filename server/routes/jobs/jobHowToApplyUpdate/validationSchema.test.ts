@@ -1,4 +1,3 @@
-import OffenceExclusions from '../../../enums/offenceExclusions'
 import expressMocks from '../../../testutils/expressMocks'
 import validationSchema from './validationSchema'
 

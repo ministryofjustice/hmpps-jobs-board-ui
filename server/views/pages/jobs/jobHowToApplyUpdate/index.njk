@@ -42,7 +42,25 @@
               hint: {
                 text: "For example, 27 3 2007"
               },
-              errorMessage: errors.closingDate
+              errorMessage: errors.closingDate,
+              classes: '',
+              items: [
+                {
+                  classes: "govuk-input--width-2 govuk-input--error" if closingDate['closingDate-day-error'] else "govuk-input--width-4",
+                  name: "day",
+                  value: closingDate['closingDate-day']
+                },
+                {
+                  classes: "govuk-input--width-2 govuk-input--error" if closingDate['closingDate-month-error'] else "govuk-input--width-4",
+                  name: "month",
+                  value: closingDate['closingDate-month']
+                },
+                {
+                  classes: "govuk-input--width-4 govuk-input--error" if closingDate['closingDate-year-error'] else "govuk-input--width-4",
+                  name: "year",
+                  value: closingDate['closingDate-year']
+                }
+              ]
             }) }}
           {% endset -%}
 
@@ -105,7 +123,25 @@
             hint: {
               text: "For example, 27 3 2007"
             },
-            errorMessage: errors.startDate
+            errorMessage: errors.startDate,
+            classes: '',
+            items: [
+              {
+                classes: "govuk-input--width-2 govuk-input--error" if startDate['startDate-day-error'] else "govuk-input--width-4",
+                name: "day",
+                value: startDate['startDate-day']
+              },
+              {
+                classes: "govuk-input--width-2 govuk-input--error" if startDate['startDate-month-error'] else "govuk-input--width-4",
+                name: "month",
+                value: startDate['startDate-month']
+              },
+              {
+                classes: "govuk-input--width-4 govuk-input--error" if startDate['startDate-year-error'] else "govuk-input--width-4",
+                name: "year",
+                value: startDate['startDate-year']
+              }
+            ]
           }) }}
 
           {{ govukTextarea({

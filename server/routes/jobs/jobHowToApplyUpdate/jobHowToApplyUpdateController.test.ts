@@ -23,6 +23,16 @@ describe('jobHowToApplyUpdateController', () => {
     id,
     backLocation: '/jobs/job/new/requirements',
     supportingDocumentation: [] as any[],
+    closingDate: {
+      'closingDate-day': '',
+      'closingDate-month': '',
+      'closingDate-year': '',
+    },
+    startDate: {
+      'startDate-day': '',
+      'startDate-month': '',
+      'startDate-year': '',
+    },
   }
 
   const controller = new Controller()
@@ -94,6 +104,22 @@ describe('jobHowToApplyUpdateController', () => {
 
       expect(res.render).toHaveBeenCalledWith('pages/jobs/jobHowToApplyUpdate/index', {
         ...mockData,
+        closingDate: {
+          'closingDate-day': undefined,
+          'closingDate-month': undefined,
+          'closingDate-year': undefined,
+          'closingDate-day-error': undefined,
+          'closingDate-month-error': undefined,
+          'closingDate-year-error': undefined,
+        },
+        startDate: {
+          'startDate-day': undefined,
+          'startDate-month': undefined,
+          'startDate-year': undefined,
+          'startDate-day-error': undefined,
+          'startDate-month-error': undefined,
+          'startDate-year-error': undefined,
+        },
         errors,
       })
     })

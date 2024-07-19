@@ -3,9 +3,11 @@ import Controller from './jobHowToApplyUpdateController'
 import routes from './index'
 import { Services } from '../../../services'
 import parseCheckBoxValue from '../../../middleware/parseCheckBoxValue'
+import parseDateInputValue from '../../../middleware/parseDateInputValue'
 
 jest.mock('./jobHowToApplyUpdateController')
 jest.mock('../../../middleware/parseCheckBoxValue')
+jest.mock('../../../middleware/parseDateInputValue')
 
 describe('jobHowToApplyUpdate routes', () => {
   let router: Router
@@ -20,6 +22,7 @@ describe('jobHowToApplyUpdate routes', () => {
       post: jest.fn(),
     }))
     ;(parseCheckBoxValue as jest.Mock).mockImplementation(() => jest.fn())
+    ;(parseDateInputValue as jest.Mock).mockImplementation(() => jest.fn())
   })
 
   it('should register GET route for page', () => {
@@ -38,6 +41,8 @@ describe('jobHowToApplyUpdate routes', () => {
       '/jobs/job/:id/how-to-apply',
       [
         expect.any(Function), // parseCheckBoxValue
+        expect.any(Function), // parseDateInputValue
+        expect.any(Function), // parseDateInputValue
       ],
       expect.any(Function), // controller.get
     )
