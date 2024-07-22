@@ -98,7 +98,7 @@ describe('jobRequirementsUpdateController', () => {
       })
     })
 
-    it('On success - Sets session and redirects to jobReview', async () => {
+    it('On success - Sets session and redirects to jobHowToApplysUpdate', async () => {
       req.body.essentialCriteria = 'Some text'
       req.body.desirableCriteriareq = 'Some text'
       req.body.jobDescription = 'Some text'
@@ -106,7 +106,7 @@ describe('jobRequirementsUpdateController', () => {
 
       controller.post(req, res, next)
 
-      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobReview(id))
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobHowToApplysUpdate(id))
     })
   })
 })

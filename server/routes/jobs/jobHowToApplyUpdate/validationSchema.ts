@@ -11,9 +11,9 @@ export default function validationSchema(): ObjectSchema {
       'any.empty': 'Select whether the job is a rolling opportunity or not',
     }),
     prisonLeaversJob: joi.string().empty('').valid(YesNoValue.YES, YesNoValue.NO).required().messages({
-      'any.only': 'Select an answer to whether this job is only for prison leavers. ',
-      'any.required': 'Select an answer to whether this job is only for prison leavers. ',
-      'any.empty': 'Select an answer to whether this job is only for prison leavers. ',
+      'any.only': 'Select an answer to whether this job is only for prison leavers',
+      'any.required': 'Select an answer to whether this job is only for prison leavers',
+      'any.empty': 'Select an answer to whether this job is only for prison leavers',
     }),
     howToApply: joi.string().empty('').required().max(1000).messages({
       'any.required': 'Enter how to apply details',

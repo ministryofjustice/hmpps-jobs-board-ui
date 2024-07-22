@@ -62,7 +62,7 @@ export default class JobRequirementsUpdateController {
       })
 
       // Redirect to next page in flow
-      res.redirect(addressLookup.jobs.jobReview(id))
+      res.redirect(addressLookup.jobs.jobHowToApplysUpdate(id))
     } catch (err) {
       next(err)
     }
