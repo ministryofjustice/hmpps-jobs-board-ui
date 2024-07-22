@@ -2,6 +2,7 @@ import { dataAccess } from '../data'
 import UserService from './userService'
 import ComponentService from './componentService'
 import EmployerService from './employerService'
+import JobService from './jobService'
 import PaginationService from './paginationServices'
 
 export const services = () => {
@@ -9,12 +10,14 @@ export const services = () => {
 
   const userService = new UserService(hmppsAuthClient)
   const employerService = new EmployerService(hmppsAuthClient)
+  const jobService = new JobService(hmppsAuthClient)
   const componentService = new ComponentService()
   const paginationService = new PaginationService()
 
   return {
     userService,
     employerService,
+    jobService,
     componentService,
     paginationService,
   }

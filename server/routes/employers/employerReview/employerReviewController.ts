@@ -44,13 +44,16 @@ export default class EmployerReviewController {
 
       // Update application progress API
       const employerUpdate = {
-        employerId: id === 'new' ? uuidv7() : id,
         employerName,
         employerSector,
         employerStatus,
         employerDescription,
       }
-      await this.employerService.createUpdateEmployer(res.locals.user.username, employerUpdate)
+      await this.employerService.createUpdateEmployer(
+        res.locals.user.username,
+        id === 'new' ? uuidv7() : id,
+        employerUpdate,
+      )
 
       // Delete current record
       deleteSessionData(req, ['employer', id])
