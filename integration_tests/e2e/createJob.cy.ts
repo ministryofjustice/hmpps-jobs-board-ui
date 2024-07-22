@@ -2,6 +2,7 @@
 import JobRoleUpdatePage from '../pages/jobs/jobRoleUpdate'
 import JobContractUpdatePage from '../pages/jobs/jobContractUpdate'
 import JobRequirementsUpdatePage from '../pages/jobs/jobRequirementsUpdate'
+import JobContractHowToApplyPage from '../pages/jobs/jobContractHowToApply'
 
 context('Sign In', () => {
   beforeEach(() => {
@@ -103,6 +104,33 @@ context('Sign In', () => {
     jobRequirementsUpdatePage
       .offenceExclusionsFieldErrorMessage()
       .contains('Select one or more options in offence exclusions')
+
+    // Move to next page
+    jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
+    jobRequirementsUpdatePage.jobDescriptionField().type('Some text')
+    jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()
+    jobRequirementsUpdatePage.submitButton().click()
+
+    const jobContractHowToApplyPage = new JobContractHowToApplyPage('How to apply')
+    jobContractHowToApplyPage.submitButton().click()
+
+    // Page errors
+    jobContractHowToApplyPage
+      .rollingOpportunityPageErrorMessage()
+      .contains('Select whether the job is a rolling opportunity or not')
+    jobContractHowToApplyPage
+      .prisonLeaversJobPageErrorMessage()
+      .contains('Select an answer to whether this job is only for prison leavers')
+    jobContractHowToApplyPage.howToApplyPageErrorMessage().contains('Enter how to apply details')
+
+    // Field errors
+    jobContractHowToApplyPage
+      .rollingOpportunityFieldErrorMessage()
+      .contains('Select whether the job is a rolling opportunity or not')
+    jobContractHowToApplyPage
+      .prisonLeaversJobFieldErrorMessage()
+      .contains('Select an answer to whether this job is only for prison leavers')
+    jobContractHowToApplyPage.howToApplyFieldErrorMessage().contains('Enter how to apply details')
   })
 
   it('Create job flow', () => {
@@ -147,5 +175,23 @@ context('Sign In', () => {
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()
 
     jobRequirementsUpdatePage.submitButton().click()
+
+    // How to apply page
+    const jobContractHowToApplyPage = new JobContractHowToApplyPage('How to apply')
+    jobContractHowToApplyPage.headerCaption().contains('Add a job - step 4 of 5')
+
+    jobContractHowToApplyPage.rollingOpportunityFieldNo().click()
+    jobContractHowToApplyPage.closingDateField.day().type('1')
+    jobContractHowToApplyPage.closingDateField.month().type('1')
+    jobContractHowToApplyPage.closingDateField.year().type('2026')
+    jobContractHowToApplyPage.prisonLeaversJobFieldYes().click()
+    jobContractHowToApplyPage.howToApplyField().type('Some text')
+    jobContractHowToApplyPage.startDateField.day().type('1')
+    jobContractHowToApplyPage.startDateField.month().type('1')
+    jobContractHowToApplyPage.startDateField.year().type('2026')
+    jobContractHowToApplyPage.supportingDocumentationFieldValue('OTHER').click()
+    jobContractHowToApplyPage.supportingDocumentationDetailsField().type('Some text')
+
+    jobContractHowToApplyPage.submitButton().click()
   })
 })

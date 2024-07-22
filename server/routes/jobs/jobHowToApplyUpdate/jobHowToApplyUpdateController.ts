@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { RequestHandler } from 'express'
 
 import { getSessionData, setSessionData, validateFormSchema } from '../../../utils/index'
@@ -7,6 +6,7 @@ import addressLookup from '../../addressLookup'
 import consolidateDateInputErrors from '../../../utils/consolidateDateInputErrors'
 import getDateInputObject from '../../../utils/getDateInputObject'
 import parseBodyDateInput from '../../../utils/parseBodyDateInput'
+import YesNoValue from '../../../enums/yesNoValue'
 
 export default class jobHowToApplyUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
@@ -51,6 +51,15 @@ export default class jobHowToApplyUpdateController {
     } = req.body
 
     try {
+      // Clear closing date if not required
+      if (rollingOpportunity === YesNoValue.YES) {
+        req.body.closingDate = {
+          'closingDate-day': '',
+          'closingDate-month': '',
+          'closingDate-year': '',
+        }
+      }
+
       // If validation errors render errors
       const data = getSessionData(req, ['jobHowToApplyUpdate', id, 'data'])
       const errors = validateFormSchema(req, validationSchema())

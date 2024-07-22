@@ -41,9 +41,9 @@ export default class JobContractUpdatePage extends Page {
 
   nationalMinimumWageFieldErrorMessage = (): PageElement => cy.get('#nationalMinimumWage-error')
 
-  nationalMinimumWageYes = (): PageElement => cy.get('[value=YES]')
+  nationalMinimumWageYes = (): PageElement => cy.get('input[name="nationalMinimumWage"][value="YES"]')
 
-  nationalMinimumWageNo = (): PageElement => cy.get('[value=NO]')
+  nationalMinimumWageNo = (): PageElement => cy.get('input[name="nationalMinimumWage"][value="NO"]')
 
   workPatternField = (): PageElement => cy.get('#workPattern')
 
