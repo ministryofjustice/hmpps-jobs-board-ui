@@ -19,6 +19,8 @@ const getEmployerReviewResolver =
 
       // Get employer from API
       const employer = await employerService.getEmployer(username, id)
+
+      // Set it in session
       setSessionData(req, ['employer', id], {
         employerName: employer.name,
         employerSector: employer.sector,

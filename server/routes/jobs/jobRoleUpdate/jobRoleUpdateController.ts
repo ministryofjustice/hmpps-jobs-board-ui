@@ -6,7 +6,7 @@ import addressLookup from '../../addressLookup'
 
 export default class JobRoleUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id } = req.params
+    const { id, mode } = req.params
     const { allEmployers = [] } = req.context
 
     try {
@@ -15,6 +15,7 @@ export default class JobRoleUpdateController {
       // Render data
       const data = {
         id,
+        mode,
         backLocation:
           id === 'new'
             ? `${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`
@@ -36,7 +37,7 @@ export default class JobRoleUpdateController {
   }
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id } = req.params
+    const { id, mode } = req.params
     const { employerId, jobTitle, jobSector, industrySector, numberOfVacancies, jobSourceOne, jobSourceTwo, charity } =
       req.body
 
@@ -54,20 +55,21 @@ export default class JobRoleUpdateController {
       }
 
       // Update job in session
+      const job = getSessionData(req, ['job', id], {})
       setSessionData(req, ['job', id], {
-        ...data,
+        ...job,
         employerId,
         jobTitle,
         jobSector,
         industrySector,
-        numberOfVacancies,
+        numberOfVacancies: Number(numberOfVacancies),
         jobSourceOne,
         jobSourceTwo,
         charity,
       })
 
       // Redirect to next page in flow
-      res.redirect(addressLookup.jobs.jobContractUpdate(id))
+      res.redirect(mode === 'add' ? addressLookup.jobs.jobContractUpdate(id) : addressLookup.jobs.jobReview(id))
     } catch (err) {
       next(err)
     }

@@ -10,20 +10,21 @@ import YesNoValue from '../../../enums/yesNoValue'
 
 export default class jobHowToApplyUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id } = req.params
+    const { id, mode } = req.params
 
     try {
       const job = getSessionData(req, ['job', id])
 
       // Redirect to first page if no job
       if (!job) {
-        res.redirect(addressLookup.jobs.jobRoleUpdate())
+        res.redirect(addressLookup.jobs.jobRoleUpdate(id))
         return
       }
 
       // Render data
       const data = {
         id,
+        mode,
         backLocation: id === 'new' ? addressLookup.jobs.jobRequirementsUpdate(id) : addressLookup.jobs.jobReview(id),
         ...job,
         supportingDocumentation: job.supportingDocumentation || [],
@@ -79,8 +80,10 @@ export default class jobHowToApplyUpdateController {
       }
 
       // Update job in session
+      const job = getSessionData(req, ['job', id])
+      // Use actual ID
       setSessionData(req, ['job', id], {
-        ...data,
+        ...job,
         howToApply,
         rollingOpportunity,
         prisonLeaversJob,

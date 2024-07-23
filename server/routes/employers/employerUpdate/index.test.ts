@@ -18,7 +18,7 @@ describe('employerUpdate routes', () => {
     routes(router)
 
     expect(router.get).toHaveBeenCalledWith(
-      '/employers/employer/:id/update',
+      '/employers/employer/:id/form/:mode',
       expect.any(Function), // controller.get
     )
   })
@@ -27,7 +27,7 @@ describe('employerUpdate routes', () => {
     routes(router)
 
     expect(router.post).toHaveBeenCalledWith(
-      '/employers/employer/:id/update',
+      '/employers/employer/:id/form/:mode',
       expect.any(Function), // controller.get
     )
   })

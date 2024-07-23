@@ -8,10 +8,10 @@ import parseDateInputValue from '../../../middleware/parseDateInputValue'
 export default (router: Router, _: Services) => {
   const controller = new JobHowToApplyUpdateController()
 
-  router.get('/jobs/job/:id/how-to-apply', controller.get)
+  router.get('/jobs/job/:id/how-to-apply/:mode', controller.get)
 
   router.post(
-    '/jobs/job/:id/how-to-apply',
+    '/jobs/job/:id/how-to-apply/:mode',
     [
       parseCheckBoxValue('supportingDocumentation'),
       parseDateInputValue('startDate'),

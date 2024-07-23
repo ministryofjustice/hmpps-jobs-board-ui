@@ -26,7 +26,7 @@ describe('jobRoleUpdate routes', () => {
     routes(router, services)
 
     expect(router.get).toHaveBeenCalledWith(
-      '/jobs/job/:id/role',
+      '/jobs/job/:id/role/:mode',
       [
         expect.any(Function), // getAllEmployersResolver
       ],
@@ -38,7 +38,7 @@ describe('jobRoleUpdate routes', () => {
     routes(router, services)
 
     expect(router.post).toHaveBeenCalledWith(
-      '/jobs/job/:id/role',
+      '/jobs/job/:id/role/:mode',
       expect.any(Function), // controller.get
     )
   })

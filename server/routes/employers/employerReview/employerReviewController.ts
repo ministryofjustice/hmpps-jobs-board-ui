@@ -14,15 +14,13 @@ export default class EmployerReviewController {
     try {
       const employer = getSessionData(req, ['employer', id])
       if (!employer) {
-        res.redirect(addressLookup.employers.employerUpdate())
+        res.redirect(addressLookup.employers.employerUpdate(id))
         return
       }
 
       // Render data
       const data = {
         id,
-        backLocation:
-          id === 'new' ? addressLookup.employers.employerUpdate(id) : addressLookup.employers.employerList(),
         ...employer,
       }
 

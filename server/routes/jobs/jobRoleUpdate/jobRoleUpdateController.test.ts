@@ -28,10 +28,12 @@ describe('jobRoleUpdateController', () => {
   ]
 
   req.params.id = 'new'
-  const { id } = req.params
+  req.params.mode = 'add'
+  const { id, mode } = req.params
 
   const mockData = {
     id,
+    mode,
     backLocation: '/jobs?sort=jobTitle&order=ascending',
     employers: [
       {

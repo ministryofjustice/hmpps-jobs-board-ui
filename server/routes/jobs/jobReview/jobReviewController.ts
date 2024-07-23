@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express'
 import { v7 as uuidv7 } from 'uuid'
 
-import { deleteSessionData, getSessionData, setSessionData } from '../../../utils/index'
+import { deleteSessionData, formatShortDate, getSessionData, setSessionData } from '../../../utils/index'
 import addressLookup from '../../addressLookup'
 import JobService from '../../../services/jobService'
 import JobSector from '../../../enums/jobSector'
@@ -20,20 +20,23 @@ export default class JobReviewController {
   constructor(private readonly jobService: JobService) {}
 
   public get: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id } = req.params
+    const { id, mode } = req.params
+    const { allEmployers = [] } = req.context
 
     try {
       const job = getSessionData(req, ['job', id])
       if (!job) {
-        res.redirect(addressLookup.jobs.jobRoleUpdate())
+        res.redirect(addressLookup.jobs.jobRoleUpdate(id, mode))
         return
       }
 
       // Render data
       const data = {
         id,
-        backLocation: id === 'new' ? addressLookup.jobs.jobRoleUpdate(id) : addressLookup.jobs.jobList(),
         ...job,
+        startDate: formatShortDate(new Date(job.startDate)),
+        closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
+        employerName: (allEmployers.find((p: { id: string }) => p.id === job.employerId) || {}).name,
       }
 
       // Set page data in session

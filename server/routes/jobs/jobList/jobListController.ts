@@ -20,7 +20,7 @@ export default class JobListController {
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     try {
       if (Object.prototype.hasOwnProperty.call(req.body, 'addJobButton')) {
-        res.redirect(addressLookup.jobs.jobRoleUpdate())
+        res.redirect(addressLookup.jobs.jobRoleUpdate('new'))
         return
       }
 

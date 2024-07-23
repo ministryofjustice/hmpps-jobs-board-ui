@@ -26,7 +26,7 @@ describe('jobRequirementsUpdate routes', () => {
     routes(router, services)
 
     expect(router.get).toHaveBeenCalledWith(
-      '/jobs/job/:id/requirements',
+      '/jobs/job/:id/requirements/:mode',
       expect.any(Function), // controller.get
     )
   })
@@ -35,7 +35,7 @@ describe('jobRequirementsUpdate routes', () => {
     routes(router, services)
 
     expect(router.post).toHaveBeenCalledWith(
-      '/jobs/job/:id/requirements',
+      '/jobs/job/:id/requirements/:mode',
       [
         expect.any(Function), // parseCheckBoxValue
       ],

@@ -17,11 +17,13 @@ describe('jobHowToApplyUpdateController', () => {
   res.locals.user = { username: 'MOCK_USER' }
 
   req.params.id = 'new'
-  const { id } = req.params
+  req.params.mode = 'add'
+  const { id, mode } = req.params
 
   const mockData = {
     id,
-    backLocation: '/jobs/job/new/requirements',
+    mode,
+    backLocation: '/jobs/job/new/requirements/add',
     supportingDocumentation: [] as any[],
     closingDate: {
       'closingDate-day': '',
@@ -58,7 +60,7 @@ describe('jobHowToApplyUpdateController', () => {
 
       controller.get(req, res, next)
 
-      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobRoleUpdate())
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobRoleUpdate(id))
     })
 
     it('On success - Calls render with the correct data', async () => {
@@ -126,7 +128,6 @@ describe('jobHowToApplyUpdateController', () => {
 
     it('On success - Sets session and redirects to jobReview', async () => {
       req.body.essentialCriteria = 'Some text'
-      req.body.desirableCriteriareq = 'Some text'
       req.body.jobDescription = 'Some text'
       req.body.offenceExclusions = ['SUMMOTR']
 

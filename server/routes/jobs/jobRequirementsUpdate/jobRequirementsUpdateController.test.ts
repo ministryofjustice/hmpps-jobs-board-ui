@@ -17,11 +17,13 @@ describe('jobRequirementsUpdateController', () => {
   res.locals.user = { username: 'MOCK_USER' }
 
   req.params.id = 'new'
-  const { id } = req.params
+  req.params.mode = 'add'
+  const { id, mode } = req.params
 
   const mockData = {
     id,
-    backLocation: '/jobs/job/new/contract',
+    mode,
+    backLocation: '/jobs/job/new/contract/add',
     offenceExclusions: [] as any[],
   }
 
@@ -48,7 +50,7 @@ describe('jobRequirementsUpdateController', () => {
 
       controller.get(req, res, next)
 
-      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobRoleUpdate())
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobRoleUpdate(id))
     })
 
     it('On success - Calls render with the correct data', async () => {
