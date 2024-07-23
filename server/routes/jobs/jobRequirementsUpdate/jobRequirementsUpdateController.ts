@@ -4,7 +4,7 @@ import { getSessionData, setSessionData, validateFormSchema } from '../../../uti
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 
-export default class jobRequirementsUpdateController {
+export default class JobRequirementsUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
 
@@ -62,7 +62,7 @@ export default class jobRequirementsUpdateController {
       })
 
       // Redirect to next page in flow
-      res.redirect(addressLookup.jobs.jobReview(id))
+      res.redirect(addressLookup.jobs.jobHowToApplysUpdate(id))
     } catch (err) {
       next(err)
     }

@@ -249,9 +249,9 @@
           }}
 
           {{ govukSelect({
-              id: "jobSource",
-              name: "jobSource",
-              value: jobSource,
+              id: "jobSourceOne",
+              name: "jobSourceOne",
+              value: jobSourceOne,
               label: {
                 text: "Job source"
               },
@@ -297,14 +297,14 @@
                   text: contentLookup.jobSource["OTHER"]
                 }
               ],
-              errorMessage: errors.jobSource
+              errorMessage: errors.jobSourceOne
             }) 
           }}
 
           {{ govukSelect({
-              id: "jobSource2",
-              name: "jobSource2",
-              value: jobSource2,
+              id: "jobSourceTwo",
+              name: "jobSourceTwo",
+              value: jobSourceTwo,
               label: {
                 text: "Job source 2  (optional)"
               },
@@ -350,7 +350,7 @@
                   text: contentLookup.jobSource["OTHER"]
                 }
               ],
-              errorMessage: errors.jobSource2
+              errorMessage: errors.jobSourceTwo
             }) 
           }}
 

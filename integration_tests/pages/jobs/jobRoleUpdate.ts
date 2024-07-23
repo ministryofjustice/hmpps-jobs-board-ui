@@ -37,17 +37,17 @@ export default class JobRoleUpdatePage extends Page {
 
   numberOfVacanciesFieldErrorMessage = (): PageElement => cy.get('#numberOfVacancies-error')
 
-  jobSourceField = (): PageElement => cy.get('#jobSource')
+  jobSourceOneField = (): PageElement => cy.get('#jobSourceOne')
 
-  jobSourcePageErrorMessage = (): PageElement => cy.get('[href="#jobSource"]')
+  jobSourceOnePageErrorMessage = (): PageElement => cy.get('[href="#jobSourceOne"]')
 
-  jobSourceFieldErrorMessage = (): PageElement => cy.get('#jobSource-error')
+  jobSourceOneFieldErrorMessage = (): PageElement => cy.get('#jobSourceOne-error')
 
-  jobSource2Field = (): PageElement => cy.get('#jobSource2')
+  jobSourceTwoField = (): PageElement => cy.get('#jobSourceTwo')
 
-  jobSource2PageErrorMessage = (): PageElement => cy.get('[href="#jobSource2"]')
+  jobSourceTwoPageErrorMessage = (): PageElement => cy.get('[href="#jobSourceTwo"]')
 
-  jobSource2FieldErrorMessage = (): PageElement => cy.get('#jobSource2-error')
+  jobSourceTwoFieldErrorMessage = (): PageElement => cy.get('#jobSourceTwo-error')
 
   charityField = (): PageElement => cy.get('#charity')
 

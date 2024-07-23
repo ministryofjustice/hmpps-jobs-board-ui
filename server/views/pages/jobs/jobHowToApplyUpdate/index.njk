@@ -1,0 +1,221 @@
+{% extends "../../../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+
+
+{% set title = "How to apply" %}
+
+{% block beforeContent %}
+    {{ govukBackLink({ text: "Back", href: backLocation }) }}
+{% endblock %}
+
+{% block content %}
+  {{ errorSummary(errors) }}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if id === 'new' else 'Update' }} a job - step 4 of 5</span>
+        <h1 class="govuk-heading-l">
+          {{ title }}
+        </h1>
+
+        <form class="form" method="post" novalidate="">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}" /> 
+
+          {% set closingDateHtml %}
+            {{ govukDateInput({
+              id: "closingDate",
+              namePrefix: "closingDate",
+              fieldset: {
+                legend: {
+                  text: "Closing date"
+                }
+              },
+              hint: {
+                text: "For example, 27 3 2007"
+              },
+              errorMessage: errors.closingDate,
+              classes: '',
+              items: [
+                {
+                  classes: "govuk-input--width-2 govuk-input--error" if closingDate['closingDate-day-error'] else "govuk-input--width-4",
+                  name: "day",
+                  value: closingDate['closingDate-day']
+                },
+                {
+                  classes: "govuk-input--width-2 govuk-input--error" if closingDate['closingDate-month-error'] else "govuk-input--width-4",
+                  name: "month",
+                  value: closingDate['closingDate-month']
+                },
+                {
+                  classes: "govuk-input--width-4 govuk-input--error" if closingDate['closingDate-year-error'] else "govuk-input--width-4",
+                  name: "year",
+                  value: closingDate['closingDate-year']
+                }
+              ]
+            }) }}
+          {% endset -%}
+
+          {{ govukRadios({
+            name: "rollingOpportunity",
+            fieldset: {
+              legend: {
+                text: 'Rolling opportunity'
+              }
+            },
+            items: [
+              {
+                value: "YES",
+                text: contentLookup.yesNo["YES"],
+                checked: rollingOpportunity === "YES"
+              },
+              {
+                value: "NO",
+                text: contentLookup.yesNo["NO"],
+                checked: rollingOpportunity === "NO",
+                attributes: { "aria-label": contentLookup.yesNo["NO"] + " (Opens a dialogue box)" },
+                conditional: {
+                  html: closingDateHtml
+                }
+              }
+            ],
+            errorMessage: errors.rollingOpportunity
+          }) }}
+
+          {{ govukRadios({
+            name: "prisonLeaversJob",
+            fieldset: {
+              legend: {
+                text: 'Is the job only for prison leavers?'
+              }
+            },
+            items: [
+              {
+                value: "YES",
+                text: contentLookup.yesNo["YES"],
+                checked: prisonLeaversJob === "YES"
+              },
+              {
+                value: "NO",
+                text: contentLookup.yesNo["NO"],
+                checked: prisonLeaversJob === "NO"
+              }
+            ],
+            errorMessage: errors.prisonLeaversJob
+          }) }}
+
+          {{ govukDateInput({
+            id: "startDate",
+            namePrefix: "startDate",
+            fieldset: {
+              legend: {
+                text: "Job start date (optional)"
+              }
+            },
+            hint: {
+              text: "For example, 27 3 2007"
+            },
+            errorMessage: errors.startDate,
+            classes: '',
+            items: [
+              {
+                classes: "govuk-input--width-2 govuk-input--error" if startDate['startDate-day-error'] else "govuk-input--width-4",
+                name: "day",
+                value: startDate['startDate-day']
+              },
+              {
+                classes: "govuk-input--width-2 govuk-input--error" if startDate['startDate-month-error'] else "govuk-input--width-4",
+                name: "month",
+                value: startDate['startDate-month']
+              },
+              {
+                classes: "govuk-input--width-4 govuk-input--error" if startDate['startDate-year-error'] else "govuk-input--width-4",
+                name: "year",
+                value: startDate['startDate-year']
+              }
+            ]
+          }) }}
+
+          {{ govukTextarea({
+            id: "howToApply",
+            name: "howToApply",
+            rows: "5",
+            value: howToApply,
+            type: "text",
+            label: {
+              text: "How to apply"
+            },
+            errorMessage: errors.howToApply
+          }) }}
+
+
+          {% set otherHtml %}
+            {{ govukInput({
+                id: "supportingDocumentationDetails",
+                name: "supportingDocumentationDetails",
+                value: supportingDocumentationDetails,
+                type: "text",
+                label: {
+                    text: "Give details",
+                    attributes: { "aria-live": "polite" }
+                },
+                attributes: { "aria-label" : "Give details of any other supporting documentation" },
+                errorMessage: errors.supportingDocumentationDetails
+            }) }}
+          {% endset -%}
+
+          {{ govukCheckboxes({
+            name: "supportingDocumentation",
+            fieldset: {
+              legend: {
+                  text: "Supporting documentation required (optional)"
+                }
+            },
+            items: [
+              {
+                value: "CV",
+                checked: supportingDocumentation.indexOf("CV") > -1,
+                text: contentLookup.supportingDocumentation["CV"]
+              },
+              {
+                value: "DISCLOSURE_LETTER",
+                checked: supportingDocumentation.indexOf("DISCLOSURE_LETTER") > -1,
+                text: contentLookup.supportingDocumentation["DISCLOSURE_LETTER"]
+              },
+              {
+                value: "OTHER",
+                checked: supportingDocumentation.indexOf("OTHER") > -1,
+                text: contentLookup.supportingDocumentation["OTHER"],
+                attributes: { "aria-label": contentLookup.supportingDocumentation["OTHER"] + " (Opens a dialogue box)" },
+                conditional: {
+                  html: otherHtml
+                }
+              }
+            ],
+            errorMessage: errors.supportingDocumentation
+          }) }}
+
+          {{  
+            govukButton({
+              text: "Continue",
+              type: "submit",
+              attributes: {
+                "data-qa": "submit-button",
+                "data-ga-category": "submit-selected-data"
+              }
+            }) 
+          }}
+
+        </form>
+
+      </div>
+    </div>
+{% endblock %}

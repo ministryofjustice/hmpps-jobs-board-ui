@@ -78,7 +78,7 @@ export default function validationSchema(): ObjectSchema {
       'any.empty': 'Enter number of vacancies',
       'number.base': 'Number of vacancies must be a number',
     }),
-    jobSource: joi
+    jobSourceOne: joi
       .string()
       .empty('')
       .valid(
@@ -98,7 +98,7 @@ export default function validationSchema(): ObjectSchema {
         'any.required': 'Select a job source',
         'any.empty': 'Select a job source',
       }),
-    jobSource2: joi
+    jobSourceTwo: joi
       .string()
       .empty('')
       .valid(

@@ -1,11 +1,11 @@
 import type { ObjectSchema } from 'joi'
 import type { Request } from 'express'
 
-interface FormValidationErrors {
+export interface FormValidationErrors {
   [key: string]: { text: string; href: string }
 }
 
-interface ErrorDetails {
+export interface ErrorDetails {
   [key: string]: {
     text: string
     href: string

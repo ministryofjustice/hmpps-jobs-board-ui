@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Controller from './jobRequirementsUpdateController'
+import Controller from './jobHowToApplyUpdateController'
 import expressMocks from '../../../testutils/expressMocks'
 import validateFormSchema from '../../../utils/validateFormSchema'
 import { deleteSessionData, setSessionData } from '../../../utils/session'
@@ -11,7 +11,7 @@ jest.mock('../../../utils/validateFormSchema', () => ({
   default: jest.fn(),
 }))
 
-describe('jobRequirementsUpdateController', () => {
+describe('jobHowToApplyUpdateController', () => {
   const { req, res, next } = expressMocks()
 
   res.locals.user = { username: 'MOCK_USER' }
@@ -21,8 +21,18 @@ describe('jobRequirementsUpdateController', () => {
 
   const mockData = {
     id,
-    backLocation: '/jobs/job/new/contract',
-    offenceExclusions: [] as any[],
+    backLocation: '/jobs/job/new/requirements',
+    supportingDocumentation: [] as any[],
+    closingDate: {
+      'closingDate-day': '',
+      'closingDate-month': '',
+      'closingDate-year': '',
+    },
+    startDate: {
+      'startDate-day': '',
+      'startDate-month': '',
+      'startDate-year': '',
+    },
   }
 
   const controller = new Controller()
@@ -54,7 +64,7 @@ describe('jobRequirementsUpdateController', () => {
     it('On success - Calls render with the correct data', async () => {
       controller.get(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobRequirementsUpdate/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobHowToApplyUpdate/index', {
         ...mockData,
       })
       expect(next).toHaveBeenCalledTimes(0)
@@ -70,7 +80,7 @@ describe('jobRequirementsUpdateController', () => {
       res.redirect.mockReset()
       next.mockReset()
       validationMock.mockReset()
-      setSessionData(req, ['jobRequirementsUpdate', id], mockData)
+      setSessionData(req, ['jobHowToApplyUpdate', id], mockData)
     })
 
     it('Should create a new instance', () => {
@@ -92,13 +102,29 @@ describe('jobRequirementsUpdateController', () => {
       validationMock.mockImplementation(() => errors)
       controller.post(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobRequirementsUpdate/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobHowToApplyUpdate/index', {
         ...mockData,
+        closingDate: {
+          'closingDate-day': undefined,
+          'closingDate-month': undefined,
+          'closingDate-year': undefined,
+          'closingDate-day-error': undefined,
+          'closingDate-month-error': undefined,
+          'closingDate-year-error': undefined,
+        },
+        startDate: {
+          'startDate-day': undefined,
+          'startDate-month': undefined,
+          'startDate-year': undefined,
+          'startDate-day-error': undefined,
+          'startDate-month-error': undefined,
+          'startDate-year-error': undefined,
+        },
         errors,
       })
     })
 
-    it('On success - Sets session and redirects to jobHowToApplysUpdate', async () => {
+    it('On success - Sets session and redirects to jobReview', async () => {
       req.body.essentialCriteria = 'Some text'
       req.body.desirableCriteriareq = 'Some text'
       req.body.jobDescription = 'Some text'
@@ -106,7 +132,7 @@ describe('jobRequirementsUpdateController', () => {
 
       controller.post(req, res, next)
 
-      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobHowToApplysUpdate(id))
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobReview(id))
     })
   })
 })
