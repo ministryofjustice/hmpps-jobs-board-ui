@@ -46,6 +46,7 @@ describe('employerList routes', () => {
       '/',
       [
         expect.any(Function), // handleSortMiddleware
+        expect.any(Function), // handleSortMiddleware
       ],
       expect.any(Function), // controller.post
     )

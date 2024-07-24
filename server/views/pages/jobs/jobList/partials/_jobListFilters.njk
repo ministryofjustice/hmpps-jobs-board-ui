@@ -1,0 +1,63 @@
+<div class="govuk-form-group filter-box govuk-!-margin-top-4">
+    <form method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+            <h2 class="govuk-heading-s govuk-!-margin-bottom-2">
+                Filter by
+            </h2>
+            </div>
+        </div>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-third">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="jobSearchFilter">
+                        Job title or employer name
+                    </label>
+                    <input class="govuk-input" id="jobSearchFilter" name="jobSearchFilter" type="search" value="{{ jobSearchFilter }}">
+                </div>
+            </div>
+
+            <div class="govuk-grid-column-one-third">
+                <div class="govuk-form-group">
+                    <label class="govuk-heading-s govuk-!-margin-bottom-1" for="jobSectorFilter">
+                        Job sector
+                    </label>
+                    <select class="govuk-select" id="jobSectorFilter" name="jobSectorFilter">
+                        <option value="" {{ "selected" if jobSectorFilter === "" }}>All</option>
+                        <option value="OUTDOOR" {{ "selected" if jobSectorFilter === "OUTDOOR" }}>{{ contentLookup.jobSector["OUTDOOR"] }}</option>
+                        <option value="CONSTRUCTION" {{ "selected" if jobSectorFilter === "CONSTRUCTION" }}>{{ contentLookup.jobSector["CONSTRUCTION"] }}</option>
+                        <option value="DRIVING" {{ "selected" if jobSectorFilter === "DRIVING" }}>{{ contentLookup.jobSector["DRIVING"] }}</option>
+                        <option value="BEAUTY" {{ "selected" if jobSectorFilter === "BEAUTY" }}>{{ contentLookup.jobSector["BEAUTY"] }}</option>
+                        <option value="HOSPITALITY" {{ "selected" if jobSectorFilter === "HOSPITALITY" }}>{{ contentLookup.jobSector["HOSPITALITY"] }}</option>
+                        <option value="TECHNICAL" {{ "selected" if jobSectorFilter === "TECHNICAL" }}>{{ contentLookup.jobSector["TECHNICAL"] }}</option>
+                        <option value="MANUFACTURING" {{ "selected" if jobSectorFilter === "MANUFACTURING" }}>{{ contentLookup.jobSector["MANUFACTURING"] }}</option>
+                        <option value="OFFICE" {{ "selected" if jobSectorFilter === "OFFICE" }}>{{ contentLookup.jobSector["OFFICE"] }}</option>
+                        <option value="RETAIL" {{ "selected" if jobSectorFilter === "RETAIL" }}>{{ contentLookup.jobSector["RETAIL"] }}</option>
+                        <option value="SPORTS" {{ "selected" if jobSectorFilter === "SPORTS" }}>{{ contentLookup.jobSector["SPORTS"] }}</option>
+                        <option value="WAREHOUSING" {{ "selected" if jobSectorFilter === "WAREHOUSING" }}>{{ contentLookup.jobSector["WAREHOUSING"] }}</option>
+                        <option value="EDUCATION_TRAINING" {{ "selected" if jobSectorFilter === "EDUCATION_TRAINING" }}>{{ contentLookup.jobSector["EDUCATION_TRAINING"] }}</option>
+                        <option value="WASTE_MANAGEMENT" {{ "selected" if jobSectorFilter === "WASTE_MANAGEMENT" }}>{{ contentLookup.jobSector["WASTE_MANAGEMENT"] }}</option>
+                        <option value="CLEANING_AND_MAINTENANCE" {{ "selected" if jobSectorFilter === "CLEANING_AND_MAINTENANCE" }}>{{ contentLookup.jobSector["CLEANING_AND_MAINTENANCE"] }}</option>
+                        <option value="OTHER" {{ "selected" if jobSectorFilter === "OTHER" }}>{{ contentLookup.jobSector["OTHER"] }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <div class="govuk-button-group govuk-!-margin-top-3 govuk-!-margin-bottom-0">
+                    <button class="govuk-button" data-module="govuk-button" id="applyFiltersButton">
+                        Apply filters
+                    </button>
+                    {% if filtered %}
+                        <a class="govuk-link" id="filter-clear-link" href="{{ addressLookup.jobs.jobList() }}">Clear</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

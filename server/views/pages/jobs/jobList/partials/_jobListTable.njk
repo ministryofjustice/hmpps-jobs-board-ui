@@ -2,24 +2,25 @@
 {% from "../../../../macros/pagination/macro.njk" import pagination %}
 
 <div id="offender-container">
-    {% if employerListResults.content.length >= 1 %}
+    {% if jobListResults.content.length >= 1 %}
         <table id="view-offender" class="govuk-table view-offender">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
                 {{ sortableTableHeader({
                     sort: sort,
                     order: order,
-                    formName: "employer-search-form",
-                    fieldName: "name",
-                    headerText: "Employer",
-                    id: "employer-sort-link"
+                    formName: "job-search-form",
+                    fieldName: "jobTitle",
+                    headerText: "Job title",
+                    id: "jobTitle-sort-link"
                 }) }}
-                <th scope="col" class="govuk-table__header">Employer sector</th>
-                <th scope="col" class="govuk-table__header">Employer status</th>
+                <th scope="col" class="govuk-table__header">Vacancies</th>
+                <th scope="col" class="govuk-table__header">Job sector</th>
+                <th scope="col" class="govuk-table__header">Employer</th>
                 {{ sortableTableHeader({
                     sort: sort,
                     order: order,
-                    formName: "employer-search-form",
+                    formName: "job-search-form",
                     fieldName: "createdAt",
                     headerText: "Date added",
                     id: "createdAt-sort-link"
@@ -30,21 +31,24 @@
         <tbody class="govuk-table__body">
         {% set rowClass = cycler("odd", "even") %}
 
-        {% for item in employers %}
+        {% for item in jobs %}
             <tr class="govuk-table__row {{ rowClass.next() }}">
                 <td class="govuk-table__cell">
-                    <a href="{{ addressLookup.employers.employerReview(item.id) }}"
+                    <a href="{{ addressLookup.jobs.jobReview(item.id, 'update') }}"
                        rel="noopener noreferrer"
                        data-qa="quick-look-link"
-                       aria-label="Employer link for {{ item.employerName }}"
+                       aria-label="Job link for {{ item.jobTitle  }}"
                        class="govuk-link govuk-link--no-visited-state"
-                       id= "employer-link-{{ loop.index }}">{{ item.name }}</a>
+                       id= "job-link-{{ loop.index }}">{{ item.jobTitle }}</a>
                 </td>
-                <td class="govuk-table__cell" id= "employer-sector-{{ loop.index }}" width="50%">
-                    {{ contentLookup.employerSector[item.sector] }}
+                <td class="govuk-table__cell" id= "number-of-vacancies-{{ loop.index }}" width="50%">
+                    {{ item.numberOfVacancies }}
+                </td>
+                <td class="govuk-table__cell" id= "job-sector-{{ loop.index }}" width="50%">
+                     {{ contentLookup.jobSector[item.jobSector] }}
                 </td>
                 <td class="govuk-table__cell" id="employer-status-{{ loop.index }}" width="15%">
-                    {{ contentLookup.employerStatus[item.status] }}
+                    {{ item.employerName }}
                 </td>
                 <td class="govuk-table__cell" width="15%">{{ item.createdAt }}</td>
             </tr>
@@ -54,7 +58,7 @@
     </table>
     {% endif %}
 
-    {% if paginationData.results.count >= 1 and employerListResults.content.length >= 1 %}
+    {% if paginationData.results.count >= 1 and jobListResults.content.length >= 1 %}
         {{ pagination( paginationData ) }}
     {% else %}
         {% include './_notFoundMessages.njk' %}
