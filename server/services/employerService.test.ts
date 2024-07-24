@@ -46,8 +46,7 @@ describe('employerService', () => {
   })
 
   it('#createUpdateEmployer - should get token and call correct api method', async () => {
-    const result = await employerService.createUpdateEmployer('user', {
-      employerId: '987654321',
+    const result = await employerService.createUpdateEmployer('user', '987654321', {
       ...employer,
     })
 

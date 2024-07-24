@@ -6,7 +6,7 @@ import addressLookup from '../../addressLookup'
 
 export default class EmployerUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id } = req.params
+    const { id, mode } = req.params
 
     try {
       const employer = getSessionData(req, ['employer', id], {})
@@ -14,6 +14,7 @@ export default class EmployerUpdateController {
       // Render data
       const data = {
         id,
+        mode,
         backLocation:
           id === 'new'
             ? `${addressLookup.employers.employerList()}?sort=name&order=ascending`
@@ -48,7 +49,12 @@ export default class EmployerUpdateController {
       }
 
       // Update employer in session
-      setSessionData(req, ['employer', id], { employerName, employerDescription, employerSector, employerStatus })
+      setSessionData(req, ['employer', id], {
+        employerName,
+        employerDescription,
+        employerSector,
+        employerStatus,
+      })
 
       // Redirect to employers
       res.redirect(addressLookup.employers.employerReview(id))

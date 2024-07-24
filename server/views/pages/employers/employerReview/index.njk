@@ -35,7 +35,7 @@
               {{ employerName }}
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id) + '#employerName' }}" data-qa="employerNameLink">
+              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id, 'update') + '#employerName' }}" data-qa="employerNameLink">
                 Change<span class="govuk-visually-hidden"> employer name</span>
               </a>
             </dd>
@@ -48,7 +48,7 @@
               {{ contentLookup.employerSector[employerSector] }}
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id) + '#employerSector' }}" data-qa="employerSectorLink">
+              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id, 'update') + '#employerSector' }}" data-qa="employerSectorLink">
                 Change<span class="govuk-visually-hidden"> employer sector</span>
               </a>
             </dd>
@@ -61,7 +61,7 @@
               {{ contentLookup.employerStatus[employerStatus] }}
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id) + '#employerStatus' }}" data-qa="employerStatusLink">
+              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id, 'update') + '#employerStatus' }}" data-qa="employerStatusLink">
                 Change<span class="govuk-visually-hidden"> employer status</span>
               </a>
             </dd>
@@ -74,7 +74,7 @@
               {{ employerDescription | nl2br | safe }}
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id) + '#employerDescription' }}" data-qa="employerDescriptionLink">
+              <a class="govuk-link" href="{{ addressLookup.employers.employerUpdate(id, 'update') + '#employerDescription' }}" data-qa="employerDescriptionLink">
                 Change<span class="govuk-visually-hidden"> employer description</span>
               </a>
             </dd>

@@ -8,23 +8,23 @@ export default class EmployerService {
 
   async createUpdateEmployer(
     username: string,
+    id: string,
     params: {
-      employerId: string
       employerName: string
-      employerSector: string
-      employerStatus: string
+      employerSector: EmployerSector
+      employerStatus: EmployerStatus
       employerDescription: string
     },
   ) {
-    const { employerId, employerName, employerSector, employerStatus, employerDescription } = params
+    const { employerName, employerSector, employerStatus, employerDescription } = params
 
     const systemToken = await this.hmppsAuthClient.getSystemClientToken(username)
 
     // Use existing id and put
-    return new EmployerApiClient(systemToken).putEmployer(employerId, {
+    return new EmployerApiClient(systemToken).putEmployer(id, {
       name: employerName,
-      sector: employerSector as EmployerSector,
-      status: employerStatus as EmployerStatus,
+      sector: employerSector,
+      status: employerStatus,
       description: employerDescription,
     })
   }

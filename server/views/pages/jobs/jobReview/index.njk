@@ -1,0 +1,50 @@
+{% extends "../../../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "moj/components/pagination/macro.njk" import mojPagination %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+
+{% set title = "Check your answers before adding job" if id === 'new' else jobTitle %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+  {{ errorSummary(errors) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if id === 'new' else 'Update' }} a job - step 5 of 5</span>
+      <h1 class="govuk-heading-l">
+        {{ title }}
+      </h1>
+
+      {% include './partials/_roleSection.njk' %}
+
+      {% include './partials/_contractSection.njk' %}
+
+      {% include './partials/_requirementsSection.njk' %}
+
+      {% include './partials/_howToApplySection.njk' %}
+
+      <form class="form" method="post" novalidate="">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+        {{  
+          govukButton({
+            text: "Add job and save" if id === 'new' else "Update job and save" ,
+            type: "submit",
+            attributes: {
+              "data-qa": "submit-button",
+              "data-ga-category": "submit-selected-data"
+            }
+          }) 
+        }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

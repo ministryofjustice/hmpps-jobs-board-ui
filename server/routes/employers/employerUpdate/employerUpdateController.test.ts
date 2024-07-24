@@ -19,10 +19,12 @@ describe('EmployerUpdateController', () => {
   res.locals.user = { username: 'MOCK_USER' }
 
   req.params.id = 'new'
-  const { id } = req.params
+  req.params.mode = 'add'
+  const { id, mode } = req.params
 
   const mockData = {
     id,
+    mode,
     backLocation: '/?sort=name&order=ascending',
   }
 

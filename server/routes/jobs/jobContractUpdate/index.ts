@@ -6,7 +6,7 @@ import { Services } from '../../../services'
 export default (router: Router, _: Services) => {
   const controller = new JobContractUpdateController()
 
-  router.get('/jobs/job/:id/contract', controller.get)
+  router.get('/jobs/job/:id/contract/:mode', controller.get)
 
-  router.post('/jobs/job/:id/contract', controller.post)
+  router.post('/jobs/job/:id/contract/:mode', controller.post)
 }

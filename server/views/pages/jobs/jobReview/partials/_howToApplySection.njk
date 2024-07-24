@@ -1,0 +1,75 @@
+<h2 class="govuk-heading-m">How to apply</h2>
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Rolling opportunity
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="rollingOpportunity">
+      {{ contentLookup.yesNo[rollingOpportunity] }}
+      <div data-qa="closingDate">Closing date: {{ closingDate }}</div>
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#rollingOpportunity' }}" data-qa="rollingOpportunityLink">
+        Change<span class="govuk-visually-hidden"> rolling opportunity?</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Job only for prison leavers?
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="prisonLeaversJob">
+      {{ contentLookup.yesNo[prisonLeaversJob] }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#prisonLeaversJob' }}" data-qa="prisonLeaversJobLink">
+        Change<span class="govuk-visually-hidden"> job only for prison leavers?</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Job start date (optional)
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="startDate">
+      {{ startDate if startDate else 'Not provided' }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#startDate' }}" data-qa="startDateLink">
+        Change<span class="govuk-visually-hidden"> job start date (optional)</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      How to apply
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="howToApply">
+      {{ howToApply | nl2br | safe }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#howToApply' }}" data-qa="howToApplyLink">
+        Change<span class="govuk-visually-hidden"> how to apply</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Supporting documentation required (optional)
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="supportingDocumentation">
+      {% if supportingDocumentation and supportingDocumentation.length %}
+        {% for item in supportingDocumentation %}
+          <div>{{ contentLookup.supportingDocumentation[item] }}{{ ' - ' + supportingDocumentationDetails if item === 'OTHER' }}{{ ',' if supportingDocumentation.length !== loop.index }}</div>
+        {% endfor %}
+      {%else%}
+        Not provided
+      {% endif %}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#supportingDocumentation' }}" data-qa="supportingDocumentationLink">
+        Change<span class="govuk-visually-hidden"> supporting documentation required</span>
+      </a>
+    </dd>
+  </div>
+</dl>

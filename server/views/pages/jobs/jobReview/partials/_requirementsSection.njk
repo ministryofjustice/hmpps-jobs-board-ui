@@ -1,0 +1,57 @@
+<h2 class="govuk-heading-m">Requirements and job description</h2>
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Essential job criteria
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="essentialCriteria">
+      {{ essentialCriteria | nl2br | safe }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRequirementsUpdate(id, 'update') + '#essentialCriteria' }}" data-qa="essentialCriteriaLink">
+        Change<span class="govuk-visually-hidden"> essential job criteria</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Desirable job criteria (optional)
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="desirableCriteria">
+      {{ (desirableCriteria | nl2br | safe) if desirableCriteria else 'Not provided'}}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRequirementsUpdate(id, 'update') + '#desirableCriteria' }}" data-qa="desirableCriteriaLink">
+        Change<span class="govuk-visually-hidden"> desirable job criteria (optional)</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Job description
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="jobDescription">
+      {{ jobDescription | nl2br | safe }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRequirementsUpdate(id, 'update') + '#jobDescription' }}" data-qa="jobDescriptionLink">
+        Change<span class="govuk-visually-hidden"> job description</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Offence exclusions
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="offenceExclusions">
+      {% for item in offenceExclusions %}
+        <div>{{ contentLookup.offenceExclusions[item] }}{{ ',' if offenceExclusions.length !== loop.index }}</div>
+      {% endfor %}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRequirementsUpdate(id, 'update') + '#offenceExclusions' }}" data-qa="offenceExclusionsLink">
+        Change<span class="govuk-visually-hidden"> offence exclusions</span>
+      </a>
+    </dd>
+  </div>
+</dl>

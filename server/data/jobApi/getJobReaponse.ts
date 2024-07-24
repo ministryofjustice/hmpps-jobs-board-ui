@@ -9,43 +9,36 @@ import OffenceExclusions from '../../enums/offenceExclusions'
 import SupportingDocumentation from '../../enums/supportingDocumentation'
 import JobSource from '../../enums/jobSource'
 
-interface PutJobData {
-  // First page
-  employerId: string // Id of employer
-  jobTitle: string // Length 50
+interface GetJobReaponse {
+  employerId: string
+  jobTitle: string
   jobSector: JobSector
   industrySector: EmployerSector
-  numberOfVacancies: number // Integer
-  jobSourceOne: JobSource
+  numberOfVacancies: number
+  JobjobSourceOne: JobSource
   jobSourceTwo?: JobSource
-  charity?: string // length 100
-
-  // Second page
+  charity?: string
   postcode: string
-  salaryFrom: number // Float, 2 decimal places
-  salaryTo?: number // Float, 2 decimal places
+  salaryFrom: number
+  salaryTo?: number
   salaryPeriod: SalaryPeriod
-  additionalSalaryInformation?: string // length 100
+  additionalSalaryInformation?: string
   nationalMinimumWage: boolean
   workPattern: WorkPattern
   contractType: ContractType
   hours: Hours
   baseLocation?: BaseLocation
-
-  // Third page
-  essentialCriteria: string // length 1000
-  desirableCriteria?: string // length 1000
-  jobDescription: string // length 3000
+  essentialCriteria: string
+  desirableCriteria?: string
+  jobDescription: string
   offenceExclusions: OffenceExclusions[]
-
-  // Fourth page
-  howToApply: string // length 1000
-  closingDate: string // Datetime string
-  startDate?: string // Datetime string
+  howToApply: string
+  closingDate: string
+  startDate?: string
   rollingOpportunity: boolean
   prisonLeaversJob: boolean
   supportingDocumentation: SupportingDocumentation[]
-  supportingDocumentationDetails: string // length 200
+  supportingDocumentationDetails: string
 }
 
-export default PutJobData
+export default GetJobReaponse

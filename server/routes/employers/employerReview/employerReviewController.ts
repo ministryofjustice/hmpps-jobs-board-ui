@@ -14,15 +14,13 @@ export default class EmployerReviewController {
     try {
       const employer = getSessionData(req, ['employer', id])
       if (!employer) {
-        res.redirect(addressLookup.employers.employerUpdate())
+        res.redirect(addressLookup.employers.employerUpdate(id))
         return
       }
 
       // Render data
       const data = {
         id,
-        backLocation:
-          id === 'new' ? addressLookup.employers.employerUpdate(id) : addressLookup.employers.employerList(),
         ...employer,
       }
 
@@ -44,13 +42,16 @@ export default class EmployerReviewController {
 
       // Update application progress API
       const employerUpdate = {
-        employerId: id === 'new' ? uuidv7() : id,
         employerName,
         employerSector,
         employerStatus,
         employerDescription,
       }
-      await this.employerService.createUpdateEmployer(res.locals.user.username, employerUpdate)
+      await this.employerService.createUpdateEmployer(
+        res.locals.user.username,
+        id === 'new' ? uuidv7() : id,
+        employerUpdate,
+      )
 
       // Delete current record
       deleteSessionData(req, ['employer', id])

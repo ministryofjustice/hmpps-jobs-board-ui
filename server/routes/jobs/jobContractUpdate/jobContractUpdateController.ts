@@ -6,21 +6,22 @@ import addressLookup from '../../addressLookup'
 
 export default class JobContractUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id } = req.params
+    const { id, mode } = req.params
 
     try {
       const job = getSessionData(req, ['job', id])
 
       // Redirect to first page if no job
       if (!job) {
-        res.redirect(addressLookup.jobs.jobRoleUpdate())
+        res.redirect(addressLookup.jobs.jobRoleUpdate(id))
         return
       }
 
       // Render data
       const data = {
         id,
-        backLocation: id === 'new' ? addressLookup.jobs.jobRoleUpdate(id) : addressLookup.jobs.jobReview(id),
+        mode,
+        backLocation: mode === 'add' ? addressLookup.jobs.jobRoleUpdate(id) : addressLookup.jobs.jobReview(id),
         ...job,
       }
 
@@ -34,7 +35,7 @@ export default class JobContractUpdateController {
   }
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id } = req.params
+    const { id, mode } = req.params
     const {
       postcode,
       salaryFrom,
@@ -62,11 +63,12 @@ export default class JobContractUpdateController {
       }
 
       // Update job in session
+      const job = getSessionData(req, ['job', id])
       setSessionData(req, ['job', id], {
-        ...data,
+        ...job,
         postcode,
-        salaryFrom,
-        salaryTo,
+        salaryFrom: Number(salaryFrom),
+        salaryTo: salaryTo ? Number(salaryTo) : undefined,
         salaryPeriod,
         additionalSalaryInformation,
         nationalMinimumWage,
@@ -77,7 +79,7 @@ export default class JobContractUpdateController {
       })
 
       // Redirect to next page in flow
-      res.redirect(addressLookup.jobs.jobRequirementsUpdate(id))
+      res.redirect(mode === 'add' ? addressLookup.jobs.jobRequirementsUpdate(id) : addressLookup.jobs.jobReview(id))
     } catch (err) {
       next(err)
     }

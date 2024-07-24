@@ -29,7 +29,7 @@ describe('jobHowToApplyUpdate routes', () => {
     routes(router, services)
 
     expect(router.get).toHaveBeenCalledWith(
-      '/jobs/job/:id/how-to-apply',
+      '/jobs/job/:id/how-to-apply/:mode',
       expect.any(Function), // controller.get
     )
   })
@@ -38,7 +38,7 @@ describe('jobHowToApplyUpdate routes', () => {
     routes(router, services)
 
     expect(router.post).toHaveBeenCalledWith(
-      '/jobs/job/:id/how-to-apply',
+      '/jobs/job/:id/how-to-apply/:mode',
       [
         expect.any(Function), // parseCheckBoxValue
         expect.any(Function), // parseDateInputValue

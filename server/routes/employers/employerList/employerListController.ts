@@ -74,7 +74,7 @@ export default class EmployerListController {
 
     try {
       if (Object.prototype.hasOwnProperty.call(req.body, 'addEmployerButton')) {
-        res.redirect(addressLookup.employers.employerUpdate())
+        res.redirect(addressLookup.employers.employerUpdate('new'))
         return
       }
 
