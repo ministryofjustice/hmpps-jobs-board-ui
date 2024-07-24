@@ -2,7 +2,7 @@ import { Router } from 'express'
 
 import type { Services } from '../../../services'
 import JobReviewController from './jobReviewController'
-import getjobReviewResolver from '../../../middleware/resolvers/getJobReviewResolver'
+import getJobReviewResolver from '../../../middleware/resolvers/getJobReviewResolver'
 import getAllEmployersResolver from '../../../middleware/resolvers/getAllEmployersResolver'
 
 export default (router: Router, services: Services) => {
@@ -10,7 +10,7 @@ export default (router: Router, services: Services) => {
 
   router.get(
     '/jobs/job/:id',
-    [getjobReviewResolver(services.jobService), getAllEmployersResolver(services.employerService)],
+    [getJobReviewResolver(services.jobService), getAllEmployersResolver(services.employerService)],
     controller.get,
   )
 

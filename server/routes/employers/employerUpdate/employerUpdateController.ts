@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express'
 
-import { deleteSessionData, getSessionData, setSessionData, validateFormSchema } from '../../../utils/index'
+import { getSessionData, setSessionData, validateFormSchema } from '../../../utils/index'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 
@@ -49,8 +49,6 @@ export default class EmployerUpdateController {
       }
 
       // Update employer in session
-      const employer = getSessionData(req, ['employer', id], {})
-      // Use actual ID
       setSessionData(req, ['employer', id], {
         employerName,
         employerDescription,

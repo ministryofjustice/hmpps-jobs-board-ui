@@ -5,7 +5,7 @@ import { getSessionData, setSessionData } from '../../utils/index'
 import YesNoValue from '../../enums/yesNoValue'
 
 // Gets jobs
-const getjobReviewResolver =
+const getJobReviewResolver =
   (jobService: JobService): RequestHandler =>
   async (req, res, next): Promise<void> => {
     const { id } = req.params
@@ -35,4 +35,4 @@ const getjobReviewResolver =
     }
   }
 
-export default getjobReviewResolver
+export default getJobReviewResolver
