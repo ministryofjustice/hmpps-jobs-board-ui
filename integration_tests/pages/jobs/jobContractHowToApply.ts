@@ -2,7 +2,7 @@ import Page from '../page'
 
 export type PageElement = Cypress.Chainable<JQuery>
 
-export default class JobContractHowToApplyPage extends Page {
+export default class JobHowToApplyPage extends Page {
   headerCaption = (): PageElement => cy.get('[data-qa=headerCaption]')
 
   howToApplyField = (): PageElement => cy.get('#howToApply')

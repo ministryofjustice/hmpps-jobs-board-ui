@@ -25,7 +25,7 @@ export default class jobHowToApplyUpdateController {
       const data = {
         id,
         mode,
-        backLocation: id === 'new' ? addressLookup.jobs.jobRequirementsUpdate(id) : addressLookup.jobs.jobReview(id),
+        backLocation: mode === 'add' ? addressLookup.jobs.jobRequirementsUpdate(id) : addressLookup.jobs.jobReview(id),
         ...job,
         supportingDocumentation: job.supportingDocumentation || [],
         startDate: getDateInputObject(job.startDate, 'startDate'),

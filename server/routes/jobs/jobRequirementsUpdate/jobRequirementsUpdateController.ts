@@ -21,7 +21,7 @@ export default class JobRequirementsUpdateController {
       const data = {
         id,
         mode,
-        backLocation: id === 'new' ? addressLookup.jobs.jobContractUpdate(id) : addressLookup.jobs.jobReview(id),
+        backLocation: mode === 'add' ? addressLookup.jobs.jobContractUpdate(id) : addressLookup.jobs.jobReview(id),
         ...job,
         offenceExclusions: job.offenceExclusions || [],
       }
@@ -36,7 +36,7 @@ export default class JobRequirementsUpdateController {
   }
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id } = req.params
+    const { id, mode } = req.params
     const { essentialCriteria, desirableCriteria, jobDescription, offenceExclusions } = req.body
 
     try {
@@ -64,7 +64,7 @@ export default class JobRequirementsUpdateController {
       })
 
       // Redirect to next page in flow
-      res.redirect(id === 'new' ? addressLookup.jobs.jobHowToApplysUpdate(id) : addressLookup.jobs.jobReview(id))
+      res.redirect(mode === 'add' ? addressLookup.jobs.jobHowToApplysUpdate(id) : addressLookup.jobs.jobReview(id))
     } catch (err) {
       next(err)
     }

@@ -21,7 +21,7 @@ export default class JobContractUpdateController {
       const data = {
         id,
         mode,
-        backLocation: id === 'new' ? addressLookup.jobs.jobRoleUpdate(id) : addressLookup.jobs.jobReview(id),
+        backLocation: mode === 'add' ? addressLookup.jobs.jobRoleUpdate(id) : addressLookup.jobs.jobReview(id),
         ...job,
       }
 

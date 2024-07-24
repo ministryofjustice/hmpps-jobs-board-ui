@@ -3,6 +3,7 @@ import { resetStubs } from './integration_tests/mockApis/wiremock'
 import auth from './integration_tests/mockApis/auth'
 import manageUsersApi from './integration_tests/mockApis/manageUsersApi'
 import employerApi from './integration_tests/mockApis/employerApi'
+import jobApi from './integration_tests/mockApis/jobApi'
 import nomisUserRolesApi from './integration_tests/mockApis/nomisUserRolesApi'
 import tokenVerification from './integration_tests/mockApis/tokenVerification'
 
@@ -23,6 +24,7 @@ export default defineConfig({
         ...auth,
         ...manageUsersApi,
         ...employerApi,
+        ...jobApi,
         ...nomisUserRolesApi,
         ...tokenVerification,
       })

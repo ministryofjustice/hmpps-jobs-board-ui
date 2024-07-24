@@ -30,7 +30,7 @@ context('Sign In', () => {
     const indexPage = new IndexPage('Add jobs and employers')
   })
 
-  it('Create employer - change links flow', () => {
+  it('Update employer - change links flow', () => {
     cy.visit('/employers/employer/01907e1e-bb85-7bb7-9018-33a2070a367d')
 
     const employerReviewPage = new EmployerReviewPage('ASDA')
