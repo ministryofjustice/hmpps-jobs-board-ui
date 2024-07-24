@@ -1,0 +1,107 @@
+<h2 class="govuk-heading-m">Job role and source</h2>
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Employer name
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="employerId">
+      {{ employerName }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#employerId' }}" data-qa="employerIdLink">
+        Change<span class="govuk-visually-hidden"> employer name</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Job title
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="jobTitle">
+      {{ jobTitle }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#jobTitle' }}" data-qa="jobTitleLink">
+        Change<span class="govuk-visually-hidden"> job title</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Job sector
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="jobSector">
+      {{ contentLookup.jobSector[jobSector] }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#jobSector' }}" data-qa="jobSectorLink">
+        Change<span class="govuk-visually-hidden"> job sector</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      NFN industry sector	
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="industrySector">
+      {{ contentLookup.employerSector[industrySector] }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#industrySector' }}" data-qa="industrySectorLink">
+        Change<span class="govuk-visually-hidden"> NFN industry sector</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Number of vacancies
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="numberOfVacancies">
+      {{ numberOfVacancies }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#numberOfVacancies' }}" data-qa="numberOfVacanciesLink">
+        Change<span class="govuk-visually-hidden"> number of vacancies</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Job source	
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="jobSourceOne">
+      {{ contentLookup.jobSource[jobSourceOne] }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#jobSourceOne' }}" data-qa="jobSourceOneLink">
+        Change<span class="govuk-visually-hidden"> job source</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Job source 2 (optional)
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="jobSourceTwo">
+      {{ contentLookup.jobSource[jobSourceTwo] if jobSourceTwo else 'Not provided' }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#jobSourceTwo' }}" data-qa="jobSourceTwoLink">
+        Change<span class="govuk-visually-hidden"> job source 2 (optional)</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Supported by a charity? (optional)
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="charity">
+      {{ charity if charity else 'Not provided'}}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#charity' }}" data-qa="charityLink">
+        Change<span class="govuk-visually-hidden"> supported by a charity? (optional)</span>
+      </a>
+    </dd>
+  </div>
+</dl>

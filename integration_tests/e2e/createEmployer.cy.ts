@@ -15,7 +15,7 @@ context('Sign In', () => {
   })
 
   it('Validation error display', () => {
-    cy.visit('/employers/employer/new/update')
+    cy.visit('/employers/employer/new/form/add')
 
     const employerUpdatePage = new EmployerUpdatePage('Employer details')
 
@@ -39,7 +39,7 @@ context('Sign In', () => {
   })
 
   it('Create employer flow', () => {
-    cy.visit('/employers/employer/new/update')
+    cy.visit('/employers/employer/new/form/add')
 
     const employerUpdatePage = new EmployerUpdatePage('Employer details')
     employerUpdatePage.headerCaption().contains('Add an employer - step 1 of 2')
@@ -65,7 +65,7 @@ context('Sign In', () => {
   })
 
   it('Create employer - change links flow', () => {
-    cy.visit('/employers/employer/new/update')
+    cy.visit('/employers/employer/new/form/add')
 
     const employerUpdatePage = new EmployerUpdatePage('Employer details')
     employerUpdatePage.headerCaption().contains('Add an employer - step 1 of 2')

@@ -14,7 +14,7 @@ context('Sign In', () => {
   })
 
   it('Validation error display', () => {
-    cy.visit('/jobs/job/new/role')
+    cy.visit('/jobs/job/new/role/add')
 
     // Job role and source page
     const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
@@ -134,7 +134,7 @@ context('Sign In', () => {
   })
 
   it('Create job flow', () => {
-    cy.visit('/jobs/job/new/role')
+    cy.visit('/jobs/job/new/role/add')
 
     // Job role and source page
     const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
