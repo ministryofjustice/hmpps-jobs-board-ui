@@ -13,7 +13,7 @@ export default class JobListController {
   constructor(private readonly paginationService: PaginationService) {}
 
   public get: RequestHandler = async (req, res, next): Promise<void> => {
-    const { page, sort, order, sectorFilter = '', jobSearchFilter = '' } = req.query
+    const { page, sort, order, jobSectorFilter = '', jobTitleOrEmployerNameFilter = '' } = req.query
     const { paginationPageSize } = config
     const jobListResults = req.context.jobs
 
@@ -30,8 +30,9 @@ export default class JobListController {
       const uri = [
         sort && `sort=${sort}`,
         order && `order=${order}`,
-        jobSearchFilter && `jobSearchFilter=${decodeURIComponent(jobSearchFilter as string)}`,
-        sectorFilter && `sectorFilter=${decodeURIComponent(sectorFilter as string)}`,
+        jobTitleOrEmployerNameFilter &&
+          `jobTitleOrEmployerNameFilter=${decodeURIComponent(jobTitleOrEmployerNameFilter as string)}`,
+        jobSectorFilter && `jobSectorFilter=${decodeURIComponent(jobSectorFilter as string)}`,
         page && `page=${page}`,
       ].filter(val => !!val)
 
@@ -54,9 +55,10 @@ export default class JobListController {
         sort,
         order,
         paginationData,
-        jobSearchFilter: decodeURIComponent(jobSearchFilter as string),
-        sectorFilter: decodeURIComponent(sectorFilter as string),
-        filtered: decodeURIComponent(jobSearchFilter as string) || decodeURIComponent(sectorFilter as string),
+        jobTitleOrEmployerNameFilter: decodeURIComponent(jobTitleOrEmployerNameFilter as string),
+        jobSectorFilter: decodeURIComponent(jobSectorFilter as string),
+        filtered:
+          decodeURIComponent(jobTitleOrEmployerNameFilter as string) || decodeURIComponent(jobSectorFilter as string),
       }
 
       setSessionData(req, ['jobList', 'data'], data)
@@ -68,7 +70,7 @@ export default class JobListController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { sort, order } = req.query
-    const { sectorFilter, jobSearchFilter } = req.body
+    const { jobSectorFilter, jobTitleOrEmployerNameFilter } = req.body
 
     try {
       if (Object.prototype.hasOwnProperty.call(req.body, 'addJobButton')) {
@@ -92,8 +94,9 @@ export default class JobListController {
       const uri = [
         sort && `sort=${sort}`,
         order && `order=${order}`,
-        jobSearchFilter && `jobSearchFilter=${encodeURIComponent(jobSearchFilter)}`,
-        sectorFilter && `sectorFilter=${encodeURIComponent(sectorFilter)}`,
+        jobTitleOrEmployerNameFilter &&
+          `jobTitleOrEmployerNameFilter=${encodeURIComponent(jobTitleOrEmployerNameFilter)}`,
+        jobSectorFilter && `jobSectorFilter=${encodeURIComponent(jobSectorFilter)}`,
       ].filter(val => !!val)
 
       res.redirect(uri.length ? `${addressLookup.jobs.jobList()}?${uri.join('&')}` : addressLookup.jobs.jobList())

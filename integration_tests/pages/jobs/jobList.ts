@@ -13,11 +13,11 @@ export default class JobListPage extends Page {
   paginationResults = () => cy.get('.moj-pagination__results')
 
   // Filters
-  jobNameFilterField = (): PageElement => cy.get('#jobNameFilter')
+  jobTitleOrEmployerNameFilterField = (): PageElement => cy.get('#jobTitleOrEmployerNameFilter')
 
-  sectorFilterField = (): PageElement => cy.get('#sectorFilter')
+  jobSectorFilterField = (): PageElement => cy.get('#jobSectorFilter')
 
-  jobNameFilterPageErrorMessage = (): PageElement => cy.get('[href="#jobNameFilter"]')
+  jobTitleOrEmployerNameFilterPageErrorMessage = (): PageElement => cy.get('[href="#jobTitleOrEmployerNameFilter"]')
 
   applyFiltersButton = (): PageElement => cy.get('#applyFiltersButton')
 

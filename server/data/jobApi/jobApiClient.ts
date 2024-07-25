@@ -36,18 +36,18 @@ export default class JobApiClient {
   //   page?: number
   //   sort?: string
   //   order?: string
-  //   jobSearchFilter?: string
-  //   sectorFilter?: string
+  //   jobTitleOrEmployerNameFilter?: string
+  //   jobSectorFilter?: string
   // }) {
-  //   const { page = 1, jobSearchFilter, sectorFilter, sort, order } = params
+  //   const { page = 1, jobTitleOrEmployerNameFilter, jobSectorFilter, sort, order } = params
 
   //   const uri = [
   //     `page=${page - 1}`,
   //     `size=${config.paginationPageSize}`,
   //     sort && `sortby=${sort}`,
   //     order && `sortOrder=${order === 'ascending' ? 'asc' : 'desc'}`,
-  //     jobSearchFilter && `search=${encodeURIComponent(jobSearchFilter)}`,
-  //     sectorFilter && `sector=${encodeURIComponent(sectorFilter)}`,
+  //     jobTitleOrEmployerNameFilter && `jobTitleOrEmployerName=${encodeURIComponent(jobTitleOrEmployerNameFilter)}`,
+  //     jobSectorFilter && `sector=${encodeURIComponent(jobSectorFilter)}`,
   //   ].filter(val => !!val)
 
   //   return this.restClient.get<PagedResponse<GetJobListItemResponse>>({
@@ -59,24 +59,24 @@ export default class JobApiClient {
     page?: number
     sort?: string
     order?: string
-    jobSearchFilter?: string
-    sectorFilter?: string
+    jobTitleOrEmployerNameFilter?: string
+    jobSectorFilter?: string
   }) {
-    const { page = 1, jobSearchFilter, sectorFilter, sort, order } = params
+    const { page = 1, jobTitleOrEmployerNameFilter, jobSectorFilter, sort, order } = params
     const pageSize = 20
 
     let jobs = mockJobs
 
-    if (jobSearchFilter) {
+    if (jobTitleOrEmployerNameFilter) {
       jobs = jobs.filter(
         p =>
-          p.jobTitle.toLowerCase().indexOf(jobSearchFilter.toLocaleLowerCase()) > -1 ||
-          p.employerName.toLowerCase().indexOf(jobSearchFilter.toLocaleLowerCase()) > -1,
+          p.jobTitle.toLowerCase().indexOf(jobTitleOrEmployerNameFilter.toLocaleLowerCase()) > -1 ||
+          p.employerName.toLowerCase().indexOf(jobTitleOrEmployerNameFilter.toLocaleLowerCase()) > -1,
       )
     }
 
-    if (sectorFilter) {
-      jobs = jobs.filter(p => sectorFilter.split(',').includes(p.sector))
+    if (jobSectorFilter) {
+      jobs = jobs.filter(p => jobSectorFilter.split(',').includes(p.sector))
     }
 
     if (sort) {

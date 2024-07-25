@@ -10,11 +10,7 @@ export default (router: Router, services: Services) => {
 
   router.post(
     '/jobs',
-    [
-      handleSortMiddleware('sortAction', 'jobTitle'),
-      handleSortMiddleware('sortAction', 'sectorDisplay'),
-      handleSortMiddleware('sortAction', 'createdAt'),
-    ],
+    [handleSortMiddleware('sortAction', 'jobTitle'), handleSortMiddleware('sortAction', 'createdAt')],
     controller.post,
   )
 }
