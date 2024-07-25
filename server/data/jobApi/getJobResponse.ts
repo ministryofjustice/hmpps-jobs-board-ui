@@ -9,7 +9,7 @@ import OffenceExclusions from '../../enums/offenceExclusions'
 import SupportingDocumentation from '../../enums/supportingDocumentation'
 import JobSource from '../../enums/jobSource'
 
-interface GetJobReaponse {
+interface GetJobResponse {
   employerId: string
   jobTitle: string
   jobSector: JobSector
@@ -39,6 +39,9 @@ interface GetJobReaponse {
   prisonLeaversJob: boolean
   supportingDocumentation: SupportingDocumentation[]
   supportingDocumentationDetails: string
+
+  createdAt: string
+  createdBy: string
 }
 
-export default GetJobReaponse
+export default GetJobResponse

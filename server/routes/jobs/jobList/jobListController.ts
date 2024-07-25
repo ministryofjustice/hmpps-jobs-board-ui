@@ -15,7 +15,7 @@ export default class JobListController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
     const { page, sort, order, jobSectorFilter = '', jobSearchFilter = '' } = req.query
     const { paginationPageSize } = config
-    const jobListResults = req.context.employers
+    const jobListResults = req.context.jobs
 
     try {
       // Paginate where necessary
@@ -60,7 +60,7 @@ export default class JobListController {
       }
 
       setSessionData(req, ['jobList', 'data'], data)
-      res.render('pages/employers/jobList/index', { ...data })
+      res.render('pages/jobs/jobList/index', { ...data })
     } catch (err) {
       next(err)
     }

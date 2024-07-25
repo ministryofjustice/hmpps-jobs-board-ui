@@ -9,7 +9,7 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "../../../macros/error-summary/macro.njk" import errorSummary %}
 
-{% set employers = jobListResults.content %}
+{% set jobs = jobListResults.content %}
 {% set activeStatus = filterStatus %}
 {% set title = 'Add jobs and employers' %}
 
@@ -59,6 +59,10 @@
                 {% include './partials/_jobListFilters.njk' %}
                 
                 {% include './partials/_buttonPanel.njk' %}
+
+                {% include './partials/_jobListTable.njk' %}
+
+                {% include './partials/_notFoundMessages.njk' %}
             </form>
         </div>
     </div>

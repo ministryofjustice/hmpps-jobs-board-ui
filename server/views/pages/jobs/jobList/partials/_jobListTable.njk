@@ -33,7 +33,7 @@
 
         {% for item in jobs %}
             <tr class="govuk-table__row {{ rowClass.next() }}">
-                <td class="govuk-table__cell">
+                <td class="govuk-table__cell" width="25%">
                     <a href="{{ addressLookup.jobs.jobReview(item.id, 'update') }}"
                        rel="noopener noreferrer"
                        data-qa="quick-look-link"
@@ -41,16 +41,16 @@
                        class="govuk-link govuk-link--no-visited-state"
                        id= "job-link-{{ loop.index }}">{{ item.jobTitle }}</a>
                 </td>
-                <td class="govuk-table__cell" id= "number-of-vacancies-{{ loop.index }}" width="50%">
+                <td class="govuk-table__cell" id= "number-of-vacancies-{{ loop.index }}">
                     {{ item.numberOfVacancies }}
                 </td>
-                <td class="govuk-table__cell" id= "job-sector-{{ loop.index }}" width="50%">
+                <td class="govuk-table__cell" id= "job-sector-{{ loop.index }}" width="25%">
                      {{ contentLookup.jobSector[item.jobSector] }}
                 </td>
-                <td class="govuk-table__cell" id="employer-status-{{ loop.index }}" width="15%">
+                <td class="govuk-table__cell" id="employer-status-{{ loop.index }}" width="25%">
                     {{ item.employerName }}
                 </td>
-                <td class="govuk-table__cell" width="15%">{{ item.createdAt }}</td>
+                <td class="govuk-table__cell">{{ item.createdAt }}</td>
             </tr>
         {% endfor %}
 

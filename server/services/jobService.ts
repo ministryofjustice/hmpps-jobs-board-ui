@@ -17,4 +17,19 @@ export default class JobService {
 
     return new JobApiClient(systemToken).getJob(id)
   }
+
+  async getJobs(
+    username: string,
+    params: {
+      page?: number
+      sort?: string
+      order?: string
+      jobSearchFilter?: string
+      jobSectorFilter?: string
+    },
+  ) {
+    const systemToken = await this.hmppsAuthClient.getSystemClientToken(username)
+
+    return new JobApiClient(systemToken).getJobs(params)
+  }
 }
