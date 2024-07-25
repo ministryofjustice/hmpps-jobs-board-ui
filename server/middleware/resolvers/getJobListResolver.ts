@@ -7,14 +7,14 @@ const getJobListResolver =
   (jobService: JobService): RequestHandler =>
   async (req, res, next): Promise<void> => {
     const { username } = res.locals.user
-    const { page = '1', sort = '', order = '', jobSectorFilter = '', jobSearchFilter = '' } = req.query
+    const { page = '1', sort = '', order = '', sectorFilter = '', jobSearchFilter = '' } = req.query
 
     try {
       const jobs = await jobService.getJobs(username, {
         page: Number(page),
         sort: sort.toString(),
         order: order.toString(),
-        jobSectorFilter: jobSectorFilter.toString(),
+        sectorFilter: sectorFilter.toString(),
         jobSearchFilter: jobSearchFilter.toString(),
       })
 

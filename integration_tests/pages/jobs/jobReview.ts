@@ -10,17 +10,17 @@ export default class JobReviewPage extends Page {
 
   jobTitle = (): PageElement => cy.get('[data-qa=jobTitle]')
 
-  jobSector = (): PageElement => cy.get('[data-qa=jobSector]')
+  sector = (): PageElement => cy.get('[data-qa=sector]')
 
   industrySector = (): PageElement => cy.get('[data-qa=industrySector]')
 
   numberOfVacancies = (): PageElement => cy.get('[data-qa=numberOfVacancies]')
 
-  jobSourceOne = (): PageElement => cy.get('[data-qa=jobSourceOne]')
+  sourcePrimary = (): PageElement => cy.get('[data-qa=sourcePrimary]')
 
-  jobSourceTwo = (): PageElement => cy.get('[data-qa=jobSourceTwo]')
+  sourceSecondary = (): PageElement => cy.get('[data-qa=sourceSecondary]')
 
-  charity = (): PageElement => cy.get('[data-qa=charity]')
+  charityName = (): PageElement => cy.get('[data-qa=charityName]')
 
   postcode = (): PageElement => cy.get('[data-qa=postcode]')
 
@@ -32,13 +32,13 @@ export default class JobReviewPage extends Page {
 
   additionalSalaryInformation = (): PageElement => cy.get('[data-qa=additionalSalaryInformation]')
 
-  nationalMinimumWage = (): PageElement => cy.get('[data-qa=nationalMinimumWage]')
+  isPayingAtLeastNationalMinimumWage = (): PageElement => cy.get('[data-qa=isPayingAtLeastNationalMinimumWage]')
 
   workPattern = (): PageElement => cy.get('[data-qa=workPattern]')
 
   contractType = (): PageElement => cy.get('[data-qa=contractType]')
 
-  hours = (): PageElement => cy.get('[data-qa=hours]')
+  hoursPerWeek = (): PageElement => cy.get('[data-qa=hoursPerWeek]')
 
   baseLocation = (): PageElement => cy.get('[data-qa=baseLocation]')
 
@@ -56,11 +56,11 @@ export default class JobReviewPage extends Page {
 
   startDate = (): PageElement => cy.get('[data-qa=startDate]')
 
-  rollingOpportunity = (): PageElement => cy.get('[data-qa=rollingOpportunity]')
+  isRollingOpportunity = (): PageElement => cy.get('[data-qa=isRollingOpportunity]')
 
-  prisonLeaversJob = (): PageElement => cy.get('[data-qa=prisonLeaversJob]')
+  isOnlyForPrisonLeavers = (): PageElement => cy.get('[data-qa=isOnlyForPrisonLeavers]')
 
-  supportingDocumentation = (): PageElement => cy.get('[data-qa=supportingDocumentation]')
+  supportingDocumentationRequired = (): PageElement => cy.get('[data-qa=supportingDocumentationRequired]')
 
   supportingDocumentationDetails = (): PageElement => cy.get('[data-qa=supportingDocumentationDetails]')
 
@@ -69,17 +69,17 @@ export default class JobReviewPage extends Page {
 
   jobTitleLink = (): PageElement => cy.get('[data-qa=jobTitleLink]')
 
-  jobSectorLink = (): PageElement => cy.get('[data-qa=jobSectorLink]')
+  sectorLink = (): PageElement => cy.get('[data-qa=sectorLink]')
 
   industrySectorLink = (): PageElement => cy.get('[data-qa=industrySectorLink]')
 
   numberOfVacanciesLink = (): PageElement => cy.get('[data-qa=numberOfVacanciesLink]')
 
-  jobSourceOneLink = (): PageElement => cy.get('[data-qa=jobSourceOneLink]')
+  sourcePrimaryLink = (): PageElement => cy.get('[data-qa=sourcePrimaryLink]')
 
-  jobSourceTwoLink = (): PageElement => cy.get('[data-qa=jobSourceTwoLink]')
+  sourceSecondaryLink = (): PageElement => cy.get('[data-qa=sourceSecondaryLink]')
 
-  charityLink = (): PageElement => cy.get('[data-qa=charityLink]')
+  charityNameLink = (): PageElement => cy.get('[data-qa=charityNameLink]')
 
   postcodeLink = (): PageElement => cy.get('[data-qa=postcodeLink]')
 
@@ -91,13 +91,13 @@ export default class JobReviewPage extends Page {
 
   additionalSalaryInformationLink = (): PageElement => cy.get('[data-qa=additionalSalaryInformationLink]')
 
-  nationalMinimumWageLink = (): PageElement => cy.get('[data-qa=nationalMinimumWageLink]')
+  isPayingAtLeastNationalMinimumWageLink = (): PageElement => cy.get('[data-qa=isPayingAtLeastNationalMinimumWageLink]')
 
   workPatternLink = (): PageElement => cy.get('[data-qa=workPatternLink]')
 
   contractTypeLink = (): PageElement => cy.get('[data-qa=contractTypeLink]')
 
-  hoursLink = (): PageElement => cy.get('[data-qa=hoursLink]')
+  hoursPerWeekLink = (): PageElement => cy.get('[data-qa=hoursPerWeekLink]')
 
   baseLocationLink = (): PageElement => cy.get('[data-qa=baseLocationLink]')
 
@@ -115,11 +115,11 @@ export default class JobReviewPage extends Page {
 
   startDateLink = (): PageElement => cy.get('[data-qa=startDateLink]')
 
-  rollingOpportunityLink = (): PageElement => cy.get('[data-qa=rollingOpportunityLink]')
+  isRollingOpportunityLink = (): PageElement => cy.get('[data-qa=isRollingOpportunityLink]')
 
-  prisonLeaversJobLink = (): PageElement => cy.get('[data-qa=prisonLeaversJobLink]')
+  isOnlyForPrisonLeaversLink = (): PageElement => cy.get('[data-qa=isOnlyForPrisonLeaversLink]')
 
-  supportingDocumentationLink = (): PageElement => cy.get('[data-qa=supportingDocumentationLink]')
+  supportingDocumentationRequiredLink = (): PageElement => cy.get('[data-qa=supportingDocumentationRequiredLink]')
 
   supportingDocumentationDetailsLink = (): PageElement => cy.get('[data-qa=supportingDocumentationDetailsLink]')
 }

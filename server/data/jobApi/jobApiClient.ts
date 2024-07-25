@@ -37,9 +37,9 @@ export default class JobApiClient {
   //   sort?: string
   //   order?: string
   //   jobSearchFilter?: string
-  //   jobSectorFilter?: string
+  //   sectorFilter?: string
   // }) {
-  //   const { page = 1, jobSearchFilter, jobSectorFilter, sort, order } = params
+  //   const { page = 1, jobSearchFilter, sectorFilter, sort, order } = params
 
   //   const uri = [
   //     `page=${page - 1}`,
@@ -47,7 +47,7 @@ export default class JobApiClient {
   //     sort && `sortby=${sort}`,
   //     order && `sortOrder=${order === 'ascending' ? 'asc' : 'desc'}`,
   //     jobSearchFilter && `search=${encodeURIComponent(jobSearchFilter)}`,
-  //     jobSectorFilter && `jobSector=${encodeURIComponent(jobSectorFilter)}`,
+  //     sectorFilter && `sector=${encodeURIComponent(sectorFilter)}`,
   //   ].filter(val => !!val)
 
   //   return this.restClient.get<PagedResponse<GetJobListItemResponse>>({
@@ -60,9 +60,9 @@ export default class JobApiClient {
     sort?: string
     order?: string
     jobSearchFilter?: string
-    jobSectorFilter?: string
+    sectorFilter?: string
   }) {
-    const { page = 1, jobSearchFilter, jobSectorFilter, sort, order } = params
+    const { page = 1, jobSearchFilter, sectorFilter, sort, order } = params
     const pageSize = 20
 
     let jobs = mockJobs
@@ -75,8 +75,8 @@ export default class JobApiClient {
       )
     }
 
-    if (jobSectorFilter) {
-      jobs = jobs.filter(p => jobSectorFilter.split(',').includes(p.jobSector))
+    if (sectorFilter) {
+      jobs = jobs.filter(p => sectorFilter.split(',').includes(p.sector))
     }
 
     if (sort) {

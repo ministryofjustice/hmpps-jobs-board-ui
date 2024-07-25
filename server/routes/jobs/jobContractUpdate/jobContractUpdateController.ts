@@ -42,10 +42,10 @@ export default class JobContractUpdateController {
       salaryTo,
       salaryPeriod,
       additionalSalaryInformation,
-      nationalMinimumWage,
+      isPayingAtLeastNationalMinimumWage,
       workPattern,
       contractType,
-      hours,
+      hoursPerWeek,
       baseLocation,
     } = req.body
 
@@ -71,10 +71,10 @@ export default class JobContractUpdateController {
         salaryTo: salaryTo ? Number(salaryTo) : undefined,
         salaryPeriod,
         additionalSalaryInformation,
-        nationalMinimumWage,
+        isPayingAtLeastNationalMinimumWage,
         workPattern,
         contractType,
-        hours,
+        hoursPerWeek,
         baseLocation,
       })
 

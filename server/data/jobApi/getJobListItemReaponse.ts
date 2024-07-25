@@ -4,7 +4,7 @@ interface GetJobListItemResponse {
   id: string
   employerName: string
   jobTitle: string
-  jobSector: JobSector
+  sector: JobSector
   numberOfVacancies: number
   createdAt: string
   createdBy: string

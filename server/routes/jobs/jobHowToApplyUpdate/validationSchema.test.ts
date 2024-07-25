@@ -7,10 +7,10 @@ describe('validationSchema', () => {
   const schema = validationSchema()
 
   beforeEach(() => {
-    req.body.rollingOpportunity = 'YES'
-    req.body.prisonLeaversJob = 'YES'
+    req.body.isRollingOpportunity = 'YES'
+    req.body.isOnlyForPrisonLeavers = 'YES'
     req.body.howToApply = 'Some text'
-    req.body.supportingDocumentation = ['CV']
+    req.body.supportingDocumentationRequired = ['CV']
     req.body.supportingDocumentationDetails = ''
     req.body.startDate = {
       'startDate-day': '1',
@@ -31,7 +31,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation success - should allow a supportingDocumentationDetails with 200 characters', () => {
-    req.body.supportingDocumentation = ['OTHER']
+    req.body.supportingDocumentationRequired = ['OTHER']
     req.body.supportingDocumentationDetails = 'x'.repeat(200)
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
@@ -40,7 +40,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation success - should allow a supportingDocumentationDetails being blank', () => {
-    req.body.supportingDocumentation = ['OTHER']
+    req.body.supportingDocumentationRequired = ['OTHER']
     req.body.supportingDocumentationDetails = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
@@ -49,7 +49,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a supportingDocumentationDetails longer than 200 characters', () => {
-    req.body.supportingDocumentation = ['OTHER']
+    req.body.supportingDocumentationRequired = ['OTHER']
     req.body.supportingDocumentationDetails = 'x'.repeat(201)
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
@@ -58,8 +58,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Other supporting documentation must be 200 characters or less')
   })
 
-  it('On validation error - should disallow a prisonLeaversJob being blank', () => {
-    req.body.prisonLeaversJob = ''
+  it('On validation error - should disallow a isOnlyForPrisonLeavers being blank', () => {
+    req.body.isOnlyForPrisonLeavers = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -67,8 +67,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select an answer to whether this job is only for prison leavers')
   })
 
-  it('On validation error - should disallow a prisonLeaversJob being an invalid value', () => {
-    req.body.prisonLeaversJob = 'SOME_VALUE'
+  it('On validation error - should disallow a isOnlyForPrisonLeavers being an invalid value', () => {
+    req.body.isOnlyForPrisonLeavers = 'SOME_VALUE'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -76,8 +76,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select an answer to whether this job is only for prison leavers')
   })
 
-  it('On validation error - should disallow a rollingOpportunity being blank', () => {
-    req.body.rollingOpportunity = ''
+  it('On validation error - should disallow a isRollingOpportunity being blank', () => {
+    req.body.isRollingOpportunity = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -85,8 +85,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select whether the job is a rolling opportunity or not')
   })
 
-  it('On validation error - should disallow a rollingOpportunity being an invalid value', () => {
-    req.body.rollingOpportunity = 'SOME_VALUE'
+  it('On validation error - should disallow a isRollingOpportunity being an invalid value', () => {
+    req.body.isRollingOpportunity = 'SOME_VALUE'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -289,8 +289,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Start date must be a real date')
   })
 
-  it('On validation error - should disallow a closingDate being blank if rollingOpportunity = NO', () => {
-    req.body.rollingOpportunity = 'NO'
+  it('On validation error - should disallow a closingDate being blank if isRollingOpportunity = NO', () => {
+    req.body.isRollingOpportunity = 'NO'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -299,7 +299,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate day being blank', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '',
       'closingDate-month': '1',
@@ -313,7 +313,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate day being less than 1', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '0',
       'closingDate-month': '1',
@@ -327,7 +327,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate day being more than 31', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '32',
       'closingDate-month': '1',
@@ -341,7 +341,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate day being non numeric', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': 'a',
       'closingDate-month': '1',
@@ -355,7 +355,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate month being blank', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '1',
       'closingDate-month': '',
@@ -369,7 +369,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate month being less than 1', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '1',
       'closingDate-month': '0',
@@ -383,7 +383,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate month being more than 12', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '1',
       'closingDate-month': '13',
@@ -397,7 +397,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate month being a non numeric value', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '1',
       'closingDate-month': 'a',
@@ -411,7 +411,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate year being blank', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '1',
       'closingDate-month': '1',
@@ -425,7 +425,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate month being less than 1', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '1',
       'closingDate-month': '1',
@@ -439,7 +439,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate month being more than 12', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '1',
       'closingDate-month': '1',
@@ -453,7 +453,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate month being a non numeric value', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '1',
       'closingDate-month': '1',
@@ -467,7 +467,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a closingDate must be a valid date', () => {
-    req.body.rollingOpportunity = 'NO'
+    req.body.isRollingOpportunity = 'NO'
     req.body.closingDate = {
       'closingDate-day': '31',
       'closingDate-month': '2',

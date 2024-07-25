@@ -13,12 +13,12 @@ interface PutJobData {
   // First page
   employerId: string // Id of employer
   jobTitle: string // Length 50
-  jobSector: JobSector
+  sector: JobSector
   industrySector: EmployerSector
   numberOfVacancies: number // Integer
-  jobSourceOne: JobSource
-  jobSourceTwo?: JobSource
-  charity?: string // length 100
+  sourcePrimary: JobSource
+  sourceSecondary?: JobSource
+  charityName?: string // length 100
 
   // Second page
   postcode: string
@@ -26,10 +26,10 @@ interface PutJobData {
   salaryTo?: number // Float, 2 decimal places
   salaryPeriod: SalaryPeriod
   additionalSalaryInformation?: string // length 100
-  nationalMinimumWage: boolean
+  isPayingAtLeastNationalMinimumWage: boolean
   workPattern: WorkPattern
   contractType: ContractType
-  hours: Hours
+  hoursPerWeek: Hours
   baseLocation?: BaseLocation
 
   // Third page
@@ -42,9 +42,9 @@ interface PutJobData {
   howToApply: string // length 1000
   closingDate: string // Datetime string
   startDate?: string // Datetime string
-  rollingOpportunity: boolean
-  prisonLeaversJob: boolean
-  supportingDocumentation: SupportingDocumentation[]
+  isRollingOpportunity: boolean
+  isOnlyForPrisonLeavers: boolean
+  supportingDocumentationRequired: SupportingDocumentation[]
   supportingDocumentationDetails: string // length 200
 }
 

@@ -69,11 +69,11 @@
     <dt class="govuk-summary-list__key">
       Pays at least minimum wage?	
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="nationalMinimumWage">
-      {{ contentLookup.yesNo[nationalMinimumWage] }}
+    <dd class="govuk-summary-list__value" data-qa="isPayingAtLeastNationalMinimumWage">
+      {{ contentLookup.yesNo[isPayingAtLeastNationalMinimumWage] }}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#nationalMinimumWage' }}" data-qa="nationalMinimumWageLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#isPayingAtLeastNationalMinimumWage' }}" data-qa="isPayingAtLeastNationalMinimumWageLink">
         Change<span class="govuk-visually-hidden"> pays at least minimum wage?</span>
       </a>
     </dd>
@@ -95,11 +95,11 @@
     <dt class="govuk-summary-list__key">
       Hours per week	
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="hours">
-      {{ contentLookup.hours[hours] }}
+    <dd class="govuk-summary-list__value" data-qa="hoursPerWeek">
+      {{ contentLookup.hours[hoursPerWeek] }}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#hours' }}" data-qa="hoursLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#hoursPerWeek' }}" data-qa="hoursPerWeekLink">
         Change<span class="govuk-visually-hidden"> hours per week</span>
       </a>
     </dd>

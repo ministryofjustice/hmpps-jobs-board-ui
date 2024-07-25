@@ -5,12 +5,12 @@ import YesNoValue from '../../../enums/yesNoValue'
 
 export default function validationSchema(): ObjectSchema {
   return joi.object({
-    rollingOpportunity: joi.string().empty('').valid(YesNoValue.YES, YesNoValue.NO).required().messages({
+    isRollingOpportunity: joi.string().empty('').valid(YesNoValue.YES, YesNoValue.NO).required().messages({
       'any.only': 'Select whether the job is a rolling opportunity or not',
       'any.required': 'Select whether the job is a rolling opportunity or not',
       'any.empty': 'Select whether the job is a rolling opportunity or not',
     }),
-    prisonLeaversJob: joi.string().empty('').valid(YesNoValue.YES, YesNoValue.NO).required().messages({
+    isOnlyForPrisonLeavers: joi.string().empty('').valid(YesNoValue.YES, YesNoValue.NO).required().messages({
       'any.only': 'Select an answer to whether this job is only for prison leavers',
       'any.required': 'Select an answer to whether this job is only for prison leavers',
       'any.empty': 'Select an answer to whether this job is only for prison leavers',
@@ -23,7 +23,7 @@ export default function validationSchema(): ObjectSchema {
     supportingDocumentationDetails: joi
       .string()
       .max(200)
-      .when('supportingDocumentation', {
+      .when('supportingDocumentationRequired', {
         is: joi.array().items(joi.string().valid('OTHER')).has('OTHER'),
         then: joi.string().allow('').optional().max(200).messages({
           'string.max': 'Other supporting documentation must be 200 characters or less',
@@ -103,10 +103,10 @@ export default function validationSchema(): ObjectSchema {
         const month = value['closingDate-month']
         const year = value['closingDate-year']
 
-        const { rollingOpportunity } = helpers.state.ancestors[0]
+        const { isRollingOpportunity } = helpers.state.ancestors[0]
 
-        if (rollingOpportunity !== YesNoValue.NO) {
-          return value // Skip validation if rollingOpportunity is not NO
+        if (isRollingOpportunity !== YesNoValue.NO) {
+          return value // Skip validation if isRollingOpportunity is not NO
         }
 
         // Check if any of the date parts are provided

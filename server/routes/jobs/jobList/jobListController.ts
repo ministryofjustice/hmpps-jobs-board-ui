@@ -13,7 +13,7 @@ export default class JobListController {
   constructor(private readonly paginationService: PaginationService) {}
 
   public get: RequestHandler = async (req, res, next): Promise<void> => {
-    const { page, sort, order, jobSectorFilter = '', jobSearchFilter = '' } = req.query
+    const { page, sort, order, sectorFilter = '', jobSearchFilter = '' } = req.query
     const { paginationPageSize } = config
     const jobListResults = req.context.jobs
 
@@ -31,7 +31,7 @@ export default class JobListController {
         sort && `sort=${sort}`,
         order && `order=${order}`,
         jobSearchFilter && `jobSearchFilter=${decodeURIComponent(jobSearchFilter as string)}`,
-        jobSectorFilter && `jobSectorFilter=${decodeURIComponent(jobSectorFilter as string)}`,
+        sectorFilter && `sectorFilter=${decodeURIComponent(sectorFilter as string)}`,
         page && `page=${page}`,
       ].filter(val => !!val)
 
@@ -55,8 +55,8 @@ export default class JobListController {
         order,
         paginationData,
         jobSearchFilter: decodeURIComponent(jobSearchFilter as string),
-        jobSectorFilter: decodeURIComponent(jobSectorFilter as string),
-        filtered: decodeURIComponent(jobSearchFilter as string) || decodeURIComponent(jobSectorFilter as string),
+        sectorFilter: decodeURIComponent(sectorFilter as string),
+        filtered: decodeURIComponent(jobSearchFilter as string) || decodeURIComponent(sectorFilter as string),
       }
 
       setSessionData(req, ['jobList', 'data'], data)
@@ -68,7 +68,7 @@ export default class JobListController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { sort, order } = req.query
-    const { jobSectorFilter, jobSearchFilter } = req.body
+    const { sectorFilter, jobSearchFilter } = req.body
 
     try {
       if (Object.prototype.hasOwnProperty.call(req.body, 'addJobButton')) {
@@ -93,7 +93,7 @@ export default class JobListController {
         sort && `sort=${sort}`,
         order && `order=${order}`,
         jobSearchFilter && `jobSearchFilter=${encodeURIComponent(jobSearchFilter)}`,
-        jobSectorFilter && `jobSectorFilter=${encodeURIComponent(jobSectorFilter)}`,
+        sectorFilter && `sectorFilter=${encodeURIComponent(sectorFilter)}`,
       ].filter(val => !!val)
 
       res.redirect(uri.length ? `${addressLookup.jobs.jobList()}?${uri.join('&')}` : addressLookup.jobs.jobList())

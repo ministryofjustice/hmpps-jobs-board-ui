@@ -110,12 +110,12 @@ describe('jobRoleUpdateController', () => {
     it('On success - Sets session and redirects to jobContractUpdate', async () => {
       req.body.employerId = 'test id'
       req.body.jobTitle = 'test job title'
-      req.body.jobSector = 'OUTDOOR'
+      req.body.sector = 'OUTDOOR'
       req.body.industrySector = 'AGRICULTURE'
       req.body.numberOfVacancies = '2'
-      req.body.jobSourceOne = 'DWP'
-      req.body.jobSourceTwo = 'EAB'
-      req.body.charity = 'Test chrity'
+      req.body.sourcePrimary = 'DWP'
+      req.body.sourceSecondary = 'EAB'
+      req.body.charityName = 'Test chrity'
 
       controller.post(req, res, next)
 

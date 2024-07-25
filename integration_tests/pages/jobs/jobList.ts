@@ -15,7 +15,7 @@ export default class JobListPage extends Page {
   // Filters
   jobNameFilterField = (): PageElement => cy.get('#jobNameFilter')
 
-  jobSectorFilterField = (): PageElement => cy.get('#jobSectorFilter')
+  sectorFilterField = (): PageElement => cy.get('#sectorFilter')
 
   jobNameFilterPageErrorMessage = (): PageElement => cy.get('[href="#jobNameFilter"]')
 

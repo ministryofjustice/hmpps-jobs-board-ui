@@ -35,15 +35,19 @@ export default class JobContractUpdatePage extends Page {
 
   additionalSalaryInformationFieldErrorMessage = (): PageElement => cy.get('#additionalSalaryInformation-error')
 
-  nationalMinimumWageField = (): PageElement => cy.get('#nationalMinimumWage')
+  isPayingAtLeastNationalMinimumWageField = (): PageElement => cy.get('#isPayingAtLeastNationalMinimumWage')
 
-  nationalMinimumWagePageErrorMessage = (): PageElement => cy.get('[href="#nationalMinimumWage"]')
+  isPayingAtLeastNationalMinimumWagePageErrorMessage = (): PageElement =>
+    cy.get('[href="#isPayingAtLeastNationalMinimumWage"]')
 
-  nationalMinimumWageFieldErrorMessage = (): PageElement => cy.get('#nationalMinimumWage-error')
+  isPayingAtLeastNationalMinimumWageFieldErrorMessage = (): PageElement =>
+    cy.get('#isPayingAtLeastNationalMinimumWage-error')
 
-  nationalMinimumWageYes = (): PageElement => cy.get('input[name="nationalMinimumWage"][value="YES"]')
+  isPayingAtLeastNationalMinimumWageYes = (): PageElement =>
+    cy.get('input[name="isPayingAtLeastNationalMinimumWage"][value="YES"]')
 
-  nationalMinimumWageNo = (): PageElement => cy.get('input[name="nationalMinimumWage"][value="NO"]')
+  isPayingAtLeastNationalMinimumWageNo = (): PageElement =>
+    cy.get('input[name="isPayingAtLeastNationalMinimumWage"][value="NO"]')
 
   workPatternField = (): PageElement => cy.get('#workPattern')
 
@@ -57,11 +61,11 @@ export default class JobContractUpdatePage extends Page {
 
   contractTypeFieldErrorMessage = (): PageElement => cy.get('#contractType-error')
 
-  hoursField = (): PageElement => cy.get('#hours')
+  hoursPerWeekField = (): PageElement => cy.get('#hoursPerWeek')
 
-  hoursPageErrorMessage = (): PageElement => cy.get('[href="#hours"]')
+  hoursPerWeekPageErrorMessage = (): PageElement => cy.get('[href="#hoursPerWeek"]')
 
-  hoursFieldErrorMessage = (): PageElement => cy.get('#hours-error')
+  hoursPerWeekFieldErrorMessage = (): PageElement => cy.get('#hoursPerWeek-error')
 
   baseLocationField = (): PageElement => cy.get('#baseLocation')
 

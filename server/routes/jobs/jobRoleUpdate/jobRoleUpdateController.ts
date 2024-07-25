@@ -38,8 +38,16 @@ export default class JobRoleUpdateController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id, mode } = req.params
-    const { employerId, jobTitle, jobSector, industrySector, numberOfVacancies, jobSourceOne, jobSourceTwo, charity } =
-      req.body
+    const {
+      employerId,
+      jobTitle,
+      sector,
+      industrySector,
+      numberOfVacancies,
+      sourcePrimary,
+      sourceSecondary,
+      charityName,
+    } = req.body
 
     try {
       // If validation errors render errors
@@ -60,12 +68,12 @@ export default class JobRoleUpdateController {
         ...job,
         employerId,
         jobTitle,
-        jobSector,
+        sector,
         industrySector,
         numberOfVacancies: Number(numberOfVacancies),
-        jobSourceOne,
-        jobSourceTwo,
-        charity,
+        sourcePrimary,
+        sourceSecondary,
+        charityName,
       })
 
       // Redirect to next page in flow

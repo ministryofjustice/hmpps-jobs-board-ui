@@ -12,21 +12,21 @@ import JobSource from '../../enums/jobSource'
 interface GetJobResponse {
   employerId: string
   jobTitle: string
-  jobSector: JobSector
+  sector: JobSector
   industrySector: EmployerSector
   numberOfVacancies: number
-  JobjobSourceOne: JobSource
-  jobSourceTwo?: JobSource
-  charity?: string
+  JobsourcePrimary: JobSource
+  sourceSecondary?: JobSource
+  charityName?: string
   postcode: string
   salaryFrom: number
   salaryTo?: number
   salaryPeriod: SalaryPeriod
   additionalSalaryInformation?: string
-  nationalMinimumWage: boolean
+  isPayingAtLeastNationalMinimumWage: boolean
   workPattern: WorkPattern
   contractType: ContractType
-  hours: Hours
+  hoursPerWeek: Hours
   baseLocation?: BaseLocation
   essentialCriteria: string
   desirableCriteria?: string
@@ -35,9 +35,9 @@ interface GetJobResponse {
   howToApply: string
   closingDate: string
   startDate?: string
-  rollingOpportunity: boolean
-  prisonLeaversJob: boolean
-  supportingDocumentation: SupportingDocumentation[]
+  isRollingOpportunity: boolean
+  isOnlyForPrisonLeavers: boolean
+  supportingDocumentationRequired: SupportingDocumentation[]
   supportingDocumentationDetails: string
 
   createdAt: string

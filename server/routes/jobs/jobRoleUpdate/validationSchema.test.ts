@@ -9,12 +9,12 @@ describe('validationSchema', () => {
   beforeEach(() => {
     req.body.employerId = 'test id'
     req.body.jobTitle = 'test job title'
-    req.body.jobSector = 'OUTDOOR'
+    req.body.sector = 'OUTDOOR'
     req.body.industrySector = 'AGRICULTURE'
     req.body.numberOfVacancies = '2'
-    req.body.jobSourceOne = 'DWP'
-    req.body.jobSourceTwo = 'EAB'
-    req.body.charity = 'Test chrity'
+    req.body.sourcePrimary = 'DWP'
+    req.body.sourceSecondary = 'EAB'
+    req.body.charityName = 'Test chrity'
   })
 
   it('On validation success - should allow all valid values', () => {
@@ -58,8 +58,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Job title must be 50 characters or less')
   })
 
-  it('On validation error - should disallow a jobSector being blank', () => {
-    req.body.jobSector = ''
+  it('On validation error - should disallow a sector being blank', () => {
+    req.body.sector = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -67,8 +67,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select a job sector')
   })
 
-  it('On validation error - should disallow a jobSector being an invalid value', () => {
-    req.body.jobSector = 'SOME_VALUE'
+  it('On validation error - should disallow a sector being an invalid value', () => {
+    req.body.sector = 'SOME_VALUE'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -94,8 +94,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select an NFN industry sector')
   })
 
-  it('On validation error - should disallow a jobSourceOne being blank', () => {
-    req.body.jobSourceOne = ''
+  it('On validation error - should disallow a sourcePrimary being blank', () => {
+    req.body.sourcePrimary = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -103,8 +103,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select a job source')
   })
 
-  it('On validation error - should disallow a jobSourceOne being an invalid value', () => {
-    req.body.jobSourceOne = 'SOME_VALUE'
+  it('On validation error - should disallow a sourcePrimary being an invalid value', () => {
+    req.body.sourcePrimary = 'SOME_VALUE'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -112,16 +112,16 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select a job source')
   })
 
-  it('On validation success - should allow a jobSourceTwo being blank', () => {
-    req.body.jobSourceTwo = ''
+  it('On validation success - should allow a sourceSecondary being blank', () => {
+    req.body.sourceSecondary = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeFalsy()
   })
 
-  it('On validation error - should disallow a jobSourceTwo being an invalid value', () => {
-    req.body.jobSourceTwo = 'SOME_VALUE'
+  it('On validation error - should disallow a sourceSecondary being an invalid value', () => {
+    req.body.sourceSecondary = 'SOME_VALUE'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -129,24 +129,24 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select a job source')
   })
 
-  it('On validation error - should allow a charity being blank', () => {
-    req.body.charity = ''
+  it('On validation error - should allow a charityName being blank', () => {
+    req.body.charityName = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeFalsy()
   })
 
-  it('On validation success - should allow a charity with 100 characters', () => {
-    req.body.charity = 'x'.repeat(100)
+  it('On validation success - should allow a charityName with 100 characters', () => {
+    req.body.charityName = 'x'.repeat(100)
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeFalsy()
   })
 
-  it('On validation error - should disallow a charity longer than 100 characters', () => {
-    req.body.charity = 'x'.repeat(101)
+  it('On validation error - should disallow a charityName longer than 100 characters', () => {
+    req.body.charityName = 'x'.repeat(101)
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 

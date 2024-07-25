@@ -22,7 +22,7 @@ export default class JobViewModel {
   createdBy: string
 
   @Expose()
-  jobSector: JobSector
+  sector: JobSector
 
   @Expose()
   numberOfVacancies: number

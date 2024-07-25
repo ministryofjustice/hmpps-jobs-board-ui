@@ -18,10 +18,10 @@ describe('validationSchema', () => {
     req.body.salaryTo = '400'
     req.body.salaryPeriod = SalaryPeriod.PER_DAY
     req.body.additionalSalaryInformation = 'Some text'
-    req.body.nationalMinimumWage = YesNoValue.YES
+    req.body.isPayingAtLeastNationalMinimumWage = YesNoValue.YES
     req.body.workPattern = WorkPattern.FLEXI_TIME
     req.body.contractType = ContractType.PERMANENT
-    req.body.hours = Hours.FULL_TIME
+    req.body.hoursPerWeek = Hours.FULL_TIME
     req.body.baseLocation = BaseLocation.WORKPLACE
   })
 
@@ -172,8 +172,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select a salary period')
   })
 
-  it('On validation error - should disallow a nationalMinimumWage being blank', () => {
-    req.body.nationalMinimumWage = ''
+  it('On validation error - should disallow a isPayingAtLeastNationalMinimumWage being blank', () => {
+    req.body.isPayingAtLeastNationalMinimumWage = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -181,8 +181,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select whether the job pays minimum wage or not')
   })
 
-  it('On validation error - should disallow a nationalMinimumWage being an invalid value', () => {
-    req.body.nationalMinimumWage = 'SOME_VALUE'
+  it('On validation error - should disallow a isPayingAtLeastNationalMinimumWage being an invalid value', () => {
+    req.body.isPayingAtLeastNationalMinimumWage = 'SOME_VALUE'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -226,22 +226,22 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select a contract type')
   })
 
-  it('On validation error - should disallow a hours being blank', () => {
-    req.body.hours = ''
+  it('On validation error - should disallow a hoursPerWeek being blank', () => {
+    req.body.hoursPerWeek = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Select the hours for this job')
+    expect(error.details[0].message).toBe('Select the hoursPerWeek for this job')
   })
 
-  it('On validation error - should disallow a hours being an invalid value', () => {
-    req.body.hours = 'SOME_VALUE'
+  it('On validation error - should disallow a hoursPerWeek being an invalid value', () => {
+    req.body.hoursPerWeek = 'SOME_VALUE'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Select the hours for this job')
+    expect(error.details[0].message).toBe('Select the hoursPerWeek for this job')
   })
 
   it('On validation success - should allow a baseLocation being blank', () => {

@@ -24,9 +24,9 @@ const getJobReviewResolver =
       // Set it in session
       setSessionData(req, ['job', id], {
         ...job,
-        nationalMinimumWage: job.nationalMinimumWage ? YesNoValue.YES : YesNoValue.NO,
-        rollingOpportunity: job.rollingOpportunity ? YesNoValue.YES : YesNoValue.NO,
-        prisonLeaversJob: job.prisonLeaversJob ? YesNoValue.YES : YesNoValue.NO,
+        isPayingAtLeastNationalMinimumWage: job.isPayingAtLeastNationalMinimumWage ? YesNoValue.YES : YesNoValue.NO,
+        isRollingOpportunity: job.isRollingOpportunity ? YesNoValue.YES : YesNoValue.NO,
+        isOnlyForPrisonLeavers: job.isOnlyForPrisonLeavers ? YesNoValue.YES : YesNoValue.NO,
       })
 
       next()

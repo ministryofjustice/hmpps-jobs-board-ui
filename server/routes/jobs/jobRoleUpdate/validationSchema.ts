@@ -17,7 +17,7 @@ export default function validationSchema(): ObjectSchema {
 
       'string.min': 'Job title must be 3 characters or more',
     }),
-    jobSector: joi
+    sector: joi
       .string()
       .empty('')
       .valid(
@@ -78,7 +78,7 @@ export default function validationSchema(): ObjectSchema {
       'any.empty': 'Enter number of vacancies',
       'number.base': 'Number of vacancies must be a number',
     }),
-    jobSourceOne: joi
+    sourcePrimary: joi
       .string()
       .empty('')
       .valid(
@@ -98,7 +98,7 @@ export default function validationSchema(): ObjectSchema {
         'any.required': 'Select a job source',
         'any.empty': 'Select a job source',
       }),
-    jobSourceTwo: joi
+    sourceSecondary: joi
       .string()
       .empty('')
       .valid(
@@ -115,7 +115,7 @@ export default function validationSchema(): ObjectSchema {
       .messages({
         'any.only': 'Select a job source',
       }),
-    charity: joi.string().empty('').max(100).messages({
+    charityName: joi.string().empty('').max(100).messages({
       'string.max': 'Charity must be 100 characters or less',
     }),
   })

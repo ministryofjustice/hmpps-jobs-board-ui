@@ -46,9 +46,9 @@ describe('getJobReviewResolver Middleware', () => {
 
   it('should call jobService.getJob and set session data if job data is not in session', async () => {
     const mockJob = {
-      nationalMinimumWage: true,
-      rollingOpportunity: false,
-      prisonLeaversJob: true,
+      isPayingAtLeastNationalMinimumWage: true,
+      isRollingOpportunity: false,
+      isOnlyForPrisonLeavers: true,
     }
     ;(getSessionData as jest.Mock).mockReturnValue(false)
     jobService.getJob.mockResolvedValue(mockJob as any)
@@ -60,9 +60,9 @@ describe('getJobReviewResolver Middleware', () => {
     expect(jobService.getJob).toHaveBeenCalledWith('testuser', '123')
     expect(setSessionData).toHaveBeenCalledWith(req, ['job', '123'], {
       ...mockJob,
-      nationalMinimumWage: YesNoValue.YES,
-      rollingOpportunity: YesNoValue.NO,
-      prisonLeaversJob: YesNoValue.YES,
+      isPayingAtLeastNationalMinimumWage: YesNoValue.YES,
+      isRollingOpportunity: YesNoValue.NO,
+      isOnlyForPrisonLeavers: YesNoValue.YES,
     })
     expect(next).toHaveBeenCalled()
   })

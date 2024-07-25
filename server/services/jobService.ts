@@ -25,7 +25,7 @@ export default class JobService {
       sort?: string
       order?: string
       jobSearchFilter?: string
-      jobSectorFilter?: string
+      sectorFilter?: string
     },
   ) {
     const systemToken = await this.hmppsAuthClient.getSystemClientToken(username)

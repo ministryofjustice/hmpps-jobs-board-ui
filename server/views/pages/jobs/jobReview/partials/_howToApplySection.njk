@@ -4,12 +4,12 @@
     <dt class="govuk-summary-list__key">
       Rolling opportunity
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="rollingOpportunity">
-      {{ contentLookup.yesNo[rollingOpportunity] }}
+    <dd class="govuk-summary-list__value" data-qa="isRollingOpportunity">
+      {{ contentLookup.yesNo[isRollingOpportunity] }}
       <div data-qa="closingDate">Closing date: {{ closingDate }}</div>
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#rollingOpportunity' }}" data-qa="rollingOpportunityLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#isRollingOpportunity' }}" data-qa="isRollingOpportunityLink">
         Change<span class="govuk-visually-hidden"> rolling opportunity?</span>
       </a>
     </dd>
@@ -18,11 +18,11 @@
     <dt class="govuk-summary-list__key">
       Job only for prison leavers?
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="prisonLeaversJob">
-      {{ contentLookup.yesNo[prisonLeaversJob] }}
+    <dd class="govuk-summary-list__value" data-qa="isOnlyForPrisonLeavers">
+      {{ contentLookup.yesNo[isOnlyForPrisonLeavers] }}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#prisonLeaversJob' }}" data-qa="prisonLeaversJobLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#isOnlyForPrisonLeavers' }}" data-qa="isOnlyForPrisonLeaversLink">
         Change<span class="govuk-visually-hidden"> job only for prison leavers?</span>
       </a>
     </dd>
@@ -57,17 +57,17 @@
     <dt class="govuk-summary-list__key">
       Supporting documentation required (optional)
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="supportingDocumentation">
-      {% if supportingDocumentation and supportingDocumentation.length %}
-        {% for item in supportingDocumentation %}
-          <div>{{ contentLookup.supportingDocumentation[item] }}{{ ' - ' + supportingDocumentationDetails if item === 'OTHER' }}{{ ',' if supportingDocumentation.length !== loop.index }}</div>
+    <dd class="govuk-summary-list__value" data-qa="supportingDocumentationRequired">
+      {% if supportingDocumentationRequired and supportingDocumentationRequired.length %}
+        {% for item in supportingDocumentationRequired %}
+          <div>{{ contentLookup.supportingDocumentation[item] }}{{ ' - ' + supportingDocumentationDetails if item === 'OTHER' }}{{ ',' if supportingDocumentationRequired.length !== loop.index }}</div>
         {% endfor %}
       {%else%}
         Not provided
       {% endif %}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#supportingDocumentation' }}" data-qa="supportingDocumentationLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#supportingDocumentationRequired' }}" data-qa="supportingDocumentationRequiredLink">
         Change<span class="govuk-visually-hidden"> supporting documentation required</span>
       </a>
     </dd>

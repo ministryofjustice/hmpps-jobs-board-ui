@@ -11,14 +11,15 @@ export default class JobHowToApplyPage extends Page {
 
   howToApplyFieldErrorMessage = (): PageElement => cy.get('#howToApply-error')
 
-  supportingDocumentationField = (): PageElement => cy.get('#supportingDocumentation')
+  supportingDocumentationRequiredField = (): PageElement => cy.get('#supportingDocumentationRequired')
 
-  supportingDocumentationFieldValue = (value): PageElement =>
-    cy.get(`input[name="supportingDocumentation"][value="${value}"]`)
+  supportingDocumentationRequiredFieldValue = (value): PageElement =>
+    cy.get(`input[name="supportingDocumentationRequired"][value="${value}"]`)
 
-  supportingDocumentationPageErrorMessage = (): PageElement => cy.get('[href="#supportingDocumentation"]')
+  supportingDocumentationRequiredPageErrorMessage = (): PageElement =>
+    cy.get('[href="#supportingDocumentationRequired"]')
 
-  supportingDocumentationFieldErrorMessage = (): PageElement => cy.get('#supportingDocumentation-error')
+  supportingDocumentationRequiredFieldErrorMessage = (): PageElement => cy.get('#supportingDocumentationRequired-error')
 
   supportingDocumentationDetailsField = (): PageElement => cy.get('#supportingDocumentationDetails')
 
@@ -26,25 +27,25 @@ export default class JobHowToApplyPage extends Page {
 
   supportingDocumentationDetailsFieldErrorMessage = (): PageElement => cy.get('#supportingDocumentationDetails-error')
 
-  rollingOpportunityField = (): PageElement => cy.get('#rollingOpportunity')
+  isRollingOpportunityField = (): PageElement => cy.get('#isRollingOpportunity')
 
-  rollingOpportunityPageErrorMessage = (): PageElement => cy.get('[href="#rollingOpportunity"]')
+  isRollingOpportunityPageErrorMessage = (): PageElement => cy.get('[href="#isRollingOpportunity"]')
 
-  rollingOpportunityFieldErrorMessage = (): PageElement => cy.get('#rollingOpportunity-error')
+  isRollingOpportunityFieldErrorMessage = (): PageElement => cy.get('#isRollingOpportunity-error')
 
-  rollingOpportunityFieldYes = (): PageElement => cy.get('input[name="rollingOpportunity"][value="YES"]')
+  isRollingOpportunityFieldYes = (): PageElement => cy.get('input[name="isRollingOpportunity"][value="YES"]')
 
-  rollingOpportunityFieldNo = (): PageElement => cy.get('input[name="rollingOpportunity"][value="NO"]')
+  isRollingOpportunityFieldNo = (): PageElement => cy.get('input[name="isRollingOpportunity"][value="NO"]')
 
-  prisonLeaversJobField = (): PageElement => cy.get('#prisonLeaversJob')
+  isOnlyForPrisonLeaversField = (): PageElement => cy.get('#isOnlyForPrisonLeavers')
 
-  prisonLeaversJobPageErrorMessage = (): PageElement => cy.get('[href="#prisonLeaversJob"]')
+  isOnlyForPrisonLeaversPageErrorMessage = (): PageElement => cy.get('[href="#isOnlyForPrisonLeavers"]')
 
-  prisonLeaversJobFieldErrorMessage = (): PageElement => cy.get('#prisonLeaversJob-error')
+  isOnlyForPrisonLeaversFieldErrorMessage = (): PageElement => cy.get('#isOnlyForPrisonLeavers-error')
 
-  prisonLeaversJobFieldYes = (): PageElement => cy.get('input[name="prisonLeaversJob"][value="YES"]')
+  isOnlyForPrisonLeaversFieldYes = (): PageElement => cy.get('input[name="isOnlyForPrisonLeavers"][value="YES"]')
 
-  prisonLeaversJobFieldNo = (): PageElement => cy.get('input[name="prisonLeaversJob"][value="NO"]')
+  isOnlyForPrisonLeaversFieldNo = (): PageElement => cy.get('input[name="isOnlyForPrisonLeavers"][value="NO"]')
 
   startDateField = {
     day: (): PageElement => cy.get('#startDate-day'),

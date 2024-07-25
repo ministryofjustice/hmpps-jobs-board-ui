@@ -30,11 +30,11 @@
     <dt class="govuk-summary-list__key">
       Job sector
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="jobSector">
-      {{ contentLookup.jobSector[jobSector] }}
+    <dd class="govuk-summary-list__value" data-qa="sector">
+      {{ contentLookup.jobSector[sector] }}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#jobSector' }}" data-qa="jobSectorLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#sector' }}" data-qa="sectorLink">
         Change<span class="govuk-visually-hidden"> job sector</span>
       </a>
     </dd>
@@ -69,11 +69,11 @@
     <dt class="govuk-summary-list__key">
       Job source	
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="jobSourceOne">
-      {{ contentLookup.jobSource[jobSourceOne] }}
+    <dd class="govuk-summary-list__value" data-qa="sourcePrimary">
+      {{ contentLookup.jobSource[sourcePrimary] }}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#jobSourceOne' }}" data-qa="jobSourceOneLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#sourcePrimary' }}" data-qa="sourcePrimaryLink">
         Change<span class="govuk-visually-hidden"> job source</span>
       </a>
     </dd>
@@ -82,25 +82,25 @@
     <dt class="govuk-summary-list__key">
       Job source 2 (optional)
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="jobSourceTwo">
-      {{ contentLookup.jobSource[jobSourceTwo] if jobSourceTwo else 'Not provided' }}
+    <dd class="govuk-summary-list__value" data-qa="sourceSecondary">
+      {{ contentLookup.jobSource[sourceSecondary] if sourceSecondary else 'Not provided' }}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#jobSourceTwo' }}" data-qa="jobSourceTwoLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#sourceSecondary' }}" data-qa="sourceSecondaryLink">
         Change<span class="govuk-visually-hidden"> job source 2 (optional)</span>
       </a>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      Supported by a charity? (optional)
+      Supported by a charityName? (optional)
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="charity">
-      {{ charity if charity else 'Not provided'}}
+    <dd class="govuk-summary-list__value" data-qa="charityName">
+      {{ charityName if charityName else 'Not provided'}}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#charity' }}" data-qa="charityLink">
-        Change<span class="govuk-visually-hidden"> supported by a charity? (optional)</span>
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#charityName' }}" data-qa="charityNameLink">
+        Change<span class="govuk-visually-hidden"> supported by a charityName? (optional)</span>
       </a>
     </dd>
   </div>

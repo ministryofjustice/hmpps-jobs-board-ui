@@ -1,12 +1,12 @@
 {% if jobListResults.page.totalElements === 0 %}
-  {% if jobSectorFilter and jobSearchFilter %}
-    <span class="govuk-heading-m" id="no-results-message">0 results for "{{ jobSearchFilter }}" in {{ contentLookup.jobSector[jobSectorFilter] }}</span>
+  {% if sectorFilter and jobSearchFilter %}
+    <span class="govuk-heading-m" id="no-results-message">0 results for "{{ jobSearchFilter }}" in {{ contentLookup.sector[sectorFilter] }}</span>
     <p>Check your spelling and search again, or select another sector.</p>
   {% elif jobSearchFilter %}
     <span class="govuk-heading-m" id="no-results-message">0 results for "{{ jobSearchFilter }}" in job title or employer name</span>
     <p>Check your spelling and search again, or clear the search and browse for the employer.</p>
-  {% elif jobSectorFilter %}
-    <span class="govuk-heading-m" id="no-results-message">0 results in {{ contentLookup.jobSector[jobSectorFilter] }}</span>
+  {% elif sectorFilter %}
+    <span class="govuk-heading-m" id="no-results-message">0 results in {{ contentLookup.sector[sectorFilter] }}</span>
     <p>Select another sector, or search by job title or employer name.</p>
   {% else %}
     <span class="govuk-heading-m" id="no-results-message">0 results found</h3>
