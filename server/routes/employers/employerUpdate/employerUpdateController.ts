@@ -16,7 +16,7 @@ export default class EmployerUpdateController {
         id,
         mode,
         backLocation:
-          id === 'new'
+          mode === 'add'
             ? `${addressLookup.employers.employerList()}?sort=name&order=ascending`
             : addressLookup.employers.employerReview(id),
         ...employer,

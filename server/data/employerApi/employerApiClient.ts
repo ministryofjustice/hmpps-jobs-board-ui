@@ -8,7 +8,7 @@ export default class EmployerApiClient {
   restClient: RestClient
 
   constructor(token: string) {
-    this.restClient = new RestClient('Job employer API', config.apis.jobApi, token)
+    this.restClient = new RestClient('Employer API', config.apis.jobApi, token)
   }
 
   async getEmployer(id: string) {

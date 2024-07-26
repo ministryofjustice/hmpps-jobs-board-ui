@@ -10,21 +10,25 @@ export default class JobRoleUpdateController {
     const { allEmployers = [] } = req.context
 
     try {
-      const job = getSessionData(req, ['job', id], {})
+      const job = getSessionData(req, ['job', id])
+      if (!job && mode === 'update') {
+        res.redirect(addressLookup.jobs.jobRoleUpdate('new'))
+        return
+      }
 
       // Render data
       const data = {
         id,
         mode,
         backLocation:
-          id === 'new'
+          mode === 'add'
             ? `${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`
             : addressLookup.jobs.jobReview(id),
         employers: allEmployers.map((e: { id: string; name: string }) => ({
           value: e.id,
           text: e.name,
         })),
-        ...job,
+        ...(job || {}),
       }
 
       // Set page data in session
