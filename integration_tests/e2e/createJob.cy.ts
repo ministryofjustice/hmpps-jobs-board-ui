@@ -14,6 +14,7 @@ context('Sign In', () => {
     cy.task('putJob')
     cy.task('getJob')
     cy.task('getEmployers', { page: 1 })
+    cy.task('getJobs', { page: 1 })
     cy.signIn()
   })
 
