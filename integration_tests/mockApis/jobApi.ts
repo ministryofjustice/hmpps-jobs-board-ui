@@ -85,16 +85,16 @@ const getJobs = (
     jobs = _.orderBy(jobs, [sort], [order === 'ascending' ? 'asc' : 'desc'])
   }
 
-  const chunkedEmployers = _.chunk(jobs, pageSize)
+  const chunkedJobs = _.chunk(jobs, pageSize)
   const currentPage: number = page ? page - 1 : 0
-  const contents = chunkedEmployers
+  const contents = chunkedJobs
 
   const pageMetaData = {
     page: {
       size: pageSize,
       number: currentPage,
       totalElements: jobs.length,
-      totalPages: chunkedEmployers.length,
+      totalPages: chunkedJobs.length,
     },
   }
 
