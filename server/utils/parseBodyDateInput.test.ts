@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import parseBodyDateInput from './parseBodyDateInput'
 
 describe('parseBodyDateInput', () => {
@@ -13,7 +14,7 @@ describe('parseBodyDateInput', () => {
     req.body['startDate-year'] = 2023
 
     const result = parseBodyDateInput(req, 'startDate')
-    const expectedDate = new Date(2023, 6, 15).toISOString() // Months are 0-based, so 7 - 1 = 6
+    const expectedDate = format(new Date(2023, 6, 15), 'yyyy-MM-dd') // Months are 0-based, so 7 - 1 = 6
 
     expect(result).toBe(expectedDate)
   })

@@ -27,7 +27,7 @@ export default class jobHowToApplyUpdateController {
         mode,
         backLocation: mode === 'add' ? addressLookup.jobs.jobRequirementsUpdate(id) : addressLookup.jobs.jobReview(id),
         ...job,
-        supportingDocumentation: job.supportingDocumentation || [],
+        supportingDocumentationRequired: job.supportingDocumentationRequired || [],
         startDate: getDateInputObject(job.startDate, 'startDate'),
         closingDate: getDateInputObject(job.closingDate, 'closingDate'),
       }
@@ -45,15 +45,15 @@ export default class jobHowToApplyUpdateController {
     const { id } = req.params
     const {
       howToApply,
-      rollingOpportunity,
-      prisonLeaversJob,
-      supportingDocumentation,
+      isRollingOpportunity,
+      isOnlyForPrisonLeavers,
+      supportingDocumentationRequired,
       supportingDocumentationDetails,
     } = req.body
 
     try {
       // Clear closing date if not required
-      if (rollingOpportunity === YesNoValue.YES) {
+      if (isRollingOpportunity === YesNoValue.YES) {
         req.body.closingDate = {
           'closingDate-day': '',
           'closingDate-month': '',
@@ -73,7 +73,7 @@ export default class jobHowToApplyUpdateController {
         res.render('pages/jobs/jobHowToApplyUpdate/index', {
           ...data,
           ...req.body,
-          supportingDocumentation: supportingDocumentation || [],
+          supportingDocumentationRequired: supportingDocumentationRequired || [],
           errors,
         })
         return
@@ -85,9 +85,9 @@ export default class jobHowToApplyUpdateController {
       setSessionData(req, ['job', id], {
         ...job,
         howToApply,
-        rollingOpportunity,
-        prisonLeaversJob,
-        supportingDocumentation,
+        isRollingOpportunity,
+        isOnlyForPrisonLeavers,
+        supportingDocumentationRequired,
         supportingDocumentationDetails,
         startDate: parseBodyDateInput(req, 'startDate'),
         closingDate: parseBodyDateInput(req, 'closingDate'),

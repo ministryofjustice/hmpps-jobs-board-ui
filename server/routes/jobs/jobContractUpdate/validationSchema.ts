@@ -87,11 +87,16 @@ export default function validationSchema(): ObjectSchema {
     additionalSalaryInformation: joi.string().empty('').max(100).messages({
       'string.max': 'Additional salary information must be 100 characters or less',
     }),
-    nationalMinimumWage: joi.string().empty('').valid(YesNoValue.YES, YesNoValue.NO).required().messages({
-      'any.only': 'Select whether the job pays minimum wage or not',
-      'any.required': 'Select whether the job pays minimum wage or not',
-      'any.empty': 'Select whether the job pays minimum wage or not',
-    }),
+    isPayingAtLeastNationalMinimumWage: joi
+      .string()
+      .empty('')
+      .valid(YesNoValue.YES, YesNoValue.NO)
+      .required()
+      .messages({
+        'any.only': 'Select whether the job pays minimum wage or not',
+        'any.required': 'Select whether the job pays minimum wage or not',
+        'any.empty': 'Select whether the job pays minimum wage or not',
+      }),
     workPattern: joi
       .string()
       .empty('')
@@ -126,15 +131,15 @@ export default function validationSchema(): ObjectSchema {
         'any.required': 'Select a contract type',
         'any.empty': 'Select a contract type',
       }),
-    hours: joi
+    hoursPerWeek: joi
       .string()
       .empty('')
       .valid(Hours.FULL_TIME, Hours.FULL_TIME_40_PLUS, Hours.PART_TIME, Hours.ZERO_HOURS)
       .required()
       .messages({
-        'any.only': 'Select the hours for this job',
-        'any.required': 'Select the hours for this job',
-        'any.empty': 'Select the hours for this job',
+        'any.only': 'Select the hoursPerWeek for this job',
+        'any.required': 'Select the hoursPerWeek for this job',
+        'any.empty': 'Select the hoursPerWeek for this job',
       }),
     baseLocation: joi
       .string()

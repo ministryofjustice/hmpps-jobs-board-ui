@@ -10,21 +10,25 @@ export default class JobRoleUpdateController {
     const { allEmployers = [] } = req.context
 
     try {
-      const job = getSessionData(req, ['job', id], {})
+      const job = getSessionData(req, ['job', id])
+      if (!job && mode === 'update') {
+        res.redirect(addressLookup.jobs.jobRoleUpdate('new'))
+        return
+      }
 
       // Render data
       const data = {
         id,
         mode,
         backLocation:
-          id === 'new'
+          mode === 'add'
             ? `${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`
             : addressLookup.jobs.jobReview(id),
         employers: allEmployers.map((e: { id: string; name: string }) => ({
           value: e.id,
           text: e.name,
         })),
-        ...job,
+        ...(job || {}),
       }
 
       // Set page data in session
@@ -38,8 +42,16 @@ export default class JobRoleUpdateController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id, mode } = req.params
-    const { employerId, jobTitle, jobSector, industrySector, numberOfVacancies, jobSourceOne, jobSourceTwo, charity } =
-      req.body
+    const {
+      employerId,
+      jobTitle,
+      sector,
+      industrySector,
+      numberOfVacancies,
+      sourcePrimary,
+      sourceSecondary,
+      charityName,
+    } = req.body
 
     try {
       // If validation errors render errors
@@ -60,12 +72,12 @@ export default class JobRoleUpdateController {
         ...job,
         employerId,
         jobTitle,
-        jobSector,
+        sector,
         industrySector,
         numberOfVacancies: Number(numberOfVacancies),
-        jobSourceOne,
-        jobSourceTwo,
-        charity,
+        sourcePrimary,
+        sourceSecondary,
+        charityName,
       })
 
       // Redirect to next page in flow

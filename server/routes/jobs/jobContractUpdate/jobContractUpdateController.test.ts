@@ -111,10 +111,10 @@ describe('jobContractUpdateController', () => {
       req.body.salaryTo = '400'
       req.body.salaryPeriod = SalaryPeriod.PER_DAY
       req.body.additionalSalaryInformation = 'Some text'
-      req.body.nationalMinimumWage = YesNoValue.YES
+      req.body.isPayingAtLeastNationalMinimumWage = YesNoValue.YES
       req.body.workPattern = WorkPattern.FLEXI_TIME
       req.body.contractType = ContractType.PERMANENT
-      req.body.hours = Hours.FULL_TIME
+      req.body.hoursPerWeek = Hours.FULL_TIME
       req.body.baseLocation = BaseLocation.WORKPLACE
 
       controller.post(req, res, next)

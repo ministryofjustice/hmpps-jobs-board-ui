@@ -24,7 +24,7 @@ describe('jobHowToApplyUpdateController', () => {
     id,
     mode,
     backLocation: '/jobs/job/new/requirements/add',
-    supportingDocumentation: [] as any[],
+    supportingDocumentationRequired: [] as any[],
     closingDate: {
       'closingDate-day': '',
       'closingDate-month': '',

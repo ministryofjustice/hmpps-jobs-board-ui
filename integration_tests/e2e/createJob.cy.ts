@@ -14,6 +14,7 @@ context('Sign In', () => {
     cy.task('putJob')
     cy.task('getJob')
     cy.task('getEmployers', { page: 1 })
+    cy.task('getJobs', { page: 1 })
     cy.signIn()
   })
 
@@ -28,29 +29,29 @@ context('Sign In', () => {
     // Page errors
     jobRoleUpdatePage.employerIdPageErrorMessage().contains("Select employer or select 'Add an employer'")
     jobRoleUpdatePage.jobTitlePageErrorMessage().contains('Job title must be 3 characters or more')
-    jobRoleUpdatePage.jobSectorPageErrorMessage().contains('Select a job sector')
+    jobRoleUpdatePage.sectorPageErrorMessage().contains('Select a job sector')
     jobRoleUpdatePage.industrySectorPageErrorMessage().contains('Select an NFN industry sector')
     jobRoleUpdatePage.numberOfVacanciesPageErrorMessage().contains('Enter number of vacancies')
-    jobRoleUpdatePage.jobSourceOnePageErrorMessage().contains('Select a job source')
+    jobRoleUpdatePage.sourcePrimaryPageErrorMessage().contains('Select a job source')
 
     // Field errors
     jobRoleUpdatePage.employerIdFieldErrorMessage().contains("Select employer or select 'Add an employer'")
     jobRoleUpdatePage.jobTitleFieldErrorMessage().contains('Job title must be 3 characters or more')
-    jobRoleUpdatePage.jobSectorFieldErrorMessage().contains('Select a job sector')
+    jobRoleUpdatePage.sectorFieldErrorMessage().contains('Select a job sector')
     jobRoleUpdatePage.industrySectorFieldErrorMessage().contains('Select an NFN industry sector')
     jobRoleUpdatePage.numberOfVacanciesFieldErrorMessage().contains('Enter number of vacancies')
-    jobRoleUpdatePage.jobSourceOneFieldErrorMessage().contains('Select a job source')
+    jobRoleUpdatePage.sourcePrimaryFieldErrorMessage().contains('Select a job source')
 
     // Move to next page
     jobRoleUpdatePage.employerIdField().type('ASDA')
     jobRoleUpdatePage.employerIdFieldOption(0).click()
     jobRoleUpdatePage.jobTitleField().type('Test job')
-    jobRoleUpdatePage.jobSectorField().select('OFFICE')
+    jobRoleUpdatePage.sectorField().select('OFFICE')
     jobRoleUpdatePage.industrySectorField().select('ADMIN_SUPPORT')
     jobRoleUpdatePage.numberOfVacanciesField().type('1')
-    jobRoleUpdatePage.jobSourceOneField().select('NFN')
-    jobRoleUpdatePage.jobSourceTwoField().select('PEL')
-    jobRoleUpdatePage.charityField().type('Test charity')
+    jobRoleUpdatePage.sourcePrimaryField().select('NFN')
+    jobRoleUpdatePage.sourceSecondaryField().select('PEL')
+    jobRoleUpdatePage.charityNameField().type('Test charity')
 
     jobRoleUpdatePage.submitButton().click()
 
@@ -63,31 +64,31 @@ context('Sign In', () => {
     jobContractUpdatePage.salaryFromPageErrorMessage().contains('Enter minimum salary amount')
     jobContractUpdatePage.salaryPeriodPageErrorMessage().contains('Select a salary period')
     jobContractUpdatePage
-      .nationalMinimumWagePageErrorMessage()
+      .isPayingAtLeastNationalMinimumWagePageErrorMessage()
       .contains('Select whether the job pays minimum wage or not')
     jobContractUpdatePage.workPatternPageErrorMessage().contains('Select a work pattern')
     jobContractUpdatePage.contractTypePageErrorMessage().contains('Select a contract type')
-    jobContractUpdatePage.hoursPageErrorMessage().contains('Select the hours for this job')
+    jobContractUpdatePage.hoursPerWeekPageErrorMessage().contains('Select the hoursPerWeek for this job')
 
     // Field errors
     jobContractUpdatePage.postcodeFieldErrorMessage().contains('Enter a job location')
     jobContractUpdatePage.salaryFromFieldErrorMessage().contains('Enter minimum salary amount')
     jobContractUpdatePage.salaryPeriodFieldErrorMessage().contains('Select a salary period')
     jobContractUpdatePage
-      .nationalMinimumWageFieldErrorMessage()
+      .isPayingAtLeastNationalMinimumWageFieldErrorMessage()
       .contains('Select whether the job pays minimum wage or not')
     jobContractUpdatePage.workPatternFieldErrorMessage().contains('Select a work pattern')
     jobContractUpdatePage.contractTypeFieldErrorMessage().contains('Select a contract type')
-    jobContractUpdatePage.hoursFieldErrorMessage().contains('Select the hours for this job')
+    jobContractUpdatePage.hoursPerWeekFieldErrorMessage().contains('Select the hoursPerWeek for this job')
 
     // Move to next page
     jobContractUpdatePage.postcodeField().type('NE157LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
-    jobContractUpdatePage.nationalMinimumWageYes().click()
+    jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
     jobContractUpdatePage.workPatternField().select('FLEXI_TIME')
     jobContractUpdatePage.contractTypeField().select('PERMANENT')
-    jobContractUpdatePage.hoursField().select('FULL_TIME')
+    jobContractUpdatePage.hoursPerWeekField().select('FULL_TIME')
 
     jobContractUpdatePage.submitButton().click()
 
@@ -120,19 +121,19 @@ context('Sign In', () => {
 
     // Page errors
     jobHowToApplyPage
-      .rollingOpportunityPageErrorMessage()
+      .isRollingOpportunityPageErrorMessage()
       .contains('Select whether the job is a rolling opportunity or not')
     jobHowToApplyPage
-      .prisonLeaversJobPageErrorMessage()
+      .isOnlyForPrisonLeaversPageErrorMessage()
       .contains('Select an answer to whether this job is only for prison leavers')
     jobHowToApplyPage.howToApplyPageErrorMessage().contains('Enter how to apply details')
 
     // Field errors
     jobHowToApplyPage
-      .rollingOpportunityFieldErrorMessage()
+      .isRollingOpportunityFieldErrorMessage()
       .contains('Select whether the job is a rolling opportunity or not')
     jobHowToApplyPage
-      .prisonLeaversJobFieldErrorMessage()
+      .isOnlyForPrisonLeaversFieldErrorMessage()
       .contains('Select an answer to whether this job is only for prison leavers')
     jobHowToApplyPage.howToApplyFieldErrorMessage().contains('Enter how to apply details')
   })
@@ -147,12 +148,12 @@ context('Sign In', () => {
     jobRoleUpdatePage.employerIdField().type('ASDA')
     jobRoleUpdatePage.employerIdFieldOption(0).click()
     jobRoleUpdatePage.jobTitleField().type('Test job')
-    jobRoleUpdatePage.jobSectorField().select('OFFICE')
+    jobRoleUpdatePage.sectorField().select('OFFICE')
     jobRoleUpdatePage.industrySectorField().select('ADMIN_SUPPORT')
     jobRoleUpdatePage.numberOfVacanciesField().type('1')
-    jobRoleUpdatePage.jobSourceOneField().select('NFN')
-    jobRoleUpdatePage.jobSourceTwoField().select('PEL')
-    jobRoleUpdatePage.charityField().type('Test charity')
+    jobRoleUpdatePage.sourcePrimaryField().select('NFN')
+    jobRoleUpdatePage.sourceSecondaryField().select('PEL')
+    jobRoleUpdatePage.charityNameField().type('Test charity')
 
     jobRoleUpdatePage.submitButton().click()
 
@@ -163,10 +164,10 @@ context('Sign In', () => {
     jobContractUpdatePage.postcodeField().type('NE157LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
-    jobContractUpdatePage.nationalMinimumWageYes().click()
+    jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
     jobContractUpdatePage.workPatternField().select('FLEXI_TIME')
     jobContractUpdatePage.contractTypeField().select('PERMANENT')
-    jobContractUpdatePage.hoursField().select('FULL_TIME')
+    jobContractUpdatePage.hoursPerWeekField().select('FULL_TIME')
 
     jobContractUpdatePage.submitButton().click()
 
@@ -184,16 +185,16 @@ context('Sign In', () => {
     const jobHowToApplyPage = new JobHowToApplyPage('How to apply')
     jobHowToApplyPage.headerCaption().contains('Add a job - step 4 of 5')
 
-    jobHowToApplyPage.rollingOpportunityFieldNo().click()
+    jobHowToApplyPage.isRollingOpportunityFieldNo().click()
     jobHowToApplyPage.closingDateField.day().type('1')
     jobHowToApplyPage.closingDateField.month().type('1')
     jobHowToApplyPage.closingDateField.year().type('2026')
-    jobHowToApplyPage.prisonLeaversJobFieldYes().click()
+    jobHowToApplyPage.isOnlyForPrisonLeaversFieldYes().click()
     jobHowToApplyPage.howToApplyField().type('Some text')
     jobHowToApplyPage.startDateField.day().type('1')
     jobHowToApplyPage.startDateField.month().type('1')
     jobHowToApplyPage.startDateField.year().type('2026')
-    jobHowToApplyPage.supportingDocumentationFieldValue('OTHER').click()
+    jobHowToApplyPage.supportingDocumentationRequiredFieldValue('OTHER').click()
     jobHowToApplyPage.supportingDocumentationDetailsField().type('Some text')
 
     jobHowToApplyPage.submitButton().click()
@@ -203,32 +204,32 @@ context('Sign In', () => {
 
     jobReviewPage.employerId().contains('ASDA')
     jobReviewPage.jobTitle().contains('Test job')
-    jobReviewPage.jobSector().contains('Office or desk-based')
+    jobReviewPage.sector().contains('Office or desk-based')
     jobReviewPage.industrySector().contains('Administration and support services')
     jobReviewPage.numberOfVacancies().contains('1')
-    jobReviewPage.jobSourceOne().contains('NFN')
-    jobReviewPage.jobSourceTwo().contains('PEL')
-    jobReviewPage.charity().contains('Test charity')
+    jobReviewPage.sourcePrimary().contains('NFN')
+    jobReviewPage.sourceSecondary().contains('PEL')
+    jobReviewPage.charityName().contains('Test charity')
     jobReviewPage.postcode().contains('NE157LR')
     jobReviewPage.salaryFrom().contains('£25000.00')
     jobReviewPage.salaryTo().contains('Not provided')
     jobReviewPage.salaryPeriod().contains('Per year')
     jobReviewPage.additionalSalaryInformation().contains('Not provided')
-    jobReviewPage.nationalMinimumWage().contains('Yes')
+    jobReviewPage.isPayingAtLeastNationalMinimumWage().contains('Yes')
     jobReviewPage.workPattern().contains('Flexi-time')
     jobReviewPage.contractType().contains('Permanent')
-    jobReviewPage.hours().contains('Full-time (more than 30-39 hours)')
+    jobReviewPage.hoursPerWeek().contains('Full-time (more than 30-39 hoursPerWeek)')
     jobReviewPage.baseLocation().contains('Not provided')
     jobReviewPage.essentialCriteria().contains('Some text')
     jobReviewPage.desirableCriteria().contains('Not provided')
     jobReviewPage.jobDescription().contains('Some text')
     jobReviewPage.offenceExclusions().contains('None')
-    jobReviewPage.rollingOpportunity().contains('No')
+    jobReviewPage.isRollingOpportunity().contains('No')
     jobReviewPage.closingDate().contains(' 1 January 2026')
-    jobReviewPage.prisonLeaversJob().contains('Yes')
+    jobReviewPage.isOnlyForPrisonLeavers().contains('Yes')
     jobReviewPage.startDate().contains('1 January 2026')
     jobReviewPage.howToApply().contains('Some text')
-    jobReviewPage.supportingDocumentation().contains('Other - Some text')
+    jobReviewPage.supportingDocumentationRequired().contains('Other - Some text')
 
     jobReviewPage.submitButton().click()
 
@@ -245,12 +246,12 @@ context('Sign In', () => {
     jobRoleUpdatePage.employerIdField().type('ASDA')
     jobRoleUpdatePage.employerIdFieldOption(0).click()
     jobRoleUpdatePage.jobTitleField().type('Test job')
-    jobRoleUpdatePage.jobSectorField().select('OFFICE')
+    jobRoleUpdatePage.sectorField().select('OFFICE')
     jobRoleUpdatePage.industrySectorField().select('ADMIN_SUPPORT')
     jobRoleUpdatePage.numberOfVacanciesField().type('1')
-    jobRoleUpdatePage.jobSourceOneField().select('NFN')
-    jobRoleUpdatePage.jobSourceTwoField().select('PEL')
-    jobRoleUpdatePage.charityField().type('Test charity')
+    jobRoleUpdatePage.sourcePrimaryField().select('NFN')
+    jobRoleUpdatePage.sourceSecondaryField().select('PEL')
+    jobRoleUpdatePage.charityNameField().type('Test charity')
 
     jobRoleUpdatePage.submitButton().click()
 
@@ -261,10 +262,10 @@ context('Sign In', () => {
     jobContractUpdatePage.postcodeField().type('NE157LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
-    jobContractUpdatePage.nationalMinimumWageYes().click()
+    jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
     jobContractUpdatePage.workPatternField().select('FLEXI_TIME')
     jobContractUpdatePage.contractTypeField().select('PERMANENT')
-    jobContractUpdatePage.hoursField().select('FULL_TIME')
+    jobContractUpdatePage.hoursPerWeekField().select('FULL_TIME')
 
     jobContractUpdatePage.submitButton().click()
 
@@ -282,16 +283,16 @@ context('Sign In', () => {
     const jobHowToApplyPage = new JobHowToApplyPage('How to apply')
     jobHowToApplyPage.headerCaption().contains('Add a job - step 4 of 5')
 
-    jobHowToApplyPage.rollingOpportunityFieldNo().click()
+    jobHowToApplyPage.isRollingOpportunityFieldNo().click()
     jobHowToApplyPage.closingDateField.day().type('1')
     jobHowToApplyPage.closingDateField.month().type('1')
     jobHowToApplyPage.closingDateField.year().type('2026')
-    jobHowToApplyPage.prisonLeaversJobFieldYes().click()
+    jobHowToApplyPage.isOnlyForPrisonLeaversFieldYes().click()
     jobHowToApplyPage.howToApplyField().type('Some text')
     jobHowToApplyPage.startDateField.day().type('1')
     jobHowToApplyPage.startDateField.month().type('1')
     jobHowToApplyPage.startDateField.year().type('2026')
-    jobHowToApplyPage.supportingDocumentationFieldValue('OTHER').click()
+    jobHowToApplyPage.supportingDocumentationRequiredFieldValue('OTHER').click()
     jobHowToApplyPage.supportingDocumentationDetailsField().type('Some text')
 
     jobHowToApplyPage.submitButton().click()
@@ -313,10 +314,10 @@ context('Sign In', () => {
     jobRoleUpdatePage.submitButton().click()
     jobReviewPage.jobTitle().contains('A different job')
 
-    jobReviewPage.jobSectorLink().click()
-    jobRoleUpdatePage.jobSectorField().select('RETAIL')
+    jobReviewPage.sectorLink().click()
+    jobRoleUpdatePage.sectorField().select('RETAIL')
     jobRoleUpdatePage.submitButton().click()
-    jobReviewPage.jobSector().contains('Retail and sales')
+    jobReviewPage.sector().contains('Retail and sales')
 
     jobReviewPage.industrySectorLink().click()
     jobRoleUpdatePage.industrySectorField().select('RETAIL')
@@ -328,20 +329,20 @@ context('Sign In', () => {
     jobRoleUpdatePage.submitButton().click()
     jobReviewPage.numberOfVacancies().contains('2')
 
-    jobReviewPage.jobSourceOneLink().click()
-    jobRoleUpdatePage.jobSourceOneField().select('PRISON')
+    jobReviewPage.sourcePrimaryLink().click()
+    jobRoleUpdatePage.sourcePrimaryField().select('PRISON')
     jobRoleUpdatePage.submitButton().click()
-    jobReviewPage.jobSourceOne().contains('Prison')
+    jobReviewPage.sourcePrimary().contains('Prison')
 
-    jobReviewPage.jobSourceTwoLink().click()
-    jobRoleUpdatePage.jobSourceTwoField().select('PRISON')
+    jobReviewPage.sourceSecondaryLink().click()
+    jobRoleUpdatePage.sourceSecondaryField().select('PRISON')
     jobRoleUpdatePage.submitButton().click()
-    jobReviewPage.jobSourceTwo().contains('Prison')
+    jobReviewPage.sourceSecondary().contains('Prison')
 
-    jobReviewPage.charityLink().click()
-    jobRoleUpdatePage.charityField().clear().type('Another charity')
+    jobReviewPage.charityNameLink().click()
+    jobRoleUpdatePage.charityNameField().clear().type('Another charity')
     jobRoleUpdatePage.submitButton().click()
-    jobReviewPage.charity().contains('Another charity')
+    jobReviewPage.charityName().contains('Another charity')
 
     // Contract page changes
     jobReviewPage.postcodeLink().click()
@@ -364,10 +365,10 @@ context('Sign In', () => {
     jobContractUpdatePage.submitButton().click()
     jobReviewPage.salaryPeriod().contains('Per day')
 
-    jobReviewPage.nationalMinimumWageLink().click()
-    jobContractUpdatePage.nationalMinimumWageNo().click()
+    jobReviewPage.isPayingAtLeastNationalMinimumWageLink().click()
+    jobContractUpdatePage.isPayingAtLeastNationalMinimumWageNo().click()
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.nationalMinimumWage().contains('No')
+    jobReviewPage.isPayingAtLeastNationalMinimumWage().contains('No')
 
     jobReviewPage.workPatternLink().click()
     jobContractUpdatePage.workPatternField().select('ANNUALISED_HOURS')
@@ -379,10 +380,10 @@ context('Sign In', () => {
     jobContractUpdatePage.submitButton().click()
     jobReviewPage.contractType().contains('Temporary')
 
-    jobReviewPage.hoursLink().click()
-    jobContractUpdatePage.hoursField().select('PART_TIME')
+    jobReviewPage.hoursPerWeekLink().click()
+    jobContractUpdatePage.hoursPerWeekField().select('PART_TIME')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.hours().contains('Part-time (less than 30 hours)')
+    jobReviewPage.hoursPerWeek().contains('Part-time (less than 30 hoursPerWeek)')
 
     jobReviewPage.additionalSalaryInformationLink().click()
     jobContractUpdatePage.additionalSalaryInformationField().clear().type('Some info')
@@ -417,10 +418,10 @@ context('Sign In', () => {
     jobReviewPage.offenceExclusions().contains('Arson')
 
     // How to apply page changes
-    jobReviewPage.rollingOpportunityLink().click()
-    jobHowToApplyPage.rollingOpportunityFieldYes().click()
+    jobReviewPage.isRollingOpportunityLink().click()
+    jobHowToApplyPage.isRollingOpportunityFieldYes().click()
     jobHowToApplyPage.submitButton().click()
-    jobReviewPage.rollingOpportunity().contains('Yes')
+    jobReviewPage.isRollingOpportunity().contains('Yes')
 
     jobReviewPage.startDateLink().click()
     jobHowToApplyPage.startDateField.day().clear().type('2')
@@ -429,21 +430,21 @@ context('Sign In', () => {
     jobHowToApplyPage.submitButton().click()
     jobReviewPage.startDate().contains('2 March 2027')
 
-    jobReviewPage.prisonLeaversJobLink().click()
-    jobHowToApplyPage.prisonLeaversJobFieldNo().click()
+    jobReviewPage.isOnlyForPrisonLeaversLink().click()
+    jobHowToApplyPage.isOnlyForPrisonLeaversFieldNo().click()
     jobHowToApplyPage.submitButton().click()
-    jobReviewPage.prisonLeaversJob().contains('No')
+    jobReviewPage.isOnlyForPrisonLeavers().contains('No')
 
     jobReviewPage.howToApplyLink().click()
     jobHowToApplyPage.howToApplyField().clear().type('Some info to apply')
     jobHowToApplyPage.submitButton().click()
     jobReviewPage.howToApply().contains('Some info to apply')
 
-    jobReviewPage.supportingDocumentationLink().click()
-    jobHowToApplyPage.supportingDocumentationFieldValue('CV').click()
+    jobReviewPage.supportingDocumentationRequiredLink().click()
+    jobHowToApplyPage.supportingDocumentationRequiredFieldValue('CV').click()
     jobHowToApplyPage.supportingDocumentationDetailsField().clear().type('Some more text')
     jobHowToApplyPage.submitButton().click()
-    jobReviewPage.supportingDocumentation().contains('CV')
-    jobReviewPage.supportingDocumentation().contains('Some more text')
+    jobReviewPage.supportingDocumentationRequired().contains('CV')
+    jobReviewPage.supportingDocumentationRequired().contains('Some more text')
   })
 })

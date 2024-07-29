@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import IndexPage from '../pages/index'
 import EmployerUpdatePage from '../pages/employers/employerUpdate'
 import EmployerReviewPage from '../pages/employers/employerReview'
 import EmployerListPage from '../pages/employers/employerList'
@@ -33,7 +32,7 @@ context('Sign In', () => {
 
     employerListPage.employerLink(1).click()
 
-    const employerUpdatePage = new EmployerUpdatePage('ASDA')
+    const employerUpdatePage = new EmployerReviewPage('ASDA')
     employerUpdatePage.headerCaption().contains('Update an employer - step 2 of 2')
   })
 

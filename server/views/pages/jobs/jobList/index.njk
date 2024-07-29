@@ -9,7 +9,7 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "../../../macros/error-summary/macro.njk" import errorSummary %}
 
-{% set employers = employerListResults.content %}
+{% set jobs = jobListResults.content %}
 {% set activeStatus = filterStatus %}
 {% set title = 'Add jobs and employers' %}
 
@@ -37,7 +37,7 @@
         {# This whole section has a grey background colour #}
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l govuk-!-margin-bottom-7" xmlns="http://www.w3.org/1999/html">{{ title }}</h1>
-            <form method="post" novalidate="novalidate" name="employer-search-form" id="employer-search-form" class="prisoner-search__form" data-qa="employer-search-form">
+            <form method="post" novalidate="novalidate" name="job-search-form" id="job-search-form" class="prisoner-search__form" data-qa="job-search-form">
 
                 <div class="govuk-grid-row">
                     <div class="govuk-grid-column-full">
@@ -55,8 +55,13 @@
 
                     </div>
                 </div>
+
+                {% include './partials/_jobListFilters.njk' %}
                 
                 {% include './partials/_buttonPanel.njk' %}
+
+                {% include './partials/_jobListTable.njk' %}
+
             </form>
         </div>
     </div>

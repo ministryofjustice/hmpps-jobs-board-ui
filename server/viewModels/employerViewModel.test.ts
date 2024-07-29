@@ -13,13 +13,13 @@ const testData: any = {
 }
 
 describe('EmployerViewModel', () => {
-  const ciagListViewModel: EmployerViewModel = plainToClass(EmployerViewModel, testData)
+  const employerListViewModel: EmployerViewModel = plainToClass(EmployerViewModel, testData)
 
   it('should expose only specified properties', () => {
-    expect(Object.keys(ciagListViewModel)).toEqual(['id', 'name', 'description', 'createdAt', 'sector', 'status'])
+    expect(Object.keys(employerListViewModel)).toEqual(['id', 'name', 'description', 'createdAt', 'sector', 'status'])
   })
 
   it('should format releaseDate using formatDateStringToddMMMyyyy', () => {
-    expect(ciagListViewModel.createdAt).toEqual('4 Jul 2024')
+    expect(employerListViewModel.createdAt).toEqual('4 Jul 2024')
   })
 })

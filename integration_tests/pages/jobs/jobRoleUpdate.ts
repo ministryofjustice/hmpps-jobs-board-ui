@@ -19,11 +19,11 @@ export default class JobRoleUpdatePage extends Page {
 
   jobTitleFieldErrorMessage = (): PageElement => cy.get('#jobTitle-error')
 
-  jobSectorField = (): PageElement => cy.get('#jobSector')
+  sectorField = (): PageElement => cy.get('#sector')
 
-  jobSectorPageErrorMessage = (): PageElement => cy.get('[href="#jobSector"]')
+  sectorPageErrorMessage = (): PageElement => cy.get('[href="#sector"]')
 
-  jobSectorFieldErrorMessage = (): PageElement => cy.get('#jobSector-error')
+  sectorFieldErrorMessage = (): PageElement => cy.get('#sector-error')
 
   industrySectorField = (): PageElement => cy.get('#industrySector')
 
@@ -37,21 +37,21 @@ export default class JobRoleUpdatePage extends Page {
 
   numberOfVacanciesFieldErrorMessage = (): PageElement => cy.get('#numberOfVacancies-error')
 
-  jobSourceOneField = (): PageElement => cy.get('#jobSourceOne')
+  sourcePrimaryField = (): PageElement => cy.get('#sourcePrimary')
 
-  jobSourceOnePageErrorMessage = (): PageElement => cy.get('[href="#jobSourceOne"]')
+  sourcePrimaryPageErrorMessage = (): PageElement => cy.get('[href="#sourcePrimary"]')
 
-  jobSourceOneFieldErrorMessage = (): PageElement => cy.get('#jobSourceOne-error')
+  sourcePrimaryFieldErrorMessage = (): PageElement => cy.get('#sourcePrimary-error')
 
-  jobSourceTwoField = (): PageElement => cy.get('#jobSourceTwo')
+  sourceSecondaryField = (): PageElement => cy.get('#sourceSecondary')
 
-  jobSourceTwoPageErrorMessage = (): PageElement => cy.get('[href="#jobSourceTwo"]')
+  sourceSecondaryPageErrorMessage = (): PageElement => cy.get('[href="#sourceSecondary"]')
 
-  jobSourceTwoFieldErrorMessage = (): PageElement => cy.get('#jobSourceTwo-error')
+  sourceSecondaryFieldErrorMessage = (): PageElement => cy.get('#sourceSecondary-error')
 
-  charityField = (): PageElement => cy.get('#charity')
+  charityNameField = (): PageElement => cy.get('#charityName')
 
-  charityPageErrorMessage = (): PageElement => cy.get('[href="#charity"]')
+  charityNamePageErrorMessage = (): PageElement => cy.get('[href="#charityName"]')
 
-  charityFieldErrorMessage = (): PageElement => cy.get('#charity-error')
+  charityNameFieldErrorMessage = (): PageElement => cy.get('#charityName-error')
 }

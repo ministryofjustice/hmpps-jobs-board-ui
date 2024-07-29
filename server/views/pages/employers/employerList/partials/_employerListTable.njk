@@ -33,7 +33,7 @@
         {% for item in employers %}
             <tr class="govuk-table__row {{ rowClass.next() }}">
                 <td class="govuk-table__cell">
-                    <a href="{{ addressLookup.employers.employerReview(item.id) }}"
+                    <a href="{{ addressLookup.employers.employerReview(item.id, 'update') }}"
                        rel="noopener noreferrer"
                        data-qa="quick-look-link"
                        aria-label="Employer link for {{ item.employerName }}"

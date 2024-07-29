@@ -9,24 +9,24 @@ import OffenceExclusions from '../../enums/offenceExclusions'
 import SupportingDocumentation from '../../enums/supportingDocumentation'
 import JobSource from '../../enums/jobSource'
 
-interface GetJobReaponse {
+interface GetJobResponse {
   employerId: string
   jobTitle: string
-  jobSector: JobSector
+  sector: JobSector
   industrySector: EmployerSector
   numberOfVacancies: number
-  JobjobSourceOne: JobSource
-  jobSourceTwo?: JobSource
-  charity?: string
+  JobsourcePrimary: JobSource
+  sourceSecondary?: JobSource
+  charityName?: string
   postcode: string
   salaryFrom: number
   salaryTo?: number
   salaryPeriod: SalaryPeriod
   additionalSalaryInformation?: string
-  nationalMinimumWage: boolean
+  isPayingAtLeastNationalMinimumWage: boolean
   workPattern: WorkPattern
   contractType: ContractType
-  hours: Hours
+  hoursPerWeek: Hours
   baseLocation?: BaseLocation
   essentialCriteria: string
   desirableCriteria?: string
@@ -35,10 +35,13 @@ interface GetJobReaponse {
   howToApply: string
   closingDate: string
   startDate?: string
-  rollingOpportunity: boolean
-  prisonLeaversJob: boolean
-  supportingDocumentation: SupportingDocumentation[]
+  isRollingOpportunity: boolean
+  isOnlyForPrisonLeavers: boolean
+  supportingDocumentationRequired: SupportingDocumentation[]
   supportingDocumentationDetails: string
+
+  createdAt: string
+  createdBy: string
 }
 
-export default GetJobReaponse
+export default GetJobResponse

@@ -8,5 +8,9 @@ export default (router: Router, services: Services) => {
   const controller = new EmployerListController(services.paginationService)
   router.get('/', [getEmployerListResolver(services.employerService)], controller.get)
 
-  router.post('/', [handleSortMiddleware('sortAction', 'lastName')], controller.post)
+  router.post(
+    '/',
+    [handleSortMiddleware('sortAction', 'name'), handleSortMiddleware('sortAction', 'createdAt')],
+    controller.post,
+  )
 }

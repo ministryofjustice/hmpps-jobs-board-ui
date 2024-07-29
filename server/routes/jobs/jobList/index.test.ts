@@ -1,15 +1,15 @@
 import { Router } from 'express'
-import Controller from './employerListController'
+import Controller from './jobListController'
 import handleSortMiddleware from '../../../middleware/handleSortMiddleware'
-import getEmployerListResolver from '../../../middleware/resolvers/getEmployerListResolver'
+import getJobListResolver from '../../../middleware/resolvers/getJobListResolver'
 import { Services } from '../../../services'
 import routes from './index'
 
-jest.mock('./employerListController')
+jest.mock('./jobListController')
 jest.mock('../../../middleware/handleSortMiddleware')
-jest.mock('../../../middleware/resolvers/getEmployerListResolver')
+jest.mock('../../../middleware/resolvers/getJobListResolver')
 
-describe('employerList routes', () => {
+describe('jobList routes', () => {
   let router: Router
   let services: Services
 
@@ -24,16 +24,16 @@ describe('employerList routes', () => {
       post: jest.fn(),
     }))
     ;(handleSortMiddleware as jest.Mock).mockImplementation(() => jest.fn())
-    ;(getEmployerListResolver as jest.Mock).mockImplementation(() => jest.fn())
+    ;(getJobListResolver as jest.Mock).mockImplementation(() => jest.fn())
   })
 
   it('should register GET route', () => {
     routes(router, services)
 
     expect(router.get).toHaveBeenCalledWith(
-      '/',
+      '/jobs',
       [
-        expect.any(Function), // getEmployerListResolver
+        expect.any(Function), // getJobListResolver
       ],
       expect.any(Function), // controller.get
     )
@@ -43,7 +43,7 @@ describe('employerList routes', () => {
     routes(router, services)
 
     expect(router.post).toHaveBeenCalledWith(
-      '/',
+      '/jobs',
       [
         expect.any(Function), // handleSortMiddleware
         expect.any(Function), // handleSortMiddleware

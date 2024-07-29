@@ -65,7 +65,7 @@
           {% endset -%}
 
           {{ govukRadios({
-            name: "rollingOpportunity",
+            name: "isRollingOpportunity",
             fieldset: {
               legend: {
                 text: 'Rolling opportunity'
@@ -75,23 +75,23 @@
               {
                 value: "YES",
                 text: contentLookup.yesNo["YES"],
-                checked: rollingOpportunity === "YES"
+                checked: isRollingOpportunity === "YES"
               },
               {
                 value: "NO",
                 text: contentLookup.yesNo["NO"],
-                checked: rollingOpportunity === "NO",
+                checked: isRollingOpportunity === "NO",
                 attributes: { "aria-label": contentLookup.yesNo["NO"] + " (Opens a dialogue box)" },
                 conditional: {
                   html: closingDateHtml
                 }
               }
             ],
-            errorMessage: errors.rollingOpportunity
+            errorMessage: errors.isRollingOpportunity
           }) }}
 
           {{ govukRadios({
-            name: "prisonLeaversJob",
+            name: "isOnlyForPrisonLeavers",
             fieldset: {
               legend: {
                 text: 'Is the job only for prison leavers?'
@@ -101,15 +101,15 @@
               {
                 value: "YES",
                 text: contentLookup.yesNo["YES"],
-                checked: prisonLeaversJob === "YES"
+                checked: isOnlyForPrisonLeavers === "YES"
               },
               {
                 value: "NO",
                 text: contentLookup.yesNo["NO"],
-                checked: prisonLeaversJob === "NO"
+                checked: isOnlyForPrisonLeavers === "NO"
               }
             ],
-            errorMessage: errors.prisonLeaversJob
+            errorMessage: errors.isOnlyForPrisonLeavers
           }) }}
 
           {{ govukDateInput({
@@ -173,7 +173,7 @@
           {% endset -%}
 
           {{ govukCheckboxes({
-            name: "supportingDocumentation",
+            name: "supportingDocumentationRequired",
             fieldset: {
               legend: {
                   text: "Supporting documentation required (optional)"
@@ -182,17 +182,17 @@
             items: [
               {
                 value: "CV",
-                checked: supportingDocumentation.indexOf("CV") > -1,
+                checked: supportingDocumentationRequired.indexOf("CV") > -1,
                 text: contentLookup.supportingDocumentation["CV"]
               },
               {
                 value: "DISCLOSURE_LETTER",
-                checked: supportingDocumentation.indexOf("DISCLOSURE_LETTER") > -1,
+                checked: supportingDocumentationRequired.indexOf("DISCLOSURE_LETTER") > -1,
                 text: contentLookup.supportingDocumentation["DISCLOSURE_LETTER"]
               },
               {
                 value: "OTHER",
-                checked: supportingDocumentation.indexOf("OTHER") > -1,
+                checked: supportingDocumentationRequired.indexOf("OTHER") > -1,
                 text: contentLookup.supportingDocumentation["OTHER"],
                 attributes: { "aria-label": contentLookup.supportingDocumentation["OTHER"] + " (Opens a dialogue box)" },
                 conditional: {
@@ -200,7 +200,7 @@
                 }
               }
             ],
-            errorMessage: errors.supportingDocumentation
+            errorMessage: errors.supportingDocumentationRequired
           }) }}
 
           {{  

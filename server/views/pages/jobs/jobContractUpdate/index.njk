@@ -137,7 +137,7 @@
           }}
 
           {{ govukRadios({
-            name: "nationalMinimumWage",
+            name: "isPayingAtLeastNationalMinimumWage",
             fieldset: {
               legend: {
                 text: 'Does the salary pay at least the national minimum wage'
@@ -147,15 +147,15 @@
               {
                 value: "YES",
                 text: contentLookup.yesNo["YES"],
-                checked: nationalMinimumWage === "YES"
+                checked: isPayingAtLeastNationalMinimumWage === "YES"
               },
               {
                 value: "NO",
                 text: contentLookup.yesNo["NO"],
-                checked: nationalMinimumWage === "NO"
+                checked: isPayingAtLeastNationalMinimumWage === "NO"
               }
             ],
-            errorMessage: errors.nationalMinimumWage
+            errorMessage: errors.isPayingAtLeastNationalMinimumWage
           }) }}
 
           {{ govukSelect({
@@ -208,9 +208,9 @@
           }}
 
           {{ govukSelect({
-              id: "hours",
-              name: "hours",
-              value: hours,
+              id: "hoursPerWeek",
+              name: "hoursPerWeek",
+              value: hoursPerWeek,
               label: {
                 text: 'Hours'
               },
@@ -236,7 +236,7 @@
                   text: contentLookup.hours["ZERO_HOURS"]
                 }
               ],
-              errorMessage: errors.hours
+              errorMessage: errors.hoursPerWeek
             }) 
           }}
 

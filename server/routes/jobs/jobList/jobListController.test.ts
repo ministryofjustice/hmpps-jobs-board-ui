@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { plainToClass } from 'class-transformer'
 import expressMocks from '../../../testutils/expressMocks'
-import Controller from './employerListController'
+import Controller from './jobListController'
 import validateFormSchema from '../../../utils/validateFormSchema'
 import { getSessionData, setSessionData } from '../../../utils/session'
-import EmployerViewModel from '../../../viewModels/employerViewModel'
+import JobViewModel from '../../../viewModels/jobViewModel'
 
 jest.mock('../../../utils/validateFormSchema', () => ({
   ...jest.requireActual('../../../utils/validateFormSchema'),
@@ -18,7 +18,7 @@ describe('EmployerListController', () => {
   res.locals.user = {}
   res.locals.userActiveCaseLoad = { activeCaseLoad: { caseLoadId: 'MDI', description: 'Moorland (HMP & YOI)' } }
 
-  req.context.employers = {
+  req.context.jobs = {
     content: [
       {
         id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
@@ -42,14 +42,14 @@ describe('EmployerListController', () => {
   req.get = jest.fn()
 
   const mockData = {
-    employerListResults: {
-      content: plainToClass(EmployerViewModel, req.context.employers.content),
+    jobListResults: {
+      content: plainToClass(JobViewModel, req.context.jobs.content),
       page: {
         totalElements: 1,
       },
     },
-    employerNameFilter: '',
-    employerSectorFilter: '',
+    jobTitleOrEmployerNameFilter: '',
+    jobSectorFilter: '',
     filtered: '',
     order: 'descending',
     paginationData: {},
@@ -84,7 +84,7 @@ describe('EmployerListController', () => {
       await controller.get(req, res, next)
       next.mockReset()
 
-      expect(res.render).toHaveBeenCalledWith('pages/employers/employerList/index', mockData)
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobList/index', mockData)
       expect(next).toHaveBeenCalledTimes(0)
     })
   })
@@ -98,7 +98,7 @@ describe('EmployerListController', () => {
       res.redirect.mockReset()
       next.mockReset()
       validationMock.mockReset()
-      setSessionData(req, ['employerList', 'data'], mockData)
+      setSessionData(req, ['jobList', 'data'], mockData)
       mockPaginationService.getPagination.mockReturnValue(paginationData)
     })
 
@@ -122,21 +122,21 @@ describe('EmployerListController', () => {
 
       controller.post(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/employers/employerList/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobList/index', {
         ...mockData,
         errors,
       })
     })
 
     it('On successful POST - call renders with the correct data', async () => {
-      req.body.employerNameFilter = 'name1'
-      req.body.employerSectorFilter = 'TEST_STATUS'
+      req.body.jobTitleOrEmployerNameFilter = 'name1'
+      req.body.jobSectorFilter = 'TEST_STATUS'
 
       controller.post(req, res, next)
 
-      expect(getSessionData(req, ['employerList', 'data'])).toBeTruthy()
+      expect(getSessionData(req, ['jobList', 'data'])).toBeTruthy()
       expect(res.redirect).toHaveBeenCalledWith(
-        `/?sort=name&order=descending&employerNameFilter=name1&employerSectorFilter=TEST_STATUS`,
+        `/jobs?sort=name&order=descending&jobTitleOrEmployerNameFilter=name1&jobSectorFilter=TEST_STATUS`,
       )
     })
   })

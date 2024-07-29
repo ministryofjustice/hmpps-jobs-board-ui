@@ -62,9 +62,9 @@
           }}
 
           {{ govukSelect({
-              id: "jobSector",
-              name: "jobSector",
-              value: jobSector,
+              id: "sector",
+              name: "sector",
+              value: sector,
               label: {
                 text: 'Job sector'
               },
@@ -134,7 +134,7 @@
                     text: contentLookup.jobSector["OTHER"]
                 }  
               ],
-              errorMessage: errors.jobSector
+              errorMessage: errors.sector
             }) 
           }}
 
@@ -249,9 +249,9 @@
           }}
 
           {{ govukSelect({
-              id: "jobSourceOne",
-              name: "jobSourceOne",
-              value: jobSourceOne,
+              id: "sourcePrimary",
+              name: "sourcePrimary",
+              value: sourcePrimary,
               label: {
                 text: "Job source"
               },
@@ -297,14 +297,14 @@
                   text: contentLookup.jobSource["OTHER"]
                 }
               ],
-              errorMessage: errors.jobSourceOne
+              errorMessage: errors.sourcePrimary
             }) 
           }}
 
           {{ govukSelect({
-              id: "jobSourceTwo",
-              name: "jobSourceTwo",
-              value: jobSourceTwo,
+              id: "sourceSecondary",
+              name: "sourceSecondary",
+              value: sourceSecondary,
               label: {
                 text: "Job source 2  (optional)"
               },
@@ -350,14 +350,14 @@
                   text: contentLookup.jobSource["OTHER"]
                 }
               ],
-              errorMessage: errors.jobSourceTwo
+              errorMessage: errors.sourceSecondary
             }) 
           }}
 
           {{ govukInput({
-              id: "charity",
-              name: "charity",
-              value: charity,
+              id: "charityName",
+              name: "charityName",
+              value: charityName,
               type: "text",
               label: {
                 text: "Is this job supported by a charity? (optional)"
@@ -365,7 +365,7 @@
               hint: {
                 text: "Enter the name of the Third Sector organisation supporting the job."
               },
-              errorMessage: errors.charity
+              errorMessage: errors.charityName
             })
           }}
           

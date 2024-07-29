@@ -13,7 +13,7 @@ export default (router: Router, _: Services) => {
   router.post(
     '/jobs/job/:id/how-to-apply/:mode',
     [
-      parseCheckBoxValue('supportingDocumentation'),
+      parseCheckBoxValue('supportingDocumentationRequired'),
       parseDateInputValue('startDate'),
       parseDateInputValue('closingDate'),
     ],
