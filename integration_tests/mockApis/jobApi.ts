@@ -34,7 +34,7 @@ const getJob = () =>
         sourcePrimary: 'NFN',
         sourceSecondary: 'PEL',
         charityName: 'Heart foundation',
-        postcode: 'NE236DR',
+        postCode: 'NE236DR',
         salaryFrom: 25000,
         salaryTo: 30000,
         salaryPeriod: 'PER_YEAR',

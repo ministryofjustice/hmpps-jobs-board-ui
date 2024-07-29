@@ -28,19 +28,19 @@
           <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
 
           {{ govukInput({
-              id: "postcode",
-              name: "postcode",
-              value: postcode,
+              id: "postCode",
+              name: "postCode",
+              value: postCode,
               type: "text",
               hint: {
-                text: "Enter postcode."
+                text: "Enter postCode."
               },
               spellcheck: false,
               classes: "govuk-input--width-10",
               label: {
                 text: "Job location"
               },
-              errorMessage: errors.postcode
+              errorMessage: errors.postCode
             })
           }}
 

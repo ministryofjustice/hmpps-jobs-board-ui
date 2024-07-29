@@ -13,7 +13,7 @@ describe('validationSchema', () => {
   const schema = validationSchema()
 
   beforeEach(() => {
-    req.body.postcode = 'NE157LR'
+    req.body.postCode = 'NE157LR'
     req.body.salaryFrom = '200'
     req.body.salaryTo = '400'
     req.body.salaryPeriod = SalaryPeriod.PER_DAY
@@ -31,8 +31,8 @@ describe('validationSchema', () => {
     expect(error).toBeFalsy()
   })
 
-  it('On validation error - should disallow a postcode being blank', () => {
-    req.body.postcode = ''
+  it('On validation error - should disallow a postCode being blank', () => {
+    req.body.postCode = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -40,13 +40,13 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Enter a job location')
   })
 
-  it('On validation error - should disallow an invalid postcode', () => {
-    req.body.postcode = 'dhajgdjahsgd'
+  it('On validation error - should disallow an invalid postCode', () => {
+    req.body.postCode = 'dhajgdjahsgd'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Job location must be a valid postcode')
+    expect(error.details[0].message).toBe('Job location must be a valid postCode')
   })
 
   it('On validation success - should allow all salaryFrom values upto 7 figures with 2 decimal places', () => {

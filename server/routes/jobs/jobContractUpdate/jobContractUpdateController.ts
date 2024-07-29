@@ -37,7 +37,7 @@ export default class JobContractUpdateController {
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id, mode } = req.params
     const {
-      postcode,
+      postCode,
       salaryFrom,
       salaryTo,
       salaryPeriod,
@@ -66,7 +66,7 @@ export default class JobContractUpdateController {
       const job = getSessionData(req, ['job', id])
       setSessionData(req, ['job', id], {
         ...job,
-        postcode,
+        postCode,
         salaryFrom: Number(salaryFrom),
         salaryTo: salaryTo ? Number(salaryTo) : undefined,
         salaryPeriod,

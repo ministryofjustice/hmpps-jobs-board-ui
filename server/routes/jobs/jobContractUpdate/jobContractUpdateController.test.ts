@@ -106,7 +106,7 @@ describe('jobContractUpdateController', () => {
     })
 
     it('On success - Sets session and redirects to jobRequirementsUpdate', async () => {
-      req.body.postcode = 'NE157LR'
+      req.body.postCode = 'NE157LR'
       req.body.salaryFrom = '200'
       req.body.salaryTo = '400'
       req.body.salaryPeriod = SalaryPeriod.PER_DAY

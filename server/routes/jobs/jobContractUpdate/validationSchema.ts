@@ -9,13 +9,13 @@ import BaseLocation from '../../../enums/baseLocation'
 import YesNoValue from '../../../enums/yesNoValue'
 
 export default function validationSchema(): ObjectSchema {
-  const postcodeRegex = /^[a-z]{1,2}\d[a-z\d]?\s*\d[a-z]{2}$/i
+  const postCodeRegex = /^[a-z]{1,2}\d[a-z\d]?\s*\d[a-z]{2}$/i
 
   return joi.object({
-    postcode: joi.string().empty('').regex(postcodeRegex).required().messages({
+    postCode: joi.string().empty('').regex(postCodeRegex).required().messages({
       'any.required': 'Enter a job location',
       'any.empty': 'Enter a job location',
-      'string.pattern.base': 'Job location must be a valid postcode',
+      'string.pattern.base': 'Job location must be a valid postCode',
     }),
     salaryFrom: joi
       .number()

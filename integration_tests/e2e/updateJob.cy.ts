@@ -32,7 +32,7 @@ context('Sign In', () => {
     jobReviewPage.sourcePrimary().contains('NFN')
     jobReviewPage.sourceSecondary().contains('PEL')
     jobReviewPage.charityName().contains('Heart foundation')
-    jobReviewPage.postcode().contains('NE236DR')
+    jobReviewPage.postCode().contains('NE236DR')
     jobReviewPage.salaryFrom().contains('£25000.00')
     jobReviewPage.salaryTo().contains('£30000.00')
     jobReviewPage.salaryPeriod().contains('Per year')
@@ -111,13 +111,13 @@ context('Sign In', () => {
     jobReviewPage.charityName().contains('Another charity')
 
     // Contract page changes
-    jobReviewPage.postcodeLink().click()
+    jobReviewPage.postCodeLink().click()
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
     jobContractUpdatePage.headerCaption().contains('Update a job - step 2 of 5')
 
-    jobContractUpdatePage.postcodeField().clear().type('NE356DR')
+    jobContractUpdatePage.postCodeField().clear().type('NE356DR')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.postcode().contains('NE356DR')
+    jobReviewPage.postCode().contains('NE356DR')
 
     jobReviewPage.salaryFromLink().click()
     jobContractUpdatePage.salaryFromField().clear().type('350.99')

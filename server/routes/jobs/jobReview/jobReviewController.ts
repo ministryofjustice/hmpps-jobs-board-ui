@@ -64,7 +64,7 @@ export default class JobReviewController {
         sourcePrimary: job.sourcePrimary as JobSource,
         sourceSecondary: job.sourceSecondary as JobSource,
         charityName: job.charityName,
-        postcode: job.postcode,
+        postCode: job.postCode,
         salaryFrom: job.salaryFrom,
         salaryTo: job.salaryTo,
         salaryPeriod: job.salaryPeriod as SalaryPeriod,

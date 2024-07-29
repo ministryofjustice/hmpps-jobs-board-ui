@@ -60,7 +60,7 @@ context('Sign In', () => {
 
     jobContractUpdatePage.submitButton().click()
 
-    jobContractUpdatePage.postcodePageErrorMessage().contains('Enter a job location')
+    jobContractUpdatePage.postCodePageErrorMessage().contains('Enter a job location')
     jobContractUpdatePage.salaryFromPageErrorMessage().contains('Enter minimum salary amount')
     jobContractUpdatePage.salaryPeriodPageErrorMessage().contains('Select a salary period')
     jobContractUpdatePage
@@ -71,7 +71,7 @@ context('Sign In', () => {
     jobContractUpdatePage.hoursPerWeekPageErrorMessage().contains('Select the hoursPerWeek for this job')
 
     // Field errors
-    jobContractUpdatePage.postcodeFieldErrorMessage().contains('Enter a job location')
+    jobContractUpdatePage.postCodeFieldErrorMessage().contains('Enter a job location')
     jobContractUpdatePage.salaryFromFieldErrorMessage().contains('Enter minimum salary amount')
     jobContractUpdatePage.salaryPeriodFieldErrorMessage().contains('Select a salary period')
     jobContractUpdatePage
@@ -82,7 +82,7 @@ context('Sign In', () => {
     jobContractUpdatePage.hoursPerWeekFieldErrorMessage().contains('Select the hoursPerWeek for this job')
 
     // Move to next page
-    jobContractUpdatePage.postcodeField().type('NE157LR')
+    jobContractUpdatePage.postCodeField().type('NE157LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
     jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
@@ -161,7 +161,7 @@ context('Sign In', () => {
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
     jobContractUpdatePage.headerCaption().contains('Add a job - step 2 of 5')
 
-    jobContractUpdatePage.postcodeField().type('NE157LR')
+    jobContractUpdatePage.postCodeField().type('NE157LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
     jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
@@ -210,7 +210,7 @@ context('Sign In', () => {
     jobReviewPage.sourcePrimary().contains('NFN')
     jobReviewPage.sourceSecondary().contains('PEL')
     jobReviewPage.charityName().contains('Test charity')
-    jobReviewPage.postcode().contains('NE157LR')
+    jobReviewPage.postCode().contains('NE157LR')
     jobReviewPage.salaryFrom().contains('£25000.00')
     jobReviewPage.salaryTo().contains('Not provided')
     jobReviewPage.salaryPeriod().contains('Per year')
@@ -259,7 +259,7 @@ context('Sign In', () => {
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
     jobContractUpdatePage.headerCaption().contains('Add a job - step 2 of 5')
 
-    jobContractUpdatePage.postcodeField().type('NE157LR')
+    jobContractUpdatePage.postCodeField().type('NE157LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
     jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
@@ -345,10 +345,10 @@ context('Sign In', () => {
     jobReviewPage.charityName().contains('Another charity')
 
     // Contract page changes
-    jobReviewPage.postcodeLink().click()
-    jobContractUpdatePage.postcodeField().clear().type('NE356DR')
+    jobReviewPage.postCodeLink().click()
+    jobContractUpdatePage.postCodeField().clear().type('NE356DR')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.postcode().contains('NE356DR')
+    jobReviewPage.postCode().contains('NE356DR')
 
     jobReviewPage.salaryFromLink().click()
     jobContractUpdatePage.salaryFromField().clear().type('350.99')

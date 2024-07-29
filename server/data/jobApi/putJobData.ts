@@ -21,7 +21,7 @@ interface PutJobData {
   charityName?: string // length 100
 
   // Second page
-  postcode: string
+  postCode: string
   salaryFrom: number // Float, 2 decimal places
   salaryTo?: number // Float, 2 decimal places
   salaryPeriod: SalaryPeriod
