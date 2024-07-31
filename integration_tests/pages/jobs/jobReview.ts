@@ -46,7 +46,7 @@ export default class JobReviewPage extends Page {
 
   desirableCriteria = (): PageElement => cy.get('[data-qa=desirableCriteria]')
 
-  jobDescription = (): PageElement => cy.get('[data-qa=jobDescription]')
+  description = (): PageElement => cy.get('[data-qa=description]')
 
   offenceExclusions = (): PageElement => cy.get('[data-qa=offenceExclusions]')
 
@@ -105,7 +105,7 @@ export default class JobReviewPage extends Page {
 
   desirableCriteriaLink = (): PageElement => cy.get('[data-qa=desirableCriteriaLink]')
 
-  jobDescriptionLink = (): PageElement => cy.get('[data-qa=jobDescriptionLink]')
+  descriptionLink = (): PageElement => cy.get('[data-qa=descriptionLink]')
 
   offenceExclusionsLink = (): PageElement => cy.get('[data-qa=offenceExclusionsLink]')
 

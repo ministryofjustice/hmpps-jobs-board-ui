@@ -37,7 +37,7 @@ export default class JobRequirementsUpdateController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id, mode } = req.params
-    const { essentialCriteria, desirableCriteria, jobDescription, offenceExclusions } = req.body
+    const { essentialCriteria, desirableCriteria, description, offenceExclusions } = req.body
 
     try {
       // If validation errors render errors
@@ -59,7 +59,7 @@ export default class JobRequirementsUpdateController {
         ...job,
         essentialCriteria,
         desirableCriteria,
-        jobDescription,
+        description,
         offenceExclusions,
       })
 

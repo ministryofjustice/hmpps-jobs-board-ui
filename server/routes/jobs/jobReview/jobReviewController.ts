@@ -34,7 +34,7 @@ export default class JobReviewController {
       const data = {
         id,
         ...job,
-        startDate: formatShortDate(new Date(job.startDate)),
+        startDate: job.startDate && formatShortDate(new Date(job.startDate)),
         closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
         employerName: (allEmployers.find((p: { id: string }) => p.id === job.employerId) || {}).name,
       }
@@ -76,7 +76,7 @@ export default class JobReviewController {
         baseLocation: job.baseLocation as BaseLocation,
         essentialCriteria: job.essentialCriteria,
         desirableCriteria: job.desirableCriteria,
-        jobDescription: job.jobDescription,
+        description: job.description,
         offenceExclusions: job.offenceExclusions as OffenceExclusions[],
         howToApply: job.howToApply,
         closingDate: job.closingDate,
@@ -86,6 +86,7 @@ export default class JobReviewController {
         supportingDocumentationRequired: job.supportingDocumentationRequired as SupportingDocumentation[],
         supportingDocumentationDetails: job.supportingDocumentationDetails,
       }
+
       await this.jobService.createUpdateJob(res.locals.user.username, id === 'new' ? uuidv7() : id, jobUpdate)
 
       // Delete current record

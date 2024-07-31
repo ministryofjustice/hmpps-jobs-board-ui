@@ -55,10 +55,10 @@
           }) }}
 
           {{ govukTextarea({
-            id: "jobDescription",
-            name: "jobDescription",
+            id: "description",
+            name: "description",
             rows: "5",
-            value: jobDescription,
+            value: description,
             type: "text",
             label: {
               text: "Job description"
@@ -66,7 +66,7 @@
             hint: {
               text: "Describe the role and main tasks. Include any benefits and training opportunities."
             },
-            errorMessage: errors.jobDescription
+            errorMessage: errors.description
           }) }}
 
           {{ govukCheckboxes({

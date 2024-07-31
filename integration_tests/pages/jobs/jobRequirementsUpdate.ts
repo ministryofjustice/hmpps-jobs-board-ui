@@ -17,11 +17,11 @@ export default class JobRequirementsUpdatePage extends Page {
 
   desirableCriteriaFieldErrorMessage = (): PageElement => cy.get('#desirableCriteria-error')
 
-  jobDescriptionField = (): PageElement => cy.get('#jobDescription')
+  descriptionField = (): PageElement => cy.get('#description')
 
-  jobDescriptionPageErrorMessage = (): PageElement => cy.get('[href="#jobDescription"]')
+  descriptionPageErrorMessage = (): PageElement => cy.get('[href="#description"]')
 
-  jobDescriptionFieldErrorMessage = (): PageElement => cy.get('#jobDescription-error')
+  descriptionFieldErrorMessage = (): PageElement => cy.get('#description-error')
 
   offenceExclusionsField = (): PageElement => cy.get('#offenceExclusions')
 

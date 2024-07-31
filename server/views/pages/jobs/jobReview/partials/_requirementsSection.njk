@@ -30,11 +30,11 @@
     <dt class="govuk-summary-list__key">
       Job description
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="jobDescription">
-      {{ jobDescription | nl2br | safe }}
+    <dd class="govuk-summary-list__value" data-qa="description">
+      {{ description | nl2br | safe }}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRequirementsUpdate(id, 'update') + '#jobDescription' }}" data-qa="jobDescriptionLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRequirementsUpdate(id, 'update') + '#description' }}" data-qa="descriptionLink">
         Change<span class="govuk-visually-hidden"> job description</span>
       </a>
     </dd>

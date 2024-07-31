@@ -232,7 +232,7 @@ describe('validationSchema', () => {
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Select the hoursPerWeek for this job')
+    expect(error.details[0].message).toBe('Select the hours for this job')
   })
 
   it('On validation error - should disallow a hoursPerWeek being an invalid value', () => {
@@ -241,7 +241,7 @@ describe('validationSchema', () => {
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Select the hoursPerWeek for this job')
+    expect(error.details[0].message).toBe('Select the hours for this job')
   })
 
   it('On validation success - should allow a baseLocation being blank', () => {

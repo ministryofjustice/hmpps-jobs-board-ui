@@ -46,7 +46,7 @@ const getJob = () =>
         baseLocation: 'WORKPLACE',
         essentialCriteria: 'Some essential criteria',
         desirableCriteria: 'Some desirable criteria',
-        jobDescription: 'Some job description',
+        description: 'Some job description',
         offenceExclusions: ['ARSON', 'TERRORISM'],
         howToApply: 'Some apply details',
         closingDate: '2025-02-01T00:00:00.000Z',

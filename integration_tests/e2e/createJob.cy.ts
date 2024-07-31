@@ -68,7 +68,7 @@ context('Sign In', () => {
       .contains('Select whether the job pays minimum wage or not')
     jobContractUpdatePage.workPatternPageErrorMessage().contains('Select a work pattern')
     jobContractUpdatePage.contractTypePageErrorMessage().contains('Select a contract type')
-    jobContractUpdatePage.hoursPerWeekPageErrorMessage().contains('Select the hoursPerWeek for this job')
+    jobContractUpdatePage.hoursPerWeekPageErrorMessage().contains('Select thehours for this job')
 
     // Field errors
     jobContractUpdatePage.postCodeFieldErrorMessage().contains('Enter a job location')
@@ -79,7 +79,7 @@ context('Sign In', () => {
       .contains('Select whether the job pays minimum wage or not')
     jobContractUpdatePage.workPatternFieldErrorMessage().contains('Select a work pattern')
     jobContractUpdatePage.contractTypeFieldErrorMessage().contains('Select a contract type')
-    jobContractUpdatePage.hoursPerWeekFieldErrorMessage().contains('Select the hoursPerWeek for this job')
+    jobContractUpdatePage.hoursPerWeekFieldErrorMessage().contains('Select thehours for this job')
 
     // Move to next page
     jobContractUpdatePage.postCodeField().type('NE157LR')
@@ -98,21 +98,21 @@ context('Sign In', () => {
 
     // Page errors
     jobRequirementsUpdatePage.essentialCriteriaPageErrorMessage().contains('Enter essential job requirements')
-    jobRequirementsUpdatePage.jobDescriptionPageErrorMessage().contains('Enter job description')
+    jobRequirementsUpdatePage.descriptionPageErrorMessage().contains('Enter job description')
     jobRequirementsUpdatePage
       .offenceExclusionsPageErrorMessage()
       .contains('Select one or more options in offence exclusions')
 
     // Field errors
     jobRequirementsUpdatePage.essentialCriteriaFieldErrorMessage().contains('Enter essential job requirements')
-    jobRequirementsUpdatePage.jobDescriptionFieldErrorMessage().contains('Enter job description')
+    jobRequirementsUpdatePage.descriptionFieldErrorMessage().contains('Enter job description')
     jobRequirementsUpdatePage
       .offenceExclusionsFieldErrorMessage()
       .contains('Select one or more options in offence exclusions')
 
     // Move to next page
     jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
-    jobRequirementsUpdatePage.jobDescriptionField().type('Some text')
+    jobRequirementsUpdatePage.descriptionField().type('Some text')
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()
     jobRequirementsUpdatePage.submitButton().click()
 
@@ -176,7 +176,7 @@ context('Sign In', () => {
     jobContractUpdatePage.headerCaption().contains('Add a job - step 3 of 5')
 
     jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
-    jobRequirementsUpdatePage.jobDescriptionField().type('Some text')
+    jobRequirementsUpdatePage.descriptionField().type('Some text')
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()
 
     jobRequirementsUpdatePage.submitButton().click()
@@ -218,11 +218,11 @@ context('Sign In', () => {
     jobReviewPage.isPayingAtLeastNationalMinimumWage().contains('Yes')
     jobReviewPage.workPattern().contains('Flexi-time')
     jobReviewPage.contractType().contains('Permanent')
-    jobReviewPage.hoursPerWeek().contains('Full-time (more than 30-39 hoursPerWeek)')
+    jobReviewPage.hoursPerWeek().contains('Full-time (more than 30-39hours)')
     jobReviewPage.baseLocation().contains('Not provided')
     jobReviewPage.essentialCriteria().contains('Some text')
     jobReviewPage.desirableCriteria().contains('Not provided')
-    jobReviewPage.jobDescription().contains('Some text')
+    jobReviewPage.description().contains('Some text')
     jobReviewPage.offenceExclusions().contains('None')
     jobReviewPage.isRollingOpportunity().contains('No')
     jobReviewPage.closingDate().contains(' 1 January 2026')
@@ -274,7 +274,7 @@ context('Sign In', () => {
     jobContractUpdatePage.headerCaption().contains('Add a job - step 3 of 5')
 
     jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
-    jobRequirementsUpdatePage.jobDescriptionField().type('Some text')
+    jobRequirementsUpdatePage.descriptionField().type('Some text')
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()
 
     jobRequirementsUpdatePage.submitButton().click()
@@ -383,7 +383,7 @@ context('Sign In', () => {
     jobReviewPage.hoursPerWeekLink().click()
     jobContractUpdatePage.hoursPerWeekField().select('PART_TIME')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.hoursPerWeek().contains('Part-time (less than 30 hoursPerWeek)')
+    jobReviewPage.hoursPerWeek().contains('Part-time (less than 30hours)')
 
     jobReviewPage.additionalSalaryInformationLink().click()
     jobContractUpdatePage.additionalSalaryInformationField().clear().type('Some info')
@@ -406,10 +406,10 @@ context('Sign In', () => {
     jobRequirementsUpdatePage.submitButton().click()
     jobReviewPage.desirableCriteria().contains('Some desirable text')
 
-    jobReviewPage.jobDescriptionLink().click()
-    jobRequirementsUpdatePage.jobDescriptionField().clear().type('Some descriptive text')
+    jobReviewPage.descriptionLink().click()
+    jobRequirementsUpdatePage.descriptionField().clear().type('Some descriptive text')
     jobRequirementsUpdatePage.submitButton().click()
-    jobReviewPage.jobDescription().contains('Some descriptive text')
+    jobReviewPage.description().contains('Some descriptive text')
 
     jobReviewPage.offenceExclusionsLink().click()
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()

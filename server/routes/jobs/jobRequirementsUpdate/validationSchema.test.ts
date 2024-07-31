@@ -10,7 +10,7 @@ describe('validationSchema', () => {
   beforeEach(() => {
     req.body.essentialCriteria = 'Some text'
     req.body.desirableCriteria = 'Some text'
-    req.body.jobDescription = 'Some text'
+    req.body.description = 'Some text'
     req.body.offenceExclusions = [OffenceExclusions.CASE_BY_CASE]
   })
 
@@ -71,16 +71,16 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Desirable requirements must be 1000 characters or less')
   })
 
-  it('On validation success - should allow a jobDescription with 3000 characters', () => {
-    req.body.jobDescription = 'x'.repeat(3000)
+  it('On validation success - should allow a description with 3000 characters', () => {
+    req.body.description = 'x'.repeat(3000)
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeFalsy()
   })
 
-  it('On validation error - should disallow a jobDescription being blank', () => {
-    req.body.jobDescription = ''
+  it('On validation error - should disallow a description being blank', () => {
+    req.body.description = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -88,8 +88,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Enter job description')
   })
 
-  it('On validation error - should disallow a jobDescription longer than 3000 characters', () => {
-    req.body.jobDescription = 'x'.repeat(3001)
+  it('On validation error - should disallow a description longer than 3000 characters', () => {
+    req.body.description = 'x'.repeat(3001)
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 

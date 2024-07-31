@@ -30,7 +30,7 @@ interface GetJobResponse {
   baseLocation?: BaseLocation
   essentialCriteria: string
   desirableCriteria?: string
-  jobDescription: string
+  description: string
   offenceExclusions: OffenceExclusions[]
   howToApply: string
   closingDate: string

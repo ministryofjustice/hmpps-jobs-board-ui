@@ -137,9 +137,9 @@ export default function validationSchema(): ObjectSchema {
       .valid(Hours.FULL_TIME, Hours.FULL_TIME_40_PLUS, Hours.PART_TIME, Hours.ZERO_HOURS)
       .required()
       .messages({
-        'any.only': 'Select the hoursPerWeek for this job',
-        'any.required': 'Select the hoursPerWeek for this job',
-        'any.empty': 'Select the hoursPerWeek for this job',
+        'any.only': 'Select the hours for this job',
+        'any.required': 'Select the hours for this job',
+        'any.empty': 'Select the hours for this job',
       }),
     baseLocation: joi
       .string()

@@ -13,7 +13,7 @@ export default function validationSchema(): ObjectSchema {
     desirableCriteria: joi.string().empty('').max(1000).messages({
       'string.max': 'Desirable requirements must be 1000 characters or less',
     }),
-    jobDescription: joi.string().empty('').required().max(3000).messages({
+    description: joi.string().empty('').required().max(3000).messages({
       'any.required': 'Enter job description',
       'any.empty': 'Enter job description',
       'string.max': 'Job description must be 3000 characters or less',
