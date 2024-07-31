@@ -40,7 +40,7 @@ context('Sign In', () => {
     jobReviewPage.isPayingAtLeastNationalMinimumWage().contains('Yes')
     jobReviewPage.workPattern().contains('Flexi-time')
     jobReviewPage.contractType().contains('Permanent')
-    jobReviewPage.hoursPerWeek().contains('Full-time (more than 40hours)')
+    jobReviewPage.hoursPerWeek().contains('Full-time (more than 40 hours)')
     jobReviewPage.baseLocation().contains('Workplace')
     jobReviewPage.essentialCriteria().contains('Some essential criteria')
     jobReviewPage.desirableCriteria().contains('Some desirable criteria')
@@ -152,7 +152,7 @@ context('Sign In', () => {
     jobReviewPage.hoursPerWeekLink().click()
     jobContractUpdatePage.hoursPerWeekField().select('PART_TIME')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.hoursPerWeek().contains('Part-time (less than 30hours)')
+    jobReviewPage.hoursPerWeek().contains('Part-time (less than 30 hours)')
 
     jobReviewPage.additionalSalaryInformationLink().click()
     jobContractUpdatePage.additionalSalaryInformationField().clear().type('Some info')

@@ -68,7 +68,7 @@ context('Sign In', () => {
       .contains('Select whether the job pays minimum wage or not')
     jobContractUpdatePage.workPatternPageErrorMessage().contains('Select a work pattern')
     jobContractUpdatePage.contractTypePageErrorMessage().contains('Select a contract type')
-    jobContractUpdatePage.hoursPerWeekPageErrorMessage().contains('Select thehours for this job')
+    jobContractUpdatePage.hoursPerWeekPageErrorMessage().contains('Select the hours for this job')
 
     // Field errors
     jobContractUpdatePage.postCodeFieldErrorMessage().contains('Enter a job location')
@@ -79,7 +79,7 @@ context('Sign In', () => {
       .contains('Select whether the job pays minimum wage or not')
     jobContractUpdatePage.workPatternFieldErrorMessage().contains('Select a work pattern')
     jobContractUpdatePage.contractTypeFieldErrorMessage().contains('Select a contract type')
-    jobContractUpdatePage.hoursPerWeekFieldErrorMessage().contains('Select thehours for this job')
+    jobContractUpdatePage.hoursPerWeekFieldErrorMessage().contains('Select the hours for this job')
 
     // Move to next page
     jobContractUpdatePage.postCodeField().type('NE157LR')
@@ -218,7 +218,7 @@ context('Sign In', () => {
     jobReviewPage.isPayingAtLeastNationalMinimumWage().contains('Yes')
     jobReviewPage.workPattern().contains('Flexi-time')
     jobReviewPage.contractType().contains('Permanent')
-    jobReviewPage.hoursPerWeek().contains('Full-time (more than 30-39hours)')
+    jobReviewPage.hoursPerWeek().contains('Full-time (more than 30-39 hours)')
     jobReviewPage.baseLocation().contains('Not provided')
     jobReviewPage.essentialCriteria().contains('Some text')
     jobReviewPage.desirableCriteria().contains('Not provided')
@@ -383,7 +383,7 @@ context('Sign In', () => {
     jobReviewPage.hoursPerWeekLink().click()
     jobContractUpdatePage.hoursPerWeekField().select('PART_TIME')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.hoursPerWeek().contains('Part-time (less than 30hours)')
+    jobReviewPage.hoursPerWeek().contains('Part-time (less than 30 hours)')
 
     jobReviewPage.additionalSalaryInformationLink().click()
     jobContractUpdatePage.additionalSalaryInformationField().clear().type('Some info')
