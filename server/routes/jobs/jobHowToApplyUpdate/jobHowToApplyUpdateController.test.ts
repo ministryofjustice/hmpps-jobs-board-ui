@@ -128,7 +128,7 @@ describe('jobHowToApplyUpdateController', () => {
 
     it('On success - Sets session and redirects to jobReview', async () => {
       req.body.essentialCriteria = 'Some text'
-      req.body.jobDescription = 'Some text'
+      req.body.description = 'Some text'
       req.body.offenceExclusions = ['SUMMOTR']
 
       controller.post(req, res, next)

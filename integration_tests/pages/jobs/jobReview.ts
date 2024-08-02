@@ -22,7 +22,7 @@ export default class JobReviewPage extends Page {
 
   charityName = (): PageElement => cy.get('[data-qa=charityName]')
 
-  postcode = (): PageElement => cy.get('[data-qa=postcode]')
+  postCode = (): PageElement => cy.get('[data-qa=postCode]')
 
   salaryFrom = (): PageElement => cy.get('[data-qa=salaryFrom]')
 
@@ -46,7 +46,7 @@ export default class JobReviewPage extends Page {
 
   desirableCriteria = (): PageElement => cy.get('[data-qa=desirableCriteria]')
 
-  jobDescription = (): PageElement => cy.get('[data-qa=jobDescription]')
+  description = (): PageElement => cy.get('[data-qa=description]')
 
   offenceExclusions = (): PageElement => cy.get('[data-qa=offenceExclusions]')
 
@@ -81,7 +81,7 @@ export default class JobReviewPage extends Page {
 
   charityNameLink = (): PageElement => cy.get('[data-qa=charityNameLink]')
 
-  postcodeLink = (): PageElement => cy.get('[data-qa=postcodeLink]')
+  postCodeLink = (): PageElement => cy.get('[data-qa=postCodeLink]')
 
   salaryFromLink = (): PageElement => cy.get('[data-qa=salaryFromLink]')
 
@@ -105,7 +105,7 @@ export default class JobReviewPage extends Page {
 
   desirableCriteriaLink = (): PageElement => cy.get('[data-qa=desirableCriteriaLink]')
 
-  jobDescriptionLink = (): PageElement => cy.get('[data-qa=jobDescriptionLink]')
+  descriptionLink = (): PageElement => cy.get('[data-qa=descriptionLink]')
 
   offenceExclusionsLink = (): PageElement => cy.get('[data-qa=offenceExclusionsLink]')
 

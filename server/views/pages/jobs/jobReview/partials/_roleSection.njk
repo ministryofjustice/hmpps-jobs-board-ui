@@ -93,14 +93,14 @@
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      Supported by a charityName? (optional)
+      Supported by a charity? (optional)
     </dt>
     <dd class="govuk-summary-list__value" data-qa="charityName">
       {{ charityName if charityName else 'Not provided'}}
     </dd>
     <dd class="govuk-summary-list__actions">
       <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#charityName' }}" data-qa="charityNameLink">
-        Change<span class="govuk-visually-hidden"> supported by a charityName? (optional)</span>
+        Change<span class="govuk-visually-hidden"> supported by a charity? (optional)</span>
       </a>
     </dd>
   </div>

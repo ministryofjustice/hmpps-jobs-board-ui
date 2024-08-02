@@ -5,11 +5,11 @@ export type PageElement = Cypress.Chainable<JQuery>
 export default class JobContractUpdatePage extends Page {
   headerCaption = (): PageElement => cy.get('[data-qa=headerCaption]')
 
-  postcodeField = (): PageElement => cy.get('#postcode')
+  postCodeField = (): PageElement => cy.get('#postCode')
 
-  postcodePageErrorMessage = (): PageElement => cy.get('[href="#postcode"]')
+  postCodePageErrorMessage = (): PageElement => cy.get('[href="#postCode"]')
 
-  postcodeFieldErrorMessage = (): PageElement => cy.get('#postcode-error')
+  postCodeFieldErrorMessage = (): PageElement => cy.get('#postCode-error')
 
   salaryFromField = (): PageElement => cy.get('#salaryFrom')
 

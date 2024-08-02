@@ -18,7 +18,7 @@ interface GetJobResponse {
   JobsourcePrimary: JobSource
   sourceSecondary?: JobSource
   charityName?: string
-  postcode: string
+  postCode: string
   salaryFrom: number
   salaryTo?: number
   salaryPeriod: SalaryPeriod
@@ -30,7 +30,7 @@ interface GetJobResponse {
   baseLocation?: BaseLocation
   essentialCriteria: string
   desirableCriteria?: string
-  jobDescription: string
+  description: string
   offenceExclusions: OffenceExclusions[]
   howToApply: string
   closingDate: string

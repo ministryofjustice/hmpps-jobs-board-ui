@@ -60,7 +60,7 @@ context('Sign In', () => {
 
     jobContractUpdatePage.submitButton().click()
 
-    jobContractUpdatePage.postcodePageErrorMessage().contains('Enter a job location')
+    jobContractUpdatePage.postCodePageErrorMessage().contains('Enter a job location')
     jobContractUpdatePage.salaryFromPageErrorMessage().contains('Enter minimum salary amount')
     jobContractUpdatePage.salaryPeriodPageErrorMessage().contains('Select a salary period')
     jobContractUpdatePage
@@ -68,10 +68,10 @@ context('Sign In', () => {
       .contains('Select whether the job pays minimum wage or not')
     jobContractUpdatePage.workPatternPageErrorMessage().contains('Select a work pattern')
     jobContractUpdatePage.contractTypePageErrorMessage().contains('Select a contract type')
-    jobContractUpdatePage.hoursPerWeekPageErrorMessage().contains('Select the hoursPerWeek for this job')
+    jobContractUpdatePage.hoursPerWeekPageErrorMessage().contains('Select the hours for this job')
 
     // Field errors
-    jobContractUpdatePage.postcodeFieldErrorMessage().contains('Enter a job location')
+    jobContractUpdatePage.postCodeFieldErrorMessage().contains('Enter a job location')
     jobContractUpdatePage.salaryFromFieldErrorMessage().contains('Enter minimum salary amount')
     jobContractUpdatePage.salaryPeriodFieldErrorMessage().contains('Select a salary period')
     jobContractUpdatePage
@@ -79,10 +79,10 @@ context('Sign In', () => {
       .contains('Select whether the job pays minimum wage or not')
     jobContractUpdatePage.workPatternFieldErrorMessage().contains('Select a work pattern')
     jobContractUpdatePage.contractTypeFieldErrorMessage().contains('Select a contract type')
-    jobContractUpdatePage.hoursPerWeekFieldErrorMessage().contains('Select the hoursPerWeek for this job')
+    jobContractUpdatePage.hoursPerWeekFieldErrorMessage().contains('Select the hours for this job')
 
     // Move to next page
-    jobContractUpdatePage.postcodeField().type('NE157LR')
+    jobContractUpdatePage.postCodeField().type('NE157LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
     jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
@@ -98,21 +98,21 @@ context('Sign In', () => {
 
     // Page errors
     jobRequirementsUpdatePage.essentialCriteriaPageErrorMessage().contains('Enter essential job requirements')
-    jobRequirementsUpdatePage.jobDescriptionPageErrorMessage().contains('Enter job description')
+    jobRequirementsUpdatePage.descriptionPageErrorMessage().contains('Enter job description')
     jobRequirementsUpdatePage
       .offenceExclusionsPageErrorMessage()
       .contains('Select one or more options in offence exclusions')
 
     // Field errors
     jobRequirementsUpdatePage.essentialCriteriaFieldErrorMessage().contains('Enter essential job requirements')
-    jobRequirementsUpdatePage.jobDescriptionFieldErrorMessage().contains('Enter job description')
+    jobRequirementsUpdatePage.descriptionFieldErrorMessage().contains('Enter job description')
     jobRequirementsUpdatePage
       .offenceExclusionsFieldErrorMessage()
       .contains('Select one or more options in offence exclusions')
 
     // Move to next page
     jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
-    jobRequirementsUpdatePage.jobDescriptionField().type('Some text')
+    jobRequirementsUpdatePage.descriptionField().type('Some text')
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()
     jobRequirementsUpdatePage.submitButton().click()
 
@@ -161,7 +161,7 @@ context('Sign In', () => {
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
     jobContractUpdatePage.headerCaption().contains('Add a job - step 2 of 5')
 
-    jobContractUpdatePage.postcodeField().type('NE157LR')
+    jobContractUpdatePage.postCodeField().type('NE157LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
     jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
@@ -176,7 +176,7 @@ context('Sign In', () => {
     jobContractUpdatePage.headerCaption().contains('Add a job - step 3 of 5')
 
     jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
-    jobRequirementsUpdatePage.jobDescriptionField().type('Some text')
+    jobRequirementsUpdatePage.descriptionField().type('Some text')
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()
 
     jobRequirementsUpdatePage.submitButton().click()
@@ -210,7 +210,7 @@ context('Sign In', () => {
     jobReviewPage.sourcePrimary().contains('NFN')
     jobReviewPage.sourceSecondary().contains('PEL')
     jobReviewPage.charityName().contains('Test charity')
-    jobReviewPage.postcode().contains('NE157LR')
+    jobReviewPage.postCode().contains('NE157LR')
     jobReviewPage.salaryFrom().contains('£25000.00')
     jobReviewPage.salaryTo().contains('Not provided')
     jobReviewPage.salaryPeriod().contains('Per year')
@@ -218,11 +218,11 @@ context('Sign In', () => {
     jobReviewPage.isPayingAtLeastNationalMinimumWage().contains('Yes')
     jobReviewPage.workPattern().contains('Flexi-time')
     jobReviewPage.contractType().contains('Permanent')
-    jobReviewPage.hoursPerWeek().contains('Full-time (more than 30-39 hoursPerWeek)')
+    jobReviewPage.hoursPerWeek().contains('Full-time (more than 30-39 hours)')
     jobReviewPage.baseLocation().contains('Not provided')
     jobReviewPage.essentialCriteria().contains('Some text')
     jobReviewPage.desirableCriteria().contains('Not provided')
-    jobReviewPage.jobDescription().contains('Some text')
+    jobReviewPage.description().contains('Some text')
     jobReviewPage.offenceExclusions().contains('None')
     jobReviewPage.isRollingOpportunity().contains('No')
     jobReviewPage.closingDate().contains(' 1 January 2026')
@@ -259,7 +259,7 @@ context('Sign In', () => {
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
     jobContractUpdatePage.headerCaption().contains('Add a job - step 2 of 5')
 
-    jobContractUpdatePage.postcodeField().type('NE157LR')
+    jobContractUpdatePage.postCodeField().type('NE157LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
     jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
@@ -274,7 +274,7 @@ context('Sign In', () => {
     jobContractUpdatePage.headerCaption().contains('Add a job - step 3 of 5')
 
     jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
-    jobRequirementsUpdatePage.jobDescriptionField().type('Some text')
+    jobRequirementsUpdatePage.descriptionField().type('Some text')
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()
 
     jobRequirementsUpdatePage.submitButton().click()
@@ -345,10 +345,10 @@ context('Sign In', () => {
     jobReviewPage.charityName().contains('Another charity')
 
     // Contract page changes
-    jobReviewPage.postcodeLink().click()
-    jobContractUpdatePage.postcodeField().clear().type('NE356DR')
+    jobReviewPage.postCodeLink().click()
+    jobContractUpdatePage.postCodeField().clear().type('NE356DR')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.postcode().contains('NE356DR')
+    jobReviewPage.postCode().contains('NE356DR')
 
     jobReviewPage.salaryFromLink().click()
     jobContractUpdatePage.salaryFromField().clear().type('350.99')
@@ -383,7 +383,7 @@ context('Sign In', () => {
     jobReviewPage.hoursPerWeekLink().click()
     jobContractUpdatePage.hoursPerWeekField().select('PART_TIME')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.hoursPerWeek().contains('Part-time (less than 30 hoursPerWeek)')
+    jobReviewPage.hoursPerWeek().contains('Part-time (less than 30 hours)')
 
     jobReviewPage.additionalSalaryInformationLink().click()
     jobContractUpdatePage.additionalSalaryInformationField().clear().type('Some info')
@@ -406,10 +406,10 @@ context('Sign In', () => {
     jobRequirementsUpdatePage.submitButton().click()
     jobReviewPage.desirableCriteria().contains('Some desirable text')
 
-    jobReviewPage.jobDescriptionLink().click()
-    jobRequirementsUpdatePage.jobDescriptionField().clear().type('Some descriptive text')
+    jobReviewPage.descriptionLink().click()
+    jobRequirementsUpdatePage.descriptionField().clear().type('Some descriptive text')
     jobRequirementsUpdatePage.submitButton().click()
-    jobReviewPage.jobDescription().contains('Some descriptive text')
+    jobReviewPage.description().contains('Some descriptive text')
 
     jobReviewPage.offenceExclusionsLink().click()
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()

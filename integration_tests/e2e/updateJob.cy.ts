@@ -32,7 +32,7 @@ context('Sign In', () => {
     jobReviewPage.sourcePrimary().contains('NFN')
     jobReviewPage.sourceSecondary().contains('PEL')
     jobReviewPage.charityName().contains('Heart foundation')
-    jobReviewPage.postcode().contains('NE236DR')
+    jobReviewPage.postCode().contains('NE236DR')
     jobReviewPage.salaryFrom().contains('£25000.00')
     jobReviewPage.salaryTo().contains('£30000.00')
     jobReviewPage.salaryPeriod().contains('Per year')
@@ -40,11 +40,11 @@ context('Sign In', () => {
     jobReviewPage.isPayingAtLeastNationalMinimumWage().contains('Yes')
     jobReviewPage.workPattern().contains('Flexi-time')
     jobReviewPage.contractType().contains('Permanent')
-    jobReviewPage.hoursPerWeek().contains('Full-time (more than 40 hoursPerWeek)')
+    jobReviewPage.hoursPerWeek().contains('Full-time (more than 40 hours)')
     jobReviewPage.baseLocation().contains('Workplace')
     jobReviewPage.essentialCriteria().contains('Some essential criteria')
     jobReviewPage.desirableCriteria().contains('Some desirable criteria')
-    jobReviewPage.jobDescription().contains('Some job description')
+    jobReviewPage.description().contains('Some job description')
     jobReviewPage.offenceExclusions().contains('Arson')
     jobReviewPage.offenceExclusions().contains('Terrorism')
     jobReviewPage.isRollingOpportunity().contains('No')
@@ -111,13 +111,13 @@ context('Sign In', () => {
     jobReviewPage.charityName().contains('Another charity')
 
     // Contract page changes
-    jobReviewPage.postcodeLink().click()
+    jobReviewPage.postCodeLink().click()
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
     jobContractUpdatePage.headerCaption().contains('Update a job - step 2 of 5')
 
-    jobContractUpdatePage.postcodeField().clear().type('NE356DR')
+    jobContractUpdatePage.postCodeField().clear().type('NE356DR')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.postcode().contains('NE356DR')
+    jobReviewPage.postCode().contains('NE356DR')
 
     jobReviewPage.salaryFromLink().click()
     jobContractUpdatePage.salaryFromField().clear().type('350.99')
@@ -152,7 +152,7 @@ context('Sign In', () => {
     jobReviewPage.hoursPerWeekLink().click()
     jobContractUpdatePage.hoursPerWeekField().select('PART_TIME')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.hoursPerWeek().contains('Part-time (less than 30 hoursPerWeek)')
+    jobReviewPage.hoursPerWeek().contains('Part-time (less than 30 hours)')
 
     jobReviewPage.additionalSalaryInformationLink().click()
     jobContractUpdatePage.additionalSalaryInformationField().clear().type('Some info')
@@ -178,10 +178,10 @@ context('Sign In', () => {
     jobRequirementsUpdatePage.submitButton().click()
     jobReviewPage.desirableCriteria().contains('Some desirable text')
 
-    jobReviewPage.jobDescriptionLink().click()
-    jobRequirementsUpdatePage.jobDescriptionField().clear().type('Some descriptive text')
+    jobReviewPage.descriptionLink().click()
+    jobRequirementsUpdatePage.descriptionField().clear().type('Some descriptive text')
     jobRequirementsUpdatePage.submitButton().click()
-    jobReviewPage.jobDescription().contains('Some descriptive text')
+    jobReviewPage.description().contains('Some descriptive text')
 
     jobReviewPage.offenceExclusionsLink().click()
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('MURDER').click()

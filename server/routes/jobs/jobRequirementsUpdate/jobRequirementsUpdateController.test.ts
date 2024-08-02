@@ -103,7 +103,7 @@ describe('jobRequirementsUpdateController', () => {
     it('On success - Sets session and redirects to jobHowToApplysUpdate', async () => {
       req.body.essentialCriteria = 'Some text'
       req.body.desirableCriteriareq = 'Some text'
-      req.body.jobDescription = 'Some text'
+      req.body.description = 'Some text'
       req.body.offenceExclusions = ['SUMMOTR']
 
       controller.post(req, res, next)
