@@ -82,7 +82,7 @@ describe('validationSchema', () => {
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Select an NFN industry sector')
+    expect(error.details[0].message).toBe('Select an HMPPS reporting industry sector')
   })
 
   it('On validation error - should disallow a industrySector being an invalid value', () => {
@@ -91,7 +91,7 @@ describe('validationSchema', () => {
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Select an NFN industry sector')
+    expect(error.details[0].message).toBe('Select an HMPPS reporting industry sector')
   })
 
   it('On validation error - should disallow a sourcePrimary being blank', () => {
