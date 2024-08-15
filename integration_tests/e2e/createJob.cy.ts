@@ -30,7 +30,7 @@ context('Sign In', () => {
     jobRoleUpdatePage.employerIdPageErrorMessage().contains("Select employer or select 'Add an employer'")
     jobRoleUpdatePage.jobTitlePageErrorMessage().contains('Job title must be 3 characters or more')
     jobRoleUpdatePage.sectorPageErrorMessage().contains('Select a job sector')
-    jobRoleUpdatePage.industrySectorPageErrorMessage().contains('Select an NFN industry sector')
+    jobRoleUpdatePage.industrySectorPageErrorMessage().contains('Select an HMPPS reporting industry sector')
     jobRoleUpdatePage.numberOfVacanciesPageErrorMessage().contains('Enter number of vacancies')
     jobRoleUpdatePage.sourcePrimaryPageErrorMessage().contains('Select a job source')
 
@@ -38,7 +38,7 @@ context('Sign In', () => {
     jobRoleUpdatePage.employerIdFieldErrorMessage().contains("Select employer or select 'Add an employer'")
     jobRoleUpdatePage.jobTitleFieldErrorMessage().contains('Job title must be 3 characters or more')
     jobRoleUpdatePage.sectorFieldErrorMessage().contains('Select a job sector')
-    jobRoleUpdatePage.industrySectorFieldErrorMessage().contains('Select an NFN industry sector')
+    jobRoleUpdatePage.industrySectorFieldErrorMessage().contains('Select an HMPPS reporting industry sector')
     jobRoleUpdatePage.numberOfVacanciesFieldErrorMessage().contains('Enter number of vacancies')
     jobRoleUpdatePage.sourcePrimaryFieldErrorMessage().contains('Select a job source')
 

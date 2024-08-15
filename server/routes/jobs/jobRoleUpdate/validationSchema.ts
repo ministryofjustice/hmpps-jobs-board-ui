@@ -69,9 +69,9 @@ export default function validationSchema(): ObjectSchema {
       )
       .required()
       .messages({
-        'any.only': 'Select an NFN industry sector',
-        'any.required': 'Select an NFN industry sector',
-        'any.empty': 'Select an NFN industry sector',
+        'any.only': 'Select an HMPPS reporting industry sector',
+        'any.required': 'Select an HMPPS reporting industry sector',
+        'any.empty': 'Select an HMPPS reporting industry sector',
       }),
     numberOfVacancies: joi.number().empty('').required().messages({
       'any.required': 'Enter number of vacancies',
