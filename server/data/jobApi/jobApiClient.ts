@@ -43,7 +43,7 @@ export default class JobApiClient {
     const uri = [
       `page=${page - 1}`,
       `size=${config.paginationPageSize}`,
-      sort && `sortby=${sort}`,
+      sort && `sortBy=${sort}`,
       order && `sortOrder=${order === 'ascending' ? 'asc' : 'desc'}`,
       jobTitleOrEmployerNameFilter && `jobTitleOrEmployerName=${encodeURIComponent(jobTitleOrEmployerNameFilter)}`,
       jobSectorFilter && `sector=${encodeURIComponent(jobSectorFilter)}`,
