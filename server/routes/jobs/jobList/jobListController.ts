@@ -22,7 +22,7 @@ export default class JobListController {
       let paginationData = {}
 
       if (!sort) {
-        res.redirect(`${addressLookup.jobs.jobList()}?sort=name&order=ascending`)
+        res.redirect(`${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`)
         return
       }
 
