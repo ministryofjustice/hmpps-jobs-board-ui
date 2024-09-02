@@ -93,7 +93,7 @@ export default class JobReviewController {
       deleteSessionData(req, ['job', id])
 
       // Redirect to jobs
-      res.redirect(`${addressLookup.jobs.jobList()}?sort=name&order=ascending`)
+      res.redirect(`${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`)
     } catch (err) {
       next(err)
     }
