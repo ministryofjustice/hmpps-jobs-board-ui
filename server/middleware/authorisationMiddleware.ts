@@ -5,13 +5,16 @@ import logger from '../../logger'
 import asyncMiddleware from './asyncMiddleware'
 
 export enum AuthRole {
-  ROLE_VIEW_PRISONER_DATA = 'ROLE_VIEW_PRISONER_DATA',
+  ROLE_JOBS_BOARD_VIEWER = 'ROLE_JOBS_BOARD_VIEWER',
+  ROLE_JOBS_BOARD_EDITOR = 'ROLE_JOBS_BOARD_EDITOR',
 }
-
 export const isAuthorisedRole = (role: string): boolean =>
   Object.keys(AuthRole)
     .map(key => AuthRole[key as keyof typeof AuthRole])
     .includes(role as AuthRole)
+
+export const getAuthorisedRoles = (): string[] =>
+  Object.keys(AuthRole).map(key => AuthRole[key as keyof typeof AuthRole])
 
 export default function authorisationMiddleware(authorisedRoles: string[] = []): RequestHandler {
   return asyncMiddleware((req, res, next) => {
