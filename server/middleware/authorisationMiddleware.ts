@@ -7,6 +7,7 @@ import asyncMiddleware from './asyncMiddleware'
 export enum AuthRole {
   ROLE_JOBS_BOARD_VIEWER = 'ROLE_JOBS_BOARD_VIEWER',
   ROLE_JOBS_BOARD_EDITOR = 'ROLE_JOBS_BOARD_EDITOR',
+  ROLE_JOBS_BOARD_EDITOR_NFN = 'ROLE_JOBS_BOARD_EDITOR_NFN',
 }
 export const isAuthorisedRole = (role: string): boolean =>
   Object.keys(AuthRole)
