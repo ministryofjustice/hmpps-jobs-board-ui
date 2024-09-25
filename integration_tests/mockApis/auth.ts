@@ -124,7 +124,7 @@ export default {
   stubAuthPing: ping,
   stubAuthManageDetails: manageDetails,
   stubSignIn: (
-    roles: string[] = ['ROLE_JOBS_BOARD_VIEWER', 'ROLE_JOBS_BOARD_EDITOR'],
+    roles: string[] = ['ROLE_JOBS_BOARD_VIEWER', 'ROLE_JOBS_BOARD_EDITOR', 'ROLE_JOBS_BOARD_EDITOR_NFN'],
   ): Promise<[Response, Response, Response, Response, Response]> =>
     Promise.all([favicon(), redirect(), signOut(), token(roles), tokenVerification.stubVerifyToken()]),
 }
