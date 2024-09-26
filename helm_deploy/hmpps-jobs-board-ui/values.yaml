@@ -56,7 +56,7 @@ generic-service:
 
   allowlist:
     groups:
-      - internal
+      - digital_staff_and_mojo
 
 generic-prometheus-alerts:
   targetApplication: hmpps-jobs-board-ui
