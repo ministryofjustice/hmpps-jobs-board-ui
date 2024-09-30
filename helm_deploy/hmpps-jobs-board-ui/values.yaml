@@ -57,6 +57,7 @@ generic-service:
   allowlist:
     groups:
       - digital_staff_and_mojo
+      - prisons
 
 generic-prometheus-alerts:
   targetApplication: hmpps-jobs-board-ui
