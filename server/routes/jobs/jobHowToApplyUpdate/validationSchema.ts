@@ -20,16 +20,13 @@ export default function validationSchema(): ObjectSchema {
       'any.empty': 'Enter how to apply details',
       'string.max': 'How to apply must be 1000 characters or less',
     }),
-    supportingDocumentationDetails: joi
-      .string()
-      .max(200)
-      .when('supportingDocumentationRequired', {
-        is: joi.array().items(joi.string().valid('OTHER')).has('OTHER'),
-        then: joi.string().allow('').optional().max(200).messages({
-          'string.max': 'Other supporting documentation must be 200 characters or less',
-        }),
-        otherwise: joi.string().allow('').optional(),
+    supportingDocumentationDetails: joi.string().when('supportingDocumentationRequired', {
+      is: joi.array().has('OTHER'),
+      then: joi.string().allow('').optional().max(200).messages({
+        'string.max': 'Other supporting documentation must be 200 characters or less',
       }),
+      otherwise: joi.string().allow('').optional(),
+    }),
     startDate: joi
       .object({
         'startDate-day': joi.number().empty('').integer().min(1).max(31).optional().messages({

@@ -32,6 +32,7 @@ interface GetJobResponse {
   desirableCriteria?: string
   description: string
   offenceExclusions: OffenceExclusions[]
+  offenceExclusionsDetails?: string
   howToApply: string
   closingDate: string
   startDate?: string

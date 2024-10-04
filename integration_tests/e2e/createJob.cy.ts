@@ -177,7 +177,9 @@ context('Sign In', () => {
 
     jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
     jobRequirementsUpdatePage.descriptionField().type('Some text')
+    jobRequirementsUpdatePage.offenceExclusionsFieldValue('OTHER').click()
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('NONE').click()
+    jobRequirementsUpdatePage.offenceExclusionsDetailsField().type('Some text')
 
     jobRequirementsUpdatePage.submitButton().click()
 
@@ -224,6 +226,7 @@ context('Sign In', () => {
     jobReviewPage.desirableCriteria().contains('Not provided')
     jobReviewPage.description().contains('Some text')
     jobReviewPage.offenceExclusions().contains('None')
+    jobReviewPage.offenceExclusions().contains('Other - Some text')
     jobReviewPage.isRollingOpportunity().contains('No')
     jobReviewPage.closingDate().contains(' 1 January 2026')
     jobReviewPage.isOnlyForPrisonLeavers().contains('Yes')

@@ -39,5 +39,15 @@ export default function validationSchema(): ObjectSchema {
         'any.only': 'Select one or more options in offence exclusions',
         'any.required': 'Select one or more options in offence exclusions',
       }),
+    offenceExclusionsDetails: joi.string().when('offenceExclusions', {
+      is: joi.array().has('OTHER'),
+      then: joi.string().empty('').required().max(500).messages({
+        'string.max': 'Other offence exclusion details must be 500 characters or less',
+        'any.max': 'Other offence exclusion details must be 500 characters or less',
+        'any.empty': 'Enter details of the other offence exclusions',
+        'any.required': 'Enter details of the other offence exclusions',
+      }),
+      otherwise: joi.string().allow('').optional(),
+    }),
   })
 }

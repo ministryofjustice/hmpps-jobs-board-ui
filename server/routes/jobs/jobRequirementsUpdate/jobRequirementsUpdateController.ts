@@ -3,6 +3,7 @@ import { RequestHandler } from 'express'
 import { getSessionData, setSessionData, validateFormSchema } from '../../../utils/index'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
+import OffenceExclusions from '../../../enums/offenceExclusions'
 
 export default class JobRequirementsUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
@@ -37,7 +38,7 @@ export default class JobRequirementsUpdateController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id, mode } = req.params
-    const { essentialCriteria, desirableCriteria, description, offenceExclusions } = req.body
+    const { essentialCriteria, desirableCriteria, description, offenceExclusions, offenceExclusionsDetails } = req.body
 
     try {
       // If validation errors render errors
@@ -61,6 +62,9 @@ export default class JobRequirementsUpdateController {
         desirableCriteria,
         description,
         offenceExclusions,
+        offenceExclusionsDetails: offenceExclusions.includes(OffenceExclusions.OTHER)
+          ? offenceExclusionsDetails
+          : undefined,
       })
 
       // Redirect to next page in flow

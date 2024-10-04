@@ -3,6 +3,7 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "../../../macros/error-summary/macro.njk" import errorSummary %}
 
@@ -69,6 +70,21 @@
             errorMessage: errors.description
           }) }}
 
+          {% set otherHtml %}
+            {{ govukInput({
+                id: "offenceExclusionsDetails",
+                name: "offenceExclusionsDetails",
+                value: offenceExclusionsDetails,
+                type: "text",
+                label: {
+                    text: "Give details",
+                    attributes: { "aria-live": "polite" }
+                },
+                attributes: { "aria-label" : "Give details of any other offence exclusions" },
+                errorMessage: errors.offenceExclusionsDetails
+            }) }}
+          {% endset -%}
+
           {{ govukCheckboxes({
             name: "offenceExclusions",
             fieldset: {
@@ -118,7 +134,11 @@
               {
                 value: "OTHER",
                 checked: offenceExclusions.indexOf("OTHER") > -1,
-                text: contentLookup.offenceExclusions["OTHER"]
+                text: contentLookup.offenceExclusions["OTHER"],
+                attributes: { "aria-label": contentLookup.offenceExclusions["OTHER"] + " (Opens a dialogue box)" },
+                conditional: {
+                  html: otherHtml
+                }
               }
             ],
             errorMessage: errors.offenceExclusions

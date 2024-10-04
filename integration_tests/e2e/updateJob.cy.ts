@@ -47,6 +47,8 @@ context('Sign In', () => {
     jobReviewPage.description().contains('Some job description')
     jobReviewPage.offenceExclusions().contains('Arson')
     jobReviewPage.offenceExclusions().contains('Terrorism')
+    jobReviewPage.offenceExclusions().contains('Arson')
+    jobReviewPage.offenceExclusions().contains('Other - Some details')
     jobReviewPage.isRollingOpportunity().contains('No')
     jobReviewPage.closingDate().contains('1 February 2025')
     jobReviewPage.isOnlyForPrisonLeavers().contains('Yes')
@@ -185,8 +187,10 @@ context('Sign In', () => {
 
     jobReviewPage.offenceExclusionsLink().click()
     jobRequirementsUpdatePage.offenceExclusionsFieldValue('MURDER').click()
+    jobRequirementsUpdatePage.offenceExclusionsDetailsField().clear().type('Some text')
     jobRequirementsUpdatePage.submitButton().click()
     jobReviewPage.offenceExclusions().contains('Murder')
+    jobReviewPage.offenceExclusions().contains('Other - Some text')
 
     // How to apply page changes
     jobReviewPage.isRollingOpportunityLink().click()

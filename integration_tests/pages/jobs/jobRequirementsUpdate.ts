@@ -30,4 +30,10 @@ export default class JobRequirementsUpdatePage extends Page {
   offenceExclusionsFieldErrorMessage = (): PageElement => cy.get('#offenceExclusions-error')
 
   offenceExclusionsFieldValue = (value): PageElement => cy.get(`[value=${value}]`)
+
+  offenceExclusionsDetailsField = (): PageElement => cy.get('#offenceExclusionsDetails')
+
+  offenceExclusionsDetailsPageErrorMessage = (): PageElement => cy.get('[href="#offenceExclusionsDetails"]')
+
+  offenceExclusionsDetailsFieldErrorMessage = (): PageElement => cy.get('#offenceExclusionsDetails-error')
 }
