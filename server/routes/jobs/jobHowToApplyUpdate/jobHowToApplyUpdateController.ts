@@ -54,10 +54,13 @@ export default class jobHowToApplyUpdateController {
     try {
       // Clear closing date if not required
       if (isRollingOpportunity === YesNoValue.YES) {
-        req.body.closingDate = {
-          'closingDate-day': '',
-          'closingDate-month': '',
-          'closingDate-year': '',
+        req.body = {
+          ...req.body,
+          ...{
+            'closingDate-day': '',
+            'closingDate-month': '',
+            'closingDate-year': '',
+          },
         }
       }
 
@@ -90,7 +93,7 @@ export default class jobHowToApplyUpdateController {
         supportingDocumentationRequired,
         supportingDocumentationDetails,
         startDate: parseBodyDateInput(req, 'startDate'),
-        closingDate: parseBodyDateInput(req, 'closingDate'),
+        closingDate: isRollingOpportunity === YesNoValue.NO ? parseBodyDateInput(req, 'closingDate') : undefined,
       })
 
       // Redirect to next page in flow

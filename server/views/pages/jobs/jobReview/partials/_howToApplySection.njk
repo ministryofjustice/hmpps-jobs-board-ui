@@ -6,7 +6,9 @@
     </dt>
     <dd class="govuk-summary-list__value" data-qa="isRollingOpportunity">
       {{ contentLookup.yesNo[isRollingOpportunity] }}
-      <div data-qa="closingDate">Closing date: {{ closingDate }}</div>
+      {% if isRollingOpportunity === 'NO' %}
+        <div data-qa="closingDate">Closing date: {{ closingDate }}</div>
+      {% endif %}
     </dd>
     <dd class="govuk-summary-list__actions">
       <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#isRollingOpportunity' }}" data-qa="isRollingOpportunityLink">
