@@ -40,8 +40,6 @@ export default class JobRequirementsUpdateController {
     const { id, mode } = req.params
     const { essentialCriteria, desirableCriteria, description, offenceExclusions, offenceExclusionsDetails } = req.body
 
-    console.log(req.body)
-
     try {
       // If validation errors render errors
       const data = getSessionData(req, ['jobRequirementsUpdate', id, 'data'])
