@@ -105,4 +105,33 @@ describe('validationSchema', () => {
     expect(error).toBeTruthy()
     expect(error.details[0].message).toBe('Select one or more options in offence exclusions')
   })
+
+  it('On validation success - should all a offenceExclusionsDetails if offenceExclusions includes OTHER', () => {
+    req.body.offenceExclusions = ['NONE', 'OTHER']
+    req.body.offenceExclusionsDetails = 'Some text'
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeFalsy()
+  })
+
+  it('On validation error - should disallow a offenceExclusionsDetails being blank if offenceExclusions includes OTHER', () => {
+    req.body.offenceExclusions = ['NONE', 'OTHER']
+    req.body.offenceExclusionsDetails = ''
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeTruthy()
+    expect(error.details[0].message).toBe('Enter details of the other offence exclusions')
+  })
+
+  it('On validation error - should disallow a offenceExclusionsDetails longer than 500 characters', () => {
+    req.body.offenceExclusions = ['NONE', 'OTHER']
+    req.body.offenceExclusionsDetails = 'x'.repeat(501)
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeTruthy()
+    expect(error.details[0].message).toBe('Other offence exclusion details must be 500 characters or less')
+  })
 })

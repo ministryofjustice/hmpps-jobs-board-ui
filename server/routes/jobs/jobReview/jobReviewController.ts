@@ -78,6 +78,7 @@ export default class JobReviewController {
         desirableCriteria: job.desirableCriteria,
         description: job.description,
         offenceExclusions: job.offenceExclusions as OffenceExclusions[],
+        offenceExclusionsDetails: job.offenceExclusionsDetails,
         howToApply: job.howToApply,
         closingDate: job.closingDate,
         startDate: job.startDate,

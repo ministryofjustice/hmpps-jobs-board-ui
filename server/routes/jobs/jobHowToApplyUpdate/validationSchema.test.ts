@@ -40,7 +40,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation success - should allow a supportingDocumentationDetails being blank', () => {
-    req.body.supportingDocumentationRequired = ['OTHER']
+    req.body.supportingDocumentationRequired = ['CV', 'OTHER']
     req.body.supportingDocumentationDetails = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
@@ -49,7 +49,7 @@ describe('validationSchema', () => {
   })
 
   it('On validation error - should disallow a supportingDocumentationDetails longer than 200 characters', () => {
-    req.body.supportingDocumentationRequired = ['OTHER']
+    req.body.supportingDocumentationRequired = ['CV', 'OTHER']
     req.body.supportingDocumentationDetails = 'x'.repeat(201)
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })

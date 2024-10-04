@@ -37,6 +37,7 @@ interface PutJobData {
   desirableCriteria?: string // length 1000
   description: string // length 3000
   offenceExclusions: OffenceExclusions[]
+  offenceExclusionsDetails?: string // length 500
 
   // Fourth page
   howToApply: string // length 1000
