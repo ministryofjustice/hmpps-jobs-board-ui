@@ -46,7 +46,7 @@ describe('validationSchema', () => {
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Job location must be a valid postCode')
+    expect(error.details[0].message).toBe('Job location must be a valid postcode')
   })
 
   it('On validation success - should allow all salaryFrom values upto 7 figures with 2 decimal places', () => {

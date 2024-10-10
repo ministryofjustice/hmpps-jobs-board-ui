@@ -15,7 +15,7 @@ export default function validationSchema(): ObjectSchema {
     postCode: joi.string().empty('').regex(postCodeRegex).required().messages({
       'any.required': 'Enter a job location',
       'any.empty': 'Enter a job location',
-      'string.pattern.base': 'Job location must be a valid postCode',
+      'string.pattern.base': 'Job location must be a valid postcode',
     }),
     salaryFrom: joi
       .number()
