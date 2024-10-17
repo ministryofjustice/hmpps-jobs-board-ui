@@ -1,5 +1,5 @@
 export default {
+  KEY_PARTNER: 'Platinum (key partner)',
   GOLD: 'Gold',
-  KEY_PARTNER: 'Key partner',
   SILVER: 'Silver',
 }
