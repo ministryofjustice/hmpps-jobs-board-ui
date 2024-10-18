@@ -116,4 +116,7 @@ export default {
   phaseName: get('SYSTEM_PHASE', '', requiredInProduction),
   environmentName: get('ENVIRONMENT_NAME', ''),
   urlParameterPassphrase: get('PASSPHRASE', '', requiredInProduction),
+  googleAnalytics: {
+    containerId: get('GOOGLE_TAG_MANAGER_CONTAINER_ID', ''),
+  },
 }
