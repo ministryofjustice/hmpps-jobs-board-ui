@@ -118,5 +118,6 @@ export default {
   urlParameterPassphrase: get('PASSPHRASE', '', requiredInProduction),
   googleAnalytics: {
     containerId: get('GOOGLE_TAG_MANAGER_CONTAINER_ID', ''),
+    googleAnalyticsId: get('GOOGLE_ANALYTICS_ID', '', requiredInProduction),
   },
 }

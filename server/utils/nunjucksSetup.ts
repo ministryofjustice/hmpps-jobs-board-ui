@@ -80,4 +80,5 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
   njkEnv.addGlobal('encryptUrlParameter', encryptUrlParameter)
   njkEnv.addGlobal('decryptUrlParameter', decryptUrlParameter)
   njkEnv.addGlobal('googleTagManagerContainerId', config.googleAnalytics.containerId)
+  njkEnv.addGlobal('googleAnalyticsId', config.googleAnalytics.googleAnalyticsId)
 }

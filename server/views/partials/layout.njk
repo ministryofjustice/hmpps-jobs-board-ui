@@ -1,49 +1,67 @@
 {% extends "govuk/template.njk" %}
 
 {% block head %}
-  <link href="/assets/stylesheets/application.css?{{ version }}" rel="stylesheet"/>
-  <script type="module" src="/assets/govukFrontendInit.js"></script>
-  <script src="/assets/moj/all.js"></script>
-  <script src="/assets/mojFrontendInit.js"></script>
-  <script src="/assets/accessible-autocomplete.min.js"></script>
+    <link href="/assets/stylesheets/application.css?{{ version }}" rel="stylesheet" />
+    <script type="module" src="/assets/govukFrontendInit.js"></script>
+    <script src="/assets/moj/all.js"></script>
+    <script src="/assets/mojFrontendInit.js"></script>
+    <script src="/assets/accessible-autocomplete.min.js"></script>
 
-  {% if googleTagManagerContainerId %}
-    <!-- Google Tag Manager -->
-    <script nonce="{{ cspNonce }}">(function(w, d, s, l, i) {
-        w[l] = w[l] || []
-        w[l].push({
-          'gtm.start': new Date().getTime(), event: 'gtm.js',
-        })
-        var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''
-        j.async = true
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
-        f.parentNode.insertBefore(j, f)
-      })(window, document, 'script', 'dataLayer', '{{ googleTagManagerContainerId }}')</script>
-    <!-- End Google Tag Manager -->
-  {% endif %}
+    <!-- Google Analytics: Google Analytics 4 (GA4) -->
+    {% if googleAnalyticsId | trim %}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ googleAnalyticsId }}"></script>
+        <script nonce="{{ cspNonce }}">
+          window.dataLayer = window.dataLayer || []
 
-  {% if feComponents.jsIncludes %}
-      {% for js in feComponents.jsIncludes %}
-        <script src="{{ js }}" nonce="{{ cspNonce }}"></script>
-      {% endfor %}
+          function gtag() {
+            dataLayer.push(arguments)
+          }
+
+          gtag('js', new Date())
+          gtag('config', '{{ googleAnalyticsId }}')
+
+        </script>
+
+    {% endif %}
+
+    {% if googleTagManagerContainerId %}
+        <!-- Google Tag Manager -->
+        <script nonce="{{ cspNonce }}">(function(w, d, s, l, i) {
+            w[l] = w[l] || []
+            w[l].push({
+              'gtm.start': new Date().getTime(), event: 'gtm.js',
+            })
+            var f = d.getElementsByTagName(s)[0],
+              j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''
+            j.async = true
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+            f.parentNode.insertBefore(j, f)
+          })(window, document, 'script', 'dataLayer', '{{ googleTagManagerContainerId }}')</script>
+        <!-- End Google Tag Manager -->
+    {% endif %}
+
+    {% if feComponents.jsIncludes %}
+        {% for js in feComponents.jsIncludes %}
+            <script src="{{ js }}" nonce="{{ cspNonce }}"></script>
+        {% endfor %}
     {% endif %}
 
     {% if feComponents.cssIncludes %}
-      {% for css in feComponents.cssIncludes %}
-        <link href="{{ css }}" nonce="{{ cspNonce }}" rel="stylesheet" />
-      {% endfor %}
+        {% for css in feComponents.cssIncludes %}
+            <link href="{{ css }}" nonce="{{ cspNonce }}" rel="stylesheet" />
+        {% endfor %}
     {% endif %}
 {% endblock %}
 
-{% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}
+{% block pageTitle %}{{ pageTitle | default(applicationName) }}{% endblock %}
 
 {% block header %}
-  {% if feComponents.header %}
-    {{ feComponents.header | safe }}
-  {% else %}
-    {% include "./header.njk" %}
-  {% endif %}
+    {% if feComponents.header %}
+        {{ feComponents.header | safe }}
+    {% else %}
+        {% include "./header.njk" %}
+    {% endif %}
 {% endblock %}
 
 {% block bodyStart %}
@@ -58,11 +76,11 @@
 {% endblock %}
 
 {% block footer %}
-  {% if feComponents.footer %}
-    {{ feComponents.footer | safe }}
-  {% else %}
-    {% include "./footer.njk" %}
-  {% endif %}
+    {% if feComponents.footer %}
+        {{ feComponents.footer | safe }}
+    {% else %}
+        {% include "./footer.njk" %}
+    {% endif %}
 {% endblock %}
 
 {% block bodyEnd %}
