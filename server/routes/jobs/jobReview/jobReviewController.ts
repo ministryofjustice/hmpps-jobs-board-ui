@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express'
 import { v7 as uuidv7 } from 'uuid'
+import _ from 'lodash'
 
 import _ from 'lodash'
 import { deleteSessionData, formatShortDate, getSessionData, setSessionData } from '../../../utils/index'
