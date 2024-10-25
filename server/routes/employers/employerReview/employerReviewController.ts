@@ -5,7 +5,6 @@ import _ from 'lodash'
 import { deleteSessionData, getSessionData, setSessionData } from '../../../utils/index'
 import addressLookup from '../../addressLookup'
 import EmployerService from '../../../services/employerService'
-import logger from '../../../../logger'
 
 export default class EmployerReviewController {
   constructor(private readonly employerService: EmployerService) {}
@@ -51,12 +50,6 @@ export default class EmployerReviewController {
       }
 
       const identifier = _.trim(id.toString()) === 'new' ? uuidv7() : id
-
-      logger.info('************** Submitting employer ***************')
-      logger.info(`id="${id}"`)
-      logger.info(`identifier="${identifier}"`)
-      logger.info(JSON.stringify(employerUpdate))
-      logger.info('**************************************************')
 
       await this.employerService.createUpdateEmployer(res.locals.user.username, identifier, employerUpdate)
 

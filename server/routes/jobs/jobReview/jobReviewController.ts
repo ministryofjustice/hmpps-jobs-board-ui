@@ -16,7 +16,6 @@ import BaseLocation from '../../../enums/baseLocation'
 import OffenceExclusions from '../../../enums/offenceExclusions'
 import SupportingDocumentation from '../../../enums/supportingDocumentation'
 import YesNoValue from '../../../enums/yesNoValue'
-import logger from '../../../../logger'
 
 export default class JobReviewController {
   constructor(private readonly jobService: JobService) {}
@@ -91,12 +90,6 @@ export default class JobReviewController {
       }
 
       const identifier = _.trim(id.toString()) === 'new' ? uuidv7() : id
-
-      logger.info('************** Submitting job ********************')
-      logger.info(`id="${id}"`)
-      logger.info(`identifier="${identifier}"`)
-      logger.info(JSON.stringify(jobUpdate))
-      logger.info('**************************************************')
 
       await this.jobService.createUpdateJob(res.locals.user.username, identifier, jobUpdate)
 
