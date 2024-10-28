@@ -51,10 +51,10 @@ export default function validationSchema(): ObjectSchema {
         'any.required': 'Select an employer status',
         'any.empty': 'Select an employer status',
       }),
-    employerDescription: joi.string().empty('').required().max(500).messages({
+    employerDescription: joi.string().empty('').required().max(1000).messages({
       'any.required': 'Enter employer description details',
       'any.empty': 'Enter employer description details',
-      'string.max': 'Employer Description must be 500 characters or less',
+      'string.max': 'Employer Description must be 1000 characters or less',
     }),
   })
 }

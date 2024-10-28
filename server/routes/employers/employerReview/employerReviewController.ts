@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express'
 import { v7 as uuidv7 } from 'uuid'
+import _ from 'lodash'
 
 import { deleteSessionData, getSessionData, setSessionData } from '../../../utils/index'
 import addressLookup from '../../addressLookup'
@@ -47,11 +48,10 @@ export default class EmployerReviewController {
         employerStatus,
         employerDescription,
       }
-      await this.employerService.createUpdateEmployer(
-        res.locals.user.username,
-        id === 'new' ? uuidv7() : id,
-        employerUpdate,
-      )
+
+      const identifier = _.trim(id.toString()) === 'new' ? uuidv7() : id
+
+      await this.employerService.createUpdateEmployer(res.locals.user.username, identifier, employerUpdate)
 
       // Delete current record
       deleteSessionData(req, ['employer', id])

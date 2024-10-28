@@ -6,7 +6,7 @@ import validationSchema from './validationSchema'
 describe('validationSchema', () => {
   const { req } = expressMocks()
 
-  const longStr = 'x'.repeat(501)
+  const longStr = 'x'.repeat(1001)
   const schema = validationSchema()
 
   it('On validation success - should allow a employerDescription with 100 characters', () => {
@@ -44,11 +44,11 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Employer name must be 100 characters or less')
   })
 
-  it('On validation success - should allow a employerDescription with 500 characters', () => {
+  it('On validation success - should allow a employerDescription with 1000 characters', () => {
     req.body.employerName = 'Mock_name'
     req.body.employerSector = EmployerSector.MINING
     req.body.employerStatus = EmployerStatus.KEY_PARTNER
-    req.body.employerDescription = 'x'.repeat(500)
+    req.body.employerDescription = 'x'.repeat(1000)
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -67,7 +67,7 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Enter employer description details')
   })
 
-  it('On validation error - should disallow a employerDescription longer than 500 characters', () => {
+  it('On validation error - should disallow a employerDescription longer than 1000 characters', () => {
     req.body.employerName = 'Mock_name'
     req.body.employerSector = EmployerSector.MINING
     req.body.employerStatus = EmployerStatus.KEY_PARTNER
@@ -76,7 +76,7 @@ describe('validationSchema', () => {
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Employer Description must be 500 characters or less')
+    expect(error.details[0].message).toBe('Employer Description must be 1000 characters or less')
   })
 
   it('On validation error - should disallow a employerStatus being blank', () => {
