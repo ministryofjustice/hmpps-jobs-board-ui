@@ -7,24 +7,6 @@
     <script src="/assets/mojFrontendInit.js"></script>
     <script src="/assets/accessible-autocomplete.min.js"></script>
 
-    <!-- Google Analytics: Google Analytics 4 (GA4) -->
-    {% if googleAnalyticsId | trim %}
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ googleAnalyticsId }}"></script>
-        <script nonce="{{ cspNonce }}">
-          window.dataLayer = window.dataLayer || []
-
-          function gtag() {
-            dataLayer.push(arguments)
-          }
-
-          gtag('js', new Date())
-          gtag('config', '{{ googleAnalyticsId }}')
-
-        </script>
-
-    {% endif %}
-
     {% if googleTagManagerContainerId %}
         <!-- Google Tag Manager -->
         <script nonce="{{ cspNonce }}">(function(w, d, s, l, i) {
