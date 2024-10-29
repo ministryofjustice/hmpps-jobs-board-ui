@@ -60,6 +60,7 @@ generic-service:
     groups:
       - digital_staff_and_mojo
       - prisons
+      - moj_cloud_platform
 
 generic-prometheus-alerts:
   targetApplication: hmpps-jobs-board-ui
