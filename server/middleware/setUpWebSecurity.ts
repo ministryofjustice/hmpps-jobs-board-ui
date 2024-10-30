@@ -20,7 +20,12 @@ export default function setUpWebSecurity(): Router {
     '*.googletagmanager.com',
     (req: Request, res: Response) => `'nonce-${res.locals.cspNonce}'`,
   ]
-  const styleSrc = ["'self'", 'code.jquery.com', "'unsafe-inline'"]
+  const styleSrc = [
+    "'self'",
+    'code.jquery.com',
+    "'unsafe-inline'",
+    (_req: Request, res: Response) => `'nonce-${res.locals.cspNonce}'`,
+  ]
   const imgSrc = ["'self'", 'data:']
   const fontSrc = ["'self'"]
   const connectSrc = ['*.google-analytics.com', '*.googletagmanager.com', '*.analytics.google.com']
