@@ -16,6 +16,7 @@ import BaseLocation from '../../../enums/baseLocation'
 import OffenceExclusions from '../../../enums/offenceExclusions'
 import SupportingDocumentation from '../../../enums/supportingDocumentation'
 import YesNoValue from '../../../enums/yesNoValue'
+import logger from '../../../../logger'
 
 export default class JobReviewController {
   constructor(private readonly jobService: JobService) {}
@@ -27,6 +28,7 @@ export default class JobReviewController {
     try {
       const job = getSessionData(req, ['job', id])
       if (!job) {
+        logger.error('Error rendering page - Job review - No record found in session')
         res.redirect(addressLookup.jobs.jobRoleUpdate(id, mode))
         return
       }
@@ -45,6 +47,7 @@ export default class JobReviewController {
 
       res.render('pages/jobs/jobReview/index', { ...data })
     } catch (err) {
+      logger.error('Error rendering page - Job review')
       next(err)
     }
   }
@@ -99,6 +102,7 @@ export default class JobReviewController {
       // Redirect to jobs
       res.redirect(`${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`)
     } catch (err) {
+      logger.error('Error posting form - Job review')
       next(err)
     }
   }

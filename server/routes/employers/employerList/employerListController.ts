@@ -8,6 +8,7 @@ import validateFormSchema from '../../../utils/validateFormSchema'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import EmployerViewModel from '../../../viewModels/employerViewModel'
+import logger from '../../../../logger'
 
 export default class EmployerListController {
   constructor(private readonly paginationService: PaginationService) {}
@@ -64,6 +65,7 @@ export default class EmployerListController {
 
       res.render('pages/employers/employerList/index', { ...data })
     } catch (err) {
+      logger.error('Error rendering page - Employer list')
       next(err)
     }
   }
@@ -104,6 +106,7 @@ export default class EmployerListController {
           : addressLookup.employers.employerList(),
       )
     } catch (err) {
+      logger.error('Error posting form - Employer list')
       next(err)
     }
   }

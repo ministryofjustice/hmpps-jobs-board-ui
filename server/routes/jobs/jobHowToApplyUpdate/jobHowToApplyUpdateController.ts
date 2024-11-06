@@ -7,6 +7,7 @@ import consolidateDateInputErrors from '../../../utils/consolidateDateInputError
 import getDateInputObject from '../../../utils/getDateInputObject'
 import parseBodyDateInput from '../../../utils/parseBodyDateInput'
 import YesNoValue from '../../../enums/yesNoValue'
+import logger from '../../../../logger'
 
 export default class jobHowToApplyUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
@@ -17,6 +18,7 @@ export default class jobHowToApplyUpdateController {
 
       // Redirect to first page if no job
       if (!job) {
+        logger.error('Error rendering page - How to apply - No record found in session')
         res.redirect(addressLookup.jobs.jobRoleUpdate(id))
         return
       }
@@ -37,6 +39,7 @@ export default class jobHowToApplyUpdateController {
 
       res.render('pages/jobs/jobHowToApplyUpdate/index', { ...data })
     } catch (err) {
+      logger.error('Error rendering page - How to apply')
       next(err)
     }
   }
@@ -99,6 +102,7 @@ export default class jobHowToApplyUpdateController {
       // Redirect to next page in flow
       res.redirect(addressLookup.jobs.jobReview(id))
     } catch (err) {
+      logger.error('Error posting form - How to apply')
       next(err)
     }
   }

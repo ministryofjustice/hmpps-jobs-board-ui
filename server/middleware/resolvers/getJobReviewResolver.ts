@@ -3,6 +3,7 @@ import type { RequestHandler } from 'express'
 import JobService from '../../services/jobService'
 import { getSessionData, setSessionData } from '../../utils/index'
 import YesNoValue from '../../enums/yesNoValue'
+import logger from '../../../logger'
 
 // Gets jobs
 const getJobReviewResolver =
@@ -31,6 +32,7 @@ const getJobReviewResolver =
 
       next()
     } catch (err) {
+      logger.error('Error getting data - Job')
       next(err)
     }
   }

@@ -8,6 +8,7 @@ import validateFormSchema from '../../../utils/validateFormSchema'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import JobViewModel from '../../../viewModels/jobViewModel'
+import logger from '../../../../logger'
 
 export default class JobListController {
   constructor(private readonly paginationService: PaginationService) {}
@@ -64,6 +65,7 @@ export default class JobListController {
       setSessionData(req, ['jobList', 'data'], data)
       res.render('pages/jobs/jobList/index', { ...data })
     } catch (err) {
+      logger.error('Error rendering page - Job list')
       next(err)
     }
   }
@@ -101,6 +103,7 @@ export default class JobListController {
 
       res.redirect(uri.length ? `${addressLookup.jobs.jobList()}?${uri.join('&')}` : addressLookup.jobs.jobList())
     } catch (err) {
+      logger.error('Error posting form - Job list')
       next(err)
     }
   }

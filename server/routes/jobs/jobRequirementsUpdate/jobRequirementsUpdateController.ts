@@ -4,6 +4,7 @@ import { getSessionData, setSessionData, validateFormSchema } from '../../../uti
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import OffenceExclusions from '../../../enums/offenceExclusions'
+import logger from '../../../../logger'
 
 export default class JobRequirementsUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
@@ -14,6 +15,7 @@ export default class JobRequirementsUpdateController {
 
       // Redirect to first page if no job
       if (!job) {
+        logger.error('Error rendering page - Job requirements - No record found in session')
         res.redirect(addressLookup.jobs.jobRoleUpdate(id))
         return
       }
@@ -32,6 +34,7 @@ export default class JobRequirementsUpdateController {
 
       res.render('pages/jobs/jobRequirementsUpdate/index', { ...data })
     } catch (err) {
+      logger.error('Error rendering page - Job requirements')
       next(err)
     }
   }
@@ -70,6 +73,7 @@ export default class JobRequirementsUpdateController {
       // Redirect to next page in flow
       res.redirect(mode === 'add' ? addressLookup.jobs.jobHowToApplysUpdate(id) : addressLookup.jobs.jobReview(id))
     } catch (err) {
+      logger.error('Error posting form - Job requirements')
       next(err)
     }
   }

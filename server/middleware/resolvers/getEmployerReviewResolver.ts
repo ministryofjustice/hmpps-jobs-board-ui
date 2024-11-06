@@ -2,6 +2,7 @@ import type { RequestHandler } from 'express'
 
 import EmployerService from '../../services/employerService'
 import { getSessionData, setSessionData } from '../../utils/index'
+import logger from '../../../logger'
 
 // Gets employers
 const getEmployerReviewResolver =
@@ -30,6 +31,7 @@ const getEmployerReviewResolver =
 
       next()
     } catch (err) {
+      logger.error('Error getting data - Employer')
       next(err)
     }
   }
