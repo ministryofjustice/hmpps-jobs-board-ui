@@ -5,6 +5,7 @@ import _ from 'lodash'
 import { deleteSessionData, getSessionData, setSessionData } from '../../../utils/index'
 import addressLookup from '../../addressLookup'
 import EmployerService from '../../../services/employerService'
+import logger from '../../../../logger'
 
 export default class EmployerReviewController {
   constructor(private readonly employerService: EmployerService) {}
@@ -15,6 +16,7 @@ export default class EmployerReviewController {
     try {
       const employer = getSessionData(req, ['employer', id])
       if (!employer) {
+        logger.error('Error rendering page - Employer review - No record found in session')
         res.redirect(addressLookup.employers.employerUpdate(id))
         return
       }
@@ -30,6 +32,7 @@ export default class EmployerReviewController {
 
       res.render('pages/employers/employerReview/index', { ...data })
     } catch (err) {
+      logger.error('Error rendering page - Employer review')
       next(err)
     }
   }
@@ -59,6 +62,7 @@ export default class EmployerReviewController {
       // Redirect to employers
       res.redirect(`${addressLookup.employers.employerList()}?sort=name&order=ascending`)
     } catch (err) {
+      logger.error('Error posting form - Employer review')
       next(err)
     }
   }

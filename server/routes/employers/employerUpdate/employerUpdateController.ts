@@ -3,6 +3,7 @@ import { RequestHandler } from 'express'
 import { getSessionData, setSessionData, validateFormSchema } from '../../../utils/index'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
+import logger from '../../../../logger'
 
 export default class EmployerUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
@@ -27,6 +28,7 @@ export default class EmployerUpdateController {
 
       res.render('pages/employers/employerUpdate/index', { ...data })
     } catch (err) {
+      logger.error('Error rendering page - Employer update')
       next(err)
     }
   }
@@ -59,6 +61,7 @@ export default class EmployerUpdateController {
       // Redirect to employers
       res.redirect(addressLookup.employers.employerReview(id))
     } catch (err) {
+      logger.error('Error posting form - Employer update')
       next(err)
     }
   }

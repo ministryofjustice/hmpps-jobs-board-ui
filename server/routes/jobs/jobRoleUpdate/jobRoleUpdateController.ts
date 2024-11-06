@@ -3,6 +3,7 @@ import { RequestHandler } from 'express'
 import { getSessionData, setSessionData, validateFormSchema } from '../../../utils/index'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
+import logger from '../../../../logger'
 
 export default class JobRoleUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
@@ -12,6 +13,7 @@ export default class JobRoleUpdateController {
     try {
       const job = getSessionData(req, ['job', id])
       if (!job && mode === 'update') {
+        logger.error('Error rendering page - Job role - No record found in session')
         res.redirect(addressLookup.jobs.jobRoleUpdate('new'))
         return
       }
@@ -36,6 +38,7 @@ export default class JobRoleUpdateController {
 
       res.render('pages/jobs/jobRoleUpdate/index', { ...data })
     } catch (err) {
+      logger.error('Error rendering page - Job role')
       next(err)
     }
   }
@@ -83,6 +86,7 @@ export default class JobRoleUpdateController {
       // Redirect to next page in flow
       res.redirect(mode === 'add' ? addressLookup.jobs.jobContractUpdate(id) : addressLookup.jobs.jobReview(id))
     } catch (err) {
+      logger.error('Error posting form - Job role')
       next(err)
     }
   }

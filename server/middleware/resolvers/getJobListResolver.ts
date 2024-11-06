@@ -1,6 +1,7 @@
 import type { RequestHandler } from 'express'
 
 import JobService from '../../services/jobService'
+import logger from '../../../logger'
 
 // Gets employers
 const getJobListResolver =
@@ -22,6 +23,7 @@ const getJobListResolver =
 
       next()
     } catch (err) {
+      logger.error('Error getting data - Job list')
       next(err)
     }
   }
