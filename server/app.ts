@@ -22,8 +22,9 @@ import setUpLocals from './middleware/setUpLocals'
 import getFrontendComponents from './middleware/getFrontendComponents'
 import setUpEnvironmentName from './middleware/setUpEnvironmentName'
 import setUpCurrentUser from './middleware/setUpCurrentUser'
+import { ApplicationInfo } from './applicationInfo'
 
-export default function createApp(services: Services): express.Application {
+export default function createApp(services: Services, applicationInfo: ApplicationInfo): express.Application {
   const app = express()
 
   app.set('json spaces', 2)
@@ -36,7 +37,7 @@ export default function createApp(services: Services): express.Application {
   app.use(setUpWebRequestParsing())
   app.use(setUpStaticResources())
   setUpEnvironmentName(app)
-  nunjucksSetup(app, path)
+  nunjucksSetup(app, path, applicationInfo)
   app.use(setUpAuthentication())
   app.use(setUpLocals())
   app.use(setUpCsrf())

@@ -120,4 +120,5 @@ export default {
     containerId: get('GOOGLE_TAG_MANAGER_CONTAINER_ID', ''),
     googleAnalyticsId: get('GOOGLE_ANALYTICS_ID', '', requiredInProduction),
   },
+  appInsightsConnectionString: get('APPLICATIONINSIGHTS_CONNECTION_STRING', '', requiredInProduction),
 }

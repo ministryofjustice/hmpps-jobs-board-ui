@@ -8,6 +8,7 @@ import nunjucksSetup from '../utils/nunjucksSetup'
 import errorHandler from '../errorHandler'
 import * as auth from '../authentication/auth'
 import { Services } from '../services'
+import { ApplicationInfo } from '../applicationInfo'
 
 export const user = {
   firstName: 'first',
@@ -20,6 +21,13 @@ export const user = {
   authSource: 'NOMIS',
 }
 
+const testAppInfo: ApplicationInfo = {
+  applicationName: 'test',
+  buildNumber: '1',
+  gitRef: 'long ref',
+  gitShortHash: 'short ref',
+  branchName: 'main',
+}
 export const flashProvider = jest.fn()
 
 function appSetup(services: Services, production: boolean, userSupplier: () => Express.User): Express {
@@ -27,7 +35,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => E
 
   app.set('view engine', 'njk')
 
-  nunjucksSetup(app, path)
+  nunjucksSetup(app, path, testAppInfo)
   app.use(cookieSession({ keys: [''] }))
   app.use((req, res, next) => {
     req.user = userSupplier()
