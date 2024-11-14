@@ -4,20 +4,27 @@ import express from 'express'
 import * as pathModule from 'path'
 import config from '../config'
 import { decryptUrlParameter, encryptUrlParameter } from './urlParameterEncryption'
+import { ApplicationInfo } from '../applicationInfo'
 
 const production = process.env.NODE_ENV === 'production'
 
-export default function nunjucksSetup(app: express.Express, path: pathModule.PlatformPath): void {
+export default function nunjucksSetup(
+  app: express.Express,
+  path: pathModule.PlatformPath,
+  applicationInfo: ApplicationInfo,
+): void {
   app.set('view engine', 'njk')
 
   app.locals.dpsHomeUrl = config.dpsHomeUrl
   app.locals.asset_path = '/assets/'
   app.locals.applicationName = 'Jobs upload'
+  app.locals.appInsightsConnectionString = config.appInsightsConnectionString
+  app.locals.appInsightsApplicationName = applicationInfo.applicationName
 
   // Cachebusting version string
   if (production) {
     // Version only changes on reboot
-    app.locals.version = Date.now().toString()
+    app.locals.version = applicationInfo.gitShortHash
   } else {
     // Version changes every request
     app.use((req, res, next) => {
