@@ -30,8 +30,8 @@
     "rebuild": "npm run clean && npm i && npm run build"
   },
   "engines": {
-    "node": "^22",
-    "npm": "^11"
+    "node": "^20",
+    "npm": "^10"
   },
   "jest": {
     "transform": {
