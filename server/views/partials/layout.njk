@@ -7,6 +7,10 @@
     <script src="/assets/mojFrontendInit.js"></script>
     <script src="/assets/accessible-autocomplete.min.js"></script>
 
+    <div>AppInsights Connection: {{ appInsightsConnectionString }}</div>
+    <div>Application Name: {{ appInsightsApplicationName }}</div>
+    <div>UserName: {{ user.username }}</div>
+
     {% if appInsightsConnectionString %}
         <script type="text/javascript" src="/assets/applicationinsights-web.min.js"  nonce="{{ cspNonce }}"></script>
         <script type="text/javascript" src="/assets/applicationinsights-clickanalytics-js.min.js"  nonce="{{ cspNonce }}"></script>
@@ -38,13 +42,13 @@
             envelope.tags["ai.application.ver"] = "{{ buildNumber }}"
             if (envelope.data.baseTypeSource === "ClickEvent") {
               let contentArray = JSON.parse(envelope.data.content);
-              for (let content of contentArray) {
-                if (content.contentName && content.qa === "quick-look-link") {
-                  let redactedStr = "REDACTED";
-                  content.contentName = redactedStr;
-                  envelope.baseData.name= redactedStr;
-                }
-              }
+            //   for (let content of contentArray) {
+            //     if (content.contentName && content.qa === "quick-look-link") {
+            //       let redactedStr = "REDACTED";
+            //       content.contentName = redactedStr;
+            //       envelope.baseData.name= redactedStr;
+            //     }
+            //   }
               envelope.data.content = JSON.stringify(contentArray);
             }
           });
@@ -111,5 +115,16 @@
 {% endblock %}
 
 {% block bodyEnd %}
-
+    {# Run JavaScript at end of the
+    <body>, to avoid blocking the initial render. #}
+    <script src="/assets/js/jquery.min.js"></script>
+    <script type="module" src="/assets/govukFrontendInit.js"></script>
+    <script src="/assets/moj/all.js"></script>
+    <script src="/assets/mojFrontendInit.js"></script>
+    <script src="/assets/applicationinsights-web.min.js"></script>
+    <script src="/assets/applicationinsights-clickanalytics-js.min.js"></script>
+    <script src="/assets/applicationinsights.js"></script>
+    <script nonce="{{ cspNonce }}">
+      window.applicationInsights.init('{{ appInsightsConnectionString }}', '{{ appInsightsApplicationName }}', '{{ user.username }}');
+    </script>
 {% endblock %}
