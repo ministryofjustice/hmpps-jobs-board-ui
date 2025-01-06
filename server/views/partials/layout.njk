@@ -7,10 +7,6 @@
     <script src="/assets/mojFrontendInit.js"></script>
     <script src="/assets/accessible-autocomplete.min.js"></script>
 
-    <div>AppInsights Connection: {{ appInsightsConnectionString }}</div>
-    <div>Application Name: {{ appInsightsApplicationName }}</div>
-    <div>UserName: {{ user.username }}</div>
-
     {% if appInsightsConnectionString %}
         <script type="text/javascript" src="/assets/applicationinsights-web.min.js"  nonce="{{ cspNonce }}"></script>
         <script type="text/javascript" src="/assets/applicationinsights-clickanalytics-js.min.js"  nonce="{{ cspNonce }}"></script>
@@ -42,14 +38,15 @@
             envelope.tags["ai.application.ver"] = "{{ buildNumber }}"
             if (envelope.data.baseTypeSource === "ClickEvent") {
               let contentArray = JSON.parse(envelope.data.content);
-            //   for (let content of contentArray) {
-            //     if (content.contentName && content.qa === "quick-look-link") {
-            //       let redactedStr = "REDACTED";
-            //       content.contentName = redactedStr;
-            //       envelope.baseData.name= redactedStr;
-            //     }
-            //   }
               envelope.data.content = JSON.stringify(contentArray);
+              for (let content of contentArray) {
+                if (content.contentName && content.qa === "quick-look-link") {
+                  let redactedStr = "REDACTED";
+                  content.contentName = redactedStr;
+                  envelope.baseData.name= redactedStr
+                  envelope.data.content = JSON.stringify(contentArray);
+                }
+              }
             }
           });
           appInsights.trackPageView();
