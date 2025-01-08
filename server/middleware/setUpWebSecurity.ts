@@ -44,7 +44,12 @@ export default function setUpWebSecurity(): Router {
           ],
           fontSrc: ["'self'", config.apis.frontendComponents.url],
           formAction: [`'self' ${config.apis.hmppsAuth.externalUrl}`],
-          connectSrc: ['*.google-analytics.com', '*.googletagmanager.com', '*.analytics.google.com'],
+          connectSrc: [
+            '*.google-analytics.com',
+            '*.googletagmanager.com',
+            '*.analytics.google.com',
+            '*.applicationinsights.azure.com',
+          ],
           objectSrc: ["'none'"], // Disallow <object> or <embed> tags
         },
       },
