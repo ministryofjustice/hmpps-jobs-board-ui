@@ -28,6 +28,7 @@
                     <select class="govuk-select" id="jobSectorFilter" name="jobSectorFilter">
                         <option value="" {{ "selected" if jobSectorFilter === "" }}>All</option>
                         <option value="OUTDOOR" {{ "selected" if jobSectorFilter === "OUTDOOR" }}>{{ contentLookup.jobSector["OUTDOOR"] }}</option>
+                        <option value="CLEANING_AND_MAINTENANCE" {{ "selected" if jobSectorFilter === "CLEANING_AND_MAINTENANCE" }}>{{ contentLookup.jobSector["CLEANING_AND_MAINTENANCE"] }}</option>
                         <option value="CONSTRUCTION" {{ "selected" if jobSectorFilter === "CONSTRUCTION" }}>{{ contentLookup.jobSector["CONSTRUCTION"] }}</option>
                         <option value="DRIVING" {{ "selected" if jobSectorFilter === "DRIVING" }}>{{ contentLookup.jobSector["DRIVING"] }}</option>
                         <option value="BEAUTY" {{ "selected" if jobSectorFilter === "BEAUTY" }}>{{ contentLookup.jobSector["BEAUTY"] }}</option>
@@ -40,7 +41,6 @@
                         <option value="WAREHOUSING" {{ "selected" if jobSectorFilter === "WAREHOUSING" }}>{{ contentLookup.jobSector["WAREHOUSING"] }}</option>
                         <option value="EDUCATION_TRAINING" {{ "selected" if jobSectorFilter === "EDUCATION_TRAINING" }}>{{ contentLookup.jobSector["EDUCATION_TRAINING"] }}</option>
                         <option value="WASTE_MANAGEMENT" {{ "selected" if jobSectorFilter === "WASTE_MANAGEMENT" }}>{{ contentLookup.jobSector["WASTE_MANAGEMENT"] }}</option>
-                        <option value="CLEANING_AND_MAINTENANCE" {{ "selected" if jobSectorFilter === "CLEANING_AND_MAINTENANCE" }}>{{ contentLookup.jobSector["CLEANING_AND_MAINTENANCE"] }}</option>
                         <option value="OTHER" {{ "selected" if jobSectorFilter === "OTHER" }}>{{ contentLookup.jobSector["OTHER"] }}</option>
                     </select>
                 </div>
