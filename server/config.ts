@@ -1,5 +1,18 @@
 const production = process.env.NODE_ENV === 'production'
 
+// Add a fallback mechanism in config.ts to detect and handle cases where APPLICATIONINSIGHTS_CONNECTION_STRING is empty
+const appInsightsConnectionString =
+  process.env.APPLICATIONINSIGHTS_CONNECTION_STRING ||
+  `InstrumentationKey=${process.env.APPINSIGHTS_INSTRUMENTATIONKEY};IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/;LiveEndpoint=https://northeurope.livediagnostics.monitor.azure.com/`
+
+if (!appInsightsConnectionString) {
+  console.error('Application Insights connection string is not set.')
+} else {
+  console.log(`1. Connection string - SECRET VAULT = ${process.env.APPLICATIONINSIGHTS_CONNECTION_STRING}`)
+  console.log(`2. Instrumentation key - SECRET VAULT = ${process.env.APPINSIGHTS_INSTRUMENTATIONKEY}`)
+  console.log(`3. appInsightsConnectionString - LOCAL VAR = ${appInsightsConnectionString}`)
+}
+
 function get<T>(name: string, fallback: T, options = { requireInProduction: false }): T | string {
   if (process.env[name]) {
     return process.env[name]
@@ -120,5 +133,5 @@ export default {
     containerId: get('GOOGLE_TAG_MANAGER_CONTAINER_ID', ''),
     googleAnalyticsId: get('GOOGLE_ANALYTICS_ID', '', requiredInProduction),
   },
-  appInsightsConnectionString: get('APPLICATIONINSIGHTS_CONNECTION_STRING', '', requiredInProduction),
+  appInsightsConnectionString,
 }
