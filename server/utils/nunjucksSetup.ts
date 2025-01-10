@@ -5,7 +5,6 @@ import * as pathModule from 'path'
 import config from '../config'
 import { decryptUrlParameter, encryptUrlParameter } from './urlParameterEncryption'
 import { ApplicationInfo } from '../applicationInfo'
-import logger from '../../logger'
 
 const production = process.env.NODE_ENV === 'production'
 
@@ -89,12 +88,4 @@ export default function nunjucksSetup(
   njkEnv.addGlobal('decryptUrlParameter', decryptUrlParameter)
   njkEnv.addGlobal('googleTagManagerContainerId', config.googleAnalytics.containerId)
   njkEnv.addGlobal('googleAnalyticsId', config.googleAnalytics.googleAnalyticsId)
-
-  // *** FOR DVPT ONLY *** //
-  logger.info(`** DPS home url: ${app.locals.dpsHomeUrl}`)
-  logger.info(`** appInsights connection: ${app.locals.appInsightsConnectionString}`)
-  logger.info(`** Google Tag Mgr: ${config.googleAnalytics.containerId}`)
-  logger.info(`** Google Analytics: ${config.googleAnalytics.googleAnalyticsId}`)
-  logger.info(`** PASSPHRASE: ${config.urlParameterPassphrase}`)
-  logger.info(`** System client id: ${config.apis.hmppsAuth.systemClientId}`)
 }
