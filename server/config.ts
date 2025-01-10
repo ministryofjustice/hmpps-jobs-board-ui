@@ -1,5 +1,11 @@
 const production = process.env.NODE_ENV === 'production'
 
+// Add a fallback mechanism in config.ts to detect and handle cases where APPLICATIONINSIGHTS_CONNECTION_STRING is empty
+const appInsightsInstrumentationKey = process.env.APPINSIGHTS_INSTRUMENTATIONKEY
+const appInsightsConnectionString = appInsightsInstrumentationKey
+  ? `InstrumentationKey=${appInsightsInstrumentationKey};IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/;LiveEndpoint=https://northeurope.livediagnostics.monitor.azure.com/`
+  : ''
+
 function get<T>(name: string, fallback: T, options = { requireInProduction: false }): T | string {
   if (process.env[name]) {
     return process.env[name]
@@ -120,5 +126,5 @@ export default {
     containerId: get('GOOGLE_TAG_MANAGER_CONTAINER_ID', ''),
     googleAnalyticsId: get('GOOGLE_ANALYTICS_ID', '', requiredInProduction),
   },
-  appInsightsConnectionString: get('APPLICATIONINSIGHTS_CONNECTION_STRING', '', requiredInProduction),
+  appInsightsConnectionString,
 }
