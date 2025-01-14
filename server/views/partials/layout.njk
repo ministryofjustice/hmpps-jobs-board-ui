@@ -39,14 +39,6 @@
             if (envelope.data.baseTypeSource === "ClickEvent") {
               let contentArray = JSON.parse(envelope.data.content);
               envelope.data.content = JSON.stringify(contentArray);
-              for (let content of contentArray) {
-                if (content.contentName && content.qa === "quick-look-link") {
-                  let redactedStr = "REDACTED";
-                  content.contentName = redactedStr;
-                  envelope.baseData.name= redactedStr
-                  envelope.data.content = JSON.stringify(contentArray);
-                }
-              }
             }
           });
           appInsights.trackPageView();
