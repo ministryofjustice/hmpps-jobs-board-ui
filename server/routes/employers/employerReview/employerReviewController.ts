@@ -62,6 +62,23 @@ export default class EmployerReviewController {
       // Redirect to employers
       res.redirect(`${addressLookup.employers.employerList()}?sort=name&order=ascending`)
     } catch (err) {
+      if (err.status === 400) {
+        const data = getSessionData(req, ['employerReview', id, 'data'])
+        // TODO: Add function to looup error message and UI fieldname
+        const errors = {
+          employerName: {
+            text: 'The name provided already exists. Please choose a different name.',
+            href: `${addressLookup.employers.employerUpdate(id, 'update')}#employerName`,
+          },
+        }
+        res.render('pages/employers/employerReview/index', {
+          ...data,
+          ...req.body,
+          errors,
+        })
+        return
+      }
+
       logger.error('Error posting form - Employer review')
       next(err)
     }

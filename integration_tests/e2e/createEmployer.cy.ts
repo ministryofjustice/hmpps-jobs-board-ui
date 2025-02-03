@@ -105,4 +105,26 @@ context('Sign In', () => {
     employerUpdatePage.submitButton().click()
     employerReviewPage.employerDescription().contains('A different test company description')
   })
+
+  it('Handle server validation error display', () => {
+    // Simulate duplicate employer name
+    cy.task('putEmployer', 'DUPLICATE_EMPLOYER')
+
+    cy.visit('/employers/employer/new/form/add')
+
+    const employerUpdatePage = new EmployerUpdatePage('Employer details')
+    employerUpdatePage.headerCaption().contains('Add an employer - step 1 of 2')
+
+    employerUpdatePage.employerNameField().type('Test company')
+    employerUpdatePage.employerSectorField().select('ADMIN_SUPPORT')
+    employerUpdatePage.employerStatusField().select('GOLD')
+    employerUpdatePage.employerDescriptionField().type('Test company description')
+
+    employerUpdatePage.submitButton().click()
+
+    const employerReviewPage = new EmployerReviewPage('Check your answers before adding employer')
+    employerReviewPage.submitButton().click()
+
+    employerReviewPage.pageErrorMessages().contains('The name provided already exists. Please choose a different name.')
+  })
 })
