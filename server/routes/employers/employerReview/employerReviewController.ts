@@ -6,6 +6,7 @@ import { deleteSessionData, getSessionData, setSessionData } from '../../../util
 import addressLookup from '../../addressLookup'
 import EmployerService from '../../../services/employerService'
 import logger from '../../../../logger'
+import getFirstErrorCode from '../../../utils/getFirstErrorCode'
 
 export default class EmployerReviewController {
   constructor(private readonly employerService: EmployerService) {}
@@ -40,6 +41,8 @@ export default class EmployerReviewController {
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
 
+    const data = getSessionData(req, ['employerReview', id, 'data'])
+
     try {
       const employer = getSessionData(req, ['employer', id])
       const { employerName, employerSector, employerStatus, employerDescription } = employer
@@ -62,19 +65,14 @@ export default class EmployerReviewController {
       // Redirect to employers
       res.redirect(`${addressLookup.employers.employerList()}?sort=name&order=ascending`)
     } catch (err) {
-      if (err.status === 400) {
-        const data = getSessionData(req, ['employerReview', id, 'data'])
-        // TODO: Add function to looup error message and UI fieldname
-        const errors = {
-          employerName: {
-            text: 'The name provided already exists. Please choose a different name.',
-            href: `${addressLookup.employers.employerUpdate(id, 'update')}#employerName`,
-          },
-        }
-        res.render('pages/employers/employerReview/index', {
+      const errorCode = getFirstErrorCode(err)
+
+      // Check for server validation error
+      if (err.status === 400 && errorCode) {
+        res.render('pages/serverValidationError/index', {
           ...data,
-          ...req.body,
-          errors,
+          ...err,
+          errorCode,
         })
         return
       }

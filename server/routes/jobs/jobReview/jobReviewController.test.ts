@@ -2,6 +2,7 @@
 import Controller from './jobReviewController'
 import expressMocks from '../../../testutils/expressMocks'
 import { setSessionData } from '../../../utils/session'
+import addressLookup from '../../addressLookup'
 
 describe('JobReviewController', () => {
   const { req, res, next } = expressMocks()
@@ -39,7 +40,7 @@ describe('JobReviewController', () => {
   setSessionData(req, ['job', id], job)
 
   const mockService: any = {
-    updateJob: jest.fn(),
+    createUpdateJob: jest.fn(),
   }
 
   const controller = new Controller(mockService)
@@ -79,6 +80,24 @@ describe('JobReviewController', () => {
 
     it('Should create a new instance', () => {
       expect(controller).toBeDefined()
+    })
+
+    it('Handles server validation errors correctly', async () => {
+      const error = { status: 400, data: { details: [{ code: 'VALIDATION_ERROR' }] } }
+      mockService.createUpdateJob.mockRejectedValue(error)
+
+      await controller.post(req, res, next)
+
+      expect(res.render).toHaveBeenCalledWith(
+        'pages/serverValidationError/index',
+        expect.objectContaining({ errorCode: 'VALIDATION_ERROR' }),
+      )
+    })
+
+    it('Handles API success and redirects', async () => {
+      mockService.createUpdateJob.mockResolvedValue({})
+      await controller.post(req, res, next)
+      expect(res.redirect).toHaveBeenCalledWith(`${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`)
     })
 
     it('On error - Calls next with error', async () => {

@@ -125,6 +125,6 @@ context('Sign In', () => {
     const employerReviewPage = new EmployerReviewPage('Check your answers before adding employer')
     employerReviewPage.submitButton().click()
 
-    employerReviewPage.pageErrorMessages().contains('The name provided already exists. Please choose a different name.')
+    employerReviewPage.heading().contains('The employer Test company already exists')
   })
 })

@@ -1,0 +1,7 @@
+<h1>The employer {{ employerName }} already exists</h1>
+<p>An employer with the name {{ employerName }} is already in the system. You can either:</p>
+
+<ul>
+  <li><a class="govuk-link govuk-link--no-visited-state" href="{{ addressLookup.jobs.jobRoleUpdate('new', 'add') }}" data-qa="createNewJobLink">add a job with the existing employer</a></li>
+  <li><a class="govuk-link govuk-link--no-visited-state" href="{{ addressLookup.employers.employerUpdate('new', 'add') }}" data-qa="createNewEmployerLink">add a new employer with a different name</a></li>
+</ul>
