@@ -1,0 +1,10 @@
+{% extends "../../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Error" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+  {% include './partials/_' + errorCode.toLowerCase() + '_error.njk' %}
+
+{% endblock %}

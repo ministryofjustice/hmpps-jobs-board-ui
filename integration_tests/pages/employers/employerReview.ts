@@ -22,4 +22,7 @@ export default class EmployerReviewPage extends Page {
   employerSectorLink = (): PageElement => cy.get('[data-qa=employerSectorLink]')
 
   employerDescriptionLink = (): PageElement => cy.get('[data-qa=employerDescriptionLink]')
+
+  // Errors
+  pageErrorMessages = (): PageElement => cy.get('[data-module=govuk-error-summary]')
 }

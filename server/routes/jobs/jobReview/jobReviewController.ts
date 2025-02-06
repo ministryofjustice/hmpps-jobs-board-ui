@@ -17,6 +17,7 @@ import OffenceExclusions from '../../../enums/offenceExclusions'
 import SupportingDocumentation from '../../../enums/supportingDocumentation'
 import YesNoValue from '../../../enums/yesNoValue'
 import logger from '../../../../logger'
+import getFirstErrorCode from '../../../utils/getFirstErrorCode'
 
 export default class JobReviewController {
   constructor(private readonly jobService: JobService) {}
@@ -54,6 +55,8 @@ export default class JobReviewController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
+
+    const data = getSessionData(req, ['employerReview', id, 'data'])
 
     try {
       const job = getSessionData(req, ['job', id])
@@ -102,6 +105,18 @@ export default class JobReviewController {
       // Redirect to jobs
       res.redirect(`${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`)
     } catch (err) {
+      const errorCode = getFirstErrorCode(err)
+
+      // Check for server validation error
+      if (err.status === 400 && errorCode) {
+        res.render('pages/serverValidationError/index', {
+          ...data,
+          ...err,
+          errorCode,
+        })
+        return
+      }
+
       logger.error('Error posting form - Job review')
       next(err)
     }
