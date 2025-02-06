@@ -24,4 +24,4 @@ generic-service:
     SYSTEM_PHASE: DEV
 
 generic-prometheus-alerts:
-  alertSeverity: prison-education-alerts
+  alertSeverity: education-alerts-non-prod
