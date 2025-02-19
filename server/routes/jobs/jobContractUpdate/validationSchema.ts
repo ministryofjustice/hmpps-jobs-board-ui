@@ -9,7 +9,7 @@ import BaseLocation from '../../../enums/baseLocation'
 import YesNoValue from '../../../enums/yesNoValue'
 
 export default function validationSchema(): ObjectSchema {
-  const postCodeRegex = /^[a-z]{1,2}\d[a-z\d]?\s*\d[a-z]{2}$/i
+  const postCodeRegex = /^(GIR 0AA|[A-Z]{1,2}[0-9][0-9A-Z]? [0-9][A-Z]{2})$/i
 
   return joi.object({
     postCode: joi.string().empty('').regex(postCodeRegex).required().messages({
