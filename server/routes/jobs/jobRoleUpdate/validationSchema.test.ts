@@ -171,4 +171,13 @@ describe('validationSchema', () => {
     expect(error).toBeTruthy()
     expect(error.details[0].message).toBe('Number of vacancies must be a number')
   })
+
+  it('On validation error - should disallow a numberOfVacancies not being a positive number', () => {
+    req.body.numberOfVacancies = '-1'
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeTruthy()
+    expect(error.details[0].message).toBe('Number of vacancies must be a positive number')
+  })
 })
