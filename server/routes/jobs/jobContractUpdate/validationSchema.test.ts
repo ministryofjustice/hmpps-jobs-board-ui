@@ -13,7 +13,7 @@ describe('validationSchema', () => {
   const schema = validationSchema()
 
   beforeEach(() => {
-    req.body.postCode = 'NE157LR'
+    req.body.postCode = 'NE15 7LR'
     req.body.salaryFrom = '200'
     req.body.salaryTo = '400'
     req.body.salaryPeriod = SalaryPeriod.PER_DAY
@@ -42,6 +42,15 @@ describe('validationSchema', () => {
 
   it('On validation error - should disallow an invalid postCode', () => {
     req.body.postCode = 'dhajgdjahsgd'
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeTruthy()
+    expect(error.details[0].message).toBe('Job location must be a valid postcode')
+  })
+
+  it('On validation error - should disallow an invalid postCode without space', () => {
+    req.body.postCode = 'NE157LR'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 

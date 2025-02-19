@@ -82,7 +82,7 @@ context('Sign In', () => {
     jobContractUpdatePage.hoursPerWeekFieldErrorMessage().contains('Select the hours for this job')
 
     // Move to next page
-    jobContractUpdatePage.postCodeField().type('NE157LR')
+    jobContractUpdatePage.postCodeField().type('NE15 7LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
     jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
@@ -161,7 +161,7 @@ context('Sign In', () => {
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
     jobContractUpdatePage.headerCaption().contains('Add a job - step 2 of 5')
 
-    jobContractUpdatePage.postCodeField().type('NE157LR')
+    jobContractUpdatePage.postCodeField().type('NE15 7LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
     jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
@@ -212,7 +212,7 @@ context('Sign In', () => {
     jobReviewPage.sourcePrimary().contains('NFN')
     jobReviewPage.sourceSecondary().contains('PEL')
     jobReviewPage.charityName().contains('Test charity')
-    jobReviewPage.postCode().contains('NE157LR')
+    jobReviewPage.postCode().contains('NE15 7LR')
     jobReviewPage.salaryFrom().contains('£25000.00')
     jobReviewPage.salaryTo().contains('Not provided')
     jobReviewPage.salaryPeriod().contains('Per year')
@@ -262,7 +262,7 @@ context('Sign In', () => {
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
     jobContractUpdatePage.headerCaption().contains('Add a job - step 2 of 5')
 
-    jobContractUpdatePage.postCodeField().type('NE157LR')
+    jobContractUpdatePage.postCodeField().type('NE15 7LR')
     jobContractUpdatePage.salaryFromField().type('25000')
     jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
     jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
@@ -349,9 +349,9 @@ context('Sign In', () => {
 
     // Contract page changes
     jobReviewPage.postCodeLink().click()
-    jobContractUpdatePage.postCodeField().clear().type('NE356DR')
+    jobContractUpdatePage.postCodeField().clear().type('NE35 6DR')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.postCode().contains('NE356DR')
+    jobReviewPage.postCode().contains('NE35 6DR')
 
     jobReviewPage.salaryFromLink().click()
     jobContractUpdatePage.salaryFromField().clear().type('350.99')

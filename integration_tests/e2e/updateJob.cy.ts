@@ -117,9 +117,9 @@ context('Sign In', () => {
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
     jobContractUpdatePage.headerCaption().contains('Update a job - step 2 of 5')
 
-    jobContractUpdatePage.postCodeField().clear().type('NE356DR')
+    jobContractUpdatePage.postCodeField().clear().type('NE35 6DR')
     jobContractUpdatePage.submitButton().click()
-    jobReviewPage.postCode().contains('NE356DR')
+    jobReviewPage.postCode().contains('NE35 6DR')
 
     jobReviewPage.salaryFromLink().click()
     jobContractUpdatePage.salaryFromField().clear().type('350.99')
