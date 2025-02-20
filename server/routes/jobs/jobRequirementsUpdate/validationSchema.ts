@@ -4,6 +4,8 @@ import type { ObjectSchema } from 'joi'
 import OffenceExclusions from '../../../enums/offenceExclusions'
 
 export default function validationSchema(): ObjectSchema {
+  const exclusionsCodeRegex = /^[A-Za-z0-9 ]+$/i
+
   return joi.object({
     essentialCriteria: joi.string().empty('').required().max(1000).messages({
       'any.required': 'Enter essential job requirements',
@@ -41,11 +43,14 @@ export default function validationSchema(): ObjectSchema {
       }),
     offenceExclusionsDetails: joi.string().when('offenceExclusions', {
       is: joi.array().has('OTHER'),
-      then: joi.string().empty('').required().max(500).messages({
-        'string.max': 'Other offence exclusion details must be 500 characters or less',
-        'any.max': 'Other offence exclusion details must be 500 characters or less',
+      then: joi.string().empty('').regex(exclusionsCodeRegex).required().min(3).max(100).messages({
+        'string.min': "'Other exclusions' must be 3 characters or more",
+        'string.max': "'Other exclusions' must be 100 characters or less",
+        'any.min': "'Other exclusions' must be 3 characters or more",
+        'any.max': "'Other exclusions' must be 100 characters or less",
         'any.empty': 'Enter details of the other offence exclusions',
         'any.required': 'Enter details of the other offence exclusions',
+        'string.pattern.base': "'Other exclusions' can only include letters, numbers and spaces",
       }),
       otherwise: joi.string().allow('').optional(),
     }),

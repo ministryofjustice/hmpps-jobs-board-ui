@@ -125,13 +125,33 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Enter details of the other offence exclusions')
   })
 
-  it('On validation error - should disallow a offenceExclusionsDetails longer than 500 characters', () => {
+  it('On validation error - should disallow a offenceExclusionsDetails longer than 100 characters', () => {
     req.body.offenceExclusions = ['NONE', 'OTHER']
     req.body.offenceExclusionsDetails = 'x'.repeat(501)
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Other offence exclusion details must be 500 characters or less')
+    expect(error.details[0].message).toBe("'Other exclusions' must be 100 characters or less")
+  })
+
+  it('On validation error - should disallow a offenceExclusionsDetails shorter than 3 characters', () => {
+    req.body.offenceExclusions = ['NONE', 'OTHER']
+    req.body.offenceExclusionsDetails = 'xx'
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeTruthy()
+    expect(error.details[0].message).toBe("'Other exclusions' must be 3 characters or more")
+  })
+
+  it('On validation error - should disallow a offenceExclusionsDetails containing punctuation', () => {
+    req.body.offenceExclusions = ['NONE', 'OTHER']
+    req.body.offenceExclusionsDetails = 'Some text, Some text'
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeTruthy()
+    expect(error.details[0].message).toBe("'Other exclusions' can only include letters, numbers and spaces")
   })
 })
