@@ -129,6 +129,16 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select a job source')
   })
 
+  it('On validation error - should disallow duplicate values with sourcePrimary and sourceSecondary', () => {
+    req.body.sourcePrimary = 'DWP'
+    req.body.sourceSecondary = 'DWP'
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeTruthy()
+    expect(error.details[0].message).toBe('Secondary job source must be different from primary job source')
+  })
+
   it('On validation error - should allow a charityName being blank', () => {
     req.body.charityName = ''
 
