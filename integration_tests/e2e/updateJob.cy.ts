@@ -103,9 +103,9 @@ context('Sign In', () => {
     jobReviewPage.sourcePrimary().contains('Prison')
 
     jobReviewPage.sourceSecondaryLink().click()
-    jobRoleUpdatePage.sourceSecondaryField().select('PRISON')
+    jobRoleUpdatePage.sourceSecondaryField().select('NFN')
     jobRoleUpdatePage.submitButton().click()
-    jobReviewPage.sourceSecondary().contains('Prison')
+    jobReviewPage.sourceSecondary().contains('NFN')
 
     jobReviewPage.charityNameLink().click()
     jobRoleUpdatePage.charityNameField().clear().type('Another charity')
