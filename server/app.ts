@@ -1,5 +1,6 @@
 import 'reflect-metadata'
 import express from 'express'
+import dpsComponents from '@ministryofjustice/hmpps-connect-dps-components'
 
 import path from 'path'
 import createError from 'http-errors'
@@ -19,13 +20,14 @@ import expressContext from './middleware/expressContext'
 import routes from './routes'
 import type { Services } from './services'
 import setUpLocals from './middleware/setUpLocals'
-import getFrontendComponents from './middleware/getFrontendComponents'
 import setUpEnvironmentName from './middleware/setUpEnvironmentName'
 import setUpCurrentUser from './middleware/setUpCurrentUser'
 import { ApplicationInfo } from './applicationInfo'
 import sanitizeBody from './middleware/sanitizeBody'
 import sanitizeQuery from './middleware/sanitizeQuery'
 import { appInsightsMiddleware } from './utils/azureAppInsights'
+import config from './config'
+import logger from '../logger'
 
 export default function createApp(services: Services, applicationInfo: ApplicationInfo): express.Application {
   const app = express()
@@ -55,8 +57,12 @@ export default function createApp(services: Services, applicationInfo: Applicati
   app.use(appInsightsMiddleware())
 
   // Get front end components for DPS header
-  app.get('*', getFrontendComponents(services))
-  app.post('*', getFrontendComponents(services))
+  app.use(
+    dpsComponents.getPageComponents({
+      dpsUrl: config.dpsHomeUrl,
+      logger,
+    }),
+  )
 
   // Check for authorised roles
   app.use(authorisationMiddleware(getAuthorisedRoles()))
