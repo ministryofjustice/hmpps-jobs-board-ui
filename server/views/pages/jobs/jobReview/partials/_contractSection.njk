@@ -57,7 +57,7 @@
       Additional salary information (optional)
     </dt>
     <dd class="govuk-summary-list__value" data-qa="additionalSalaryInformation">
-      {{ additionalSalaryInformation if additionalSalaryInformation else 'Not provided' }}
+      {{ (additionalSalaryInformation | safe) if additionalSalaryInformation else 'Not provided' }}
     </dd>
     <dd class="govuk-summary-list__actions">
       <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#additionalSalaryInformation' }}" data-qa="additionalSalaryInformationLink">

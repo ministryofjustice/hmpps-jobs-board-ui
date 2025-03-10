@@ -32,7 +32,7 @@
             id: "essentialCriteria",
             name: "essentialCriteria",
             rows: "5",
-            value: essentialCriteria,
+            value: essentialCriteria | safe,
             type: "text",
             label: {
               text: "Essential job criteria"
@@ -47,7 +47,7 @@
             id: "desirableCriteria",
             name: "desirableCriteria",
             rows: "5",
-            value: desirableCriteria,
+            value: desirableCriteria | safe,
             type: "text",
             label: {
               text: "Desirable job criteria (optional)"
@@ -59,7 +59,7 @@
             id: "description",
             name: "description",
             rows: "5",
-            value: description,
+            value: description | safe,
             type: "text",
             label: {
               text: "Job description"
@@ -74,7 +74,7 @@
             {{ govukInput({
                 id: "offenceExclusionsDetails",
                 name: "offenceExclusionsDetails",
-                value: offenceExclusionsDetails,
+                value: offenceExclusionsDetails | safe,
                 type: "text",
                 label: {
                     text: "Give details",
