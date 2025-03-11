@@ -18,7 +18,7 @@
       Job title
     </dt>
     <dd class="govuk-summary-list__value" data-qa="jobTitle">
-      {{ jobTitle }}
+      {{ jobTitle | safe }}
     </dd>
     <dd class="govuk-summary-list__actions">
       <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#jobTitle' }}" data-qa="jobTitleLink">
@@ -96,7 +96,7 @@
       Supported by a charity? (optional)
     </dt>
     <dd class="govuk-summary-list__value" data-qa="charityName">
-      {{ charityName if charityName else 'Not provided'}}
+      {{ (charityName | safe) if charityName else 'Not provided'}}
     </dd>
     <dd class="govuk-summary-list__actions">
       <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#charityName' }}" data-qa="charityNameLink">

@@ -45,7 +45,7 @@
     </dt>
     <dd class="govuk-summary-list__value" data-qa="offenceExclusions">
       {% for item in offenceExclusions %}
-        <div>{{ contentLookup.offenceExclusions[item] }}{{ ' - ' + offenceExclusionsDetails if item === 'OTHER' }}{{ ',' if offenceExclusions.length !== loop.index }}</div>
+        <div>{{ contentLookup.offenceExclusions[item] }}{{ ' - ' + (offenceExclusionsDetails | nl2br | safe) if item === 'OTHER' }}{{ ',' if offenceExclusions.length !== loop.index }}</div>
       {% endfor %}
     </dd>
     <dd class="govuk-summary-list__actions">

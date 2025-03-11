@@ -32,7 +32,7 @@
           {{ govukInput({
               id: "employerName",
               name: "employerName",
-              value: employerName,
+              value: employerName | safe,
               type: "text",
               label: {
                 text: "Employer name"
@@ -170,7 +170,7 @@
               rows: "3",
               value: employerDescription,
               type: "text",
-              value: employerDescription,
+              value: employerDescription | safe,
               label: {
                 text: "Employer description"
               },

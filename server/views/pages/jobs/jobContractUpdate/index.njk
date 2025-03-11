@@ -127,7 +127,7 @@
           {{ govukInput({
               id: "additionalSalaryInformation",
               name: "additionalSalaryInformation",
-              value: additionalSalaryInformation,
+              value: additionalSalaryInformation | safe,
               type: "text",
               label: {
                 text: "Additional salary information (Optional)"

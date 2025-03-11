@@ -52,7 +52,7 @@
           {{ govukInput({
               id: "jobTitle",
               name: "jobTitle",
-              value: jobTitle,
+              value: jobTitle | safe,
               type: "text",
               label: {
                 text: "Job Title"
@@ -354,7 +354,7 @@
           {{ govukInput({
               id: "charityName",
               name: "charityName",
-              value: charityName,
+              value: charityName | safe,
               type: "text",
               label: {
                 text: "Is this job supported by a charity? (optional)"
