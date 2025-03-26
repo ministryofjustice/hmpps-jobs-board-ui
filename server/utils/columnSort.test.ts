@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 import { ParsedQs } from 'qs'
 import { BuildSortUrlParams, buildSortUrl, SortOrder } from './columnSort'
 
 describe('buildSortUrl', () => {
-  const defaultSort = 'createdAt'
-  const defaultOrder = SortOrder.ascending
+  let defaultSort = 'createdAt'
+  let defaultOrder = SortOrder.ascending
 
   const mockParams: BuildSortUrlParams = {
     query: {},
@@ -65,8 +64,8 @@ describe('buildSortUrl', () => {
     const query = { page: '2', sort: 'name', order: SortOrder.descending }
     const sortField = 'name'
     const currentUrl = '/users?page=2'
-    const defaultSort = 'name'
-    const defaultOrder = SortOrder.ascending
+    defaultSort = 'name'
+    defaultOrder = SortOrder.ascending
 
     const result = buildSortUrl({ query, sortField, currentUrl, defaultSort, defaultOrder })
 
