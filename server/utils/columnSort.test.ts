@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { ParsedQs } from 'qs'
 import { BuildSortUrlParams, buildSortUrl, SortOrder } from './columnSort'
 
