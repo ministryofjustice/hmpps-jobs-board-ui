@@ -13,7 +13,7 @@ const createEnvelope = (properties: Record<string, string | boolean>, baseType =
       baseType,
       baseData: { properties },
     } as DataTelemetry,
-  } as EnvelopeTelemetry)
+  }) as EnvelopeTelemetry
 
 const createContext = (username: string, activeCaseLoadId: string, isReceptionUser: boolean) =>
   ({
@@ -28,7 +28,7 @@ const createContext = (username: string, activeCaseLoadId: string, isReceptionUs
         },
       },
     },
-  } as ContextObject)
+  }) as ContextObject
 
 const context = createContext(user.username, user.activeCaseLoadId, user.isReceptionUser)
 
