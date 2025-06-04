@@ -89,8 +89,8 @@ export default [
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
-    name: 'John Lewis',
-    description: 'Description for John Lewis',
+    name: 'Test-1 User-1',
+    description: 'Description for Test-1 User-1',
     sector: 'EDUCATION',
     status: 'KEY_PARTNER',
     createdAt: '2024-07-04T15:32:02.497176',
@@ -113,8 +113,8 @@ export default [
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
-    name: 'WHSmith',
-    description: 'Description for WHSmith',
+    name: 'WHUser-1',
+    description: 'Description for WHUser-1',
     sector: 'PROFESSIONALS_SCIENTISTS_TECHNICIANS',
     status: 'KEY_PARTNER',
     createdAt: '2024-07-04T15:35:02.497176',

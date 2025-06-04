@@ -31,11 +31,11 @@ describe('User service', () => {
       userService = new UserService(hmppsAuthClientMock)
     })
     it('Retrieves and formats user name', async () => {
-      manageUsersApiClientMock.getUser.mockResolvedValue({ name: 'john smith' } as User)
+      manageUsersApiClientMock.getUser.mockResolvedValue({ name: 'Test-1 user-1' } as User)
 
       const result = await userService.getUser(token)
 
-      expect(result.displayName).toEqual('John Smith')
+      expect(result.displayName).toEqual('Test-1 User-1')
     })
     it('Propagates error', async () => {
       manageUsersApiClientMock.getUser.mockRejectedValue(new Error('some error'))
@@ -63,16 +63,16 @@ describe('User service', () => {
       userService = new UserService(hmppsAuthClientMock)
     })
     it('Retrieves and formats user name', async () => {
-      manageUsersApiClientMock.getUserByUsername.mockResolvedValue({ name: 'john smith' } as User)
+      manageUsersApiClientMock.getUserByUsername.mockResolvedValue({ name: 'Test-1 user-1' } as User)
 
-      const result = await userService.getUserByUsername(token, 'JOHNSMITH')
+      const result = await userService.getUserByUsername(token, 'TEST-1USER-1')
 
-      expect(result.displayName).toEqual('John Smith')
+      expect(result.displayName).toEqual('Test-1 User-1')
     })
     it('Propagates error', async () => {
       manageUsersApiClientMock.getUserByUsername.mockRejectedValue(new Error('some error'))
 
-      await expect(userService.getUserByUsername(token, 'JOHNSMITH')).rejects.toEqual(new Error('some error'))
+      await expect(userService.getUserByUsername(token, 'TEST-1USER-1')).rejects.toEqual(new Error('some error'))
     })
 
     it('should retrieve all roles associated to user', async () => {

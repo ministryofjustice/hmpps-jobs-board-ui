@@ -15,7 +15,7 @@ describe('#validateFormSchema', () => {
       age: Joi.number().integer().min(0).max(120).required(),
     })
 
-    req.body = { name: 'John', age: 30 }
+    req.body = { name: 'Test-1', age: 30 }
     const result = validateFormSchema(req, schema)
     expect(result).toBeUndefined()
   })
@@ -26,7 +26,7 @@ describe('#validateFormSchema', () => {
       age: Joi.number().integer().min(0).max(120).required(),
     })
 
-    req.body = { name: 'John', age: -1 }
+    req.body = { name: 'Test-1', age: -1 }
     const result = validateFormSchema(req, schema)
 
     expect(result).toBeDefined()

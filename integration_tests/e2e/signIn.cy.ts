@@ -25,7 +25,7 @@ context('Sign In', () => {
   it('User name visible in header', () => {
     cy.signIn()
     const indexPage = new IndexPage('Add jobs and employers')
-    indexPage.headerUserName().should('contain.text', 'J. Smith')
+    indexPage.headerUserName().should('contain.text', 'J. User-1')
   })
 
   it('User can sign out', () => {
