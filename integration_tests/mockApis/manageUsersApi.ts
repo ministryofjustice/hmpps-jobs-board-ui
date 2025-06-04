@@ -1,6 +1,6 @@
 import { stubFor } from './wiremock'
 
-const stubUser = (name = 'john smith') =>
+const stubUser = (name = 'Test-1 smith') =>
   stubFor({
     request: {
       method: 'GET',

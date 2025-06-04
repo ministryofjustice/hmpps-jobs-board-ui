@@ -25,7 +25,7 @@ context('Sign In', () => {
   it('User name visible in header', () => {
     cy.signIn()
     const indexPage = new IndexPage('Add jobs and employers')
-    indexPage.headerUserName().should('contain.text', 'J. Smith')
+    indexPage.headerUserName().should('contain.text', 'T. Smith')
   })
 
   it('User can sign out', () => {
@@ -63,9 +63,9 @@ context('Sign In', () => {
     cy.request('/').its('body').should('contain', 'Sign in')
 
     cy.task('stubVerifyToken', true)
-    cy.task('stubManageUser', 'bobby brown')
+    cy.task('stubManageUser', 'icy water')
     cy.signIn()
 
-    indexPage.headerUserName().contains('B. Brown')
+    indexPage.headerUserName().contains('I. Water')
   })
 })
