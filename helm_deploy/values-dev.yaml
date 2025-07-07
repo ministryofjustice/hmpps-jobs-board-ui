@@ -23,5 +23,9 @@ generic-service:
     WORK_AFTER_RELEASE_URL: "https://get-ready-for-work-dev.hmpps.service.justice.gov.uk"
     SYSTEM_PHASE: DEV
 
+  scheduledDowntime:
+    enabled: true
+
 generic-prometheus-alerts:
+  businessHoursOnly: true
   alertSeverity: education-alerts-non-prod
