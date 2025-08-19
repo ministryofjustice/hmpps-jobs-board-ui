@@ -47,26 +47,28 @@
             </div>
         </div>
 
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
-                <div class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-3" data-module="govuk-checkboxes">
-                    <div class="govuk-checkboxes__item">
-                        <input
-                                class="govuk-checkboxes__input"
-                                id="myOwnJobsFilter"
-                                name="myOwnJobsFilter"
-                                type="checkbox"
-                                value="false"
-                                {% if myOwnJobsFilter %}checked{% endif %}
-                        >
-                        <label class="govuk-label govuk-checkboxes__label" for="myOwnJobsFilter">
-                            Show only my jobs
-                        </label>
+        {% if filterJobsCreatedByMeEnabled %}
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <div class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-3" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input
+                                    class="govuk-checkboxes__input"
+                                    id="myOwnJobsFilter"
+                                    name="myOwnJobsFilter"
+                                    type="checkbox"
+                                    value="false"
+                                    {% if myOwnJobsFilter %}checked{% endif %}
+                            >
+                            <label class="govuk-label govuk-checkboxes__label" for="myOwnJobsFilter">
+                                Show only my jobs
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
+        {% endif %}
+
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-full">
                 <div class="govuk-button-group govuk-!-margin-top-3 govuk-!-margin-bottom-0">

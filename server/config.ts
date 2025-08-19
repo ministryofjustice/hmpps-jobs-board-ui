@@ -1,5 +1,9 @@
 const production = process.env.NODE_ENV === 'production'
 
+const toBoolean = (value: unknown): boolean => {
+  return value === 'true'
+}
+
 // Add a fallback mechanism in config.ts to detect and handle cases where APPLICATIONINSIGHTS_CONNECTION_STRING is empty
 const appInsightsInstrumentationKey = process.env.APPINSIGHTS_INSTRUMENTATIONKEY
 const appInsightsConnectionString = appInsightsInstrumentationKey
@@ -127,4 +131,7 @@ export default {
     googleAnalyticsId: get('GOOGLE_ANALYTICS_ID', '', requiredInProduction),
   },
   appInsightsConnectionString,
+  featureToggles: {
+    filterJobsCreatedByMeEnabled: toBoolean(get('FILTER_JOBS_CREATED_BY_ME', false)),
+  },
 }
