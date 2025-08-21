@@ -1,4 +1,4 @@
-import { override } from 'joi'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import filterJobsCreatedMyMe from './filterJobsCreatedByMe'
 import GetJobListItemReaponse from '../data/jobApi/getJobListItemReaponse'
 

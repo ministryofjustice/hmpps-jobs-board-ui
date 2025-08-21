@@ -67,9 +67,10 @@ const getJobs = (
     order?: string
     jobTitleOrEmployerNameFilter?: string
     jobSectorFilter?: string
+    myOwnJobsFilter?: boolean
   } = {},
 ) => {
-  const { page = 1, jobTitleOrEmployerNameFilter, jobSectorFilter, sort, order } = params
+  const { page = 1, jobTitleOrEmployerNameFilter, jobSectorFilter, sort, order, myOwnJobsFilter } = params
   const pageSize = 20
 
   let jobs = mockJobs
@@ -80,6 +81,10 @@ const getJobs = (
 
   if (jobSectorFilter) {
     jobs = jobs.filter(p => jobSectorFilter.split(',').includes(p.sector))
+  }
+
+  if (myOwnJobsFilter) {
+    jobs = jobs.filter(p => p.createdAt === 'USER1')
   }
 
   if (sort) {

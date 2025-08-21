@@ -1,14 +1,40 @@
 {% if jobListResults.page.totalElements === 0 %}
-  {% if jobSectorFilter and jobTitleOrEmployerNameFilter %}
-    <span class="govuk-heading-m" id="no-results-message">0 results for "{{ jobTitleOrEmployerNameFilter | safe }}" in {{ contentLookup.jobSector[jobSectorFilter] }}</span>
-    <p>Check your spelling and search again, or select another sector.</p>
-  {% elif jobTitleOrEmployerNameFilter %}
-    <span class="govuk-heading-m" id="no-results-message">0 results for "{{ jobTitleOrEmployerNameFilter | safe }}" in job title or employer name</span>
-    <p>Check your spelling and search again, or clear the search and browse for the employer.</p>
-  {% elif jobSectorFilter %}
-    <span class="govuk-heading-m" id="no-results-message">0 results in {{ contentLookup.jobSector[jobSectorFilter] }}</span>
-    <p>Select another sector, or search by job title or employer name.</p>
-  {% else %}
-    <span class="govuk-heading-m" id="no-results-message">0 results found</h3>
-  {% endif %}
+    {# 1. All three filters applied #}
+    {% if jobSectorFilter and jobTitleOrEmployerNameFilter and myOwnJobsFilter %}
+        <span class="govuk-heading-m" id="no-results-message">Your search matched no jobs</span>
+        <p>There are no vacancies that match your search. Check your spelling or try searching again using a different
+            name, job title or sector.</p>
+
+        {# 2. Sector + Title/Employer #}
+        {% elif jobSectorFilter and jobTitleOrEmployerNameFilter %}
+        <span class="govuk-heading-m" id="no-results-message">0 results for "{{ jobTitleOrEmployerNameFilter | safe }}" in {{ contentLookup.jobSector[jobSectorFilter] }}</span>
+        <p>Check your spelling and search again, or select another sector.</p>
+
+        {# 3. Title/Employer + CreatedByMe  #}
+        {% elif jobTitleOrEmployerNameFilter or myOwnJobsFilter %}
+        <span class="govuk-heading-m" id="no-results-message">Your search matched no jobs</span>
+        <p>There are no vacancies that match your search. Check your spelling or try searching again using a different
+            name, job title or sector.</p>
+
+        {# 4. Sector + CreatedByMe #}
+        {% elif jobSectorFilter and myOwnJobsFilter %}
+        <span class="govuk-heading-m" id="no-results-message">Your search matched no jobs</span>
+        <p>There are no vacancies that match your search. Check your spelling or try searching again using a different
+            name, job title or sector.</p>
+
+        {# 5. Title/Employer only #}
+        {% elif jobTitleOrEmployerNameFilter %}
+        <span class="govuk-heading-m" id="no-results-message">0 results for "{{ jobTitleOrEmployerNameFilter | safe }}" in job title or employer name</span>
+        <p>Check your spelling and search again, or clear the search and browse for the employer.</p>
+
+        {# 6. Sector only #}
+        {% elif jobSectorFilter %}
+        <span class="govuk-heading-m"
+              id="no-results-message">0 results in {{ contentLookup.jobSector[jobSectorFilter] }}</span>
+        <p>Select another sector, or search by job title or employer name.</p>
+
+
+    {% else %}
+        <span class="govuk-heading-m" id="no-results-message">0 results found</h3>
+    {% endif %}
 {% endif %}

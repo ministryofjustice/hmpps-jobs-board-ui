@@ -51,7 +51,7 @@ describe('EmployerListController', () => {
     },
     jobTitleOrEmployerNameFilter: '',
     jobSectorFilter: '',
-    filtered: '',
+    filtered: false,
     myOwnJobsFilter: false,
     order: 'descending',
     paginationData: {},

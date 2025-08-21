@@ -132,6 +132,6 @@ export default {
   },
   appInsightsConnectionString,
   featureToggles: {
-    filterJobsCreatedByMeEnabled: toBoolean(get('FILTER_JOBS_CREATED_BY_ME', false)),
+    filterJobsCreatedByMeEnabled: toBoolean(get('FILTER_JOBS_CREATED_BY_ME_ENABLED', false)),
   },
 }

@@ -24,4 +24,6 @@ export default class JobListPage extends Page {
   noResultsMessage = (): PageElement => cy.get('#no-results-message')
 
   clearFiltersLink = (): PageElement => cy.get('#filter-clear-link')
+
+  myOwnJobsFilterCheckBox = (value): PageElement => cy.get(`[value=${value}]`)
 }
