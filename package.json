@@ -27,7 +27,10 @@
     "int-test": "cypress run --config video=false",
     "int-test-ui": "cypress open --e2e --browser chrome",
     "clean": "rm -rf dist build node_modules stylesheets",
-    "rebuild": "npm run clean && npm i && npm run build"
+    "rebuild": "npm run clean && npm i && npm run build",
+    "watch-node-feature:with-flag": "export $(cat feature.env) && FILTER_JOBS_CREATED_BY_ME_ENABLED=true nodemon --watch dist/ $NODE_DEBUG_OPTION dist/server.js | bunyan -o short",
+    "start-feature:devTest": "concurrently -k -p \"[{name}]\" -n \"Views,TypeScript,Node,Sass\" -c \"yellow.bold,cyan.bold,green.bold,blue.bold\" \"npm run watch-views\" \"npm run watch-ts\" \"npm run watch-node-feature:with-flag\" \"npm run watch-sass\"",
+    "int-test-ui:devTest": "start-server-and-test start-feature:devTest http://localhost:3007 'cypress open --e2e --browser chrome'"
   },
   "engines": {
     "node": "^20",
@@ -172,6 +175,7 @@
     "brace-expansion": "^4.0.1",
     "concurrently": "^8.2.2",
     "cookie-session": "^2.1.0",
+    "cross-env": "^10.0.0",
     "cypress": "^13.12.0",
     "cypress-multi-reporters": "^1.6.4",
     "eslint": "^8.57.0",
@@ -193,6 +197,7 @@
     "prettier": "^2.8.8",
     "sass": "^1.74.1",
     "semver": "^7.6.2",
+    "start-server-and-test": "^2.0.13",
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.5",
     "typescript": "^5.7.3"

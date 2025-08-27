@@ -6,7 +6,6 @@ import employerApi from './integration_tests/mockApis/employerApi'
 import jobApi from './integration_tests/mockApis/jobApi'
 import nomisUserRolesApi from './integration_tests/mockApis/nomisUserRolesApi'
 import tokenVerification from './integration_tests/mockApis/tokenVerification'
-import config from './server/config'
 
 export default defineConfig({
   chromeWebSecurity: false,
@@ -19,14 +18,8 @@ export default defineConfig({
   },
   taskTimeout: 60000,
   e2e: {
-    env: {
-      filterJobsCreatedByMeEnabled: true, // default value
-    },
-    setupNodeEvents(on) {
+    setupNodeEvents(on, config) {
       on('task', {
-        getJobs() {
-          return config.featureToggles.filterJobsCreatedByMeEnabled
-        },
         reset: resetStubs,
         ...auth,
         ...manageUsersApi,
@@ -35,6 +28,15 @@ export default defineConfig({
         ...nomisUserRolesApi,
         ...tokenVerification,
       })
+
+      // Return a new config object instead of mutating
+      return {
+        ...config,
+        env: {
+          ...config.env,
+          filterJobsCreatedByMeEnabled: process.env.FILTER_JOBS_CREATED_BY_ME_ENABLED === 'true',
+        },
+      }
     },
     baseUrl: 'http://localhost:3007',
     excludeSpecPattern: '**/!(*.cy).ts',

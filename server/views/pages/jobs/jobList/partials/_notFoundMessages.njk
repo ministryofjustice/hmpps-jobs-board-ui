@@ -11,7 +11,7 @@
         <p>Check your spelling and search again, or select another sector.</p>
 
         {# 3. Title/Employer + CreatedByMe  #}
-        {% elif jobTitleOrEmployerNameFilter or myOwnJobsFilter %}
+        {% elif jobTitleOrEmployerNameFilter and myOwnJobsFilter %}
         <span class="govuk-heading-m" id="no-results-message">Your search matched no jobs</span>
         <p>There are no vacancies that match your search. Check your spelling or try searching again using a different
             name, job title or sector.</p>
@@ -33,6 +33,11 @@
               id="no-results-message">0 results in {{ contentLookup.jobSector[jobSectorFilter] }}</span>
         <p>Select another sector, or search by job title or employer name.</p>
 
+        {# 7. CreatedByMe #}
+        {% elif myOwnJobsFilter %}
+        <span class="govuk-heading-m" id="no-results-message">Your search matched no jobs</span>
+        <p>There are no vacancies that match your search. Check your spelling or try searching again using a different
+            name, job title or sector.</p>
 
     {% else %}
         <span class="govuk-heading-m" id="no-results-message">0 results found</h3>

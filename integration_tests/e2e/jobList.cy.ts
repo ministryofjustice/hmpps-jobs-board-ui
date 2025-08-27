@@ -66,19 +66,13 @@ context('Sign In', () => {
       .contains('Job title or employer name must be 3 characters or more')
   })
 
-  it('Filter jobs created by current user (me)', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
-
-    cy.task('getJobs', { page: 1, myOwnJobsFilter: true })
-    jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').click()
-  })
-
   it('No records found messages', () => {
     const jobListPage = new JobListPage('Add jobs and employers')
 
     jobListPage.jobTitleOrEmployerNameFilterField().type('adsds')
 
-    cy.task('getJobs', { page: 1, jobTitleOrEmployerNameFilter: 'adsds' })
+    jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck({ force: true })
+    cy.task('getJobs', { page: 1, jobTitleOrEmployerNameFilter: 'adsds', myOwnJobsFilter: false })
 
     jobListPage.applyFiltersButton().click()
 
