@@ -9,7 +9,6 @@ import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import JobViewModel from '../../../viewModels/jobViewModel'
 import logger from '../../../../logger'
-import filterResultSetByCreator from '../../../utils/filterJobsCreatedByMe'
 import parseBooleanParam from '../../../utils/parseBooleanParam'
 import jobsFilter from '../../../enums/jobsFilter'
 
@@ -21,8 +20,7 @@ export default class JobListController {
 
     const myOwnJobsFilter = parseBooleanParam(req.query.myOwnJobsFilter)
     const { paginationPageSize } = config
-    const { username } = res.locals.user
-    let jobListResults = req.context.jobs
+    const jobListResults = req.context.jobs
 
     try {
       // Paginate where necessary
@@ -52,11 +50,6 @@ export default class JobListController {
             new URL(`${req.protocol}://${req.get('host')}${addressLookup.jobs.jobList()}?${uri.join('&')}`),
           )
         }
-      }
-
-      // Filter jobs created by current user (if selected) !!! AMEND AFTER DB IS UPDATED !!!!
-      if (myOwnJobsFilter && jobListResults) {
-        jobListResults = filterResultSetByCreator(jobListResults, username)
       }
 
       // Render data

@@ -21,11 +21,13 @@ export default class JobService {
   async getJobs(
     username: string,
     params: {
+      username: string
       page?: number
       sort?: string
       order?: string
       jobTitleOrEmployerNameFilter?: string
       jobSectorFilter?: string
+      myOwnJobsFilter?: boolean
     },
   ) {
     const systemToken = await this.hmppsAuthClient.getSystemClientToken(username)
