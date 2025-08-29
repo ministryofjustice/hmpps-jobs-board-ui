@@ -62,6 +62,7 @@ const getJob = () =>
 
 const getJobs = (
   params: {
+    username?: string
     page?: number
     sort?: string
     order?: string
@@ -122,7 +123,7 @@ const getJobs = (
     response: {
       status: 200,
       headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-      jsonBody: results,
+      jsonBody: { ...results },
     },
   })
 }

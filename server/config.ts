@@ -21,6 +21,7 @@ function get<T>(name: string, fallback: T, options = { requireInProduction: fals
 }
 
 const requiredInProduction = { requireInProduction: true }
+const systemPhase = get('SYSTEM_PHASE', 'DEV').toUpperCase()
 
 export class AgentConfig {
   // Sets the working socket to timeout after timeout milliseconds of inactivity on the working socket.
@@ -132,6 +133,6 @@ export default {
   },
   appInsightsConnectionString,
   featureToggles: {
-    filterJobsCreatedByMeEnabled: toBoolean(get('FILTER_JOBS_CREATED_BY_ME_ENABLED', false)),
+    filterJobsCreatedByMeEnabled: systemPhase === 'DEV',
   },
 }
