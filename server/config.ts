@@ -1,9 +1,5 @@
 const production = process.env.NODE_ENV === 'production'
 
-const toBoolean = (value: unknown): boolean => {
-  return value === 'true'
-}
-
 // Add a fallback mechanism in config.ts to detect and handle cases where APPLICATIONINSIGHTS_CONNECTION_STRING is empty
 const appInsightsInstrumentationKey = process.env.APPINSIGHTS_INSTRUMENTATIONKEY
 const appInsightsConnectionString = appInsightsInstrumentationKey
