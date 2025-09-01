@@ -71,7 +71,8 @@ context('Sign In', () => {
 
     jobListPage.jobTitleOrEmployerNameFilterField().type('adsds')
 
-    cy.task('getJobs', { page: 1, jobTitleOrEmployerNameFilter: 'adsds' })
+    jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck({ force: true })
+    cy.task('getJobs', { page: 1, jobTitleOrEmployerNameFilter: 'adsds', myOwnJobsFilter: false })
 
     jobListPage.applyFiltersButton().click()
 

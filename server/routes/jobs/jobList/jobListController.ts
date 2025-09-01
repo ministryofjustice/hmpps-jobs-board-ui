@@ -9,12 +9,16 @@ import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import JobViewModel from '../../../viewModels/jobViewModel'
 import logger from '../../../../logger'
+import parseBooleanParam from '../../../utils/parseBooleanParam'
+import jobsFilter from '../../../enums/jobsFilter'
 
 export default class JobListController {
   constructor(private readonly paginationService: PaginationService) {}
 
   public get: RequestHandler = async (req, res, next): Promise<void> => {
     const { page, sort, order, jobSectorFilter = '', jobTitleOrEmployerNameFilter = '' } = req.query
+
+    const myOwnJobsFilter = parseBooleanParam(req.query.myOwnJobsFilter)
     const { paginationPageSize } = config
     const jobListResults = req.context.jobs
 
@@ -34,6 +38,7 @@ export default class JobListController {
         jobTitleOrEmployerNameFilter &&
           `jobTitleOrEmployerNameFilter=${decodeURIComponent(jobTitleOrEmployerNameFilter as string)}`,
         jobSectorFilter && `jobSectorFilter=${decodeURIComponent(jobSectorFilter as string)}`,
+        `myOwnJobsFilter=${myOwnJobsFilter}`,
         page && `page=${page}`,
       ].filter(val => !!val)
 
@@ -59,7 +64,10 @@ export default class JobListController {
         jobTitleOrEmployerNameFilter: decodeURIComponent(jobTitleOrEmployerNameFilter as string),
         jobSectorFilter: decodeURIComponent(jobSectorFilter as string),
         filtered:
-          decodeURIComponent(jobTitleOrEmployerNameFilter as string) || decodeURIComponent(jobSectorFilter as string),
+          decodeURIComponent(jobTitleOrEmployerNameFilter as string) ||
+          decodeURIComponent(jobSectorFilter as string) ||
+          myOwnJobsFilter,
+        myOwnJobsFilter: !!myOwnJobsFilter,
       }
 
       setSessionData(req, ['jobList', 'data'], data)
@@ -73,6 +81,7 @@ export default class JobListController {
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { sort, order } = req.query
     const { jobSectorFilter, jobTitleOrEmployerNameFilter } = req.body
+    const myOwnJobsFilter = req.body.myOwnJobsFilter === jobsFilter.SHOW_ONLY_MY_JOBS
 
     try {
       if (Object.prototype.hasOwnProperty.call(req.body, 'addJobButton')) {
@@ -99,6 +108,7 @@ export default class JobListController {
         jobTitleOrEmployerNameFilter &&
           `jobTitleOrEmployerNameFilter=${encodeURIComponent(jobTitleOrEmployerNameFilter)}`,
         jobSectorFilter && `jobSectorFilter=${encodeURIComponent(jobSectorFilter)}`,
+        myOwnJobsFilter && 'myOwnJobsFilter=true',
       ].filter(val => !!val)
 
       res.redirect(uri.length ? `${addressLookup.jobs.jobList()}?${uri.join('&')}` : addressLookup.jobs.jobList())
