@@ -95,7 +95,7 @@
   "dependencies": {
     "@microsoft/applicationinsights-clickanalytics-js": "^3.3.9",
     "@microsoft/applicationinsights-web": "^3.3.6",
-    "@ministryofjustice/frontend": "^5.1.0",
+    "@ministryofjustice/frontend": "^5.1.4",
     "@ministryofjustice/hmpps-connect-dps-components": "^2.2.0",
     "@types/express-serve-static-core": "^4.19.5",
     "@types/qs": "^6.9.18",
