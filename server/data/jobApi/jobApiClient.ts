@@ -32,13 +32,15 @@ export default class JobApiClient {
   }
 
   async getJobs(params: {
+    username: string
     page?: number
     sort?: string
     order?: string
     jobTitleOrEmployerNameFilter?: string
     jobSectorFilter?: string
+    myOwnJobsFilter?: boolean
   }) {
-    const { page = 1, jobTitleOrEmployerNameFilter, jobSectorFilter, sort, order } = params
+    const { page = 1, jobTitleOrEmployerNameFilter, jobSectorFilter, sort, order, myOwnJobsFilter, username } = params
 
     const uri = [
       `page=${page - 1}`,
@@ -47,6 +49,7 @@ export default class JobApiClient {
       order && `sortOrder=${order === 'ascending' ? 'asc' : 'desc'}`,
       jobTitleOrEmployerNameFilter && `jobTitleOrEmployerName=${encodeURIComponent(jobTitleOrEmployerNameFilter)}`,
       jobSectorFilter && `sector=${encodeURIComponent(jobSectorFilter)}`,
+      myOwnJobsFilter && username && `createdBy=${encodeURIComponent(username)}`,
     ].filter(val => !!val)
 
     return this.restClient.get<PagedResponse<GetJobListItemResponse>>({

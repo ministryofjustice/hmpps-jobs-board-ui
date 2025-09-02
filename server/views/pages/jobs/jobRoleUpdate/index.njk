@@ -41,7 +41,7 @@
           }}
 
           {% set detailsHtml %}
-            <div>You must <a href="{{ addressLookup.employers.employerUpdate() }}" class="govuk-link govuk-link--no-visited-state">add the employer</a> before adding a job. Any data you've already entered on this screen will be lost. </div>
+            <div>You must <a href="{{ addressLookup.employers.employerUpdate('new') }}" class="govuk-link govuk-link--no-visited-state">add the employer</a> before adding a job. Any data you've already entered on this screen will be lost. </div>
           {% endset -%}
 
           {{ govukDetails({

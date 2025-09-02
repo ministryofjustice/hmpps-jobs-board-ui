@@ -27,6 +27,7 @@ describe('EmployerListController', () => {
         sector: 'RETAIL',
         status: 'GOLD',
         createdAt: '2024-07-04T15:21:02.497176',
+        // createdBy: 'MOCK_USER',
       },
     ],
     page: {
@@ -50,7 +51,8 @@ describe('EmployerListController', () => {
     },
     jobTitleOrEmployerNameFilter: '',
     jobSectorFilter: '',
-    filtered: '',
+    filtered: false,
+    myOwnJobsFilter: false,
     order: 'descending',
     paginationData: {},
     sort: 'name',

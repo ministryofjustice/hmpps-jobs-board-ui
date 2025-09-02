@@ -6,6 +6,7 @@ export default [
     sector: 'WAREHOUSING',
     numberOfVacancies: 1,
     createdAt: '2023-03-02T00:00:00.000Z',
+    createdBy: 'USER1',
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
@@ -14,6 +15,7 @@ export default [
     sector: 'CONSTRUCTION',
     numberOfVacancies: 1,
     createdAt: '2023-03-09T00:00:00.000Z',
+    createdBy: 'USER2',
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
@@ -22,6 +24,7 @@ export default [
     sector: 'DRIVING',
     numberOfVacancies: 1,
     createdAt: '2023-03-11T00:00:00.000Z',
+    createdBy: 'USER1',
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
@@ -30,6 +33,7 @@ export default [
     sector: 'BEAUTY',
     numberOfVacancies: 1,
     createdAt: '2023-03-14T00:00:00.000Z',
+    createdBy: 'USER3',
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
@@ -38,6 +42,7 @@ export default [
     sector: 'HOSPITALITY',
     numberOfVacancies: 1,
     createdAt: '2023-03-18T00:00:00.000Z',
+    createdBy: 'USER2',
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
@@ -46,6 +51,7 @@ export default [
     sector: 'TECHNICAL',
     numberOfVacancies: 1,
     createdAt: '2023-03-22T00:00:00.000Z',
+    createdBy: 'USER1',
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
@@ -54,6 +60,7 @@ export default [
     sector: 'MANUFACTURING',
     numberOfVacancies: 1,
     createdAt: '2023-03-01T00:00:00.000Z',
+    createdBy: 'USER3',
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
