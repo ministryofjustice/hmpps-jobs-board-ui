@@ -24,4 +24,13 @@ export default class JobListPage extends Page {
   noResultsMessage = (): PageElement => cy.get('#no-results-message')
 
   clearFiltersLink = (): PageElement => cy.get('#filter-clear-link')
+
+  myOwnJobsFilterCheckBox = (value): PageElement => cy.get(`[value=${value}]`)
+
+  // _jobListTable
+  results = () => cy.get('#view-offender tbody.govuk-table__body tr.govuk-table__row')
+
+  jobTitleLinks = () => cy.get('#view-offender a[id^="job-link-"]')
+
+  employerNames = () => cy.get('#view-offender td[id^="employer-status-"]')
 }

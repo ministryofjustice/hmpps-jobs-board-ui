@@ -43,10 +43,12 @@ describe('getJobListResolver Middleware', () => {
 
     expect(jobService.getJobs).toHaveBeenCalledWith('testuser', {
       page: 1,
+      username: 'testuser',
       sort: 'name',
       order: 'asc',
       jobSectorFilter: 'RETAIL',
       jobTitleOrEmployerNameFilter: 'ASDA',
+      myOwnJobsFilter: false,
     })
     expect(req.context.jobs).toEqual(mockJobs)
     expect(next).toHaveBeenCalledWith()
@@ -61,10 +63,12 @@ describe('getJobListResolver Middleware', () => {
 
     expect(jobService.getJobs).toHaveBeenCalledWith('testuser', {
       page: 1,
+      username: 'testuser',
       sort: 'name',
       order: 'asc',
       jobSectorFilter: 'RETAIL',
       jobTitleOrEmployerNameFilter: 'ASDA',
+      myOwnJobsFilter: false,
     })
     expect(next).toHaveBeenCalledWith(error)
   })
