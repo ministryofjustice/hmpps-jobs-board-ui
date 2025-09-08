@@ -134,6 +134,6 @@ export default {
   appInsightsConnectionString,
   featureToggles: {
     filterJobsCreatedByMeEnabled: systemPhase === 'DEV',
-    nationalJobs: get('FEATURE_FLAG_NATIONAL_JOBS', 'false'),
+    nationalJobs: get('FEATURE_FLAG_NATIONAL_JOBS', false),
   },
 }
