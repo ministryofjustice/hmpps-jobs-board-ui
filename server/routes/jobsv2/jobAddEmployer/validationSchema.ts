@@ -1,8 +1,5 @@
 import joi from 'joi'
 import type { ObjectSchema } from 'joi'
-import JobSector from '../../../enums/jobSector'
-import EmployerSector from '../../../enums/employerSector'
-import JobSource from '../../../enums/jobSource'
 
 export default function validationSchema(): ObjectSchema {
   return joi.object({
