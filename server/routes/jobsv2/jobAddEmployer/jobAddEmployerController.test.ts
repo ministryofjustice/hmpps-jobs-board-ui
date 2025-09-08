@@ -63,7 +63,7 @@ describe('jobAddEmployerController', () => {
     it('On success - Calls render with the correct data', async () => {
       controller.get(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobAddEmployer/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobsv2/jobAddEmployer/index', {
         ...mockData,
       })
       expect(next).toHaveBeenCalledTimes(0)
@@ -101,7 +101,7 @@ describe('jobAddEmployerController', () => {
       validationMock.mockImplementation(() => errors)
       controller.post(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobAddEmployer/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobsv2/jobAddEmployer/index', {
         ...mockData,
         errors,
       })

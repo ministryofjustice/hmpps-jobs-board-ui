@@ -36,7 +36,7 @@ export default class JobAddEmployerController {
       // Set page data in session
       setSessionData(req, ['jobAddEmployer', id, 'data'], data)
 
-      res.render('pages/jobs/jobAddEmployer/index', { ...data })
+      res.render('pages/jobsv2/jobAddEmployer/index', { ...data })
     } catch (err) {
       logger.error('Error rendering page - Job add employer')
       next(err)
@@ -52,7 +52,7 @@ export default class JobAddEmployerController {
       const data = getSessionData(req, ['jobAddEmployer', id, 'data'])
       const errors = validateFormSchema(req, validationSchema())
       if (errors) {
-        res.render('pages/jobs/jobAddEmployer/index', {
+        res.render('pages/jobsv2/jobAddEmployer/index', {
           ...data,
           ...req.body,
           errors,
