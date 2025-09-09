@@ -18,14 +18,21 @@ export default class JobRoleUpdateController {
         return
       }
 
+      let backLocation
+      if (mode === 'add') {
+        backLocation =
+          res.locals.useNationalJobs === 'true'
+            ? addressLookup.jobs.jobIsNationalJob(id)
+            : `${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`
+      } else {
+        backLocation = addressLookup.jobs.jobReview(id)
+      }
+
       // Render data
       const data = {
         id,
         mode,
-        backLocation:
-          mode === 'add'
-            ? `${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`
-            : addressLookup.jobs.jobReview(id),
+        backLocation,
         employers: allEmployers.map((e: { id: string; name: string }) => ({
           value: e.id,
           text: e.name,
