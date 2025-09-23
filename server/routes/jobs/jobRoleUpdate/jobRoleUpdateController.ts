@@ -77,7 +77,7 @@ export default class JobRoleUpdateController {
         jobTitle,
         sector,
         industrySector,
-        numberOfVacancies: Number(numberOfVacancies),
+        numberOfVacancies: Number(numberOfVacancies ?? 0),
         sourcePrimary,
         sourceSecondary,
         charityName,

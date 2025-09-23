@@ -73,12 +73,15 @@ export default function validationSchema(): ObjectSchema {
           'any.required': 'Select an HMPPS reporting industry sector',
           'any.empty': 'Select an HMPPS reporting industry sector',
         }),
-      numberOfVacancies: joi.number().empty('').required().min(1).messages({
-        'any.required': 'Enter number of vacancies',
-        'any.empty': 'Enter number of vacancies',
-        'number.base': 'Number of vacancies must be a number',
-        'number.min': 'Number of vacancies must be a positive number',
-      }),
+      numberOfVacancies: joi
+        .number()
+        .empty('') // treat empty string as undefined
+        .default(0) // if empty/undefined, default to 0
+        .min(0) // if supplied, must be >= 0
+        .messages({
+          'number.base': 'Number of vacancies must be a number',
+          'number.min': 'Number of vacancies must be a positive number (or leave blank)',
+        }),
       sourcePrimary: joi
         .string()
         .empty('')

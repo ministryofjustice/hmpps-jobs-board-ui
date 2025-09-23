@@ -57,7 +57,7 @@
       Number of vacancies
     </dt>
     <dd class="govuk-summary-list__value" data-qa="numberOfVacancies">
-      {{ numberOfVacancies }}
+      {{ numberOfVacancies | default("Not provided", true) }}
     </dd>
     <dd class="govuk-summary-list__actions">
       <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#numberOfVacancies' }}" data-qa="numberOfVacanciesLink">

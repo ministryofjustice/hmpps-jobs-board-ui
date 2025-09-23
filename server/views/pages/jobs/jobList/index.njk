@@ -11,7 +11,7 @@
 
 {% set jobs = jobListResults.content %}
 {% set activeStatus = filterStatus %}
-{% set title = 'Add jobs and employers' %}
+{% set title = 'Manage jobs and employers' %}
 
 {% block beforeContent %}
     {{ govukBreadcrumbs({
@@ -21,7 +21,7 @@
                 href: dpsUrl
             },
             {
-                text: "Work after release",
+                text: "Work after leaving prison",
                 href: workAfterReleaseUrl
             }
         ],

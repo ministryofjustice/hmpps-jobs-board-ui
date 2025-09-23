@@ -15,7 +15,7 @@ context('Sign In', () => {
   })
 
   it('Add employer flow', () => {
-    const employerListPage = new EmployerListPage('Add jobs and employers')
+    const employerListPage = new EmployerListPage('Manage jobs and employers')
 
     employerListPage.addEmployerButton().click()
 
@@ -24,11 +24,11 @@ context('Sign In', () => {
 
     employerUpdatePage.backLink().click()
 
-    employerListPage.heading().contains('Add jobs and employers')
+    employerListPage.heading().contains('Manage jobs and employers')
   })
 
   it('Update employer flow', () => {
-    const employerListPage = new EmployerListPage('Add jobs and employers')
+    const employerListPage = new EmployerListPage('Manage jobs and employers')
 
     employerListPage.employerLink(1).click()
 
@@ -37,7 +37,7 @@ context('Sign In', () => {
   })
 
   it('Check pagination', () => {
-    const employerListPage = new EmployerListPage('Add jobs and employers')
+    const employerListPage = new EmployerListPage('Manage jobs and employers')
 
     employerListPage.nextLink().contains('Next')
 
@@ -53,7 +53,7 @@ context('Sign In', () => {
   })
 
   it('Filter validation messages', () => {
-    const employerListPage = new EmployerListPage('Add jobs and employers')
+    const employerListPage = new EmployerListPage('Manage jobs and employers')
 
     employerListPage.employerNameFilterField().type('a')
 
@@ -63,7 +63,7 @@ context('Sign In', () => {
   })
 
   it('No records found messages', () => {
-    const employerListPage = new EmployerListPage('Add jobs and employers')
+    const employerListPage = new EmployerListPage('Manage jobs and employers')
 
     employerListPage.employerNameFilterField().type('adsds')
 

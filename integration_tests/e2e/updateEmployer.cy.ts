@@ -27,7 +27,7 @@ context('Sign In', () => {
 
     employerReviewPage.submitButton().click()
 
-    const indexPage = new IndexPage('Add jobs and employers')
+    const indexPage = new IndexPage('Manage jobs and employers')
   })
 
   it('Update employer - change links flow', () => {
