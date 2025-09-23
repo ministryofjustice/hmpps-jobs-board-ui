@@ -31,7 +31,6 @@ context('Sign In', () => {
     jobRoleUpdatePage.jobTitlePageErrorMessage().contains('Job title must be 3 characters or more')
     jobRoleUpdatePage.sectorPageErrorMessage().contains('Select a job sector')
     jobRoleUpdatePage.industrySectorPageErrorMessage().contains('Select an HMPPS reporting industry sector')
-    jobRoleUpdatePage.numberOfVacanciesPageErrorMessage().contains('Enter number of vacancies')
     jobRoleUpdatePage.sourcePrimaryPageErrorMessage().contains('Select a job source')
 
     // Field errors
@@ -39,7 +38,6 @@ context('Sign In', () => {
     jobRoleUpdatePage.jobTitleFieldErrorMessage().contains('Job title must be 3 characters or more')
     jobRoleUpdatePage.sectorFieldErrorMessage().contains('Select a job sector')
     jobRoleUpdatePage.industrySectorFieldErrorMessage().contains('Select an HMPPS reporting industry sector')
-    jobRoleUpdatePage.numberOfVacanciesFieldErrorMessage().contains('Enter number of vacancies')
     jobRoleUpdatePage.sourcePrimaryFieldErrorMessage().contains('Select a job source')
 
     // Move to next page
@@ -446,5 +444,103 @@ context('Sign In', () => {
     jobHowToApplyPage.submitButton().click()
     jobReviewPage.supportingDocumentationRequired().contains('CV')
     jobReviewPage.supportingDocumentationRequired().contains('Some more text')
+  })
+
+  it('Create job without number of vacancies', () => {
+    cy.visit('/jobs/job/new/role/add')
+
+    // Job role and source page
+    const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
+    jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 5')
+
+    jobRoleUpdatePage.employerIdField().type('ASDA')
+    jobRoleUpdatePage.employerIdFieldOption(0).click()
+    jobRoleUpdatePage.jobTitleField().type('Test job with no vacancies')
+    jobRoleUpdatePage.sectorField().select('OFFICE')
+    jobRoleUpdatePage.industrySectorField().select('ADMIN_SUPPORT')
+    jobRoleUpdatePage.sourcePrimaryField().select('IAG')
+    jobRoleUpdatePage.sourceSecondaryField().select('DWP')
+    jobRoleUpdatePage.charityNameField().type('Test charity')
+
+    jobRoleUpdatePage.submitButton().click()
+
+    // Job location and contract page
+    const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
+    jobContractUpdatePage.headerCaption().contains('Add a job - step 2 of 5')
+
+    jobContractUpdatePage.postCodeField().type('NE15 7LR')
+    jobContractUpdatePage.salaryFromField().type('25000')
+    jobContractUpdatePage.salaryPeriodField().select('PER_YEAR')
+    jobContractUpdatePage.isPayingAtLeastNationalMinimumWageYes().click()
+    jobContractUpdatePage.workPatternField().select('FLEXI_TIME')
+    jobContractUpdatePage.contractTypeField().select('PERMANENT')
+    jobContractUpdatePage.hoursPerWeekField().select('FULL_TIME')
+
+    jobContractUpdatePage.submitButton().click()
+
+    // Requirements and job description page
+    const jobRequirementsUpdatePage = new JobRequirementsUpdatePage('Requirements and job description')
+    jobContractUpdatePage.headerCaption().contains('Add a job - step 3 of 5')
+
+    jobRequirementsUpdatePage.essentialCriteriaField().type('Some text')
+    jobRequirementsUpdatePage.descriptionField().type('Some text')
+    jobRequirementsUpdatePage.offenceExclusionsFieldValue('OTHER').click()
+    jobRequirementsUpdatePage.offenceExclusionsDetailsField().type('Some text')
+
+    jobRequirementsUpdatePage.submitButton().click()
+
+    // How to apply page
+    const jobHowToApplyPage = new JobHowToApplyPage('How to apply')
+    jobHowToApplyPage.headerCaption().contains('Add a job - step 4 of 5')
+
+    jobHowToApplyPage.isRollingOpportunityFieldNo().click()
+    jobHowToApplyPage.closingDateField.day().type('1')
+    jobHowToApplyPage.closingDateField.month().type('1')
+    jobHowToApplyPage.closingDateField.year().type('2026')
+    jobHowToApplyPage.isOnlyForPrisonLeaversFieldYes().click()
+    jobHowToApplyPage.howToApplyField().type('Some text')
+    jobHowToApplyPage.startDateField.day().type('1')
+    jobHowToApplyPage.startDateField.month().type('1')
+    jobHowToApplyPage.startDateField.year().type('2026')
+    jobHowToApplyPage.supportingDocumentationRequiredFieldValue('OTHER').click()
+    jobHowToApplyPage.supportingDocumentationDetailsField().type('Some text')
+
+    jobHowToApplyPage.submitButton().click()
+
+    const jobReviewPage = new JobReviewPage('Check your answers before adding job')
+    jobReviewPage.headerCaption().contains('Add a job - step 5 of 5')
+
+    jobReviewPage.employerId().contains('ASDA')
+    jobReviewPage.jobTitle().contains('Test job with no vacancies')
+    jobReviewPage.sector().contains('Office or desk-based')
+    jobReviewPage.industrySector().contains('Administration and support services')
+    jobReviewPage.numberOfVacancies().contains('Not provided')
+    jobReviewPage.sourcePrimary().contains('IAG')
+    jobReviewPage.sourceSecondary().contains('DWP')
+    jobReviewPage.charityName().contains('Test charity')
+    jobReviewPage.postCode().contains('NE15 7LR')
+    jobReviewPage.salaryFrom().contains('£25000.00')
+    jobReviewPage.salaryTo().contains('Not provided')
+    jobReviewPage.salaryPeriod().contains('Per year')
+    jobReviewPage.additionalSalaryInformation().contains('Not provided')
+    jobReviewPage.isPayingAtLeastNationalMinimumWage().contains('Yes')
+    jobReviewPage.workPattern().contains('Flexi-time')
+    jobReviewPage.contractType().contains('Permanent')
+    jobReviewPage.hoursPerWeek().contains('Full-time (more than 30-39 hours)')
+    jobReviewPage.baseLocation().contains('Not provided')
+    jobReviewPage.essentialCriteria().contains('Some text')
+    jobReviewPage.desirableCriteria().contains('Not provided')
+    jobReviewPage.description().contains('Some text')
+    jobReviewPage.offenceExclusions().contains('Other - Some text')
+    jobReviewPage.isRollingOpportunity().contains('No')
+    jobReviewPage.closingDate().contains(' 1 January 2026')
+    jobReviewPage.isOnlyForPrisonLeavers().contains('Yes')
+    jobReviewPage.startDate().contains('1 January 2026')
+    jobReviewPage.howToApply().contains('Some text')
+    jobReviewPage.supportingDocumentationRequired().contains('Other - Some text')
+
+    jobReviewPage.submitButton().click()
+
+    const indexPage = new IndexPage('Manage jobs and employers')
   })
 })

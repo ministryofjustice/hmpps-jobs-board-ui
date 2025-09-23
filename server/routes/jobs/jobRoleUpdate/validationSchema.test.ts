@@ -164,13 +164,12 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Charity must be 100 characters or less')
   })
 
-  it('On validation error - should disallow a numberOfVacancies being blank', () => {
-    req.body.numberOfVacancies = ''
+  it('On validation error - should allow a numberOfVacancies being blank', () => {
+    req.body.numberOfVacancies = null
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Enter number of vacancies')
   })
 
   it('On validation error - should disallow a numberOfVacancies not being a number', () => {
@@ -188,6 +187,6 @@ describe('validationSchema', () => {
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
     expect(error).toBeTruthy()
-    expect(error.details[0].message).toBe('Number of vacancies must be a positive number')
+    expect(error.details[0].message).toBe('Number of vacancies must be a positive number (or leave blank)')
   })
 })
