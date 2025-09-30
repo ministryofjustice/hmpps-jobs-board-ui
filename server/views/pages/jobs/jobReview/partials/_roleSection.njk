@@ -56,9 +56,17 @@
     <dt class="govuk-summary-list__key">
       Number of vacancies
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="numberOfVacancies">
-      {{ numberOfVacancies }}
-    </dd>
+
+    {% if useNationalJobs %}
+      <dd class="govuk-summary-list__value" data-qa="numberOfVacancies">
+        {{ numberOfVacancies | default("Not provided", true) }}
+      </dd>
+    {% else %}
+      <dd class="govuk-summary-list__value" data-qa="numberOfVacancies">
+        {{ numberOfVacancies }}
+      </dd>
+    {% endif %}
+
     <dd class="govuk-summary-list__actions">
       <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#numberOfVacancies' }}" data-qa="numberOfVacanciesLink">
         Change<span class="govuk-visually-hidden"> number of vacancies</span>

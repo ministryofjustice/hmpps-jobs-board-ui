@@ -6,6 +6,10 @@ const appInsightsConnectionString = appInsightsInstrumentationKey
   ? `InstrumentationKey=${appInsightsInstrumentationKey};IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/;LiveEndpoint=https://northeurope.livediagnostics.monitor.azure.com/`
   : ''
 
+const toBoolean = (value: unknown): boolean => {
+  return value === 'true'
+}
+
 function get<T>(name: string, fallback: T, options = { requireInProduction: false }): T | string {
   if (process.env[name]) {
     return process.env[name]
@@ -134,6 +138,6 @@ export default {
   appInsightsConnectionString,
   featureToggles: {
     filterJobsCreatedByMeEnabled: systemPhase === 'DEV',
-    nationalJobs: get('FEATURE_FLAG_NATIONAL_JOBS', false),
+    nationalJobs: toBoolean(get('FEATURE_FLAG_NATIONAL_JOBS', false)),
   },
 }

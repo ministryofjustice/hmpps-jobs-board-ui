@@ -16,5 +16,6 @@ export default {
     jobReview: (id: string) => `/jobs/job/${id}`,
     jobAddEmployer: (id: string, mode = 'add') => `/jobs/job/${id}/add-employer/${mode}`,
     jobIsThisNational: (id: string, mode = 'add') => `/jobs/job/${id}/is-this-national-job/${mode}`,
+    jobRoleUpdateNational: (id: string, mode = 'add') => `/jobs/job/${id}/role/${mode}`,
   },
 }
