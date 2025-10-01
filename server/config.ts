@@ -75,6 +75,10 @@ export default {
       systemClientId: get('SYSTEM_CLIENT_ID', 'clientid', requiredInProduction),
       systemClientSecret: get('SYSTEM_CLIENT_SECRET', 'clientsecret', requiredInProduction),
     },
+    hmppsAudit: {
+      enabled: get('AUDIT_ENABLED', 'false') === 'true',
+      auditServiceName: get('AUDIT_SERVICE_NAME', 'hmpps-jobs-board-ui'),
+    },
     nomisUserRolesApi: {
       url: get('NOMIS_USER_ROLES_API_URL', 'http://localhost:8082', requiredInProduction),
       timeout: {
