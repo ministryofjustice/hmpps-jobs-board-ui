@@ -2,11 +2,13 @@ import { RequestHandler } from 'express'
 import { v7 as uuidv7 } from 'uuid'
 import _ from 'lodash'
 
+import { auditService } from '@ministryofjustice/hmpps-audit-client'
 import { deleteSessionData, getSessionData, setSessionData } from '../../../utils/index'
 import addressLookup from '../../addressLookup'
 import EmployerService from '../../../services/employerService'
 import logger from '../../../../logger'
 import getFirstErrorCode from '../../../utils/getFirstErrorCode'
+import config from '../../../config'
 
 export default class EmployerReviewController {
   constructor(private readonly employerService: EmployerService) {}
@@ -55,7 +57,18 @@ export default class EmployerReviewController {
         employerDescription,
       }
 
-      const identifier = _.trim(id.toString()) === 'new' ? uuidv7() : id
+      const create = _.trim(id.toString()) === 'new'
+      const identifier = create ? uuidv7() : id
+
+      if (config.apis.hmppsAudit.enabled) {
+        await auditService.sendAuditMessage({
+          action: `${create ? 'CREATE' : 'UPDATE'}_EMPLOYER`,
+          who: res.locals.user.username,
+          service: config.apis.hmppsAudit.auditServiceName,
+          subjectId: identifier,
+          subjectType: 'NOT_APPLICABLE',
+        })
+      }
 
       await this.employerService.createUpdateEmployer(res.locals.user.username, identifier, employerUpdate)
 

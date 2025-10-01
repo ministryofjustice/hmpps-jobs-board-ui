@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { auditService } from '@ministryofjustice/hmpps-audit-client'
 import Controller from './employerReviewController'
 import expressMocks from '../../../testutils/expressMocks'
-import { setSessionData } from '../../../utils/session'
+import { setSessionData } from '../../../utils'
 import addressLookup from '../../addressLookup'
+import config from '../../../config'
+
+const uuidv7 = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+jest.mock('uuid', () => ({ v7: () => uuidv7 }))
 
 describe('EmployerReviewController', () => {
   const { req, res, next } = expressMocks()
@@ -58,11 +63,18 @@ describe('EmployerReviewController', () => {
   })
 
   describe('#post(req, res)', () => {
+    const auditSpy = jest.spyOn(auditService, 'sendAuditMessage')
+
     beforeEach(() => {
       res.render.mockReset()
       res.redirect.mockReset()
       next.mockReset()
+
       setSessionData(req, ['employerReview', id], mockData)
+
+      config.apis.hmppsAudit.enabled = true
+      auditSpy.mockReset()
+      auditSpy.mockResolvedValue()
     })
 
     it('Should create a new instance', () => {
@@ -85,6 +97,37 @@ describe('EmployerReviewController', () => {
       mockService.createUpdateEmployer.mockResolvedValue({})
       await controller.post(req, res, next)
       expect(res.redirect).toHaveBeenCalledWith(`${addressLookup.employers.employerList()}?sort=name&order=ascending`)
+    })
+
+    it('Audits create employer', async () => {
+      setSessionData(req, ['employer', id], employer)
+      mockService.createUpdateEmployer.mockResolvedValue({})
+      await controller.post(req, res, next)
+
+      expect(auditSpy).toHaveBeenCalledTimes(1)
+      expect(auditSpy).toHaveBeenCalledWith({
+        action: 'CREATE_EMPLOYER',
+        who: res.locals.user.username,
+        service: config.apis.hmppsAudit.auditServiceName,
+        subjectId: uuidv7,
+        subjectType: 'NOT_APPLICABLE',
+      })
+    })
+
+    it('Audits update employer', async () => {
+      const existingEmployerId = '123456789'
+      setSessionData(req, ['employer', existingEmployerId], employer)
+      mockService.createUpdateEmployer.mockResolvedValue({})
+      await controller.post({ ...req, ...{ params: { id: existingEmployerId } } }, res, next)
+
+      expect(auditSpy).toHaveBeenCalledTimes(1)
+      expect(auditSpy).toHaveBeenCalledWith({
+        action: 'UPDATE_EMPLOYER',
+        who: res.locals.user.username,
+        service: config.apis.hmppsAudit.auditServiceName,
+        subjectId: existingEmployerId,
+        subjectType: 'NOT_APPLICABLE',
+      })
     })
 
     it('On error - Calls next with error', async () => {
