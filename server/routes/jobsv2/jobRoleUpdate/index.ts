@@ -7,7 +7,7 @@ import getAllEmployersResolver from '../../../middleware/resolvers/getAllEmploye
 export default (router: Router, services: Services) => {
   const controller = new JobRoleUpdateController()
 
-  router.get('/jobs/job/:id/role/:mode', [getAllEmployersResolver(services.employerService)], controller.get)
+  router.get('/jobsv2/job/:id/role/:mode', [getAllEmployersResolver(services.employerService)], controller.get)
 
-  router.post('/jobs/job/:id/role/:mode', controller.post)
+  router.post('/jobsv2/job/:id/role/:mode', controller.post)
 }
