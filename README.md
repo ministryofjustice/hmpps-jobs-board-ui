@@ -94,7 +94,7 @@ Create a `.env` file and complete the following values:
 | TOKEN_VERIFICATION_API_URL      | https://token-verification-api-dev.prison.service.justice.gov.uk                   |
 | COMPONENT_API_URL               | https://frontend-components-dev.hmpps.service.justice.gov.uk                       |
 | JOB_API_URL                     | https://jobs-board-api-dev.hmpps.service.justice.gov.uk                            |
-| MANAGE_USERS_API                | https://manage-users-api-dev.hmpps.service.justice.gov.uk                          |
+| MANAGE_USERS_API_URL            | https://manage-users-api-dev.hmpps.service.justice.gov.uk                          |
 | WORK_AFTER_RELEASE_URL          | https://get-ready-for-work-dev.hmpps.service.justice.gov.uk                        |
 
 Run the application in development mode, in separate shell sessions:
