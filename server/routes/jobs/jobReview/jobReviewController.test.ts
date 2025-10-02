@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { auditService } from '@ministryofjustice/hmpps-audit-client'
 import Controller from './jobReviewController'
 import expressMocks from '../../../testutils/expressMocks'
-import { setSessionData } from '../../../utils/session'
+import { setSessionData } from '../../../utils'
 import addressLookup from '../../addressLookup'
+import config from '../../../config'
+
+const uuidv7 = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+jest.mock('uuid', () => ({ v7: () => uuidv7 }))
 
 describe('JobReviewController', () => {
   const { req, res, next } = expressMocks()
@@ -25,6 +30,7 @@ describe('JobReviewController', () => {
 
   const job = {
     employerId: '01907e1e-bb85-7bb7-9018-33a2070a367d',
+    jobTitle: 'job title',
     closingDate: '2025-02-01T00:00:00.000Z',
     startDate: '2025-05-31T23:00:00.000Z',
   }
@@ -71,11 +77,18 @@ describe('JobReviewController', () => {
   })
 
   describe('#post(req, res)', () => {
+    const auditSpy = jest.spyOn(auditService, 'sendAuditMessage')
+
     beforeEach(() => {
       res.render.mockReset()
       res.redirect.mockReset()
       next.mockReset()
+
       setSessionData(req, ['jobReview', id], mockData)
+
+      config.apis.hmppsAudit.enabled = true
+      auditSpy.mockReset()
+      auditSpy.mockResolvedValue()
     })
 
     it('Should create a new instance', () => {
@@ -98,6 +111,38 @@ describe('JobReviewController', () => {
       mockService.createUpdateJob.mockResolvedValue({})
       await controller.post(req, res, next)
       expect(res.redirect).toHaveBeenCalledWith(`${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`)
+    })
+
+    it('Audits create job', async () => {
+      setSessionData(req, ['job', id], job)
+      mockService.createUpdateJob.mockResolvedValue({})
+      await controller.post(req, res, next)
+
+      expect(auditSpy).toHaveBeenCalledTimes(1)
+      expect(auditSpy).toHaveBeenCalledWith({
+        action: 'CREATE_JOB',
+        who: res.locals.user.username,
+        service: config.apis.hmppsAudit.auditServiceName,
+        subjectId: uuidv7,
+        subjectType: 'NOT_APPLICABLE',
+      })
+    })
+
+    it('Audits update job', async () => {
+      const existingJobId = '123456789'
+      setSessionData(req, ['job', existingJobId], job)
+      mockService.createUpdateJob.mockResolvedValue({})
+
+      controller.post({ ...req, ...{ params: { id: existingJobId } } }, res, next)
+
+      expect(auditSpy).toHaveBeenCalledTimes(1)
+      expect(auditSpy).toHaveBeenCalledWith({
+        action: 'UPDATE_JOB',
+        who: res.locals.user.username,
+        service: config.apis.hmppsAudit.auditServiceName,
+        subjectId: existingJobId,
+        subjectType: 'NOT_APPLICABLE',
+      })
     })
 
     it('On error - Calls next with error', async () => {
