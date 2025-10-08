@@ -5,6 +5,8 @@ import expressMocks from '../../../testutils/expressMocks'
 import { setSessionData } from '../../../utils'
 import addressLookup from '../../addressLookup'
 import config from '../../../config'
+import offenceExclusions from '../../../enums/offenceExclusions'
+import workPattern from '../../../enums/workPattern'
 
 const uuidv7 = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 jest.mock('uuid', () => ({ v7: () => uuidv7 }))
@@ -31,8 +33,27 @@ describe('JobReviewController', () => {
   const job = {
     employerId: '01907e1e-bb85-7bb7-9018-33a2070a367d',
     jobTitle: 'job title',
-    closingDate: '2025-02-01T00:00:00.000Z',
-    startDate: '2025-05-31T23:00:00.000Z',
+    closingDate: '2025-02-01',
+    startDate: '2025-05-31',
+    contractType: 'PERMANENT',
+    description: 'job description',
+    essentialCriteria: 'requirements',
+    hoursPerWeek: 'FULL_TIME',
+    howToApply: 'how to apply',
+    industrySector: 'ADMIN_SUPPORT',
+    isOnlyForPrisonLeavers: 'NO',
+    isPayingAtLeastNationalMinimumWage: 'YES',
+    isRollingOpportunity: 'NO',
+    numberOfVacancies: '1',
+    offenceExclusions: [offenceExclusions.CASE_BY_CASE],
+    offenceExclusionsDetails: 'offence exclusions details',
+    postCode: 'AB1 2CD',
+    salaryFrom: '20000',
+    salaryTo: '30000',
+    salaryPeriod: 'PER_YEAR',
+    sector: 'RETAIL',
+    sourcePrimary: 'DWP',
+    workPattern: workPattern.FLEXI_TIME,
   }
 
   const mockData = {
@@ -40,7 +61,7 @@ describe('JobReviewController', () => {
     ...job,
     employerName: 'ASDA',
     closingDate: '1 February 2025',
-    startDate: '1 June 2025',
+    startDate: '31 May 2025',
   }
 
   setSessionData(req, ['job', id], job)

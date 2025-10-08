@@ -20,6 +20,12 @@ import YesNoValue from '../../../enums/yesNoValue'
 import logger from '../../../../logger'
 import getFirstErrorCode from '../../../utils/getFirstErrorCode'
 import config from '../../../config'
+import jobRequirementsUpdateValidationSchema from '../jobRequirementsUpdate/validationSchema'
+import jobRoleUpdateValidationSchema from '../jobRoleUpdate/validationSchema'
+import jobHowToApplyUpdateValidationSchema from '../jobHowToApplyUpdate/validationSchema'
+import jobContractUpdateValidationSchema from '../jobContractUpdate/validationSchema'
+import { validateReviewSchema } from '../../../utils/validateFormSchema'
+import parseBodyDateInput, { parseDateStringToBodyFields } from '../../../utils/parseBodyDateInput'
 
 export default class JobReviewController {
   constructor(private readonly jobService: JobService) {}
@@ -62,6 +68,32 @@ export default class JobReviewController {
 
     try {
       const job = getSessionData(req, ['job', id])
+      const jobDataForValidation = {
+        ...job,
+        salaryFrom: job.salaryFrom.toString(),
+        salaryTo: job.salaryTo ? job.salaryTo.toString() : '',
+        startDate: parseDateStringToBodyFields(job.startDate, 'startDate'),
+        closingDate: parseDateStringToBodyFields(job.closingDate, 'closingDate'),
+        offenceExclusionsDetails: job.offenceExclusionsDetails || '',
+        numberOfVacancies: job.numberOfVacancies.toString(),
+      }
+      const errors = validateReviewSchema(jobDataForValidation, [
+        jobContractUpdateValidationSchema(),
+        jobHowToApplyUpdateValidationSchema(),
+        jobRequirementsUpdateValidationSchema(),
+        jobRoleUpdateValidationSchema(),
+      ])
+      if (errors) {
+        res.render('pages/jobs/jobReview/index', {
+          id,
+          ...job,
+          employerName: (req.context.allEmployers || []).find((p: { id: string }) => p.id === job.employerId)?.name,
+          startDate: job.startDate && formatShortDate(new Date(job.startDate)),
+          closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
+          errors,
+        })
+        return
+      }
 
       // Update application progress API
       const jobUpdate = {

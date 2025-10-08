@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import parseBodyDateInput from './parseBodyDateInput'
+import parseBodyDateInput, { parseDateStringToBodyFields } from './parseBodyDateInput'
 
 describe('parseBodyDateInput', () => {
   let req: { body: { [x: string]: number } }
@@ -50,5 +50,45 @@ describe('parseBodyDateInput', () => {
     const result = parseBodyDateInput(req, 'startDate')
 
     expect(result).toBeFalsy()
+  })
+})
+
+describe('parseDateStringToBodyFields', () => {
+  let dateString: string | null
+
+  it('should return all date parts when an ISO date string is provided', () => {
+    dateString = '2023-07-17'
+
+    const result = parseDateStringToBodyFields(dateString, 'startDate')
+
+    expect(result).toEqual({
+      'startDate-year': 2023,
+      'startDate-month': 7,
+      'startDate-day': 17,
+    })
+  })
+
+  it('should return empty strings for all date parts when date string is null', () => {
+    dateString = null
+
+    const result = parseDateStringToBodyFields(dateString, 'startDate')
+
+    expect(result).toEqual({
+      'startDate-year': '',
+      'startDate-month': '',
+      'startDate-day': '',
+    })
+  })
+
+  it('should return empty strings for all date parts when date string is empty', () => {
+    dateString = ''
+
+    const result = parseDateStringToBodyFields(dateString, 'closingDate')
+
+    expect(result).toEqual({
+      'closingDate-year': '',
+      'closingDate-month': '',
+      'closingDate-day': '',
+    })
   })
 })

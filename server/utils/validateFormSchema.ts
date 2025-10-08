@@ -12,6 +12,23 @@ export interface ErrorDetails {
   }
 }
 
+export function validateReviewSchema(reviewForm: any, schemas: ObjectSchema[]): FormValidationErrors | undefined {
+  const errors: ErrorDetails = {}
+  schemas.forEach((schema: ObjectSchema) => {
+    const { error } = schema.validate(reviewForm, { abortEarly: false, allowUnknown: true })
+    if (error?.details) {
+      error.details.forEach(detail => {
+        const { key } = detail.context
+        errors[key] = {
+          text: detail.message,
+          href: `#${key}`,
+        }
+      })
+    }
+  })
+  return Object.keys(errors).length > 0 ? errors : undefined
+}
+
 export default function validateFormSchema(req: Request, schema: ObjectSchema): FormValidationErrors | undefined {
   const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
