@@ -2,6 +2,8 @@
 # Per environment values which override defaults in hmpps-jobs-board-ui/values.yaml
 
 generic-service:
+  serviceAccountName: education-skills-and-work-live-production
+
   ingress:
     host: jobs-board.hmpps.service.justice.gov.uk
 
