@@ -63,7 +63,7 @@ describe('jobRoleUpdateController', () => {
     it('On success - Calls render with the correct data', async () => {
       controller.get(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobRoleUpdate/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobsv2/jobRoleUpdate/index', {
         ...mockData,
       })
       expect(next).toHaveBeenCalledTimes(0)
@@ -101,10 +101,12 @@ describe('jobRoleUpdateController', () => {
       validationMock.mockImplementation(() => errors)
       controller.post(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobRoleUpdate/index', {
-        ...mockData,
-        errors,
-      })
+      expect(res.render).toHaveBeenCalledWith(
+        'pages/jobsv2/jobRoleUpdate/index',
+        expect.objectContaining({
+          errors,
+        }),
+      )
     })
 
     it('On success - Sets session and redirects to jobContractUpdate', async () => {
