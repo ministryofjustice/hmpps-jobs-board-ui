@@ -36,7 +36,7 @@ export default class JobRoleUpdateController {
       // Set page data in session
       setSessionData(req, ['jobRoleUpdate', id, 'data'], data)
 
-      res.render('pages/jobs/jobRoleUpdate/index', { ...data })
+      res.render('pages/jobsv2/jobRoleUpdate/index', { ...data })
     } catch (err) {
       logger.error('Error rendering page - Job role')
       next(err)
@@ -61,7 +61,7 @@ export default class JobRoleUpdateController {
       const data = getSessionData(req, ['jobRoleUpdate', id, 'data'])
       const errors = validateFormSchema(req, validationSchema())
       if (errors) {
-        res.render('pages/jobs/jobRoleUpdate/index', {
+        res.render('pages/jobsv2/jobRoleUpdate/index', {
           ...data,
           ...req.body,
           errors,
