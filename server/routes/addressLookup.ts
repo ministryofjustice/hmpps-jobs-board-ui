@@ -15,7 +15,7 @@ export default {
   jobsv2: {
     jobReview: (id: string) => `/jobs/job/${id}`,
     jobAddEmployer: (id: string, mode = 'add') => `/jobs/job/${id}/add-employer/${mode}`,
-    jobIsThisNational: (id: string, mode = 'add') => `/jobs/job/${id}/is-this-national-job/${mode}`,
+    jobIsThisNational: (id: string, mode = 'add') => `/jobsv2/job/${id}/is-this-national-job/${mode}`,
     jobRoleUpdateNational: (id: string, mode = 'add') => `/jobsv2/job/${id}/role/${mode}`,
   },
 }
