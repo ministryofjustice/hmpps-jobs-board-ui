@@ -12,7 +12,11 @@ export interface ErrorDetails {
   }
 }
 
-export function validateReviewSchema(reviewForm: any, schemas: ObjectSchema[]): FormValidationErrors | undefined {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export function validateReviewSchema(
+  reviewForm: { [key: string]: any },
+  schemas: ObjectSchema[],
+): FormValidationErrors | undefined {
   const errors: ErrorDetails = {}
   schemas.forEach((schema: ObjectSchema) => {
     const { error } = schema.validate(reviewForm, { abortEarly: false, allowUnknown: true })

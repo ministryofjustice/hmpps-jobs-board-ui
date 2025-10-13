@@ -36,8 +36,9 @@ describe('#validateFormSchema', () => {
   })
 })
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 describe('#validateReviewSchema', () => {
-  let reviewForm: any
+  let reviewForm: { [key: string]: any }
 
   beforeEach(() => {
     reviewForm = {}

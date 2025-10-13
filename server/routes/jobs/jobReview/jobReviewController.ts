@@ -25,7 +25,7 @@ import jobRoleUpdateValidationSchema from '../jobRoleUpdate/validationSchema'
 import jobHowToApplyUpdateValidationSchema from '../jobHowToApplyUpdate/validationSchema'
 import jobContractUpdateValidationSchema from '../jobContractUpdate/validationSchema'
 import { validateReviewSchema } from '../../../utils/validateFormSchema'
-import parseBodyDateInput, { parseDateStringToBodyFields } from '../../../utils/parseBodyDateInput'
+import { parseDateStringToBodyFields } from '../../../utils/parseBodyDateInput'
 
 export default class JobReviewController {
   constructor(private readonly jobService: JobService) {}
