@@ -1,0 +1,62 @@
+{% extends "../../../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+{% from "../../../macros/accessible-autocomplete/macro.njk" import accessibleAutocomplete %}
+
+{% set title = "Add the employer"%}
+
+{% block beforeContent %}
+    {{ govukBackLink({ text: "Back", href: backLocation }) }}
+{% endblock %}
+
+{% block content %}
+  {{ errorSummary(errors) }}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if mode === 'add' else 'Update' }} a job - step 1 of 5</span>
+        <h1 class="govuk-heading-l">
+          {{ title }}
+        </h1>
+
+        <form class="form" method="post" novalidate="">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+
+          {{ accessibleAutocomplete({
+            id: 'employerId', 
+            label: 'Employer name',
+            hint: 'Start typing the name of the employer.',
+            list: employers,
+            value: employerId,
+            errorMessage: errors.employerId,
+            class: 'govuk-!-margin-bottom-4',
+            nonce: cspNonce 
+            }) 
+          }}
+
+          <p class="govuk-body">If the employer is not listed you must <a href="{{ addressLookup.employers.employerUpdate() }}" class="govuk-link govuk-link--no-visited-state">add the employer to the employer list</a> before you can create the job.</p>
+
+          {{  
+            govukButton({
+              text: "Continue",
+              type: "submit",
+                name: "continueButton",
+                value: "continue",
+              attributes: {
+                "data-qa": "submit-button",
+                "data-ga-category": "submit-selected-data"
+              }
+            }) 
+          }}
+
+        </form>
+
+      </div>
+    </div>
+{% endblock %}
