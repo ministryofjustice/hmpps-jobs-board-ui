@@ -15,21 +15,21 @@ context('Feature flag enabled', () => {
   })
 
   it('Should display the "Show only my jobs" checkbox', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
+    const jobListPage = new JobListPage('Manage jobs and employers')
 
     jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').should('exist')
     jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').should('not.be.checked')
   })
 
   it('Should toggle the checkbox on and off', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
+    const jobListPage = new JobListPage('Manage jobs and employers')
 
     jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').check().should('be.checked')
     jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck().should('not.be.checked')
   })
 
   it('Should include myOwnJobsFilter in the query when checked', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
+    const jobListPage = new JobListPage('Manage jobs and employers')
 
     cy.intercept('GET', '/jobs*').as('getJobs')
     jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').check()
@@ -38,7 +38,7 @@ context('Feature flag enabled', () => {
   })
 
   it('Should not include myOwnJobsFilter in the query when unchecked', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
+    const jobListPage = new JobListPage('Manage jobs and employers')
 
     cy.intercept('GET', '/jobs*').as('getJobs')
     jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck()
