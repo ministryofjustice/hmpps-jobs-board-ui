@@ -25,7 +25,7 @@ const getJobListResolver =
         order: order.toString(),
         jobSectorFilter: jobSectorFilter.toString(),
         jobTitleOrEmployerNameFilter: jobTitleOrEmployerNameFilter.toString(),
-        myOwnJobsFilter: Boolean(myOwnJobsFilter),
+        myOwnJobsFilter: myOwnJobsFilter === 'true',
       })
 
       req.context.jobs = jobs

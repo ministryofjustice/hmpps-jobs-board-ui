@@ -18,7 +18,10 @@ export default class JobListController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
     const { page, sort, order, jobSectorFilter = '', jobTitleOrEmployerNameFilter = '' } = req.query
 
-    const myOwnJobsFilter = parseBooleanParam(req.query.myOwnJobsFilter)
+    const myOwnJobsFilter = res.locals.filterJobsCreatedByMeEnabled
+      ? parseBooleanParam(req.query.myOwnJobsFilter?.toString())
+      : false
+
     const { paginationPageSize } = config
     const jobListResults = req.context.jobs
 
@@ -38,7 +41,7 @@ export default class JobListController {
         jobTitleOrEmployerNameFilter &&
           `jobTitleOrEmployerNameFilter=${decodeURIComponent(jobTitleOrEmployerNameFilter as string)}`,
         jobSectorFilter && `jobSectorFilter=${decodeURIComponent(jobSectorFilter as string)}`,
-        `myOwnJobsFilter=${myOwnJobsFilter}`,
+        `myOwnJobsFilter=${myOwnJobsFilter === true}`,
         page && `page=${page}`,
       ].filter(val => !!val)
 
