@@ -18,6 +18,8 @@ export default class JobRoleUpdateController {
         return
       }
 
+      const errors = mode === 'update' ? validateFormSchema(job, validationSchema()) : null
+
       // Render data
       const data = {
         id,
@@ -31,6 +33,7 @@ export default class JobRoleUpdateController {
           text: e.name,
         })),
         ...(job || {}),
+        errors,
       }
 
       // Set page data in session
@@ -59,7 +62,7 @@ export default class JobRoleUpdateController {
     try {
       // If validation errors render errors
       const data = getSessionData(req, ['jobRoleUpdate', id, 'data'])
-      const errors = validateFormSchema(req, validationSchema())
+      const errors = validateFormSchema(req.body, validationSchema())
       if (errors) {
         res.render('pages/jobs/jobRoleUpdate/index', {
           ...data,

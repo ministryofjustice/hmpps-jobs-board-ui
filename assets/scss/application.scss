@@ -12,6 +12,7 @@ $govuk-page-width: $moj-page-width;
 @import '../../node_modules/@ministryofjustice/hmpps-connect-dps-components/dist/assets/header-bar';
 
 @import './components/accessible-autocomplete';
+@import './components/invalid-summary-field';
 @import 'assets/scss/local';
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you

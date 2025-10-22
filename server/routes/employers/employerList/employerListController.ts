@@ -82,7 +82,7 @@ export default class EmployerListController {
 
       // If validation errors render errors
       const data = getSessionData(req, ['employerList', 'data'])
-      const errors = validateFormSchema(req, validationSchema())
+      const errors = validateFormSchema(req.body, validationSchema())
 
       if (errors) {
         res.render('pages/employers/employerList/index', {

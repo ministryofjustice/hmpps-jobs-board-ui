@@ -25,15 +25,21 @@ describe('jobRequirementsUpdateController', () => {
     mode,
     backLocation: '/jobs/job/new/contract/add',
     offenceExclusions: [] as any[],
+    errors: null as any,
   }
 
   const controller = new Controller()
 
   describe('#get(req, res)', () => {
+    const errors = { details: 'mock_error' }
+    const validationMock = validateFormSchema as jest.Mock
+
     beforeEach(() => {
       res.render.mockReset()
       next.mockReset()
       setSessionData(req, ['job', id], {})
+      req.params.mode = 'add'
+      validationMock.mockReset()
     })
 
     it('On error - Calls next with error', async () => {
@@ -43,6 +49,18 @@ describe('jobRequirementsUpdateController', () => {
       controller.get(req, res, next)
 
       expect(next).toHaveBeenCalledTimes(1)
+    })
+
+    it('On validation error - Calls render with correct data', async () => {
+      req.params.mode = 'update'
+      setSessionData(req, ['job', id], mockData)
+      validationMock.mockImplementation(() => errors)
+      controller.get(req, res, next)
+
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobRequirementsUpdate/index', {
+        ...mockData,
+        errors,
+      })
     })
 
     it('On success - If no job redirects to jobRoleUpdate', async () => {

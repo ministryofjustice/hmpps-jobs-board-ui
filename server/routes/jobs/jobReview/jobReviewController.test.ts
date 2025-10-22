@@ -7,9 +7,16 @@ import addressLookup from '../../addressLookup'
 import config from '../../../config'
 import offenceExclusions from '../../../enums/offenceExclusions'
 import workPattern from '../../../enums/workPattern'
+import validateFormSchema from '../../../utils/validateFormSchema'
 
 const uuidv7 = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 jest.mock('uuid', () => ({ v7: () => uuidv7 }))
+
+jest.mock('../../../utils/validateFormSchema', () => ({
+  ...jest.requireActual('../../../utils/validateFormSchema'),
+  __esModule: true,
+  default: jest.fn(),
+}))
 
 describe('JobReviewController', () => {
   const { req, res, next } = expressMocks()
@@ -73,9 +80,13 @@ describe('JobReviewController', () => {
   const controller = new Controller(mockService)
 
   describe('#get(req, res)', () => {
+    const errors = { details: 'mock_error' }
+    const validationMock = validateFormSchema as jest.Mock
+
     beforeEach(() => {
       res.render.mockReset()
       next.mockReset()
+      validationMock.mockReset()
     })
 
     it('On error - Calls next with error', async () => {
@@ -85,6 +96,17 @@ describe('JobReviewController', () => {
       controller.get(req, res, next)
 
       expect(next).toHaveBeenCalledTimes(1)
+    })
+
+    it('On validation error - Calls render with correct data', async () => {
+      setSessionData(req, ['job', id], mockData)
+      validationMock.mockImplementation(() => errors)
+      controller.get(req, res, next)
+
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobReview/index', {
+        ...mockData,
+        errors,
+      })
     })
 
     it('On success - Calls render with the correct data', async () => {
@@ -99,11 +121,14 @@ describe('JobReviewController', () => {
 
   describe('#post(req, res)', () => {
     const auditSpy = jest.spyOn(auditService, 'sendAuditMessage')
+    const errors = { details: 'mock_error' }
+    const validationMock = validateFormSchema as jest.Mock
 
     beforeEach(() => {
       res.render.mockReset()
       res.redirect.mockReset()
       next.mockReset()
+      validationMock.mockReset()
 
       setSessionData(req, ['jobReview', id], mockData)
 
@@ -175,6 +200,17 @@ describe('JobReviewController', () => {
 
       expect(next).toHaveBeenCalledTimes(1)
       expect(res.render).toHaveBeenCalledTimes(0)
+    })
+
+    it('On validation error - Calls render with correct data', async () => {
+      validationMock.mockImplementation(() => errors)
+      setSessionData(req, ['job', id], mockData)
+      controller.post(req, res, next)
+
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobReview/index', {
+        ...mockData,
+        errors,
+      })
     })
   })
 })

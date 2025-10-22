@@ -78,11 +78,16 @@
       </a>
     </dd>
   </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
+  <div class="govuk-summary-list__row" id="sourceSecondary">
+    <dt class="govuk-summary-list__key {% if errors.sourceSecondary %}govuk-summary-list__key--invalid{% endif %}">
       Job source 2 (optional)
     </dt>
     <dd class="govuk-summary-list__value" data-qa="sourceSecondary">
+        {% if errors.sourceSecondary %}
+          <span id="sourceSecondary-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error: </span>{{ errors.sourceSecondary.text }}
+          </span>
+        {% endif %}
       {{ contentLookup.jobSource[sourceSecondary] if sourceSecondary else 'Not provided' }}
     </dd>
     <dd class="govuk-summary-list__actions">

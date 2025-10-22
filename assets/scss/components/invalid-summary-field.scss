@@ -1,0 +1,10 @@
+////
+/// @group components/invalid-summary-field
+////
+
+.govuk-summary-list__key--invalid {
+  padding-left: 10px;
+  border-left: 5px solid $govuk-error-colour;
+}
+
+

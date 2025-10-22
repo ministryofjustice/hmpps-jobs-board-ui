@@ -40,7 +40,7 @@ export default class EmployerUpdateController {
     try {
       // If validation errors render errors
       const data = getSessionData(req, ['employerUpdate', id, 'data'])
-      const errors = validateFormSchema(req, validationSchema())
+      const errors = validateFormSchema(req.body, validationSchema())
       if (errors) {
         res.render('pages/employers/employerUpdate/index', {
           ...data,

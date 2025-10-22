@@ -20,12 +20,8 @@ import YesNoValue from '../../../enums/yesNoValue'
 import logger from '../../../../logger'
 import getFirstErrorCode from '../../../utils/getFirstErrorCode'
 import config from '../../../config'
-import jobRequirementsUpdateValidationSchema from '../jobRequirementsUpdate/validationSchema'
-import jobRoleUpdateValidationSchema from '../jobRoleUpdate/validationSchema'
-import jobHowToApplyUpdateValidationSchema from '../jobHowToApplyUpdate/validationSchema'
-import jobContractUpdateValidationSchema from '../jobContractUpdate/validationSchema'
-import { validateReviewSchema } from '../../../utils/validateFormSchema'
-import { parseDateStringToBodyFields } from '../../../utils/parseBodyDateInput'
+import validateFormSchema from '../../../utils/validateFormSchema'
+import validationSchema from './validationSchema'
 
 export default class JobReviewController {
   constructor(private readonly jobService: JobService) {}
@@ -42,6 +38,8 @@ export default class JobReviewController {
         return
       }
 
+      const errors = validateFormSchema(job, validationSchema())
+
       // Render data
       const data = {
         id,
@@ -49,6 +47,7 @@ export default class JobReviewController {
         startDate: job.startDate && formatShortDate(new Date(job.startDate)),
         closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
         employerName: (allEmployers.find((p: { id: string }) => p.id === job.employerId) || {}).name,
+        errors,
       }
 
       // Set page data in session
@@ -68,21 +67,7 @@ export default class JobReviewController {
 
     try {
       const job = getSessionData(req, ['job', id])
-      const jobDataForValidation = {
-        ...job,
-        salaryFrom: job.salaryFrom.toString(),
-        salaryTo: job.salaryTo ? job.salaryTo.toString() : '',
-        startDate: parseDateStringToBodyFields(job.startDate, 'startDate'),
-        closingDate: parseDateStringToBodyFields(job.closingDate, 'closingDate'),
-        offenceExclusionsDetails: job.offenceExclusionsDetails || '',
-        numberOfVacancies: job.numberOfVacancies.toString(),
-      }
-      const errors = validateReviewSchema(jobDataForValidation, [
-        jobContractUpdateValidationSchema(),
-        jobHowToApplyUpdateValidationSchema(),
-        jobRequirementsUpdateValidationSchema(),
-        jobRoleUpdateValidationSchema(),
-      ])
+      const errors = validateFormSchema(job, validationSchema())
       if (errors) {
         res.render('pages/jobs/jobReview/index', {
           id,
