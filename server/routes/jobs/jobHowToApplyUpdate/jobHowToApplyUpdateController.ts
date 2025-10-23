@@ -23,6 +23,8 @@ export default class jobHowToApplyUpdateController {
         return
       }
 
+      const errors = mode === 'update' ? validateFormSchema(job, validationSchema()) : null
+
       // Render data
       const data = {
         id,
@@ -32,6 +34,7 @@ export default class jobHowToApplyUpdateController {
         supportingDocumentationRequired: job.supportingDocumentationRequired || [],
         startDate: getDateInputObject(job.startDate, 'startDate'),
         closingDate: getDateInputObject(job.closingDate, 'closingDate'),
+        errors,
       }
 
       // Set page data in session
@@ -69,7 +72,7 @@ export default class jobHowToApplyUpdateController {
 
       // If validation errors render errors
       const data = getSessionData(req, ['jobHowToApplyUpdate', id, 'data'])
-      const errors = validateFormSchema(req, validationSchema())
+      const errors = validateFormSchema(req.body, validationSchema())
 
       if (errors) {
         // Consolidate date input field errors

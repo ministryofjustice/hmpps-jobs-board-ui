@@ -94,7 +94,7 @@ export default class JobListController {
 
       // If validation errors render errors
       const data = getSessionData(req, ['jobList', 'data'])
-      const errors = validateFormSchema(req, validationSchema())
+      const errors = validateFormSchema(req.body, validationSchema())
 
       if (errors) {
         res.render('pages/jobs/jobList/index', {

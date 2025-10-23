@@ -4,7 +4,7 @@
   Errors section for top of page that parsed validation errors
     errors - validation errors object { fieldName: { text: 'error', href: 'fieldlink'}}
 #}
-{% macro errorSummary(errors) %}
+{% macro errorSummary(errors, titleText = "There is a problem") %}
   {% if errors %}
     {% 
       set errorList = []
@@ -15,7 +15,7 @@
     {% endfor %}
 
     {{ govukErrorSummary({
-        titleText: "There is a problem",
+        titleText: titleText,
         errorList: errorList
       }) }}
   {% endif %}

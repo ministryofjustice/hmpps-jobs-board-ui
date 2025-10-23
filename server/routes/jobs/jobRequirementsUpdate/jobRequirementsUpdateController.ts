@@ -20,6 +20,8 @@ export default class JobRequirementsUpdateController {
         return
       }
 
+      const errors = mode === 'update' ? validateFormSchema(job, validationSchema()) : null
+
       // Render data
       const data = {
         id,
@@ -27,6 +29,7 @@ export default class JobRequirementsUpdateController {
         backLocation: mode === 'add' ? addressLookup.jobs.jobContractUpdate(id) : addressLookup.jobs.jobReview(id),
         ...job,
         offenceExclusions: job.offenceExclusions || [],
+        errors,
       }
 
       // Set page data in session
@@ -46,7 +49,7 @@ export default class JobRequirementsUpdateController {
     try {
       // If validation errors render errors
       const data = getSessionData(req, ['jobRequirementsUpdate', id, 'data'])
-      const errors = validateFormSchema(req, validationSchema())
+      const errors = validateFormSchema(req.body, validationSchema())
       if (errors) {
         res.render('pages/jobs/jobRequirementsUpdate/index', {
           ...data,

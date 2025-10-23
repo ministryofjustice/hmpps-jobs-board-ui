@@ -41,14 +41,20 @@ describe('jobRoleUpdateController', () => {
         value: '01907e1e-bb85-7bb7-9018-33a2070a367d',
       },
     ],
+    errors: null as any,
   }
 
   const controller = new Controller()
 
   describe('#get(req, res)', () => {
+    const errors = { details: 'mock_error' }
+    const validationMock = validateFormSchema as jest.Mock
+
     beforeEach(() => {
       res.render.mockReset()
       next.mockReset()
+      req.params.mode = 'add'
+      validationMock.mockReset()
     })
 
     it('On error - Calls next with error', async () => {
@@ -58,6 +64,18 @@ describe('jobRoleUpdateController', () => {
       controller.get(req, res, next)
 
       expect(next).toHaveBeenCalledTimes(1)
+    })
+
+    it('On validation error - Calls render with correct data', async () => {
+      req.params.mode = 'update'
+      setSessionData(req, ['job', id], mockData)
+      validationMock.mockImplementation(() => errors)
+      controller.get(req, res, next)
+
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobRoleUpdate/index', {
+        ...mockData,
+        errors,
+      })
     })
 
     it('On success - Calls render with the correct data', async () => {

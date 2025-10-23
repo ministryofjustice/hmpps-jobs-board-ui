@@ -1,5 +1,4 @@
 import type { ObjectSchema } from 'joi'
-import type { Request } from 'express'
 
 export interface FormValidationErrors {
   [key: string]: { text: string; href: string }
@@ -12,8 +11,9 @@ export interface ErrorDetails {
   }
 }
 
-export default function validateFormSchema(req: Request, schema: ObjectSchema): FormValidationErrors | undefined {
-  const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export default function validateFormSchema(form: any, schema: ObjectSchema): FormValidationErrors | undefined {
+  const { error } = schema.validate(form, { abortEarly: false, allowUnknown: true })
 
   if (!error?.details) {
     return undefined

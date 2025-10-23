@@ -40,10 +40,15 @@
     </dd>
   </div>
   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
+    <dt class="govuk-summary-list__key {% if errors.offenceExclusionsDetails %}govuk-summary-list__key--invalid{% endif %}">
       Offence exclusions
     </dt>
-    <dd class="govuk-summary-list__value" data-qa="offenceExclusions">
+    <dd class="govuk-summary-list__value" id="offenceExclusionsDetails" data-qa="offenceExclusions">
+      {% if errors.offenceExclusionsDetails %}
+        <span id="offenceExclusionsDetails-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error: </span>{{ errors.offenceExclusionsDetails.text }}
+        </span>
+      {% endif %}
       {% for item in offenceExclusions %}
         <div>{{ contentLookup.offenceExclusions[item] }}{{ ' - ' + (offenceExclusionsDetails | nl2br | safe) if item === 'OTHER' }}{{ ',' if offenceExclusions.length !== loop.index }}</div>
       {% endfor %}

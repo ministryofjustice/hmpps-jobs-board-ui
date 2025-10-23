@@ -122,7 +122,7 @@ export default function validationSchema(): ObjectSchema {
     })
     .custom((values, helpers) => {
       if (values.sourcePrimary && values.sourceSecondary && values.sourcePrimary === values.sourceSecondary) {
-        return helpers.error('any.invalid')
+        return helpers.error('any.invalid', { key: 'sourceSecondary' })
       }
       return values
     })

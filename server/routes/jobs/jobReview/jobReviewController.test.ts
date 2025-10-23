@@ -5,9 +5,18 @@ import expressMocks from '../../../testutils/expressMocks'
 import { setSessionData } from '../../../utils'
 import addressLookup from '../../addressLookup'
 import config from '../../../config'
+import offenceExclusions from '../../../enums/offenceExclusions'
+import workPattern from '../../../enums/workPattern'
+import validateFormSchema from '../../../utils/validateFormSchema'
 
 const uuidv7 = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 jest.mock('uuid', () => ({ v7: () => uuidv7 }))
+
+jest.mock('../../../utils/validateFormSchema', () => ({
+  ...jest.requireActual('../../../utils/validateFormSchema'),
+  __esModule: true,
+  default: jest.fn(),
+}))
 
 describe('JobReviewController', () => {
   const { req, res, next } = expressMocks()
@@ -31,8 +40,27 @@ describe('JobReviewController', () => {
   const job = {
     employerId: '01907e1e-bb85-7bb7-9018-33a2070a367d',
     jobTitle: 'job title',
-    closingDate: '2025-02-01T00:00:00.000Z',
-    startDate: '2025-05-31T23:00:00.000Z',
+    closingDate: '2025-02-01',
+    startDate: '2025-05-31',
+    contractType: 'PERMANENT',
+    description: 'job description',
+    essentialCriteria: 'requirements',
+    hoursPerWeek: 'FULL_TIME',
+    howToApply: 'how to apply',
+    industrySector: 'ADMIN_SUPPORT',
+    isOnlyForPrisonLeavers: 'NO',
+    isPayingAtLeastNationalMinimumWage: 'YES',
+    isRollingOpportunity: 'NO',
+    numberOfVacancies: '1',
+    offenceExclusions: [offenceExclusions.CASE_BY_CASE],
+    offenceExclusionsDetails: 'offence exclusions details',
+    postCode: 'AB1 2CD',
+    salaryFrom: '20000',
+    salaryTo: '30000',
+    salaryPeriod: 'PER_YEAR',
+    sector: 'RETAIL',
+    sourcePrimary: 'DWP',
+    workPattern: workPattern.FLEXI_TIME,
   }
 
   const mockData = {
@@ -40,7 +68,7 @@ describe('JobReviewController', () => {
     ...job,
     employerName: 'ASDA',
     closingDate: '1 February 2025',
-    startDate: '1 June 2025',
+    startDate: '31 May 2025',
   }
 
   setSessionData(req, ['job', id], job)
@@ -52,9 +80,13 @@ describe('JobReviewController', () => {
   const controller = new Controller(mockService)
 
   describe('#get(req, res)', () => {
+    const errors = { details: 'mock_error' }
+    const validationMock = validateFormSchema as jest.Mock
+
     beforeEach(() => {
       res.render.mockReset()
       next.mockReset()
+      validationMock.mockReset()
     })
 
     it('On error - Calls next with error', async () => {
@@ -64,6 +96,17 @@ describe('JobReviewController', () => {
       controller.get(req, res, next)
 
       expect(next).toHaveBeenCalledTimes(1)
+    })
+
+    it('On validation error - Calls render with correct data', async () => {
+      setSessionData(req, ['job', id], mockData)
+      validationMock.mockImplementation(() => errors)
+      controller.get(req, res, next)
+
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobReview/index', {
+        ...mockData,
+        errors,
+      })
     })
 
     it('On success - Calls render with the correct data', async () => {
@@ -78,11 +121,14 @@ describe('JobReviewController', () => {
 
   describe('#post(req, res)', () => {
     const auditSpy = jest.spyOn(auditService, 'sendAuditMessage')
+    const errors = { details: 'mock_error' }
+    const validationMock = validateFormSchema as jest.Mock
 
     beforeEach(() => {
       res.render.mockReset()
       res.redirect.mockReset()
       next.mockReset()
+      validationMock.mockReset()
 
       setSessionData(req, ['jobReview', id], mockData)
 
@@ -154,6 +200,17 @@ describe('JobReviewController', () => {
 
       expect(next).toHaveBeenCalledTimes(1)
       expect(res.render).toHaveBeenCalledTimes(0)
+    })
+
+    it('On validation error - Calls render with correct data', async () => {
+      validationMock.mockImplementation(() => errors)
+      setSessionData(req, ['job', id], mockData)
+      controller.post(req, res, next)
+
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobReview/index', {
+        ...mockData,
+        errors,
+      })
     })
   })
 })

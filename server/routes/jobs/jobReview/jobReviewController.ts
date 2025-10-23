@@ -20,6 +20,8 @@ import YesNoValue from '../../../enums/yesNoValue'
 import logger from '../../../../logger'
 import getFirstErrorCode from '../../../utils/getFirstErrorCode'
 import config from '../../../config'
+import validateFormSchema from '../../../utils/validateFormSchema'
+import validationSchema from './validationSchema'
 
 export default class JobReviewController {
   constructor(private readonly jobService: JobService) {}
@@ -36,6 +38,8 @@ export default class JobReviewController {
         return
       }
 
+      const errors = validateFormSchema(job, validationSchema())
+
       // Render data
       const data = {
         id,
@@ -43,6 +47,7 @@ export default class JobReviewController {
         startDate: job.startDate && formatShortDate(new Date(job.startDate)),
         closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
         employerName: (allEmployers.find((p: { id: string }) => p.id === job.employerId) || {}).name,
+        errors,
       }
 
       // Set page data in session
@@ -62,6 +67,18 @@ export default class JobReviewController {
 
     try {
       const job = getSessionData(req, ['job', id])
+      const errors = validateFormSchema(job, validationSchema())
+      if (errors) {
+        res.render('pages/jobs/jobReview/index', {
+          id,
+          ...job,
+          employerName: (req.context.allEmployers || []).find((p: { id: string }) => p.id === job.employerId)?.name,
+          startDate: job.startDate && formatShortDate(new Date(job.startDate)),
+          closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
+          errors,
+        })
+        return
+      }
 
       // Update application progress API
       const jobUpdate = {

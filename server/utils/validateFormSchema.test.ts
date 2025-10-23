@@ -16,7 +16,7 @@ describe('#validateFormSchema', () => {
     })
 
     req.body = { name: 'Test-1', age: 30 }
-    const result = validateFormSchema(req, schema)
+    const result = validateFormSchema(req.body, schema)
     expect(result).toBeUndefined()
   })
 
@@ -27,7 +27,7 @@ describe('#validateFormSchema', () => {
     })
 
     req.body = { name: 'Test-1', age: -1 }
-    const result = validateFormSchema(req, schema)
+    const result = validateFormSchema(req.body, schema)
 
     expect(result).toBeDefined()
     expect(Object.keys(result).length).toBe(1)
