@@ -127,6 +127,14 @@ describe('validationSchema', () => {
     expect(error).toBeFalsy()
   })
 
+  it('On validation success - should allow a salaryTo being null', () => {
+    req.body.salaryTo = null
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeFalsy()
+  })
+
   it('On validation error - should disallow a salaryTo being a non numeric value', () => {
     req.body.salaryTo = 'abc'
 
