@@ -22,6 +22,8 @@ export default class JobReviewPage extends Page {
 
   charityName = (): PageElement => cy.get('[data-qa=charityName]')
 
+  isNational = (): PageElement => cy.get('[data-qa=isNational]')
+
   postCode = (): PageElement => cy.get('[data-qa=postCode]')
 
   salaryFrom = (): PageElement => cy.get('[data-qa=salaryFrom]')

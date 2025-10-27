@@ -23,7 +23,7 @@ describe('jobIsNationalController', () => {
   const mockData = {
     id,
     mode,
-    backLocation: '/jobs?sort=jobTitle&order=ascending',
+    backLocation: `/jobs/job/new/role/${mode}`,
   }
 
   const controller = new Controller()
@@ -85,6 +85,7 @@ describe('jobIsNationalController', () => {
       controller.post(req, res, next)
 
       expect(res.render).toHaveBeenCalledWith('pages/jobs/jobIsNationalUpdate/index', {
+        ...mockData,
         errors,
       })
     })

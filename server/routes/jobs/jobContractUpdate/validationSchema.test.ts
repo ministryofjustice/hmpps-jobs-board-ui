@@ -31,19 +31,39 @@ describe('validationSchema', () => {
     expect(error).toBeFalsy()
   })
 
-  it('On validation error - should disallow a postCode being blank', () => {
+  it('On validation error - should disallow a postCode being blank for a non-national job', () => {
     req.body.postCode = ''
 
-    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+    const { error } = schema.validate(req.body, {
+      abortEarly: false,
+      allowUnknown: true,
+      context: { isNational: false },
+    })
 
     expect(error).toBeTruthy()
     expect(error.details[0].message).toBe('Enter a job location')
   })
 
+  it('On validation success - should allow a postCode being blank for a national job', () => {
+    req.body.postCode = ''
+
+    const { error } = schema.validate(req.body, {
+      abortEarly: false,
+      allowUnknown: true,
+      context: { isNational: true },
+    })
+
+    expect(error).toBeUndefined()
+  })
+
   it('On validation error - should disallow an invalid postCode', () => {
     req.body.postCode = 'dhajgdjahsgd'
 
-    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+    const { error } = schema.validate(req.body, {
+      abortEarly: false,
+      allowUnknown: true,
+      context: { isNational: false },
+    })
 
     expect(error).toBeTruthy()
     expect(error.details[0].message).toBe('Job location must be a valid postcode')
@@ -52,7 +72,11 @@ describe('validationSchema', () => {
   it('On validation error - should disallow an invalid postCode without space', () => {
     req.body.postCode = 'NE157LR'
 
-    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+    const { error } = schema.validate(req.body, {
+      abortEarly: false,
+      allowUnknown: true,
+      context: { isNational: false },
+    })
 
     expect(error).toBeTruthy()
     expect(error.details[0].message).toBe('Job location must be a valid postcode')

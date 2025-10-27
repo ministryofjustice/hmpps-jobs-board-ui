@@ -61,8 +61,6 @@ export default class JobIsNationalUpdateController {
         if (job.isNational === YesNoValue.YES && isNational === YesNoValue.NO) {
           // Changing job from national to regional - need to update postcode info on the contract page.
           nextPage = addressLookup.jobs.jobContractUpdate(id, mode)
-        } else if (job.isNational === YesNoValue.NO && isNational === YesNoValue.YES) {
-          nextPage = addressLookup.jobs.jobReview(id)
         } else {
           nextPage = addressLookup.jobs.jobReview(id)
         }
@@ -73,7 +71,8 @@ export default class JobIsNationalUpdateController {
       setSessionData(req, ['job', id], {
         ...job,
         isNational,
-        isNationalChanged: mode === 'update' ? job.isNational !== isNational : false,
+        isNationalChanged:
+          mode === 'update' ? job.isNational === YesNoValue.YES && isNational === YesNoValue.NO : false,
       })
 
       // Redirect to next page in flow
