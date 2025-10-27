@@ -4,8 +4,9 @@ import { getSessionData, setSessionData, validateFormSchema } from '../../../uti
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import logger from '../../../../logger'
+import YesNoValue from '../../../enums/yesNoValue'
 
-export default class JobIsNationalController {
+export default class JobIsNationalUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
     const { mode, id } = req.params
 
@@ -13,7 +14,7 @@ export default class JobIsNationalController {
       const job = getSessionData(req, ['job', id])
       if (!job && mode === 'update') {
         logger.error('Error rendering page - Is this a national job - No record found in session')
-        res.redirect(addressLookup.jobsv2.jobIsThisNational('new'))
+        res.redirect(addressLookup.jobs.jobIsNationalUpdate('new'))
         return
       }
 
@@ -21,17 +22,14 @@ export default class JobIsNationalController {
       const data = {
         id,
         mode,
-        backLocation:
-          mode === 'add'
-            ? `${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`
-            : addressLookup.jobsv2.jobAddEmployer(id),
+        backLocation: mode === 'add' ? addressLookup.jobs.jobRoleUpdate(id) : addressLookup.jobs.jobReview(id),
         ...(job || {}),
       }
 
       // Set page data in session
-      setSessionData(req, ['jobIsNational', id, 'data'], data)
+      setSessionData(req, ['jobIsNationalUpdate', id, 'data'], data)
 
-      res.render('pages/jobsv2/jobIsNational/index', { ...data })
+      res.render('pages/jobs/jobIsNationalUpdate/index', { ...data })
     } catch (err) {
       logger.error('Error rendering page = Is National Job')
       next(err)
@@ -40,14 +38,14 @@ export default class JobIsNationalController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id, mode } = req.params
-    const { employerId } = req.body
+    const { isNational } = req.body
 
     try {
       // If validation errors render errors
-      const data = getSessionData(req, ['jobIsNationalJob', id, 'data'])
-      const errors = validateFormSchema(req, validationSchema())
+      const data = getSessionData(req, ['jobIsNationalUpdate', id, 'data'])
+      const errors = validateFormSchema(req.body, validationSchema())
       if (errors) {
-        res.render('pages/jobsv2/jobIsNational/index', {
+        res.render('pages/jobs/jobIsNationalUpdate/index', {
           ...data,
           ...req.body,
           errors,
@@ -57,13 +55,29 @@ export default class JobIsNationalController {
 
       // Update job in session
       const job = getSessionData(req, ['job', id], {})
+
+      let nextPage: string
+      if (mode === 'update') {
+        if (job.isNational === YesNoValue.YES && isNational === YesNoValue.NO) {
+          // Changing job from national to regional - need to update postcode info on the contract page.
+          nextPage = addressLookup.jobs.jobContractUpdate(id, mode)
+        } else if (job.isNational === YesNoValue.NO && isNational === YesNoValue.YES) {
+          nextPage = addressLookup.jobs.jobReview(id)
+        } else {
+          nextPage = addressLookup.jobs.jobReview(id)
+        }
+      } else {
+        nextPage = addressLookup.jobs.jobContractUpdate(id)
+      }
+
       setSessionData(req, ['job', id], {
         ...job,
-        employerId,
+        isNational,
+        isNationalChanged: mode === 'update' ? job.isNational !== isNational : false,
       })
 
       // Redirect to next page in flow
-      res.redirect(mode === 'add' ? addressLookup.jobsv2.jobRoleUpdateNational(id) : addressLookup.jobs.jobReview(id))
+      res.redirect(nextPage)
     } catch (err) {
       logger.error('Error posting form - Job is this a national job')
       next(err)

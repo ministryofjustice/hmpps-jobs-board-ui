@@ -88,11 +88,7 @@ export default class JobListController {
 
     try {
       if (Object.prototype.hasOwnProperty.call(req.body, 'addJobButton')) {
-        if (res.locals.useNationalJobs) {
-          res.redirect(addressLookup.jobsv2.jobIsThisNational('new'))
-        } else {
-          res.redirect(addressLookup.jobs.jobRoleUpdate('new'))
-        }
+        res.redirect(addressLookup.jobs.jobRoleUpdate('new'))
         return
       }
 

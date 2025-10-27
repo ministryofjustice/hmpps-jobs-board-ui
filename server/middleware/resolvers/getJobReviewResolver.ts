@@ -28,6 +28,7 @@ const getJobReviewResolver =
         isPayingAtLeastNationalMinimumWage: job.isPayingAtLeastNationalMinimumWage ? YesNoValue.YES : YesNoValue.NO,
         isRollingOpportunity: job.isRollingOpportunity ? YesNoValue.YES : YesNoValue.NO,
         isOnlyForPrisonLeavers: job.isOnlyForPrisonLeavers ? YesNoValue.YES : YesNoValue.NO,
+        isNational: job.isNational ? YesNoValue.YES : YesNoValue.NO,
       })
 
       next()

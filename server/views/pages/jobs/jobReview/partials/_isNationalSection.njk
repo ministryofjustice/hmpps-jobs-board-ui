@@ -1,0 +1,16 @@
+<h2 class="govuk-heading-m">National job</h2>
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      National job
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="isNational">
+      {{ contentLookup.yesNo[isNational] }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobIsNationalUpdate(id, 'update') + '#isNational' }}" data-qa="isNationalLink">
+        Change<span class="govuk-visually-hidden"> employer name</span>
+      </a>
+    </dd>
+  </div>
+</dl>

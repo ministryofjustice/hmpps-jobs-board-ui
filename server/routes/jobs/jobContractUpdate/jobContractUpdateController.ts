@@ -4,6 +4,7 @@ import { getSessionData, setSessionData, validateFormSchema } from '../../../uti
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import logger from '../../../../logger'
+import YesNoValue from '../../../enums/yesNoValue'
 
 export default class JobContractUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
@@ -20,12 +21,27 @@ export default class JobContractUpdateController {
       }
 
       const errors = mode === 'update' ? validateFormSchema(job, validationSchema()) : null
+      // Calculate the back location.
+      // When updating a job, if changing a job from national -> non-national, the national job page routes to this page to allow the
+      // user to enter a postcode for the job. In this scenario, the back link should go to the national job page, not the review page.
+      let backLocation: string
+      if (mode === 'add') {
+        backLocation =
+          res.locals.useNationalJobs === true
+            ? addressLookup.jobs.jobIsNationalUpdate(id)
+            : addressLookup.jobs.jobRoleUpdate(id)
+      } else {
+        backLocation =
+          res.locals.useNationalJobs === true && job.isNationalChanged
+            ? addressLookup.jobs.jobIsNationalUpdate(id, mode)
+            : addressLookup.jobs.jobReview(id)
+      }
 
       // Render data
       const data = {
         id,
         mode,
-        backLocation: mode === 'add' ? addressLookup.jobs.jobRoleUpdate(id) : addressLookup.jobs.jobReview(id),
+        backLocation,
         ...job,
         errors,
       }
@@ -43,7 +59,7 @@ export default class JobContractUpdateController {
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id, mode } = req.params
     const {
-      postCode,
+      postCode = null,
       salaryFrom,
       salaryTo,
       salaryPeriod,
@@ -55,10 +71,14 @@ export default class JobContractUpdateController {
       baseLocation,
     } = req.body
 
+    const job = getSessionData(req, ['job', id])
+
     try {
       // If validation errors render errors
       const data = getSessionData(req, ['jobContractUpdate', id, 'data'])
-      const errors = validateFormSchema(req.body, validationSchema())
+      const errors = validateFormSchema(req.body, validationSchema(), {
+        isNational: res.locals.useNationalJobs && job.isNational === YesNoValue.YES,
+      })
       if (errors) {
         res.render('pages/jobs/jobContractUpdate/index', {
           ...data,
@@ -69,7 +89,6 @@ export default class JobContractUpdateController {
       }
 
       // Update job in session
-      const job = getSessionData(req, ['job', id])
       setSessionData(req, ['job', id], {
         ...job,
         postCode,

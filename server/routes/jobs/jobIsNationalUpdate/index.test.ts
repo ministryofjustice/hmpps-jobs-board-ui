@@ -1,13 +1,11 @@
 import { Router } from 'express'
-import Controller from './jobRoleUpdateController'
+import Controller from './jobIsNationalUpdateController'
 import routes from './index'
 import { Services } from '../../../services'
-import getAllEmployersResolver from '../../../middleware/resolvers/getAllEmployersResolver'
 
-jest.mock('./jobRoleUpdateController')
-jest.mock('../../../middleware/resolvers/getAllEmployersResolver')
+jest.mock('./jobIsNationalUpdateController')
 
-describe('jobRoleUpdate routes', () => {
+describe('jobIsNationalUpdate routes', () => {
   let router: Router
   let services: Services
   beforeEach(() => {
@@ -19,17 +17,13 @@ describe('jobRoleUpdate routes', () => {
       get: jest.fn(),
       post: jest.fn(),
     }))
-    ;(getAllEmployersResolver as jest.Mock).mockImplementation(() => jest.fn())
   })
 
   it('should register GET route for page', () => {
     routes(router, services)
 
     expect(router.get).toHaveBeenCalledWith(
-      '/jobsv2/job/:id/role/:mode',
-      [
-        expect.any(Function), // getAllEmployersResolver
-      ],
+      '/jobs/job/:id/is-this-national-job/:mode',
       expect.any(Function), // controller.get
     )
   })
@@ -38,8 +32,8 @@ describe('jobRoleUpdate routes', () => {
     routes(router, services)
 
     expect(router.post).toHaveBeenCalledWith(
-      '/jobsv2/job/:id/role/:mode',
-      expect.any(Function), // controller.get
+      '/jobs/job/:id/is-this-national-job/:mode',
+      expect.any(Function), // controller.post
     )
   })
 })

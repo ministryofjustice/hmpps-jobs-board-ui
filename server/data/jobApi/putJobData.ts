@@ -10,7 +10,7 @@ import SupportingDocumentation from '../../enums/supportingDocumentation'
 import JobSource from '../../enums/jobSource'
 
 interface PutJobData {
-  // First page
+  // Job Role page
   employerId: string // Id of employer
   jobTitle: string // Length 50
   sector: JobSector
@@ -20,8 +20,11 @@ interface PutJobData {
   sourceSecondary?: JobSource
   charityName?: string // length 100
 
-  // Second page
-  postCode: string
+  // Is National Job page
+  isNational: boolean
+
+  // Contract and Location page
+  postCode?: string
   salaryFrom: number // Float, 2 decimal places
   salaryTo?: number // Float, 2 decimal places
   salaryPeriod: SalaryPeriod
@@ -32,14 +35,14 @@ interface PutJobData {
   hoursPerWeek: Hours
   baseLocation?: BaseLocation
 
-  // Third page
+  // Requirements page
   essentialCriteria: string // length 1000
   desirableCriteria?: string // length 1000
   description: string // length 3000
   offenceExclusions: OffenceExclusions[]
   offenceExclusionsDetails?: string // length 500
 
-  // Fourth page
+  // How To Apply page
   howToApply: string // length 1000
   closingDate: string // Datetime string
   startDate?: string // Datetime string

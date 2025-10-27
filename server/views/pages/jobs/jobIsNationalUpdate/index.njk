@@ -31,7 +31,7 @@
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
 
                 {{ govukRadios({
-                    name: "isNationalJob",
+                    name: "isNational",
                     hint: {
                         text: "National jobs do not have a single hiring location. Select no if you know the postcode for the job."
                     },
@@ -39,16 +39,15 @@
                         {
                             value: "YES",
                             text: contentLookup.yesNo["YES"] + ", this is a national job",
-                            checked: isNationalJob === "YES"
+                            checked: isNational === "YES"
                         },
                         {
                             value: "NO",
                             text: contentLookup.yesNo["NO"] + ", the job has a specific hiring location",
-                            checked: isNationalJob === "NO",
-                            attributes: { "aria-label": contentLookup.yesNo["NO"] + " (Opens a dialogue box)" }
+                            checked: isNational === "NO"
                         }
                     ],
-                    errorMessage: errors.isNationalJob
+                    errorMessage: errors.isNational
                 }) }}
 
                 {{ govukButton({
