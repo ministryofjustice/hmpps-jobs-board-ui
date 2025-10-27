@@ -23,17 +23,20 @@ export default class jobHowToApplyUpdateController {
         return
       }
 
-      const errors = mode === 'update' ? validateFormSchema(job, validationSchema()) : null
+      const jobToRender = {
+        ...job,
+        supportingDocumentationRequired: job.supportingDocumentationRequired || [],
+        startDate: getDateInputObject(job.startDate, 'startDate'),
+        closingDate: getDateInputObject(job.closingDate, 'closingDate'),
+      }
+      const errors = mode === 'update' ? validateFormSchema(jobToRender, validationSchema()) : null
 
       // Render data
       const data = {
         id,
         mode,
         backLocation: mode === 'add' ? addressLookup.jobs.jobRequirementsUpdate(id) : addressLookup.jobs.jobReview(id),
-        ...job,
-        supportingDocumentationRequired: job.supportingDocumentationRequired || [],
-        startDate: getDateInputObject(job.startDate, 'startDate'),
-        closingDate: getDateInputObject(job.closingDate, 'closingDate'),
+        ...jobToRender,
         errors,
       }
 
