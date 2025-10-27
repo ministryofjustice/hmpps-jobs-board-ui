@@ -63,6 +63,7 @@ describe('getJobReviewResolver Middleware', () => {
       isPayingAtLeastNationalMinimumWage: YesNoValue.YES,
       isRollingOpportunity: YesNoValue.NO,
       isOnlyForPrisonLeavers: YesNoValue.YES,
+      isNational: YesNoValue.NO,
     })
     expect(next).toHaveBeenCalled()
   })

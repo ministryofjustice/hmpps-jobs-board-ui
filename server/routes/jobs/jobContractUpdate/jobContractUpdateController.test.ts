@@ -30,6 +30,7 @@ describe('jobContractUpdateController', () => {
     id,
     mode,
     backLocation: '/jobs/job/new/role/add',
+    postCode: '',
     errors: null as any,
   }
 
