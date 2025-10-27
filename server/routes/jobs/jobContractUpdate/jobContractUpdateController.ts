@@ -20,7 +20,12 @@ export default class JobContractUpdateController {
         return
       }
 
-      const errors = mode === 'update' ? validateFormSchema(job, validationSchema()) : null
+      const jobToRender = {
+        ...job,
+        postCode: job.postCode || '',
+      }
+
+      const errors = mode === 'update' ? validateFormSchema(jobToRender, validationSchema()) : null
       // Calculate the back location.
       // When updating a job, if changing a job from national -> non-national, the national job page routes to this page to allow the
       // user to enter a postcode for the job. In this scenario, the back link should go to the national job page, not the review page.
@@ -42,7 +47,7 @@ export default class JobContractUpdateController {
         id,
         mode,
         backLocation,
-        ...job,
+        ...jobToRender,
         errors,
       }
 
