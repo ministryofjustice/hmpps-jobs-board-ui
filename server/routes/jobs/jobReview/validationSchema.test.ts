@@ -38,6 +38,15 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Enter details of the other offence exclusions')
   })
 
+  it('On validation success - should allow offenceExclusionsDetails being null if offenceExclusions does not include OTHER', () => {
+    req.body.offenceExclusions = ['NONE']
+    req.body.offenceExclusionsDetails = null
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeFalsy()
+  })
+
   it('On validation error - should disallow a offenceExclusionsDetails longer than 100 characters', () => {
     req.body.offenceExclusions = ['NONE', 'OTHER']
     req.body.offenceExclusionsDetails = 'x'.repeat(501)

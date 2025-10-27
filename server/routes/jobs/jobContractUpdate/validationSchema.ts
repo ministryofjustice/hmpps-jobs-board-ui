@@ -45,6 +45,7 @@ export default function validationSchema(): ObjectSchema {
       }),
     salaryTo: joi
       .number()
+      .allow(null)
       .empty('')
       .min(1)
       .max(10000000)

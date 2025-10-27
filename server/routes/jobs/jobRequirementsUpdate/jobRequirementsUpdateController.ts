@@ -20,15 +20,18 @@ export default class JobRequirementsUpdateController {
         return
       }
 
-      const errors = mode === 'update' ? validateFormSchema(job, validationSchema()) : null
+      const jobToRender = {
+        ...job,
+        offenceExclusions: job.offenceExclusions || [],
+      }
+      const errors = mode === 'update' ? validateFormSchema(jobToRender, validationSchema()) : null
 
       // Render data
       const data = {
         id,
         mode,
         backLocation: mode === 'add' ? addressLookup.jobs.jobContractUpdate(id) : addressLookup.jobs.jobReview(id),
-        ...job,
-        offenceExclusions: job.offenceExclusions || [],
+        ...jobToRender,
         errors,
       }
 

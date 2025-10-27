@@ -52,7 +52,7 @@ export default function validationSchema(): ObjectSchema {
         'any.required': 'Enter details of the other offence exclusions',
         'string.pattern.base': "'Other exclusions' can only include letters, numbers and spaces",
       }),
-      otherwise: joi.string().allow('').optional(),
+      otherwise: joi.string().allow('', null).optional(),
     }),
   })
 }
