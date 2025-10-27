@@ -1,18 +1,20 @@
 <h2 class="govuk-heading-m">Location and contract details</h2>
 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      Job location
-    </dt>
-    <dd class="govuk-summary-list__value" data-qa="postCode">
-      {{ postCode }}
-    </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#postCode' }}" data-qa="postCodeLink">
-        Change<span class="govuk-visually-hidden"> job location</span>
-      </a>
-    </dd>
-  </div>
+  {% if useNationalJobs === false or isNational === 'NO' %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Job location
+        </dt>
+        <dd class="govuk-summary-list__value" data-qa="postCode">
+          {{ postCode }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#postCode' }}" data-qa="postCodeLink">
+            Change<span class="govuk-visually-hidden"> job location</span>
+          </a>
+        </dd>
+      </div>
+  {% endif %}
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
       Salary from

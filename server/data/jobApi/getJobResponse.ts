@@ -18,7 +18,8 @@ interface GetJobResponse {
   JobsourcePrimary: JobSource
   sourceSecondary?: JobSource
   charityName?: string
-  postCode: string
+  postCode?: string
+  isNational: boolean
   salaryFrom: number
   salaryTo?: number
   salaryPeriod: SalaryPeriod

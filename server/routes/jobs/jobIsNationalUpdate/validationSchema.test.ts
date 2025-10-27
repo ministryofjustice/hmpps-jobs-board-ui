@@ -8,7 +8,7 @@ describe('validationSchema', () => {
   const schema = validationSchema()
 
   beforeEach(() => {
-    req.body.isNationalJob = YesNoValue.YES
+    req.body.isNational = YesNoValue.YES
   })
 
   it('On validation success - should allow all valid values', () => {
@@ -17,8 +17,8 @@ describe('validationSchema', () => {
     expect(error).toBeFalsy()
   })
 
-  it('On validation error - should disallow a isNationalJob being blank', () => {
-    req.body.isNationalJob = ''
+  it('On validation error - should disallow isNational being blank', () => {
+    req.body.isNational = ''
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 
@@ -26,8 +26,8 @@ describe('validationSchema', () => {
     expect(error.details[0].message).toBe('Select if this is a national job')
   })
 
-  it('On validation error - should disallow a isNationalJob being an invalid value', () => {
-    req.body.isNationalJob = 'SOME_VALUE'
+  it('On validation error - should disallow isNational being an invalid value', () => {
+    req.body.isNational = 'SOME_VALUE'
 
     const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
 

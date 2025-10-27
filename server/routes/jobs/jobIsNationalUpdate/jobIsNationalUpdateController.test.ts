@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Controller from './jobIsNationalController'
+import Controller from './jobIsNationalUpdateController'
 import expressMocks from '../../../testutils/expressMocks'
 import validateFormSchema from '../../../utils/validateFormSchema'
 import { setSessionData } from '../../../utils/session'
@@ -46,7 +46,7 @@ describe('jobIsNationalController', () => {
     it('On success - Calls render with the correct data', async () => {
       controller.get(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/jobsv2/jobIsNational/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobIsNationalUpdate/index', {
         ...mockData,
       })
       expect(next).toHaveBeenCalledTimes(0)
@@ -84,17 +84,17 @@ describe('jobIsNationalController', () => {
       validationMock.mockImplementation(() => errors)
       controller.post(req, res, next)
 
-      expect(res.render).toHaveBeenCalledWith('pages/jobsv2/jobIsNational/index', {
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobIsNationalUpdate/index', {
         errors,
       })
     })
 
-    it('On success - Sets session and redirects to jobRoleUpdate', async () => {
+    it('On success - Sets session and redirects to jobContractUpdate', async () => {
       req.body.employerId = 'test id'
 
       controller.post(req, res, next)
 
-      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobsv2.jobRoleUpdateNational(id, mode))
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobContractUpdate(id, mode))
     })
   })
 })

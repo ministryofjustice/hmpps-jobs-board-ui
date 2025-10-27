@@ -87,7 +87,15 @@ export default class JobRoleUpdateController {
       })
 
       // Redirect to next page in flow
-      res.redirect(mode === 'add' ? addressLookup.jobs.jobContractUpdate(id) : addressLookup.jobs.jobReview(id))
+      if (mode === 'add') {
+        res.redirect(
+          res.locals.useNationalJobs === true
+            ? addressLookup.jobs.jobIsNationalUpdate(id)
+            : addressLookup.jobs.jobContractUpdate(id),
+        )
+      } else {
+        res.redirect(addressLookup.jobs.jobReview(id))
+      }
     } catch (err) {
       logger.error('Error posting form - Job role')
       next(err)

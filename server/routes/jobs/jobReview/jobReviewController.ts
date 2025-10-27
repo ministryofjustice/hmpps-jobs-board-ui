@@ -112,6 +112,7 @@ export default class JobReviewController {
         isOnlyForPrisonLeavers: job.isOnlyForPrisonLeavers === YesNoValue.YES,
         supportingDocumentationRequired: job.supportingDocumentationRequired as SupportingDocumentation[],
         supportingDocumentationDetails: job.supportingDocumentationDetails,
+        isNational: res.locals.useNationalJobs === true ? job.isNational === YesNoValue.YES : false,
       }
 
       const create = _.trim(id.toString()) === 'new'
