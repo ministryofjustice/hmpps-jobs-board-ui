@@ -16,26 +16,44 @@ context('Sign In', () => {
     cy.visit('/jobs')
   })
 
-  it('Add employer flow', () => {
+  it('Add job flow', () => {
+    cy.checkFeatureToggle('nationalJobs', isEnabled => {
+      cy.wrap(isEnabled).as('nationalJobsEnabled')
+    })
     const jobListPage = new JobListPage('Add jobs and employers')
 
     jobListPage.addJobButton().click()
 
     const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
-    jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 5')
+    cy.get('@nationalJobsEnabled').then(isEnabled => {
+      if (isEnabled) {
+        jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 6')
+      } else {
+        jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 5')
+      }
+    })
 
     jobRoleUpdatePage.backLink().click()
 
     jobListPage.heading().contains('Add jobs and employers')
   })
 
-  it('Update employer flow', () => {
+  it('Update job flow', () => {
+    cy.checkFeatureToggle('nationalJobs', isEnabled => {
+      cy.wrap(isEnabled).as('nationalJobsEnabled')
+    })
     const jobListPage = new JobListPage('Add jobs and employers')
 
     jobListPage.jobLink(1).click()
 
     const jobReviewPage = new JobReviewPage('Warehouse operator')
-    jobReviewPage.headerCaption().contains('Update a job - step 5 of 5')
+    cy.get('@nationalJobsEnabled').then(isEnabled => {
+      if (isEnabled) {
+        jobReviewPage.headerCaption().contains('Update a job - step 6 of 6')
+      } else {
+        jobReviewPage.headerCaption().contains('Update a job - step 5 of 5')
+      }
+    })
   })
 
   it('Check pagination', () => {
