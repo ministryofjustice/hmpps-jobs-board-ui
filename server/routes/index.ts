@@ -15,7 +15,7 @@ export default function routes(services: Services): Router {
   jobsRoutes(router, services)
 
   // API routes
-  apiRoutes(router, services)
+  apiRoutes(router)
 
   return router
 }

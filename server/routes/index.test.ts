@@ -34,6 +34,6 @@ describe('Server routes', () => {
     routes(services as any)
     expect(employersRoutes).toHaveBeenCalledWith(router, services)
     expect(jobsRoutes).toHaveBeenCalledWith(router, services)
-    expect(apiRoutes).toHaveBeenCalledWith(router, services)
+    expect(apiRoutes).toHaveBeenCalledWith(router)
   })
 })
