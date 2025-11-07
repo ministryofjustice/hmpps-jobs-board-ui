@@ -68,7 +68,6 @@ generic-service:
       - prisons
       - moj_cloud_platform
       - private_prisons
-      - prisons-education
 
 generic-prometheus-alerts:
   targetApplication: hmpps-jobs-board-ui
