@@ -90,7 +90,7 @@ export default class JobReviewController {
         sourcePrimary: job.sourcePrimary as JobSource,
         sourceSecondary: job.sourceSecondary as JobSource,
         charityName: job.charityName,
-        postCode: job.postCode,
+        postCode: res.locals.useNationalJobs === true && job.isNational === YesNoValue.YES ? null : job.postCode,
         salaryFrom: job.salaryFrom,
         salaryTo: job.salaryTo,
         salaryPeriod: job.salaryPeriod as SalaryPeriod,
@@ -112,6 +112,7 @@ export default class JobReviewController {
         isOnlyForPrisonLeavers: job.isOnlyForPrisonLeavers === YesNoValue.YES,
         supportingDocumentationRequired: job.supportingDocumentationRequired as SupportingDocumentation[],
         supportingDocumentationDetails: job.supportingDocumentationDetails,
+        isNational: res.locals.useNationalJobs === true ? job.isNational === YesNoValue.YES : false,
       }
 
       const create = _.trim(id.toString()) === 'new'

@@ -8,6 +8,7 @@ export default {
     jobList: () => '/jobs',
     jobReview: (id: string) => `/jobs/job/${id}`,
     jobRoleUpdate: (id: string, mode = 'add') => `/jobs/job/${id}/role/${mode}`,
+    jobIsNationalUpdate: (id: string, mode = 'add') => `/jobs/job/${id}/is-this-national-job/${mode}`,
     jobContractUpdate: (id: string, mode = 'add') => `/jobs/job/${id}/contract/${mode}`,
     jobRequirementsUpdate: (id: string, mode = 'add') => `/jobs/job/${id}/requirements/${mode}`,
     jobHowToApplysUpdate: (id: string, mode = 'add') => `/jobs/job/${id}/how-to-apply/${mode}`,

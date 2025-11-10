@@ -12,8 +12,12 @@ export interface ErrorDetails {
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export default function validateFormSchema(form: any, schema: ObjectSchema): FormValidationErrors | undefined {
-  const { error } = schema.validate(form, { abortEarly: false, allowUnknown: true })
+export default function validateFormSchema(
+  form: any,
+  schema: ObjectSchema,
+  context: any = {},
+): FormValidationErrors | undefined {
+  const { error } = schema.validate(form, { abortEarly: false, allowUnknown: true, context })
 
   if (!error?.details) {
     return undefined

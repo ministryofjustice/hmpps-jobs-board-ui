@@ -19,12 +19,16 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if id === 'new' else 'Update' }} a job - step 5 of 5</span>
+      <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if id === 'new' else 'Update' }} a job - step {{ '6 of 6' if useNationalJobs else '5 of 5' }}</span>
       <h1 class="govuk-heading-l">
         {{ title }}
       </h1>
 
       {% include './partials/_roleSection.njk' %}
+
+      {% if useNationalJobs %}
+        {% include './partials/_isNationalSection.njk' %}
+      {% endif %}
 
       {% include './partials/_contractSection.njk' %}
 

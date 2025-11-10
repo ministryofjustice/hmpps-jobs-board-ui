@@ -60,6 +60,51 @@ const getJob = () =>
     },
   })
 
+const getNationalJob = () =>
+  stubFor({
+    request: {
+      method: 'GET',
+      urlPathTemplate: `/jobs/{id}`,
+    },
+    response: {
+      status: 200,
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+      jsonBody: {
+        employerId: '01907e1e-bb85-7bb7-9018-33a2070a367d',
+        jobTitle: 'National Warehouse operator',
+        sector: 'WAREHOUSING',
+        industrySector: 'ADMIN_SUPPORT',
+        numberOfVacancies: 1,
+        sourcePrimary: 'NFN',
+        sourceSecondary: 'PEL',
+        charityName: 'Heart foundation',
+        postcode: null,
+        isNational: true,
+        salaryFrom: 25000,
+        salaryTo: 30000,
+        salaryPeriod: 'PER_YEAR',
+        additionalSalaryInformation: '10% Performance bonus',
+        isPayingAtLeastNationalMinimumWage: true,
+        workPattern: 'FLEXI_TIME',
+        contractType: 'PERMANENT',
+        hoursPerWeek: 'FULL_TIME_40_PLUS',
+        baseLocation: 'WORKPLACE',
+        essentialCriteria: 'Some essential criteria',
+        desirableCriteria: 'Some desirable criteria',
+        description: 'Some job description',
+        offenceExclusions: ['ARSON', 'TERRORISM', 'OTHER'],
+        offenceExclusionsDetails: 'Some details',
+        howToApply: 'Some apply details',
+        closingDate: '2025-02-01T00:00:00.000Z',
+        startDate: '2025-05-31T23:00:00.000Z',
+        isRollingOpportunity: false,
+        isOnlyForPrisonLeavers: true,
+        supportingDocumentationRequired: ['CV', 'OTHER'],
+        supportingDocumentationDetails: 'Covering letter',
+      },
+    },
+  })
+
 const getJobs = (
   params: {
     username?: string
@@ -131,5 +176,6 @@ const getJobs = (
 export default {
   putJob,
   getJob,
+  getNationalJob,
   getJobs,
 }

@@ -1,0 +1,66 @@
+{% extends "../../../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+{% from "../../../macros/accessible-autocomplete/macro.njk" import accessibleAutocomplete %}
+
+{% set title = "Is this a national job?" %}
+
+{% block beforeContent %}
+    {{ govukBackLink({ text: "Back", href: backLocation }) }}
+{% endblock %}
+
+{% block content %}
+    {{ errorSummary(errors) }}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if mode === 'add' else 'Update' }} a job - step 2 of 6</span>
+            <h1 class="govuk-heading-l">
+                {{ title }}
+            </h1>
+
+            <form class="form" method="post" novalidate="">
+                <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+
+                {{ govukRadios({
+                    name: "isNational",
+                    hint: {
+                        text: "National jobs do not have a single hiring location. Select no if you know the postcode for the job."
+                    },
+                    items: [
+                        {
+                            value: "YES",
+                            text: contentLookup.yesNo["YES"] + ", this is a national job",
+                            checked: isNational === "YES"
+                        },
+                        {
+                            value: "NO",
+                            text: contentLookup.yesNo["NO"] + ", the job has a specific hiring location",
+                            checked: isNational === "NO"
+                        }
+                    ],
+                    errorMessage: errors.isNational
+                }) }}
+
+                {{ govukButton({
+                    text: "Continue",
+                    type: "submit",
+                    attributes: {
+                        "data-qa": "submit-button",
+                        "data-ga-category": "submit-selected-data"
+                    }
+                }) }}
+
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

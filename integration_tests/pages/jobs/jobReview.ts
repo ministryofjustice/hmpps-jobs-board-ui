@@ -22,6 +22,8 @@ export default class JobReviewPage extends Page {
 
   charityName = (): PageElement => cy.get('[data-qa=charityName]')
 
+  isNational = (): PageElement => cy.get('[data-qa=isNational]')
+
   postCode = (): PageElement => cy.get('[data-qa=postCode]')
 
   salaryFrom = (): PageElement => cy.get('[data-qa=salaryFrom]')
@@ -80,6 +82,8 @@ export default class JobReviewPage extends Page {
   sourceSecondaryLink = (): PageElement => cy.get('[data-qa=sourceSecondaryLink]')
 
   charityNameLink = (): PageElement => cy.get('[data-qa=charityNameLink]')
+
+  isNationalLink = (): PageElement => cy.get('[data-qa=isNationalLink]')
 
   postCodeLink = (): PageElement => cy.get('[data-qa=postCodeLink]')
 

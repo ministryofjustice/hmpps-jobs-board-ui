@@ -12,11 +12,18 @@ export default function validationSchema(): ObjectSchema {
   const postCodeRegex = /^(GIR 0AA|[A-Z]{1,2}[0-9][0-9A-Z]? [0-9][A-Z]{2})$/i
 
   return joi.object({
-    postCode: joi.string().empty('').regex(postCodeRegex).required().messages({
-      'any.required': 'Enter a job location',
-      'any.empty': 'Enter a job location',
-      'string.pattern.base': 'Job location must be a valid postcode',
-    }),
+    postCode: joi
+      .string()
+      .empty('')
+      .when('$isNational', {
+        is: joi.boolean().valid(false).required(),
+        then: joi.string().empty('').regex(postCodeRegex).required().messages({
+          'any.required': 'Enter a job location',
+          'any.empty': 'Enter a job location',
+          'string.pattern.base': 'Job location must be a valid postcode',
+        }),
+        otherwise: joi.optional(),
+      }),
     salaryFrom: joi
       .number()
       .empty('')
