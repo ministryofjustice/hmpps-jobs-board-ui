@@ -1,0 +1,384 @@
+{% extends "../../../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+{% from "../../../macros/accessible-autocomplete/macro.njk" import accessibleAutocomplete %}
+
+{% set title = "Job role and source"%}
+
+{% block beforeContent %}
+    {{ govukBackLink({ text: "Back", href: backLocation }) }}
+{% endblock %}
+
+{% block content %}
+  {{ errorSummary(errors) }}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if mode === 'add' else 'Update' }} a job - step 1 of 5</span>
+        <h1 class="govuk-heading-l">
+          {{ title }}
+        </h1>
+
+        <form class="form" method="post" novalidate="">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+
+          {{ accessibleAutocomplete({
+            id: 'employerId', 
+            label: 'Employer name',
+            hint: 'Start typing the name of the employer.',
+            list: employers,
+            value: employerId,
+            errorMessage: errors.employerId,
+            class: 'govuk-!-margin-bottom-4',
+            nonce: cspNonce 
+            }) 
+          }}
+
+          {% set detailsHtml %}
+            <div>You must <a href="{{ addressLookup.employers.employerUpdate('new') }}" class="govuk-link govuk-link--no-visited-state">add the employer</a> before adding a job. Any data you've already entered on this screen will be lost. </div>
+          {% endset -%}
+
+          {{ govukDetails({
+            summaryText: "The employer is not listed",
+            html: detailsHtml
+          }) }}
+
+          {{ govukInput({
+              id: "jobTitle",
+              name: "jobTitle",
+              value: jobTitle | safe,
+              type: "text",
+              label: {
+                text: "Job Title"
+              },
+              errorMessage: errors.jobTitle
+            })
+          }}
+
+          {{ govukSelect({
+              id: "sector",
+              name: "sector",
+              value: sector,
+              label: {
+                text: 'Job sector'
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose job sector"
+                },
+                {
+                    value: "OUTDOOR",
+                    text: contentLookup.jobSector["OUTDOOR"]
+                },
+                {
+                    value: "CLEANING_AND_MAINTENANCE",
+                    text: contentLookup.jobSector["CLEANING_AND_MAINTENANCE"]
+                },
+                {
+                    value: "CONSTRUCTION",
+                    text: contentLookup.jobSector["CONSTRUCTION"]
+                },
+                {
+                    value: "DRIVING",
+                    text: contentLookup.jobSector["DRIVING"]
+                },
+                {
+                    value: "BEAUTY",
+                    text: contentLookup.jobSector["BEAUTY"]
+                },
+                {
+                    value: "HOSPITALITY",
+                    text: contentLookup.jobSector["HOSPITALITY"]
+                },
+                {
+                    value: "TECHNICAL",
+                    text: contentLookup.jobSector["TECHNICAL"]
+                },
+                {
+                    value: "MANUFACTURING",
+                    text: contentLookup.jobSector["MANUFACTURING"]
+                },
+                {
+                    value: "OFFICE",
+                    text: contentLookup.jobSector["OFFICE"]
+                },
+                {
+                    value: "RETAIL",
+                    text: contentLookup.jobSector["RETAIL"]
+                },
+                {
+                    value: "SPORTS",
+                    text: contentLookup.jobSector["SPORTS"]
+                },
+                {
+                    value: "EDUCATION_TRAINING",
+                    text: contentLookup.jobSector["EDUCATION_TRAINING"]
+                },
+                {
+                    value: "WAREHOUSING",
+                    text: contentLookup.jobSector["WAREHOUSING"]
+                },
+                {
+                    value: "WASTE_MANAGEMENT",
+                    text: contentLookup.jobSector["WASTE_MANAGEMENT"]
+                },
+                {
+                    value: "OTHER",
+                    text: contentLookup.jobSector["OTHER"]
+                }  
+              ],
+              errorMessage: errors.sector
+            }) 
+          }}
+
+          {{ govukSelect({
+              id: "industrySector",
+              name: "industrySector",
+              value: industrySector,
+              label: {
+                text: 'HMPPS reporting industry sector'
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose HMPPS reporting industry sector"
+                },
+                {
+                  value: "ADMIN_SUPPORT",
+                  text: contentLookup.employerSector["ADMIN_SUPPORT"]
+                },
+                {
+                  value: "AGRICULTURE",
+                  text: contentLookup.employerSector["AGRICULTURE"]
+                },
+                {
+                  value: "ARTS_ENTERTAINMENT",
+                  text: contentLookup.employerSector["ARTS_ENTERTAINMENT"]
+                },
+                {
+                  value: "CONSTRUCTION",
+                  text: contentLookup.employerSector["CONSTRUCTION"]
+                },
+                {
+                  value: "EDUCATION",
+                  text: contentLookup.employerSector["EDUCATION"]
+                },
+                {
+                  value: "ENERGY",
+                  text: contentLookup.employerSector["ENERGY"]
+                },
+                {
+                  value: "FINANCE",
+                  text: contentLookup.employerSector["FINANCE"]
+                },
+                {
+                  value: "HEALTH_SOCIAL",
+                  text: contentLookup.employerSector["HEALTH_SOCIAL"]
+                },
+                {
+                  value: "HOSPITALITY_CATERING",
+                  text: contentLookup.employerSector["HOSPITALITY_CATERING"]
+                },
+                {
+                  value: "LOGISTICS",
+                  text: contentLookup.employerSector["LOGISTICS"]
+                },
+                {
+                  value: "MANUFACTURING",
+                  text: contentLookup.employerSector["MANUFACTURING"]
+                },
+                {
+                  value: "MINING",
+                  text: contentLookup.employerSector["MINING"]
+                },
+                {
+                  value: "OTHER",
+                  text: contentLookup.employerSector["OTHER"]
+                },
+                {
+                  value: "PROFESSIONALS_SCIENTISTS_TECHNICIANS",
+                  text: contentLookup.employerSector["PROFESSIONALS_SCIENTISTS_TECHNICIANS"]
+                },
+                {
+                  value: "PROPERTY",
+                  text: contentLookup.employerSector["PROPERTY"]
+                },
+                {
+                  value: "PUBLIC_ADMIN_DEFENCE",
+                  text: contentLookup.employerSector["PUBLIC_ADMIN_DEFENCE"]
+                },
+                {
+                  value: "WASTE_MANAGEMENT",
+                  text: contentLookup.employerSector["WASTE_MANAGEMENT"]
+                },
+                {
+                  value: "RETAIL",
+                  text: contentLookup.employerSector["RETAIL"]
+                },
+                {
+                  value: "TECHNOLOGY",
+                  text: contentLookup.employerSector["TECHNOLOGY"]
+                }
+              ],
+              errorMessage: errors.industrySector
+            }) 
+          }}
+
+          {{ govukInput({
+              id: "numberOfVacancies",
+              name: "numberOfVacancies",
+              value: numberOfVacancies,
+              classes: "govuk-input--width-10",
+              inputmode: "numeric",   
+              spellcheck: false,
+              label: {
+                text: "Number of vacancies"
+              },
+              errorMessage: errors.numberOfVacancies
+            })
+          }}
+
+          {{ govukSelect({
+              id: "sourcePrimary",
+              name: "sourcePrimary",
+              value: sourcePrimary,
+              label: {
+                text: "Job source"
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose job source"
+                },
+                {
+                  value: "DWP",
+                  text: contentLookup.jobSource["DWP"]
+                },
+                {
+                  value: "EAB",
+                  text: contentLookup.jobSource["EAB"]
+                },
+                {
+                  value: "EDUCATION",
+                  text: contentLookup.jobSource["EDUCATION"]
+                },
+                {
+                  value: "IAG",
+                  text: contentLookup.jobSource["IAG"]
+                },
+                {
+                  value: "NFN",
+                  text: contentLookup.jobSource["NFN"]
+                },
+                {
+                  value: "PRISON",
+                  text: contentLookup.jobSource["PRISON"]
+                },
+                {
+                  value: "THIRD_SECTOR",
+                  text: contentLookup.jobSource["THIRD_SECTOR"]
+                },
+                {
+                  value: "PEL",
+                  text: contentLookup.jobSource["PEL"]
+                },
+                {
+                  value: "OTHER",
+                  text: contentLookup.jobSource["OTHER"]
+                }
+              ],
+              errorMessage: errors.sourcePrimary
+            }) 
+          }}
+
+          {{ govukSelect({
+              id: "sourceSecondary",
+              name: "sourceSecondary",
+              value: sourceSecondary,
+              label: {
+                text: "Job source 2  (optional)"
+              },
+              items: [
+                {
+                  value: "",
+                  text: "Choose job source 2"
+                },
+                {
+                  value: "DWP",
+                  text: contentLookup.jobSource["DWP"]
+                },
+                {
+                  value: "EAB",
+                  text: contentLookup.jobSource["EAB"]
+                },
+                {
+                  value: "EDUCATION",
+                  text: contentLookup.jobSource["EDUCATION"]
+                },
+                {
+                  value: "IAG",
+                  text: contentLookup.jobSource["IAG"]
+                },
+                {
+                  value: "NFN",
+                  text: contentLookup.jobSource["NFN"]
+                },
+                {
+                  value: "PRISON",
+                  text: contentLookup.jobSource["PRISON"]
+                },
+                {
+                  value: "THIRD_SECTOR",
+                  text: contentLookup.jobSource["THIRD_SECTOR"]
+                },
+                {
+                  value: "PEL",
+                  text: contentLookup.jobSource["PEL"]
+                },
+                {
+                  value: "OTHER",
+                  text: contentLookup.jobSource["OTHER"]
+                }
+              ],
+              errorMessage: errors.sourceSecondary
+            }) 
+          }}
+
+          {{ govukInput({
+              id: "charityName",
+              name: "charityName",
+              value: charityName | safe,
+              type: "text",
+              label: {
+                text: "Is this job supported by a charity? (optional)"
+              },
+              hint: {
+                text: "Enter the name of the Third Sector organisation supporting the job."
+              },
+              errorMessage: errors.charityName
+            })
+          }}
+          
+          {{  
+            govukButton({
+              text: "Continue",
+              type: "submit",
+              attributes: {
+                "data-qa": "submit-button",
+                "data-ga-category": "submit-selected-data"
+              }
+            }) 
+          }}
+
+        </form>
+
+      </div>
+    </div>
+{% endblock %}
