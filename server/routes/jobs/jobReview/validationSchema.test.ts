@@ -86,4 +86,18 @@ describe('validationSchema', () => {
     expect(error).toBeTruthy()
     expect(error.details[0].message).toBe('First and second job sources must be different')
   })
+
+  it('On validation error - should still disallow duplicate sources when other fields have errors', () => {
+    req.body.offenceExclusions = ['NONE', 'OTHER']
+    req.body.offenceExclusionsDetails = 'xx'
+    req.body.sourcePrimary = 'DWP'
+    req.body.sourceSecondary = 'DWP'
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeTruthy()
+    expect(error.details.length).toBe(2)
+    expect(error.details[0].message).toBe("'Other offence exclusions' must be 3 characters or more")
+    expect(error.details[1].message).toBe('First and second job sources must be different')
+  })
 })
