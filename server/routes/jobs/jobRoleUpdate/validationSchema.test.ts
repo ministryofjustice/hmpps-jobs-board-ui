@@ -14,7 +14,7 @@ describe('validationSchema', () => {
     req.body.numberOfVacancies = '2'
     req.body.sourcePrimary = 'DWP'
     req.body.sourceSecondary = 'EAB'
-    req.body.charityName = 'Test chrity'
+    req.body.charityName = 'Test charity'
   })
 
   it('On validation success - should allow all valid values', () => {
@@ -137,6 +137,19 @@ describe('validationSchema', () => {
 
     expect(error).toBeTruthy()
     expect(error.details[0].message).toBe('Secondary job source must be different from primary job source')
+  })
+
+  it('On validation error - should still disallow duplicate sources when other fields have errors', () => {
+    req.body.jobTitle = ''
+    req.body.sourcePrimary = 'DWP'
+    req.body.sourceSecondary = 'DWP'
+
+    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true })
+
+    expect(error).toBeTruthy()
+    expect(error.details.length).toBe(2)
+    expect(error.details[0].message).toBe('Job title must be 3 characters or more')
+    expect(error.details[1].message).toBe('Secondary job source must be different from primary job source')
   })
 
   it('On validation error - should allow a charityName being blank', () => {
