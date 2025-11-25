@@ -6,7 +6,7 @@
     </dt>
     <dd class="govuk-summary-list__value" data-qa="isRollingOpportunity">
       {{ contentLookup.yesNo[isRollingOpportunity] }}
-      {% if isRollingOpportunity === 'NO' %}
+      {% if isRollingOpportunity === 'NO' and brokerIterationEnabled === false %}
         <div data-qa="closingDate">Closing date: {{ closingDate }}</div>
       {% endif %}
     </dd>
@@ -16,6 +16,21 @@
       </a>
     </dd>
   </div>
+  {% if isRollingOpportunity === 'NO' and brokerIterationEnabled === true %}
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Closing date
+      </dt>
+      <dd class="govuk-summary-list__value" data-qa="closingDate">
+        {{ closingDate }}
+      </dd>
+      <dd class="govuk-summary-list__actions">
+        <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#isRollingOpportunity' }}" data-qa="closingDateLink">
+          Change<span class="govuk-visually-hidden"> closing date</span>
+        </a>
+      </dd>
+    </div>
+  {% endif %}
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
       Job only for prison leavers?
