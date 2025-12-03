@@ -8,31 +8,24 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "../../../macros/error-summary/macro.njk" import errorSummary %}
 
-{% set title = "Check your answers before adding job" if id === 'new' else jobTitle %}
-
-{% block beforeContent %}
-
-{% endblock %}
-
 {% block content %}
   {{ errorSummary(errors, "You must fix these problems before updates can be saved") }}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if id === 'new' else 'Update' }} a job - step {{ '6 of 6' if useNationalJobs else '5 of 5' }}</span>
-      {% if brokerIterationEnabled === true and id !== 'new' %}
-      <form class="form" method="post" novalidate="">
-        <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
-          {{ govukButton({
-            text: "Duplicate job",
-            id: "duplicateJobButton",
-            name: "duplicateJobButton",
-            classes: "govuk-button--secondary button-float-right"
-          }) }}
-        </form>
-      {% endif %}
+      <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Important
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <h3 class="govuk-notification-banner__heading">Duplicating {{ jobTitle }}</h3>
+          <p class="govuk-body">Update the details below before saving.</p>
+        </div>
+      </div>
       <h1 class="govuk-heading-l">
-        {{ title }}
+        {{ jobTitle }}
       </h1>
 
       {% include './partials/_roleSection.njk' %}
@@ -47,19 +40,26 @@
 
       {% include './partials/_howToApplySection.njk' %}
 
-      <form class="form" method="post" novalidate="">
+      <div class="govuk-button-group govuk-!-margin-top-3 govuk-!-margin-bottom-0">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
-        {{  
+        {{
           govukButton({
-            text: "Add job and save" if id === 'new' else "Update job and save" ,
+            text: "Duplicate job and save",
             type: "submit",
             attributes: {
               "data-qa": "submit-button",
               "data-ga-category": "submit-selected-data"
             }
-          }) 
+          })
         }}
-      </form>
+        {{
+          govukButton({
+            text: "Cancel duplicate job",
+            classes: "govuk-button--secondary",
+            id: "cancel-duplicate-button"
+          })
+        }}
+      </div>
     </div>
   </div>
 {% endblock %}

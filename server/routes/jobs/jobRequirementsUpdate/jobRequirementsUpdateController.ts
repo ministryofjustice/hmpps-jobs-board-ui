@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express'
 
-import { getSessionData, setSessionData, validateFormSchema } from '../../../utils/index'
+import { getSessionData, setSessionData, validateFormSchema, modeValue } from '../../../utils/index'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import OffenceExclusions from '../../../enums/offenceExclusions'
@@ -24,13 +24,22 @@ export default class JobRequirementsUpdateController {
         ...job,
         offenceExclusions: job.offenceExclusions || [],
       }
-      const errors = mode === 'update' ? validateFormSchema(jobToRender, validationSchema()) : null
+      const errors = mode === modeValue.add ? null : validateFormSchema(jobToRender, validationSchema())
+
+      let backLocation: string
+      if (mode === modeValue.add) {
+        backLocation = addressLookup.jobs.jobContractUpdate(id)
+      } else if (mode === modeValue.duplicate) {
+        backLocation = addressLookup.jobs.jobDuplicate(id)
+      } else {
+        backLocation = addressLookup.jobs.jobReview(id)
+      }
 
       // Render data
       const data = {
         id,
         mode,
-        backLocation: mode === 'add' ? addressLookup.jobs.jobContractUpdate(id) : addressLookup.jobs.jobReview(id),
+        backLocation,
         ...jobToRender,
         errors,
       }
@@ -77,7 +86,16 @@ export default class JobRequirementsUpdateController {
       })
 
       // Redirect to next page in flow
-      res.redirect(mode === 'add' ? addressLookup.jobs.jobHowToApplysUpdate(id) : addressLookup.jobs.jobReview(id))
+      let nextPage: string
+      if (mode === modeValue.duplicate) {
+        nextPage = addressLookup.jobs.jobDuplicate(id)
+      } else if (mode === modeValue.update) {
+        nextPage = addressLookup.jobs.jobReview(id)
+      } else {
+        nextPage = addressLookup.jobs.jobHowToApplysUpdate(id)
+      }
+
+      res.redirect(nextPage)
     } catch (err) {
       logger.error('Error posting form - Job requirements')
       next(err)
