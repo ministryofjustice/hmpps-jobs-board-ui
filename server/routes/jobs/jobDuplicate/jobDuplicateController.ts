@@ -73,7 +73,10 @@ export default class JobDuplicateController {
 
     try {
       if (Object.prototype.hasOwnProperty.call(req.body, 'cancel-duplicate-button')) {
-        res.redirect(addressLookup.jobs.jobReview(req.body.sourceJobId as string))
+        // Clear session data for duplicate job
+        deleteSessionData(req, ['job', id])
+        deleteSessionData(req, ['jobDuplicate', id, 'data'])
+        res.redirect(addressLookup.jobs.jobReview(data.sourceJobId as string))
         return
       }
 

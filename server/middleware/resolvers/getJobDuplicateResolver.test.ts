@@ -49,6 +49,8 @@ describe('getJobDuplicateResolver Middleware', () => {
       isPayingAtLeastNationalMinimumWage: true,
       isRollingOpportunity: false,
       isOnlyForPrisonLeavers: true,
+      id: 'new',
+      sourceJobId: '123',
     }
     ;(getSessionData as jest.Mock).mockReturnValue(false)
     jobService.getJob.mockResolvedValue(mockJob as any)

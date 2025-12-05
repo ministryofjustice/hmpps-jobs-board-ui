@@ -40,26 +40,32 @@
 
       {% include './partials/_howToApplySection.njk' %}
 
-      <div class="govuk-button-group govuk-!-margin-top-3 govuk-!-margin-bottom-0">
-        <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
-        {{
-          govukButton({
-            text: "Duplicate job and save",
-            type: "submit",
-            attributes: {
-              "data-qa": "submit-button",
-              "data-ga-category": "submit-selected-data"
-            }
-          })
-        }}
-        {{
-          govukButton({
-            text: "Cancel duplicate job",
-            classes: "govuk-button--secondary",
-            id: "cancel-duplicate-button"
-          })
-        }}
-      </div>
+      <form class="form" method="post" novalidate="">
+        <div class="govuk-button-group govuk-!-margin-top-3 govuk-!-margin-bottom-0">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+          {{
+            govukButton({
+              text: "Duplicate job and save",
+              type: "submit",
+              attributes: {
+                "data-qa": "submit-button",
+                "data-ga-category": "submit-selected-data"
+              }
+            })
+          }}
+          {{
+            govukButton({
+              text: "Cancel duplicate job",
+              classes: "govuk-button--secondary",
+              id: "cancel-duplicate-button",
+              name: "cancel-duplicate-button",
+              attributes: {
+                "data-qa": "cancel-button"
+              }
+            })
+          }}
+        </div>
+      </form>
     </div>
   </div>
 {% endblock %}

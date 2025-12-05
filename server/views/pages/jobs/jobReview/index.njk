@@ -27,7 +27,10 @@
             text: "Duplicate job",
             id: "duplicateJobButton",
             name: "duplicateJobButton",
-            classes: "govuk-button--secondary button-float-right"
+            classes: "govuk-button--secondary button-float-right",
+            attributes: {
+              "data-qa": "duplicate-button"
+            }
           }) }}
         </form>
       {% endif %}

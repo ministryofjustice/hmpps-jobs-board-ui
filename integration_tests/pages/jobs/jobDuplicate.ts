@@ -2,11 +2,7 @@ import Page from '../page'
 
 export type PageElement = Cypress.Chainable<JQuery>
 
-export default class JobReviewPage extends Page {
-  headerCaption = (): PageElement => cy.get('[data-qa=headerCaption]')
-
-  duplicateJobButton = (): PageElement => cy.get('[data-qa=duplicate-button]')
-
+export default class JobDuplicatePage extends Page {
   // Values
   employerId = (): PageElement => cy.get('[data-qa=employerId]')
 
@@ -128,4 +124,6 @@ export default class JobReviewPage extends Page {
   supportingDocumentationRequiredLink = (): PageElement => cy.get('[data-qa=supportingDocumentationRequiredLink]')
 
   supportingDocumentationDetailsLink = (): PageElement => cy.get('[data-qa=supportingDocumentationDetailsLink]')
+
+  cancelButton = (): PageElement => cy.get('[data-qa=cancel-button]')
 }
