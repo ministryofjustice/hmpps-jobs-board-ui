@@ -142,40 +142,6 @@ describe('JobDuplicateController', () => {
       expect(controller).toBeDefined()
     })
 
-    // TODO Move these to the check page tests
-    // it('Handles server validation errors correctly', async () => {
-    //   const error = { status: 400, data: { details: [{ code: 'VALIDATION_ERROR' }] } }
-    //   mockService.createUpdateJob.mockRejectedValue(error)
-    //
-    //   await controller.post(req, res, next)
-    //
-    //   expect(res.render).toHaveBeenCalledWith(
-    //     'pages/serverValidationError/index',
-    //     expect.objectContaining({ errorCode: 'VALIDATION_ERROR' }),
-    //   )
-    // })
-
-    // it('Handles API success and redirects', async () => {
-    //   mockService.createUpdateJob.mockResolvedValue({})
-    //   await controller.post(req, res, next)
-    //   expect(res.redirect).toHaveBeenCalledWith(`${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`)
-    // })
-    //
-    // it('Audits create job', async () => {
-    //   setSessionData(req, ['job', id], job)
-    //   mockService.createUpdateJob.mockResolvedValue({})
-    //   await controller.post(req, res, next)
-    //
-    //   expect(auditSpy).toHaveBeenCalledTimes(1)
-    //   expect(auditSpy).toHaveBeenCalledWith({
-    //     action: 'CREATE_JOB',
-    //     who: res.locals.user.username,
-    //     service: config.apis.hmppsAudit.auditServiceName,
-    //     subjectId: uuidv7,
-    //     subjectType: 'NOT_APPLICABLE',
-    //   })
-    // })
-
     it('On error - Calls next with error', async () => {
       res.redirect.mockImplementation(() => {
         throw new Error('mock_error')
