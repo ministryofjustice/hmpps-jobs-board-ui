@@ -63,7 +63,12 @@ export default class JobReviewController {
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
 
-    const data = getSessionData(req, ['employerReview', id, 'data'])
+    if (Object.prototype.hasOwnProperty.call(req.body, 'duplicateJobButton')) {
+      res.redirect(addressLookup.jobs.jobDuplicate(id))
+      return
+    }
+
+    const data = getSessionData(req, ['jobReview', id, 'data'])
 
     try {
       const job = getSessionData(req, ['job', id])

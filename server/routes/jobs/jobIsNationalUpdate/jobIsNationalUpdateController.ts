@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express'
 
-import { getSessionData, setSessionData, validateFormSchema } from '../../../utils'
+import { getSessionData, setSessionData, validateFormSchema, modeValue } from '../../../utils'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import logger from '../../../../logger'
@@ -12,17 +12,25 @@ export default class JobIsNationalUpdateController {
 
     try {
       const job = getSessionData(req, ['job', id])
-      if (!job && mode === 'update') {
+      if (!job && mode !== modeValue.add) {
         logger.error('Error rendering page - Is this a national job - No record found in session')
         res.redirect(addressLookup.jobs.jobIsNationalUpdate('new'))
         return
       }
 
+      let backLocation: string
+      if (mode === modeValue.add) {
+        backLocation = addressLookup.jobs.jobRoleUpdate(id)
+      } else if (mode === modeValue.duplicate) {
+        backLocation = addressLookup.jobs.jobDuplicate(id)
+      } else {
+        backLocation = addressLookup.jobs.jobReview(id)
+      }
       // Render data
       const data = {
         id,
         mode,
-        backLocation: mode === 'add' ? addressLookup.jobs.jobRoleUpdate(id) : addressLookup.jobs.jobReview(id),
+        backLocation,
         ...(job || {}),
       }
 
@@ -57,22 +65,22 @@ export default class JobIsNationalUpdateController {
       const job = getSessionData(req, ['job', id], {})
 
       let nextPage: string
-      if (mode === 'update') {
-        if (job.isNational === YesNoValue.YES && isNational === YesNoValue.NO) {
-          // Changing job from national to regional - need to update postcode info on the contract page.
-          nextPage = addressLookup.jobs.jobContractUpdate(id, mode)
-        } else {
-          nextPage = addressLookup.jobs.jobReview(id)
-        }
-      } else {
+      if (mode === modeValue.add) {
         nextPage = addressLookup.jobs.jobContractUpdate(id)
+      } else if (job.isNational === YesNoValue.YES && isNational === YesNoValue.NO) {
+        // Changing job from national to regional - need to update postcode info on the contract page.
+        nextPage = addressLookup.jobs.jobContractUpdate(id, mode)
+      } else if (mode === modeValue.update) {
+        nextPage = addressLookup.jobs.jobReview(id)
+      } else {
+        nextPage = addressLookup.jobs.jobDuplicate(id)
       }
 
       setSessionData(req, ['job', id], {
         ...job,
         isNational,
         isNationalChanged:
-          mode === 'update' ? job.isNational === YesNoValue.YES && isNational === YesNoValue.NO : false,
+          mode === modeValue.add ? false : job.isNational === YesNoValue.YES && isNational === YesNoValue.NO,
       })
 
       // Redirect to next page in flow

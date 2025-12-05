@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express'
 
-import { getSessionData, setSessionData, validateFormSchema } from '../../../utils/index'
+import { getSessionData, setSessionData, validateFormSchema, modeValue } from '../../../utils/index'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import consolidateDateInputErrors from '../../../utils/consolidateDateInputErrors'
@@ -29,13 +29,22 @@ export default class jobHowToApplyUpdateController {
         startDate: getDateInputObject(job.startDate, 'startDate'),
         closingDate: getDateInputObject(job.closingDate, 'closingDate'),
       }
-      const errors = mode === 'update' ? validateFormSchema(jobToRender, validationSchema()) : null
+      const errors = mode === modeValue.add ? null : validateFormSchema(jobToRender, validationSchema())
+
+      let backLocation: string
+      if (mode === modeValue.add) {
+        backLocation = addressLookup.jobs.jobRequirementsUpdate(id)
+      } else if (mode === modeValue.duplicate) {
+        backLocation = addressLookup.jobs.jobDuplicate(id)
+      } else {
+        backLocation = addressLookup.jobs.jobReview(id)
+      }
 
       // Render data
       const data = {
         id,
         mode,
-        backLocation: mode === 'add' ? addressLookup.jobs.jobRequirementsUpdate(id) : addressLookup.jobs.jobReview(id),
+        backLocation,
         ...jobToRender,
         errors,
       }
@@ -51,7 +60,7 @@ export default class jobHowToApplyUpdateController {
   }
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id } = req.params
+    const { id, mode } = req.params
     const {
       howToApply,
       isRollingOpportunity,
@@ -106,7 +115,9 @@ export default class jobHowToApplyUpdateController {
       })
 
       // Redirect to next page in flow
-      res.redirect(addressLookup.jobs.jobReview(id))
+      res.redirect(
+        mode === modeValue.duplicate ? addressLookup.jobs.jobDuplicate(id) : addressLookup.jobs.jobReview(id),
+      )
     } catch (err) {
       logger.error('Error posting form - How to apply')
       next(err)

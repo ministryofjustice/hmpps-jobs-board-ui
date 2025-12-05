@@ -8,7 +8,7 @@
       {{ contentLookup.yesNo[isRollingOpportunity] }}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#isRollingOpportunity' }}" data-qa="isRollingOpportunityLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'duplicate') + '#isRollingOpportunity' }}" data-qa="isRollingOpportunityLink">
         Change<span class="govuk-visually-hidden"> rolling opportunity?</span>
       </a>
     </dd>
@@ -22,7 +22,7 @@
         {{ closingDate }}
       </dd>
       <dd class="govuk-summary-list__actions">
-        <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#closingDate' }}" data-qa="closingDateLink">
+        <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'duplicate') + '#closingDate' }}" data-qa="closingDateLink">
           Change<span class="govuk-visually-hidden"> closing date</span>
         </a>
       </dd>
@@ -36,7 +36,7 @@
       {{ contentLookup.yesNo[isOnlyForPrisonLeavers] }}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#isOnlyForPrisonLeavers' }}" data-qa="isOnlyForPrisonLeaversLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'duplicate') + '#isOnlyForPrisonLeavers' }}" data-qa="isOnlyForPrisonLeaversLink">
         Change<span class="govuk-visually-hidden"> job only for prison leavers?</span>
       </a>
     </dd>
@@ -49,7 +49,7 @@
       {{ startDate if startDate else 'Not provided' }}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#startDate' }}" data-qa="startDateLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'duplicate') + '#startDate' }}" data-qa="startDateLink">
         Change<span class="govuk-visually-hidden"> job start date (optional)</span>
       </a>
     </dd>
@@ -62,7 +62,7 @@
       {{ howToApply | nl2br | safe }}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#howToApply' }}" data-qa="howToApplyLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'duplicate') + '#howToApply' }}" data-qa="howToApplyLink">
         Change<span class="govuk-visually-hidden"> how to apply</span>
       </a>
     </dd>
@@ -81,7 +81,7 @@
       {% endif %}
     </dd>
     <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#supportingDocumentationRequired' }}" data-qa="supportingDocumentationRequiredLink">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'duplicate') + '#supportingDocumentationRequired' }}" data-qa="supportingDocumentationRequiredLink">
         Change<span class="govuk-visually-hidden"> supporting documentation required</span>
       </a>
     </dd>

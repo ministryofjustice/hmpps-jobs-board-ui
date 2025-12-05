@@ -12,5 +12,7 @@ export default {
     jobContractUpdate: (id: string, mode = 'add') => `/jobs/job/${id}/contract/${mode}`,
     jobRequirementsUpdate: (id: string, mode = 'add') => `/jobs/job/${id}/requirements/${mode}`,
     jobHowToApplysUpdate: (id: string, mode = 'add') => `/jobs/job/${id}/how-to-apply/${mode}`,
+    jobDuplicate: (id: string) => `/jobs/job/${id}/duplicate`,
+    jobCheckDetails: (id: string) => `/jobs/job/${id}/check-details`,
   },
 }

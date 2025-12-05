@@ -5,30 +5,32 @@ import { getSessionData, setSessionData } from '../../utils/index'
 import YesNoValue from '../../enums/yesNoValue'
 import logger from '../../../logger'
 
-// Gets jobs
-const getJobReviewResolver =
+// Gets job that's being duplicated, and the new job that's being created
+const getJobDuplicateResolver =
   (jobService: JobService): RequestHandler =>
   async (req, res, next): Promise<void> => {
     const { id } = req.params
     const { username } = res.locals.user
 
     try {
-      // If session contains current job
-      if (getSessionData(req, ['job', id])) {
+      // Check if session contains the new job being created.
+      if (getSessionData(req, ['job', 'new'])) {
         next()
         return
       }
 
-      // Get job from API
+      // Get job to be duplicated from API
       const job = await jobService.getJob(username, id)
 
-      // Set it in session
-      setSessionData(req, ['job', id], {
+      // Set it in session as a new job
+      setSessionData(req, ['job', 'new'], {
         ...job,
         isPayingAtLeastNationalMinimumWage: job.isPayingAtLeastNationalMinimumWage ? YesNoValue.YES : YesNoValue.NO,
         isRollingOpportunity: job.isRollingOpportunity ? YesNoValue.YES : YesNoValue.NO,
         isOnlyForPrisonLeavers: job.isOnlyForPrisonLeavers ? YesNoValue.YES : YesNoValue.NO,
         isNational: job.isNational ? YesNoValue.YES : YesNoValue.NO,
+        sourceJobId: id,
+        id: 'new',
       })
 
       next()
@@ -38,4 +40,4 @@ const getJobReviewResolver =
     }
   }
 
-export default getJobReviewResolver
+export default getJobDuplicateResolver

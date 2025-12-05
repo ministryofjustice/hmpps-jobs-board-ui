@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express'
 
-import { getSessionData, setSessionData, validateFormSchema } from '../../../utils/index'
+import { getSessionData, setSessionData, validateFormSchema, modeValue } from '../../../utils/index'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import logger from '../../../../logger'
@@ -26,20 +26,26 @@ export default class JobContractUpdateController {
       }
 
       const errors =
-        mode === 'update'
-          ? validateFormSchema(jobToRender, validationSchema(), {
+        mode === modeValue.add
+          ? null
+          : validateFormSchema(jobToRender, validationSchema(), {
               isNational: res.locals.useNationalJobs && job.isNational === YesNoValue.YES,
             })
-          : null
+
       // Calculate the back location.
       // When updating a job, if changing a job from national -> non-national, the national job page routes to this page to allow the
       // user to enter a postcode for the job. In this scenario, the back link should go to the national job page, not the review page.
       let backLocation: string
-      if (mode === 'add') {
+      if (mode === modeValue.add) {
         backLocation =
           res.locals.useNationalJobs === true
             ? addressLookup.jobs.jobIsNationalUpdate(id)
             : addressLookup.jobs.jobRoleUpdate(id)
+      } else if (mode === modeValue.duplicate) {
+        backLocation =
+          res.locals.useNationalJobs === true && job.isNationalChanged
+            ? addressLookup.jobs.jobIsNationalUpdate(id, mode)
+            : addressLookup.jobs.jobDuplicate(id)
       } else {
         backLocation =
           res.locals.useNationalJobs === true && job.isNationalChanged
@@ -115,7 +121,16 @@ export default class JobContractUpdateController {
       })
 
       // Redirect to next page in flow
-      res.redirect(mode === 'add' ? addressLookup.jobs.jobRequirementsUpdate(id) : addressLookup.jobs.jobReview(id))
+      let nextPage: string
+      if (mode === modeValue.duplicate) {
+        nextPage = addressLookup.jobs.jobDuplicate(id)
+      } else if (mode === modeValue.update) {
+        nextPage = addressLookup.jobs.jobReview(id)
+      } else {
+        nextPage = addressLookup.jobs.jobRequirementsUpdate(id)
+      }
+
+      res.redirect(nextPage)
     } catch (err) {
       logger.error('Error posting form - Job contract')
       next(err)

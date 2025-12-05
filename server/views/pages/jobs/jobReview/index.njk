@@ -20,6 +20,20 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if id === 'new' else 'Update' }} a job - step {{ '6 of 6' if useNationalJobs else '5 of 5' }}</span>
+      {% if brokerIterationEnabled === true and id !== 'new' %}
+      <form class="form" method="post" novalidate="">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+          {{ govukButton({
+            text: "Duplicate job",
+            id: "duplicateJobButton",
+            name: "duplicateJobButton",
+            classes: "govuk-button--secondary button-float-right",
+            attributes: {
+              "data-qa": "duplicate-button"
+            }
+          }) }}
+        </form>
+      {% endif %}
       <h1 class="govuk-heading-l">
         {{ title }}
       </h1>
