@@ -132,8 +132,7 @@ context('Sign In', () => {
     jobDuplicatePage.supportingDocumentationRequired().contains('CV')
     jobDuplicatePage.supportingDocumentationRequired().contains('Other - Covering letter')
 
-    jobDuplicatePage.submitButton().click() // TODO: Check this redirects to the check-details page
-    // TODO: Once check-details page is implemented, check onwards behaviour up to submitting the duplicated job.
+    jobDuplicatePage.submitButton().click() // TODO: Once check-details page is implemented, check onwards behaviour up to submitting the duplicated job.
     cy.url().should('include', '/jobs/job/new/check-details')
   })
 
