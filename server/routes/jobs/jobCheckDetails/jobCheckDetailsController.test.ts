@@ -2,7 +2,6 @@
 import { auditService } from '@ministryofjustice/hmpps-audit-client'
 import Controller from './jobCheckDetailsController'
 import expressMocks from '../../../testutils/expressMocks'
-import validateFormSchema from '../../../utils/validateFormSchema'
 import { deleteSessionData, setSessionData } from '../../../utils'
 import addressLookup from '../../addressLookup'
 import config from '../../../config'
