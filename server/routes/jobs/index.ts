@@ -7,6 +7,8 @@ import jobContractUpdateRoutes from './jobContractUpdate'
 import jobRequirementsUpdateRoutes from './jobRequirementsUpdate'
 import jobHowToApplyUpdateRoutes from './jobHowToApplyUpdate'
 import jobReviewUpdateRoutes from './jobReview'
+import jobDuplicateRoutes from './jobDuplicate'
+import jobCheckDetails from './jobCheckDetails'
 
 export default function attachRoutes(router: Router, services: Services): void {
   jobListRoutes(router, services)
@@ -16,4 +18,6 @@ export default function attachRoutes(router: Router, services: Services): void {
   jobRequirementsUpdateRoutes(router, services)
   jobHowToApplyUpdateRoutes(router, services)
   jobReviewUpdateRoutes(router, services)
+  jobDuplicateRoutes(router, services)
+  jobCheckDetails(router, services)
 }

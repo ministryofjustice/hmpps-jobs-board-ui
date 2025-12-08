@@ -1,0 +1,120 @@
+<h2 class="govuk-heading-m">Job role and source</h2>
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Employer name
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="employerId">
+      {{ employerName }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'duplicate') + '#employerId' }}" data-qa="employerIdLink">
+        Change<span class="govuk-visually-hidden"> employer name</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Job title
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="jobTitle">
+      {{ jobTitle | safe }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'duplicate') + '#jobTitle' }}" data-qa="jobTitleLink">
+        Change<span class="govuk-visually-hidden"> job title</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Job sector
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="sector">
+      {{ contentLookup.jobSector[sector] }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'duplicate') + '#sector' }}" data-qa="sectorLink">
+        Change<span class="govuk-visually-hidden"> job sector</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      HMPPS reporting industry sector	
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="industrySector">
+      {{ contentLookup.employerSector[industrySector] }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'duplicate') + '#industrySector' }}" data-qa="industrySectorLink">
+        Change<span class="govuk-visually-hidden"> HMPPS reporting industry sector</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Number of vacancies
+    </dt>
+
+    {% if useNationalJobs %}
+      <dd class="govuk-summary-list__value" data-qa="numberOfVacancies">
+        {{ numberOfVacancies | default("Not provided", true) }}
+      </dd>
+    {% else %}
+      <dd class="govuk-summary-list__value" data-qa="numberOfVacancies">
+        {{ numberOfVacancies }}
+      </dd>
+    {% endif %}
+
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'duplicate') + '#numberOfVacancies' }}" data-qa="numberOfVacanciesLink">
+        Change<span class="govuk-visually-hidden"> number of vacancies</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Job source	
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="sourcePrimary">
+      {{ contentLookup.jobSource[sourcePrimary] }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'duplicate') + '#sourcePrimary' }}" data-qa="sourcePrimaryLink">
+        Change<span class="govuk-visually-hidden"> job source</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row" id="sourceSecondary">
+    <dt class="govuk-summary-list__key {% if errors.sourceSecondary %}govuk-summary-list__key--invalid{% endif %}">
+      Job source 2 (optional)
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="sourceSecondary">
+        {% if errors.sourceSecondary %}
+          <span id="sourceSecondary-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error: </span>{{ errors.sourceSecondary.text }}
+          </span>
+        {% endif %}
+      {{ contentLookup.jobSource[sourceSecondary] if sourceSecondary else 'Not provided' }}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'duplicate') + '#sourceSecondary' }}" data-qa="sourceSecondaryLink">
+        Change<span class="govuk-visually-hidden"> job source 2 (optional)</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Supported by a charity? (optional)
+    </dt>
+    <dd class="govuk-summary-list__value" data-qa="charityName">
+      {{ (charityName | safe) if charityName else 'Not provided'}}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'duplicate') + '#charityName' }}" data-qa="charityNameLink">
+        Change<span class="govuk-visually-hidden"> supported by a charity? (optional)</span>
+      </a>
+    </dd>
+  </div>
+</dl>

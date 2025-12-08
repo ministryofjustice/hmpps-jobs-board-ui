@@ -1,0 +1,41 @@
+{% extends "../../../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block beforeContent %}
+    {{ govukBackLink({ text: "Back", href: backLocation }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Check the job details are correct</h1>
+
+        <p>Jobs cannot be deleted after they are published.</p>
+        <p>Make sure the details of this job are correct before you publish it. In particular, you should check the:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>start and end dates</li>
+          <li>hours and salary</li>
+          <li>job location postcode, if there is one</li>
+        </ul>
+        <p>Job details can be changed after the job is created.</p>
+
+        <form class="form" method="post" novalidate="">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+          {{
+            govukButton({
+              text: "Publish the job",
+              type: "submit",
+              attributes: {
+                "data-qa": "submit-button",
+                "data-ga-category": "submit-selected-data"
+              }
+            })
+          }}
+
+        </form>
+
+      </div>
+    </div>
+{% endblock %}

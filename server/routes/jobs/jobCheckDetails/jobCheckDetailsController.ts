@@ -1,14 +1,16 @@
 import { RequestHandler } from 'express'
 import { v7 as uuidv7 } from 'uuid'
-import _ from 'lodash'
 
 import { auditService } from '@ministryofjustice/hmpps-audit-client'
-import { deleteSessionData, formatShortDate, getSessionData, setSessionData } from '../../../utils/index'
+import { deleteSessionData, getSessionData, setSessionData } from '../../../utils'
 import addressLookup from '../../addressLookup'
-import JobService from '../../../services/jobService'
+import logger from '../../../../logger'
+import getFirstErrorCode from '../../../utils/getFirstErrorCode'
+import config from '../../../config'
 import JobSector from '../../../enums/jobSector'
 import EmployerSector from '../../../enums/employerSector'
 import JobSource from '../../../enums/jobSource'
+import YesNoValue from '../../../enums/yesNoValue'
 import SalaryPeriod from '../../../enums/salaryPeriod'
 import WorkPattern from '../../../enums/workPattern'
 import ContractType from '../../../enums/contractType'
@@ -16,46 +18,36 @@ import Hours from '../../../enums/hours'
 import BaseLocation from '../../../enums/baseLocation'
 import OffenceExclusions from '../../../enums/offenceExclusions'
 import SupportingDocumentation from '../../../enums/supportingDocumentation'
-import YesNoValue from '../../../enums/yesNoValue'
-import logger from '../../../../logger'
-import getFirstErrorCode from '../../../utils/getFirstErrorCode'
-import config from '../../../config'
-import validateFormSchema from '../../../utils/validateFormSchema'
-import validationSchema from './validationSchema'
+import JobService from '../../../services/jobService'
 
-export default class JobReviewController {
+export default class JobCheckDetailsController {
   constructor(private readonly jobService: JobService) {}
 
   public get: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id, mode } = req.params
-    const { allEmployers = [] } = req.context
+    const { id } = req.params
 
     try {
       const job = getSessionData(req, ['job', id])
+
+      // Redirect to the job list if no job
       if (!job) {
-        logger.error('Error rendering page - Job review - No record found in session')
-        res.redirect(addressLookup.jobs.jobRoleUpdate(id, mode))
+        logger.error('Error rendering page - Job check details - No record found in session')
+        res.redirect(addressLookup.jobs.jobList())
         return
       }
-
-      const errors = validateFormSchema(job, validationSchema())
 
       // Render data
       const data = {
         id,
-        ...job,
-        startDate: job.startDate && formatShortDate(new Date(job.startDate)),
-        closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
-        employerName: (allEmployers.find((p: { id: string }) => p.id === job.employerId) || {}).name,
-        errors,
+        backLocation: addressLookup.jobs.jobDuplicate(id),
       }
 
       // Set page data in session
-      setSessionData(req, ['jobReview', id, 'data'], data)
+      setSessionData(req, ['jobCheckDetails', id, 'data'], data)
 
-      res.render('pages/jobs/jobReview/index', { ...data })
+      res.render('pages/jobs/jobCheckDetails/index', { ...data })
     } catch (err) {
-      logger.error('Error rendering page - Job review')
+      logger.error('Error rendering page - Job check details')
       next(err)
     }
   }
@@ -63,28 +55,10 @@ export default class JobReviewController {
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id } = req.params
 
-    if (Object.prototype.hasOwnProperty.call(req.body, 'duplicateJobButton')) {
-      res.redirect(addressLookup.jobs.jobDuplicate(id))
-      return
-    }
-
-    const data = getSessionData(req, ['jobReview', id, 'data'])
+    const job = getSessionData(req, ['job', id])
+    const data = getSessionData(req, ['jobCheckDetails', id, 'data'])
 
     try {
-      const job = getSessionData(req, ['job', id])
-      const errors = validateFormSchema(job, validationSchema())
-      if (errors) {
-        res.render('pages/jobs/jobReview/index', {
-          id,
-          ...job,
-          employerName: (req.context.allEmployers || []).find((p: { id: string }) => p.id === job.employerId)?.name,
-          startDate: job.startDate && formatShortDate(new Date(job.startDate)),
-          closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
-          errors,
-        })
-        return
-      }
-
       // Update application progress API
       const jobUpdate = {
         employerId: job.employerId,
@@ -120,12 +94,11 @@ export default class JobReviewController {
         isNational: res.locals.useNationalJobs === true ? job.isNational === YesNoValue.YES : false,
       }
 
-      const create = _.trim(id.toString()) === 'new'
-      const identifier = create ? uuidv7() : id
+      const identifier = uuidv7()
 
       if (config.apis.hmppsAudit.enabled) {
         await auditService.sendAuditMessage({
-          action: `${create ? 'CREATE' : 'UPDATE'}_JOB`,
+          action: 'CREATE_JOB',
           who: res.locals.user.username,
           service: config.apis.hmppsAudit.auditServiceName,
           subjectId: identifier,
@@ -153,7 +126,7 @@ export default class JobReviewController {
         return
       }
 
-      logger.error('Error posting form - Job review')
+      logger.error('Error posting form - Job check details')
       next(err)
     }
   }
