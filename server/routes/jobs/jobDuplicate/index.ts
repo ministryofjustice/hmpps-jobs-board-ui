@@ -6,7 +6,7 @@ import getJobDuplicateResolver from '../../../middleware/resolvers/getJobDuplica
 import getAllEmployersResolver from '../../../middleware/resolvers/getAllEmployersResolver'
 
 export default (router: Router, services: Services) => {
-  const controller = new JobDuplicateController(services.jobService)
+  const controller = new JobDuplicateController()
 
   router.get(
     '/jobs/job/:id/duplicate',
