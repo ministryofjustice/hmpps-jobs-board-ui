@@ -2,14 +2,11 @@ import { RequestHandler } from 'express'
 
 import { deleteSessionData, formatShortDate, getSessionData, setSessionData } from '../../../utils/index'
 import addressLookup from '../../addressLookup'
-import JobService from '../../../services/jobService'
 import logger from '../../../../logger'
 import validateFormSchema from '../../../utils/validateFormSchema'
 import validationSchema from './validationSchema'
 
 export default class JobDuplicateController {
-  constructor(private readonly jobService: JobService) {}
-
   public get: RequestHandler = async (req, res, next): Promise<void> => {
     const { allEmployers = [] } = req.context
 

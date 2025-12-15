@@ -7,6 +7,9 @@ import JobReviewPage from '../pages/jobs/jobReview'
 import JobRoleUpdatePage from '../pages/jobs/jobRoleUpdate'
 import JobIsNationalUpdatePage from '../pages/jobs/jobIsNationalUpdate'
 import JobDuplicatePage from '../pages/jobs/jobDuplicate'
+import JobCheckDetailsPage from '../pages/jobs/jobCheckDetails'
+import jobCheckDetails from '../../server/routes/jobs/jobCheckDetails'
+import JobListPage from '../pages/jobs/jobList'
 
 context('Sign In', () => {
   beforeEach(() => {
@@ -79,8 +82,17 @@ context('Sign In', () => {
     jobDuplicatePage.supportingDocumentationRequired().contains('CV')
     jobDuplicatePage.supportingDocumentationRequired().contains('Other - Covering letter')
 
-    jobDuplicatePage.submitButton().click() // TODO: Once check-details page is implemented, check onwards behaviour up to submitting the duplicated job.
+    jobDuplicatePage.submitButton().click()
     cy.url().should('include', '/jobs/job/new/check-details')
+    const jobCheckDetailsPage = new JobCheckDetailsPage('Check the job details are correct')
+
+    jobCheckDetailsPage.backLink().click()
+    cy.url().should('include', '/jobs/job/new/duplicate')
+    jobDuplicatePage.submitButton().click()
+
+    jobCheckDetailsPage.submitButton().click()
+    cy.url().should('include', '/jobs')
+    const jobListPage = new JobListPage('Add jobs and employers')
   })
 
   it('Duplicate job flow - check loaded content - national job', () => {
@@ -132,8 +144,17 @@ context('Sign In', () => {
     jobDuplicatePage.supportingDocumentationRequired().contains('CV')
     jobDuplicatePage.supportingDocumentationRequired().contains('Other - Covering letter')
 
-    jobDuplicatePage.submitButton().click() // TODO: Once check-details page is implemented, check onwards behaviour up to submitting the duplicated job.
+    jobDuplicatePage.submitButton().click()
     cy.url().should('include', '/jobs/job/new/check-details')
+    const jobCheckDetailsPage = new JobCheckDetailsPage('Check the job details are correct')
+
+    jobCheckDetailsPage.backLink().click()
+    cy.url().should('include', '/jobs/job/new/duplicate')
+    jobDuplicatePage.submitButton().click()
+
+    jobCheckDetailsPage.submitButton().click()
+    cy.url().should('include', '/jobs')
+    const jobListPage = new JobListPage('Add jobs and employers')
   })
 
   it('Duplicate job - change links flow - without national jobs', () => {
