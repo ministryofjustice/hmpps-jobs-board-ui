@@ -1,0 +1,71 @@
+{% extends "../../../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "moj/components/pagination/macro.njk" import mojPagination %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+
+{% block content %}
+  {{ errorSummary(errors, "You must fix these problems before updates can be saved") }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Important
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <h3 class="govuk-notification-banner__heading">Duplicating {{ jobTitle }}</h3>
+          <p class="govuk-body">Update the details below before saving.</p>
+        </div>
+      </div>
+      <h1 class="govuk-heading-l">
+        {{ jobTitle }}
+      </h1>
+
+      {% include './partials/_roleSection.njk' %}
+
+      {% if useNationalJobs %}
+        {% include './partials/_isNationalSection.njk' %}
+      {% endif %}
+
+      {% include './partials/_contractSection.njk' %}
+
+      {% include './partials/_requirementsSection.njk' %}
+
+      {% include './partials/_howToApplySection.njk' %}
+
+      <form class="form" method="post" novalidate="">
+        <div class="govuk-button-group govuk-!-margin-top-3 govuk-!-margin-bottom-0">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+          {{
+            govukButton({
+              text: "Duplicate job and save",
+              type: "submit",
+              attributes: {
+                "data-qa": "submit-button",
+                "data-ga-category": "submit-selected-data"
+              }
+            })
+          }}
+          {{
+            govukButton({
+              text: "Cancel duplicate job",
+              classes: "govuk-button--secondary",
+              id: "cancel-duplicate-button",
+              name: "cancel-duplicate-button",
+              attributes: {
+                "data-qa": "cancel-button"
+              }
+            })
+          }}
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

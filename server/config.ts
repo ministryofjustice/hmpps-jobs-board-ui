@@ -139,5 +139,6 @@ export default {
   featureToggles: {
     filterJobsCreatedByMeEnabled: systemPhase === 'DEV',
     nationalJobs: toBoolean(get('FEATURE_FLAG_NATIONAL_JOBS', false)),
+    brokerIterationEnabled: toBoolean(get('FEATURE_FLAG_BROKER_ITERATION', false)),
   },
 }

@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express'
 
-import { getSessionData, setSessionData, validateFormSchema } from '../../../utils/index'
+import { getSessionData, setSessionData, validateFormSchema, modeValue } from '../../../utils/index'
 import validationSchema from './validationSchema'
 import addressLookup from '../../addressLookup'
 import logger from '../../../../logger'
@@ -17,7 +17,7 @@ export default class EmployerUpdateController {
         id,
         mode,
         backLocation:
-          mode === 'add'
+          mode === modeValue.add
             ? `${addressLookup.employers.employerList()}?sort=name&order=ascending`
             : addressLookup.employers.employerReview(id),
         ...employer,

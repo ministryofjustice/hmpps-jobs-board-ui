@@ -267,11 +267,17 @@ context('Sign In', () => {
     jobReviewPage.offenceExclusions().contains('Other - Some text')
 
     // How to apply page changes
-    jobReviewPage.isRollingOpportunityLink().click()
-
+    jobReviewPage.closingDateLink().click()
     const jobHowToApplyPage = new JobHowToApplyPage('How to apply')
     jobHowToApplyPage.headerCaption().contains('Update a job - step 4 of 5')
 
+    jobHowToApplyPage.closingDateField.day().clear().type('3')
+    jobHowToApplyPage.closingDateField.month().clear().type('4')
+    jobHowToApplyPage.closingDateField.year().clear().type('2027')
+    jobHowToApplyPage.submitButton().click()
+    jobReviewPage.closingDate().contains('3 April 2027')
+
+    jobReviewPage.isRollingOpportunityLink().click()
     jobHowToApplyPage.isRollingOpportunityFieldYes().click()
     jobHowToApplyPage.submitButton().click()
     jobReviewPage.isRollingOpportunity().contains('Yes')
@@ -457,11 +463,17 @@ context('Sign In', () => {
     jobReviewPage.offenceExclusions().contains('Other - Some text')
 
     // How to apply page changes
-    jobReviewPage.isRollingOpportunityLink().click()
-
+    jobReviewPage.closingDateLink().click()
     const jobHowToApplyPage = new JobHowToApplyPage('How to apply')
     jobHowToApplyPage.headerCaption().contains('Update a job - step 5 of 6')
 
+    jobHowToApplyPage.closingDateField.day().clear().type('3')
+    jobHowToApplyPage.closingDateField.month().clear().type('4')
+    jobHowToApplyPage.closingDateField.year().clear().type('2027')
+    jobHowToApplyPage.submitButton().click()
+    jobReviewPage.closingDate().contains('3 April 2027')
+
+    jobReviewPage.isRollingOpportunityLink().click()
     jobHowToApplyPage.isRollingOpportunityFieldYes().click()
     jobHowToApplyPage.submitButton().click()
     jobReviewPage.isRollingOpportunity().contains('Yes')
