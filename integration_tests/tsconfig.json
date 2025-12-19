@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "noEmit": true,
-    "lib": ["es5", "dom", "es2015.promise"],
-    "types": ["cypress", "express", "express-session"],
+    "lib": ["es2022", "dom"],
+    "downlevelIteration": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "types": ["cypress", "express", "express-session", "node"],
+    "typeRoots": ["../node_modules/@types", "../node_modules", "../server/@types"]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../server/@types/**/*.d.ts"]
 }
