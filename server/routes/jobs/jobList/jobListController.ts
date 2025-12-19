@@ -12,6 +12,21 @@ import logger from '../../../../logger'
 import parseBooleanParam from '../../../utils/parseBooleanParam'
 import jobsFilter from '../../../enums/jobsFilter'
 
+// Define a clear numeric sort key for job status (never relying on string comparison or enum order)
+function getJobStatusSortKey(job: { closingDate?: string | Date; isRollingOpportunity?: boolean }): number {
+  if (job.isRollingOpportunity || !job.closingDate) {
+    return 0 // LIVE
+  }
+
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  const closing = new Date(job.closingDate)
+  closing.setHours(0, 0, 0, 0)
+
+  return closing <= today ? 1 : 0 // CLOSED
+}
+
 export default class JobListController {
   constructor(private readonly paginationService: PaginationService) {}
 
@@ -53,6 +68,22 @@ export default class JobListController {
             new URL(`${req.protocol}://${req.get('host')}${addressLookup.jobs.jobList()}?${uri.join('&')}`),
           )
         }
+      }
+
+      // Sort jobs by status if required
+      const baseJobs = [...jobListResults.content] // clone before sorting
+
+      if (sort === 'jobStatus') {
+        baseJobs.sort((a, b) => {
+          const primarySort =
+            order === 'ascending'
+              ? getJobStatusSortKey(a) - getJobStatusSortKey(b)
+              : getJobStatusSortKey(b) - getJobStatusSortKey(a)
+          if (primarySort !== 0) return primarySort
+
+          // Secondary sort by closing date
+          return new Date(a.closingDate).getTime() - new Date(b.closingDate).getTime()
+        })
       }
 
       // Render data
