@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { UserDetails } from '../../services/userService'
+import 'express-session'
 
 export default {}
 
