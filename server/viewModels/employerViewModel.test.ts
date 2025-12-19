@@ -16,7 +16,15 @@ describe('EmployerViewModel', () => {
   const employerListViewModel: EmployerViewModel = plainToClass(EmployerViewModel, testData)
 
   it('should expose only specified properties', () => {
-    expect(Object.keys(employerListViewModel)).toEqual(['id', 'name', 'description', 'createdAt', 'sector', 'status'])
+    expect(Object.keys(employerListViewModel)).toEqual([
+      'id',
+      'name',
+      'description',
+      'createdAt',
+      'createdBy',
+      'sector',
+      'status',
+    ])
   })
 
   it('should format releaseDate using formatDateStringToddMMMyyyy', () => {
