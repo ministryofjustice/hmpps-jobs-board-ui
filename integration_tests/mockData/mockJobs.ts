@@ -7,6 +7,8 @@ export default [
     numberOfVacancies: 1,
     createdAt: '2023-03-02T00:00:00.000Z',
     createdBy: 'USER1',
+    closingDate: '2022-01-01T00:00:00.000Z', // Past date, should be CLOSED
+    isRollingOpportunity: false,
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
@@ -16,6 +18,19 @@ export default [
     numberOfVacancies: 1,
     createdAt: '2023-03-09T00:00:00.000Z',
     createdBy: 'USER2',
+    closingDate: '2099-12-31T00:00:00.000Z', // Future date, should be LIVE
+    isRollingOpportunity: false,
+  },
+  {
+    id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
+    jobTitle: 'Rolling Job',
+    employerName: 'Rolling Corp',
+    sector: 'RETAIL',
+    numberOfVacancies: 3,
+    createdAt: '2023-03-11T00:00:00.000Z',
+    createdBy: 'USER3',
+    closingDate: null, // No closing date, rolling
+    isRollingOpportunity: true,
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
