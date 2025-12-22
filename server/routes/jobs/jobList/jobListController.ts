@@ -90,7 +90,7 @@ export default class JobListController {
       const data = {
         jobListResults: {
           ...jobListResults,
-          content: plainToClass(JobViewModel, jobListResults.content),
+          content: plainToClass(JobViewModel, baseJobs),
         },
         sort,
         order,
