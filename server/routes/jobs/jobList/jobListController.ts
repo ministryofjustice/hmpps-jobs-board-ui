@@ -49,6 +49,27 @@ export default class JobListController {
         return
       }
 
+      // Sort jobs by status if required
+      // clone before sorting
+      const pagedJobsList = Array.isArray(jobListResults.content) ? [...jobListResults.content] : []
+
+      if (sort === 'jobStatus') {
+        pagedJobsList.sort((a, b) => {
+          const primarySort =
+            order === 'ascending'
+              ? getJobStatusSortKey(a) - getJobStatusSortKey(b)
+              : getJobStatusSortKey(b) - getJobStatusSortKey(a)
+
+          if (primarySort !== 0) return primarySort
+
+          // Secondary sort by closing date (safe for nulls because of primary sort)
+          const dateA = a.closingDate ? new Date(a.closingDate).getTime() : Number.MAX_SAFE_INTEGER
+          const dateB = b.closingDate ? new Date(b.closingDate).getTime() : Number.MAX_SAFE_INTEGER
+
+          return dateA - dateB
+        })
+      }
+
       // Build uri
       const uri = [
         sort && `sort=${sort}`,
@@ -70,27 +91,11 @@ export default class JobListController {
         }
       }
 
-      // Sort jobs by status if required
-      const baseJobs = [...jobListResults.content] // clone before sorting
-
-      if (sort === 'jobStatus') {
-        baseJobs.sort((a, b) => {
-          const primarySort =
-            order === 'ascending'
-              ? getJobStatusSortKey(a) - getJobStatusSortKey(b)
-              : getJobStatusSortKey(b) - getJobStatusSortKey(a)
-          if (primarySort !== 0) return primarySort
-
-          // Secondary sort by closing date
-          return new Date(a.closingDate).getTime() - new Date(b.closingDate).getTime()
-        })
-      }
-
       // Render data
       const data = {
         jobListResults: {
           ...jobListResults,
-          content: plainToClass(JobViewModel, baseJobs),
+          content: plainToClass(JobViewModel, jobListResults.content),
         },
         sort,
         order,

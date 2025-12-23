@@ -60,7 +60,7 @@
                         {{ item.employerName }}
                     </td>
                     <td class="govuk-table__cell" width="12%">{{ item.createdAt }}</td>
-                    <td class="govuk-table__cell">{{ statusColourTag(item.jobStatus) }}</td>
+                    <td class="govuk-table__cell" id="job-status-{{ loop.index }}">{{ statusColourTag(item.jobStatus) }}</td>
                 </tr>
             {% endfor %}
 

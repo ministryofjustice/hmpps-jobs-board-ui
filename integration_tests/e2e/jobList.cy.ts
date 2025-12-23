@@ -114,4 +114,16 @@ context('Sign In', () => {
 
     jobListPage.noResultsMessage().contains(`0 results in Retail and sales`)
   })
+
+  it('displays correct job status (LIVE or CLOSED) based on closingDate and isRollingOpportunity', () => {
+    const jobListPage = new JobListPage('Add jobs and employers')
+
+    cy.visit('/jobs')
+
+    // Check first job status
+    jobListPage.jobStatuses().eq(0).contains('CLOSED')
+
+    // Check second job status
+    jobListPage.jobStatuses().eq(1).contains('LIVE')
+  })
 })
