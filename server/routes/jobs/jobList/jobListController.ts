@@ -11,12 +11,11 @@ import JobViewModel from '../../../viewModels/jobViewModel'
 import logger from '../../../../logger'
 import parseBooleanParam from '../../../utils/parseBooleanParam'
 import jobsFilter from '../../../enums/jobsFilter'
+import PagedResponse from '../../../data/domain/types/pagedResponse'
 
 // Define a clear numeric sort key for job status (never relying on string comparison or enum order)
-function getJobStatusSortKey(job: { closingDate?: string | Date; isRollingOpportunity?: boolean }): number {
-  if (job.isRollingOpportunity || !job.closingDate) {
-    return 0 // LIVE
-  }
+export function getJobStatusSortKey(job: { closingDate?: string | Date; isRollingOpportunity?: boolean }): number {
+  if (job.isRollingOpportunity || !job.closingDate) return 0 // LIVE
 
   const today = new Date()
   today.setHours(0, 0, 0, 0)
@@ -38,7 +37,7 @@ export default class JobListController {
       : false
 
     const { paginationPageSize } = config
-    const jobListResults = req.context.jobs
+    const jobListResults: PagedResponse<JobViewModel> = req.context.jobs
 
     try {
       // Paginate where necessary
@@ -95,7 +94,7 @@ export default class JobListController {
       const data = {
         jobListResults: {
           ...jobListResults,
-          content: plainToClass(JobViewModel, jobListResults.content),
+          content: plainToClass(JobViewModel, pagedJobsList),
         },
         sort,
         order,
