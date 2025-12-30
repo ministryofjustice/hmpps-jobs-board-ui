@@ -26,14 +26,17 @@
                     headerText: "Date added",
                     id: "createdAt-sort-link"
                 }) }}
-                {{  sortableTableHeader({
-                    sort: sort,
-                    order: order,
-                    formName: "job-search-form",
-                    fieldName: "jobStatus",
-                    headerText: "Status",
-                    id: "jobStatus-sort-link"
-                }) }}
+                {% if brokerIterationEnabled === true %}
+                    {{  sortableTableHeader({
+                        sort: sort,
+                        order: order,
+                        formName: "job-search-form",
+                        fieldName: "jobStatus",
+                        headerText: "Status",
+                        id: "jobStatus-sort-link",
+                        qa: "job-status-column-header"
+                    }) }}
+                {% endif %}
             </tr>
             </thead>
 
@@ -60,7 +63,10 @@
                         {{ item.employerName }}
                     </td>
                     <td class="govuk-table__cell" width="12%">{{ item.createdAt }}</td>
-                    <td class="govuk-table__cell" id="job-status-{{ loop.index }}">{{ statusColourTag(item.jobStatus) }}</td>
+                    {% if brokerIterationEnabled === true %}
+                        <td class="govuk-table__cell" id="job-status-{{ loop.index }}">{{ statusColourTag(item.jobStatus) }}</td>
+                    {% endif %}
+
                 </tr>
             {% endfor %}
 

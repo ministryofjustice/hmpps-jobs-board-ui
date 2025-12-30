@@ -2,6 +2,7 @@
 import JobListPage from '../pages/jobs/jobList'
 import JobRoleUpdatePage from '../pages/jobs/jobRoleUpdate'
 import JobReviewPage from '../pages/jobs/jobReview'
+import mockFeatureFlags from '../mockApis/featureFlagMock'
 
 context('Sign In', () => {
   beforeEach(() => {
@@ -114,8 +115,30 @@ context('Sign In', () => {
 
     jobListPage.noResultsMessage().contains(`0 results in Retail and sales`)
   })
+})
+
+context('Job status column - dependent on broker iteration flag', () => {
+  beforeEach(() => {
+    // Freeze time to avoid flaky date comparisons (avoids test failures around midnight)
+    const now = new Date()
+    now.setHours(12, 0, 0, 0)
+    cy.clock(now.getTime())
+
+    cy.task('reset')
+    cy.task('stubSignIn')
+    cy.task('stubManageUser')
+    cy.task('putJob')
+    cy.task('getJob')
+    cy.task('getEmployers', { page: 1 })
+    cy.task('getJobs', { page: 1 })
+    cy.signIn()
+  })
 
   it('Displays correct job status (LIVE or CLOSED) based on closingDate and isRollingOpportunity', () => {
+    mockFeatureFlags({
+      brokerIterationEnabled: true,
+    })
+
     const jobListPage = new JobListPage('Add jobs and employers')
 
     cy.visit('/jobs')
@@ -125,5 +148,20 @@ context('Sign In', () => {
 
     // Check second job status
     jobListPage.jobStatuses().eq(1).contains('LIVE')
+
+    // Check third job status
+    jobListPage.jobStatuses().eq(2).contains('LIVE')
+  })
+
+  it('Does NOT display job status column, brokerIterationEnabled = false', () => {
+    mockFeatureFlags({
+      brokerIterationEnabled: false,
+    })
+
+    const jobListPage = new JobListPage('Add jobs and employers')
+
+    cy.visit('/jobs')
+
+    jobListPage.jobStatusHeader().should('not.exist')
   })
 })

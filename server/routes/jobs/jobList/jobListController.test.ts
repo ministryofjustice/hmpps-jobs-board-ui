@@ -275,6 +275,39 @@ describe('EmployerListController', () => {
 
       expect(statuses).toEqual(['LIVE', 'LIVE', 'CLOSED'])
     })
+
+    it('Test pagination service - should not be called with only 1 record', async () => {
+      req.query.sort = 'jobStatus'
+      req.query.order = 'ascending'
+
+      await controller.get(req, res, next)
+
+      expect(mockPaginationService.getPagination).not.toHaveBeenCalled()
+    })
+
+    it('Passes unsorted paged response to pagination service', async () => {
+      req.query.sort = 'jobStatus'
+      req.query.order = 'ascending'
+
+      req.context.jobs = {
+        content: new Array(25).fill(null).map((_, i) => ({
+          id: `job-${i}`,
+          jobTitle: `Job ${i}`,
+          closingDate: '2099-01-01',
+          isRollingOpportunity: false,
+        })),
+        page: {
+          totalElements: 25,
+        },
+      }
+
+      await controller.get(req, res, next)
+
+      expect(mockPaginationService.getPagination).toHaveBeenCalledWith(
+        req.context.jobs, // original unsorted object
+        expect.any(URL),
+      )
+    })
   })
 
   describe('getJobStatusSortKey', () => {
