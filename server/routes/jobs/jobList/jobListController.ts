@@ -11,6 +11,20 @@ import JobViewModel from '../../../viewModels/jobViewModel'
 import logger from '../../../../logger'
 import parseBooleanParam from '../../../utils/parseBooleanParam'
 import jobsFilter from '../../../enums/jobsFilter'
+import PagedResponse from '../../../data/domain/types/pagedResponse'
+
+// Define a clear numeric sort key for job status (never relying on string comparison or enum order)
+export function getJobStatusSortKey(job: { closingDate?: string | Date; isRollingOpportunity?: boolean }): number {
+  if (job.isRollingOpportunity || !job.closingDate) return 0 // LIVE
+
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  const closing = new Date(job.closingDate)
+  closing.setHours(0, 0, 0, 0)
+
+  return closing <= today ? 1 : 0 // CLOSED
+}
 
 export default class JobListController {
   constructor(private readonly paginationService: PaginationService) {}
@@ -23,7 +37,7 @@ export default class JobListController {
       : false
 
     const { paginationPageSize } = config
-    const jobListResults = req.context.jobs
+    const jobListResults: PagedResponse<JobViewModel> = req.context.jobs
 
     try {
       // Paginate where necessary
@@ -32,6 +46,27 @@ export default class JobListController {
       if (!sort) {
         res.redirect(`${addressLookup.jobs.jobList()}?sort=jobTitle&order=ascending`)
         return
+      }
+
+      // Sort jobs by status if required
+      // clone before sorting
+      const pagedJobsList = Array.isArray(jobListResults.content) ? [...jobListResults.content] : []
+
+      if (sort === 'jobStatus') {
+        pagedJobsList.sort((a, b) => {
+          const primarySort =
+            order === 'ascending'
+              ? getJobStatusSortKey(a) - getJobStatusSortKey(b)
+              : getJobStatusSortKey(b) - getJobStatusSortKey(a)
+
+          if (primarySort !== 0) return primarySort
+
+          // Secondary sort by closing date (safe for nulls because of primary sort)
+          const dateA = a.closingDate ? new Date(a.closingDate).getTime() : Number.MAX_SAFE_INTEGER
+          const dateB = b.closingDate ? new Date(b.closingDate).getTime() : Number.MAX_SAFE_INTEGER
+
+          return dateA - dateB
+        })
       }
 
       // Build uri
@@ -59,7 +94,7 @@ export default class JobListController {
       const data = {
         jobListResults: {
           ...jobListResults,
-          content: plainToClass(JobViewModel, jobListResults.content),
+          content: plainToClass(JobViewModel, pagedJobsList),
         },
         sort,
         order,

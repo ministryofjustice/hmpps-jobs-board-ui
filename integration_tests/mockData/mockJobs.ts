@@ -1,3 +1,11 @@
+const today = new Date()
+
+function daysFromToday(days: number): string {
+  const date = new Date(today)
+  date.setDate(date.getDate() + days)
+  return date.toISOString()
+}
+
 export default [
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
@@ -7,6 +15,8 @@ export default [
     numberOfVacancies: 1,
     createdAt: '2023-03-02T00:00:00.000Z',
     createdBy: 'USER1',
+    closingDate: daysFromToday(-10), // Past date, should be CLOSED
+    isRollingOpportunity: false,
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
@@ -16,6 +26,19 @@ export default [
     numberOfVacancies: 1,
     createdAt: '2023-03-09T00:00:00.000Z',
     createdBy: 'USER2',
+    closingDate: daysFromToday(5), // Future date, should be LIVE
+    isRollingOpportunity: false,
+  },
+  {
+    id: '01907e1e-bb85-7bb7-9018-33a2070a367d',
+    jobTitle: 'Rolling Job',
+    employerName: 'Rolling Corp',
+    sector: 'RETAIL',
+    numberOfVacancies: 3,
+    createdAt: '2023-03-11T00:00:00.000Z',
+    createdBy: 'USER3',
+    closingDate: null, // No closing date, rolling
+    isRollingOpportunity: true,
   },
   {
     id: '01907e1e-bb85-7bb7-9018-33a2070a367d',

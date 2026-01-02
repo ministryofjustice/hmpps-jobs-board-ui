@@ -1,0 +1,12 @@
+{#  ----------------------------------------------------------------
+    Macro to display the correct colour for a given status, defaults
+    to grey
+    ----------------------------------------------------------------
+#}
+{% macro statusColourTag(status) %}
+    {% set statusColourLookup = {
+        "LIVE": "green",
+        "CLOSED": "red"
+    } %}
+    <strong class="govuk-tag govuk-tag--{{ statusColourLookup[status] | default('grey') }}">{{ status }}</strong>
+{% endmacro %}

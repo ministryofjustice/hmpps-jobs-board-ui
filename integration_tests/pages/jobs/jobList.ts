@@ -33,4 +33,8 @@ export default class JobListPage extends Page {
   jobTitleLinks = () => cy.get('#view-offender a[id^="job-link-"]')
 
   employerNames = () => cy.get('#view-offender td[id^="employer-status-"]')
+
+  jobStatuses = () => cy.get('#view-offender td[id^="job-status-"]')
+
+  jobStatusHeader = () => cy.get('[data-qa=job-status-column-header]')
 }

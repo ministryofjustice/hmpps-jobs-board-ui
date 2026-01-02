@@ -1,10 +1,11 @@
 {% from "../../../../macros/tableMacro.njk" import sortableTableHeader %}
 {% from "../../../../macros/pagination/macro.njk" import pagination %}
+{% from "../../../../macros/statusMacro.njk" import statusColourTag %}
 
 <div id="offender-container">
     {% if jobListResults.content.length >= 1 %}
         <table id="view-offender" class="govuk-table view-offender">
-        <thead class="govuk-table__head">
+            <thead class="govuk-table__head">
             <tr class="govuk-table__row">
                 {{ sortableTableHeader({
                     sort: sort,
@@ -25,37 +26,52 @@
                     headerText: "Date added",
                     id: "createdAt-sort-link"
                 }) }}
+                {% if brokerIterationEnabled === true %}
+                    {{  sortableTableHeader({
+                        sort: sort,
+                        order: order,
+                        formName: "job-search-form",
+                        fieldName: "jobStatus",
+                        headerText: "Status",
+                        id: "jobStatus-sort-link",
+                        qa: "job-status-column-header"
+                    }) }}
+                {% endif %}
             </tr>
-        </thead>
+            </thead>
 
-        <tbody class="govuk-table__body">
-        {% set rowClass = cycler("odd", "even") %}
+            <tbody class="govuk-table__body">
+            {% set rowClass = cycler("odd", "even") %}
 
-        {% for item in jobs %}
-            <tr class="govuk-table__row {{ rowClass.next() }}">
-                <td class="govuk-table__cell" width="25%">
-                    <a href="{{ addressLookup.jobs.jobReview(item.id, 'update') }}"
-                       rel="noopener noreferrer"
-                       data-qa="quick-look-link"
-                       aria-label="Job link for {{ item.jobTitle  }}"
-                       class="govuk-link govuk-link--no-visited-state"
-                       id= "job-link-{{ loop.index }}">{{ item.jobTitle }}</a>
-                </td>
-                <td class="govuk-table__cell" id= "number-of-vacancies-{{ loop.index }}">
-                    {{ item.numberOfVacancies }}
-                </td>
-                <td class="govuk-table__cell" id= "job-sector-{{ loop.index }}" width="25%">
-                     {{ contentLookup.jobSector[item.sector] }}
-                </td>
-                <td class="govuk-table__cell" id="employer-status-{{ loop.index }}" width="25%">
-                    {{ item.employerName }}
-                </td>
-                <td class="govuk-table__cell">{{ item.createdAt }}</td>
-            </tr>
-        {% endfor %}
+            {% for item in jobs %}
+                <tr class="govuk-table__row {{ rowClass.next() }}">
+                    <td class="govuk-table__cell" width="25%">
+                        <a href="{{ addressLookup.jobs.jobReview(item.id, 'update') }}"
+                           rel="noopener noreferrer"
+                           data-qa="quick-look-link"
+                           aria-label="Job link for {{ item.jobTitle  }}"
+                           class="govuk-link govuk-link--no-visited-state"
+                           id= "job-link-{{ loop.index }}">{{ item.jobTitle }}</a>
+                    </td>
+                    <td class="govuk-table__cell" width="12%" id= "number-of-vacancies-{{ loop.index }}">
+                        {{ item.numberOfVacancies }}
+                    </td>
+                    <td class="govuk-table__cell" id= "job-sector-{{ loop.index }}" width="21%">
+                        {{ contentLookup.jobSector[item.sector] }}
+                    </td>
+                    <td class="govuk-table__cell" id="employer-status-{{ loop.index }}" width="20%">
+                        {{ item.employerName }}
+                    </td>
+                    <td class="govuk-table__cell" width="12%">{{ item.createdAt }}</td>
+                    {% if brokerIterationEnabled === true %}
+                        <td class="govuk-table__cell" id="job-status-{{ loop.index }}">{{ statusColourTag(item.jobStatus) }}</td>
+                    {% endif %}
 
-        </tbody>
-    </table>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
     {% endif %}
 
     {% if paginationData.results.count >= 1 and jobListResults.content.length >= 1 %}
