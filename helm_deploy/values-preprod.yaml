@@ -22,9 +22,10 @@ generic-service:
     JOB_API_URL: "https://jobs-board-api-preprod.hmpps.service.justice.gov.uk"
     WORK_AFTER_RELEASE_URL: "https://get-ready-for-work-preprod.hmpps.service.justice.gov.uk"
     SYSTEM_PHASE: PREPROD
+    FEATURE_FLAG_NATIONAL_JOBS: true
 
   scheduledDowntime:
-    enabled: true
+    enabled: true1598-enablenational
 
 generic-prometheus-alerts:
   businessHoursOnly: true
