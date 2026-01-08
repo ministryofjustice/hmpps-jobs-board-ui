@@ -20,7 +20,6 @@ generic-service:
     COMPONENT_API_URL: "https://frontend-components.hmpps.service.justice.gov.uk"
     WORK_AFTER_RELEASE_URL: "https://get-ready-for-work.hmpps.service.justice.gov.uk"
     SYSTEM_PHASE: PROD
-    FEATURE_FLAG_NATIONAL_JOBS: true
 
 generic-prometheus-alerts:
   alertSeverity: education-alerts
