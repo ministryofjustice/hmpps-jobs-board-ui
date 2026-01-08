@@ -25,7 +25,7 @@ generic-service:
     FEATURE_FLAG_NATIONAL_JOBS: true
 
   scheduledDowntime:
-    enabled: true1598-enablenational
+    enabled: true
 
 generic-prometheus-alerts:
   businessHoursOnly: true
