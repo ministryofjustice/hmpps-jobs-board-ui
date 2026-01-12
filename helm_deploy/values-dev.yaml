@@ -25,6 +25,7 @@ generic-service:
     SYSTEM_PHASE: DEV
     AUDIT_ENABLED: 'true'
     FEATURE_FLAG_NATIONAL_JOBS: true
+    FEATURE_FLAG_BROKER_ITERATION: true
 
   scheduledDowntime:
     enabled: true
