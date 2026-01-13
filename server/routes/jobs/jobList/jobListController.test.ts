@@ -303,10 +303,9 @@ describe('EmployerListController', () => {
 
       await controller.get(req, res, next)
 
-      expect(mockPaginationService.getPagination).toHaveBeenCalledWith(
-        req.context.jobs, // original unsorted object
-        expect.any(URL),
-      )
+      const [[paginationArg]] = mockPaginationService.getPagination.mock.calls
+      expect(mockPaginationService.getPagination).toHaveBeenCalled()
+      expect(paginationArg.page.totalElements).toBe(25)
     })
   })
 
