@@ -48,12 +48,29 @@ export default class JobListController {
         return
       }
 
-      // Sort jobs by status if required
-      // clone before sorting
-      const pagedJobsList = Array.isArray(jobListResults.content) ? [...jobListResults.content] : []
+      /*
+        ESWE-1378 - Sorting considerations for a UI derived column
 
-      if (sort === 'jobStatus') {
-        pagedJobsList.sort((a, b) => {
+        jobTitle / createdAt
+        → sorted upstream (API / DB)
+        → pagination happens after sorting
+        → whole result set is ordered correctly
+
+        jobStatus
+        → derived in the UI layer
+        → this is sorting only jobListResults.content
+        → content already contains one page
+        → each page is sorted independently
+        ❌ global ordering is impossible this way
+
+         Cannot globally sort a derived field if there is only a paged subset of the data.
+         As a result set will never be extremely large, we can sort after pagination as a workaround.
+      */
+      const requiresDerivedColSort = sort === 'jobStatus'
+      let sortedJobsList = jobListResults.content
+
+      if (requiresDerivedColSort) {
+        sortedJobsList = [...jobListResults.content].sort((a, b) => {
           const primarySort =
             order === 'ascending'
               ? getJobStatusSortKey(a) - getJobStatusSortKey(b)
@@ -69,6 +86,32 @@ export default class JobListController {
         })
       }
 
+      // Apply pagination AFTER sorting
+      const pageNumber = Math.max(Number(page ?? 1) - 1, 0)
+      const pageSize = Number(paginationPageSize)
+
+      const pagedJobsList = requiresDerivedColSort
+        ? sortedJobsList.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize)
+        : sortedJobsList
+
+      // Rebuild the PagedResponse content to match pagedJobsList
+      const pagedJobListResponse: PagedResponse<JobViewModel> = requiresDerivedColSort
+        ? {
+            ...jobListResults,
+            content: pagedJobsList,
+            page: {
+              ...jobListResults.page,
+              size: pageSize,
+              totalElements: jobListResults.page.totalElements,
+              totalPages: Math.ceil(jobListResults.page.totalElements / pageSize),
+              number: pageNumber,
+            },
+          }
+        : {
+            ...jobListResults,
+            content: pagedJobsList,
+          }
+
       // Build uri
       const uri = [
         sort && `sort=${sort}`,
@@ -81,20 +124,20 @@ export default class JobListController {
       ].filter(val => !!val)
 
       // Build pagination or error messages
-      if (jobListResults.page.totalElements) {
-        if (jobListResults.page.totalElements > parseInt(paginationPageSize.toString(), 10)) {
-          paginationData = this.paginationService.getPagination(
-            jobListResults,
-            new URL(`${req.protocol}://${req.get('host')}${addressLookup.jobs.jobList()}?${uri.join('&')}`),
-          )
-        }
+      const paginationSource = requiresDerivedColSort ? pagedJobListResponse : jobListResults
+
+      if (paginationSource.page.totalElements > pageSize) {
+        paginationData = this.paginationService.getPagination(
+          paginationSource,
+          new URL(`${req.protocol}://${req.get('host')}${addressLookup.jobs.jobList()}?${uri.join('&')}`),
+        )
       }
 
       // Render data
       const data = {
         jobListResults: {
-          ...jobListResults,
-          content: plainToClass(JobViewModel, pagedJobsList),
+          ...pagedJobListResponse,
+          content: plainToClass(JobViewModel, pagedJobListResponse.content),
         },
         sort,
         order,
