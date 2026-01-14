@@ -12,7 +12,6 @@ export default function setUpLocals(): Router {
     res.locals.contentLookup = contentLookup
     res.locals.originalUrl = req.originalUrl
     res.locals.manageDetailsLink = `${config.apis.hmppsAuth.externalUrl}/account-details`
-    res.locals.filterJobsCreatedByMeEnabled = config.featureToggles.filterJobsCreatedByMeEnabled
     res.locals.useNationalJobs = config.featureToggles.nationalJobs ?? false
     res.locals.brokerIterationEnabled = config.featureToggles.brokerIterationEnabled ?? false
 
