@@ -32,7 +32,7 @@ export default class JobListController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
     const { page, sort, order, jobSectorFilter = '', jobTitleOrEmployerNameFilter = '' } = req.query
 
-    const myOwnJobsFilter = res.locals.filterJobsCreatedByMeEnabled
+    const myOwnJobsFilter = res.locals.brokerIterationEnabled
       ? parseBooleanParam(req.query.myOwnJobsFilter?.toString())
       : false
 

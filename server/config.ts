@@ -136,7 +136,6 @@ export default {
   },
   appInsightsConnectionString,
   featureToggles: {
-    filterJobsCreatedByMeEnabled: toBoolean(get('FEATURE_FLAG_BROKER_ITERATION', false)),
     nationalJobs: toBoolean(get('FEATURE_FLAG_NATIONAL_JOBS', false)),
     brokerIterationEnabled: toBoolean(get('FEATURE_FLAG_BROKER_ITERATION', false)),
   },
