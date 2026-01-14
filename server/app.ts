@@ -36,7 +36,7 @@ export default function createApp(services: Services, applicationInfo: Applicati
   app.set('trust proxy', true)
   app.set('port', process.env.PORT || 3000)
 
-  app.use(setUpHealthChecks())
+  app.use(setUpHealthChecks(applicationInfo))
   app.use(setUpWebSecurity())
   app.use(setUpWebSession())
   app.use(setUpWebRequestParsing())

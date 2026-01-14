@@ -129,7 +129,7 @@ describe('JobDuplicateController', () => {
 
       setSessionData(req, ['jobDuplicate', id], mockData)
 
-      config.apis.hmppsAudit.enabled = true
+      config.hmppsAudit.enabled = true
       auditSpy.mockReset()
       auditSpy.mockResolvedValue()
     })

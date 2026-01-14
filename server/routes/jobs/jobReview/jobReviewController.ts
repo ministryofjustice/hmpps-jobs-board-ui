@@ -123,11 +123,11 @@ export default class JobReviewController {
       const create = _.trim(id.toString()) === 'new'
       const identifier = create ? uuidv7() : id
 
-      if (config.apis.hmppsAudit.enabled) {
+      if (config.hmppsAudit.enabled) {
         await auditService.sendAuditMessage({
           action: `${create ? 'CREATE' : 'UPDATE'}_JOB`,
           who: res.locals.user.username,
-          service: config.apis.hmppsAudit.auditServiceName,
+          service: config.hmppsAudit.auditServiceName,
           subjectId: identifier,
           subjectType: 'NOT_APPLICABLE',
         })
