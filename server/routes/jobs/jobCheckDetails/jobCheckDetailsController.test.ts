@@ -100,7 +100,7 @@ describe('jobCheckDetailsController', () => {
       next.mockReset()
       setSessionData(req, ['jobCheckDetails', id], mockData)
 
-      config.apis.hmppsAudit.enabled = true
+      config.hmppsAudit.enabled = true
       auditSpy.mockReset()
       auditSpy.mockResolvedValue()
     })
@@ -139,7 +139,7 @@ describe('jobCheckDetailsController', () => {
       expect(auditSpy).toHaveBeenCalledWith({
         action: 'CREATE_JOB',
         who: res.locals.user.username,
-        service: config.apis.hmppsAudit.auditServiceName,
+        service: config.hmppsAudit.auditServiceName,
         subjectId: uuidv7,
         subjectType: 'NOT_APPLICABLE',
       })
