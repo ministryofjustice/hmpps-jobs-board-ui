@@ -19,7 +19,7 @@ export default defineConfig({
   },
   taskTimeout: 60000,
   e2e: {
-    setupNodeEvents(on, config) {
+    setupNodeEvents(on) {
       on('task', {
         reset: resetStubs,
         ...auth,
@@ -30,15 +30,6 @@ export default defineConfig({
         ...tokenVerification,
         ...frontendComponents,
       })
-
-      // Return a new config object instead of mutating
-      return {
-        ...config,
-        env: {
-          ...config.env,
-          filterJobsCreatedByMeEnabled: process.env.FILTER_JOBS_CREATED_BY_ME_ENABLED === 'true',
-        },
-      }
     },
     baseUrl: 'http://localhost:3007',
     excludeSpecPattern: '**/!(*.cy).ts',

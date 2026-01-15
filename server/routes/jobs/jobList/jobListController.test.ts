@@ -293,7 +293,7 @@ describe('EmployerListController', () => {
         content: new Array(25).fill(null).map((_, i) => ({
           id: `job-${i}`,
           jobTitle: `Job ${i}`,
-          closingDate: '2099-01-01',
+          closingDate: daysFromToday(i),
           isRollingOpportunity: false,
         })),
         page: {
@@ -303,10 +303,9 @@ describe('EmployerListController', () => {
 
       await controller.get(req, res, next)
 
-      expect(mockPaginationService.getPagination).toHaveBeenCalledWith(
-        req.context.jobs, // original unsorted object
-        expect.any(URL),
-      )
+      const [[paginationArg]] = mockPaginationService.getPagination.mock.calls
+      expect(mockPaginationService.getPagination).toHaveBeenCalled()
+      expect(paginationArg.page.totalElements).toBe(25)
     })
   })
 

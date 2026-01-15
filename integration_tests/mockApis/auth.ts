@@ -54,7 +54,7 @@ const ping = () =>
 const redirect = () =>
   stubFor({
     request: {
-      method: 'GET',
+      method: 'ANY',
       urlPattern: '/auth/oauth/authorize\\?response_type=code&redirect_uri=.+?&state=.+?&client_id=clientid',
     },
     response: {
