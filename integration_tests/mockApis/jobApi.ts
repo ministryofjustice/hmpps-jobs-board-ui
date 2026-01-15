@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import _ from 'lodash'
+import { SuperAgentRequest } from 'superagent'
 import mockJobs from '../mockData/mockJobs'
 import { stubFor } from './wiremock'
 
@@ -173,9 +174,23 @@ const getJobs = (
   })
 }
 
+const stubJobApiPing = (): SuperAgentRequest =>
+  stubFor({
+    request: {
+      method: 'GET',
+      urlPattern: '/health/ping',
+    },
+    response: {
+      status: 200,
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+      jsonBody: { status: 'UP' },
+    },
+  })
+
 export default {
   putJob,
   getJob,
   getNationalJob,
   getJobs,
+  stubJobApiPing,
 }

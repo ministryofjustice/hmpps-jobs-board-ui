@@ -6,6 +6,7 @@ import employerApi from './integration_tests/mockApis/employerApi'
 import jobApi from './integration_tests/mockApis/jobApi'
 import nomisUserRolesApi from './integration_tests/mockApis/nomisUserRolesApi'
 import tokenVerification from './integration_tests/mockApis/tokenVerification'
+import frontendComponents from './integration_tests/mockApis/frontendComponents'
 
 export default defineConfig({
   chromeWebSecurity: false,
@@ -27,6 +28,7 @@ export default defineConfig({
         ...jobApi,
         ...nomisUserRolesApi,
         ...tokenVerification,
+        ...frontendComponents,
       })
 
       // Return a new config object instead of mutating
