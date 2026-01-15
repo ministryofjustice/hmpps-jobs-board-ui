@@ -96,11 +96,11 @@ export default class JobCheckDetailsController {
 
       const identifier = uuidv7()
 
-      if (config.apis.hmppsAudit.enabled) {
+      if (config.hmppsAudit.enabled) {
         await auditService.sendAuditMessage({
           action: 'CREATE_JOB',
           who: res.locals.user.username,
-          service: config.apis.hmppsAudit.auditServiceName,
+          service: config.hmppsAudit.auditServiceName,
           subjectId: identifier,
           subjectType: 'NOT_APPLICABLE',
         })

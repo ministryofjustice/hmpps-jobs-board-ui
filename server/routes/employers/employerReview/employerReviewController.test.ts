@@ -72,7 +72,7 @@ describe('EmployerReviewController', () => {
 
       setSessionData(req, ['employerReview', id], mockData)
 
-      config.apis.hmppsAudit.enabled = true
+      config.hmppsAudit.enabled = true
       auditSpy.mockReset()
       auditSpy.mockResolvedValue()
     })
@@ -108,7 +108,7 @@ describe('EmployerReviewController', () => {
       expect(auditSpy).toHaveBeenCalledWith({
         action: 'CREATE_EMPLOYER',
         who: res.locals.user.username,
-        service: config.apis.hmppsAudit.auditServiceName,
+        service: config.hmppsAudit.auditServiceName,
         subjectId: uuidv7,
         subjectType: 'NOT_APPLICABLE',
       })
@@ -124,7 +124,7 @@ describe('EmployerReviewController', () => {
       expect(auditSpy).toHaveBeenCalledWith({
         action: 'UPDATE_EMPLOYER',
         who: res.locals.user.username,
-        service: config.apis.hmppsAudit.auditServiceName,
+        service: config.hmppsAudit.auditServiceName,
         subjectId: existingEmployerId,
         subjectType: 'NOT_APPLICABLE',
       })
