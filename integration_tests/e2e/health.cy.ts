@@ -24,6 +24,7 @@ context('Healthcheck', () => {
 
     it('Failed test for status-check', () => {
       throw new Error("test fails here")
+    })
   })
 
   context('Some unhealthy', () => {
