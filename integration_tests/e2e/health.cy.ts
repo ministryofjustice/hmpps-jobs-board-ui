@@ -21,6 +21,9 @@ context('Healthcheck', () => {
     it('Info is visible and UP', () => {
       cy.request('/info').its('body.build.artifact').should('equal', 'hmpps-jobs-board-ui')
     })
+
+    it('Failed test for status-check', () => {
+      throw new Error("test fails here")
   })
 
   context('Some unhealthy', () => {
