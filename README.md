@@ -1,6 +1,6 @@
 # hmpps-jobs-board-ui
-[![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=flat&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fhmpps-jobs-board-ui)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#hmpps-jobs-board-ui "Link to report")
-[![CircleCI](https://circleci.com/gh/ministryofjustice/hmpps-jobs-board-ui/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/hmpps-jobs-board-ui)
+[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/hmpps-jobs-board-ui/badge)](https://github-community.service.justice.gov.uk/repository-standards/hmpps-jobs-board-ui)
+[![Pipeline [test -> build -> deploy]](https://github.com/ministryofjustice/hmpps-jobs-board-ui/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/ministryofjustice/hmpps-jobs-board-ui/actions/workflows/pipeline.yml)
 
 [![JS](https://img.shields.io/badge/JavaScript-323330?style=flat&logo=javascript&logoColor=F7DF1E)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=fff)](http://www.typescriptlang.org/)
