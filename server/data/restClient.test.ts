@@ -24,9 +24,13 @@ describe.each(['get', 'patch', 'post', 'put', 'delete'] as const)('Method: %s', 
       [method]('/api/test')
       .reply(200, { success: true })
 
-    const result = await restClient[method]({
-      path: '/test',
-    })
+    let result: { success: boolean }
+
+    if (method === 'get' || method === 'delete') {
+      result = await restClient[method]<{ success: boolean }>({ path: '/test' })
+    } else {
+      result = await restClient[method]<{ success: boolean }>({ path: '/test', data: {} })
+    }
 
     expect(nock.isDone()).toBe(true)
 
@@ -130,11 +134,54 @@ describe.each(['get', 'patch', 'post', 'put', 'delete'] as const)('Method: %s', 
       [method]('/api/test')
       .reply(200, { success: true })
 
-    const result = await restClient[method]({
-      path: '/test',
-      headers: { header1: 'headerValue1' },
-      retry: true,
-    })
+    let result: { success: boolean }
+
+    switch (method) {
+      case 'get':
+        // GET in your RestClient does not support retry flag in its Request type
+        result = await restClient.get<{ success: boolean }>({
+          path: '/test',
+          headers: { header1: 'headerValue1' },
+        })
+        break
+
+      case 'delete':
+        result = await restClient.delete<{ success: boolean }>({
+          path: '/test',
+          headers: { header1: 'headerValue1' },
+        })
+        break
+
+      case 'post':
+        result = await restClient.post<{ success: boolean }>({
+          path: '/test',
+          headers: { header1: 'headerValue1' },
+          retry: true,
+          data: {}, // keep requestWithBody happy
+        })
+        break
+
+      case 'put':
+        result = await restClient.put<{ success: boolean }>({
+          path: '/test',
+          headers: { header1: 'headerValue1' },
+          retry: true,
+          data: {},
+        })
+        break
+
+      case 'patch':
+        result = await restClient.patch<{ success: boolean }>({
+          path: '/test',
+          headers: { header1: 'headerValue1' },
+          retry: true,
+          data: {},
+        })
+        break
+
+      default:
+        throw new Error(`Unexpected method: ${String(method)}`)
+    }
 
     expect(result).toStrictEqual({ success: true })
     expect(nock.isDone()).toBe(true)
