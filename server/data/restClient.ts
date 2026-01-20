@@ -1,12 +1,13 @@
 import { Readable } from 'stream'
 
 import Agent, { HttpsAgent } from 'agentkeepalive'
+import type { Response as SuperagentResponse } from 'superagent'
 import superagent from 'superagent'
 
 import logger from '../../logger'
+import type { UnsanitisedError } from '../sanitisedError'
 import sanitiseError from '../sanitisedError'
 import type { ApiConfig } from '../config'
-import type { UnsanitisedError } from '../sanitisedError'
 import { restClientMetricsMiddleware } from './restClientMetricsMiddleware'
 
 interface Request {
@@ -28,6 +29,13 @@ interface StreamRequest {
   errorLogger?: (e: UnsanitisedError) => void
 }
 
+type RequestBase = Omit<Request, 'raw'> & { raw?: false }
+type RequestRaw = Omit<Request, 'raw'> & { raw: true }
+type RequestAny = RequestBase | RequestRaw
+type RequestWithBodyBase = Omit<RequestWithBody, 'raw'> & { raw?: false }
+type RequestWithBodyRaw = Omit<RequestWithBody, 'raw'> & { raw: true }
+type RequestWithBodyAny = RequestWithBodyBase | RequestWithBodyRaw
+
 export default class RestClient {
   agent: Agent
 
@@ -43,13 +51,17 @@ export default class RestClient {
     return this.config.timeout
   }
 
-  async get<Response = unknown>({
+  async get<TBody = unknown>(req: RequestBase): Promise<TBody>
+
+  async get(req: RequestRaw): Promise<SuperagentResponse>
+
+  async get<TBody = unknown>({
     path,
     query = {},
     headers = {},
     responseType = '',
     raw = false,
-  }: Request): Promise<Response> {
+  }: Request): Promise<TBody | SuperagentResponse> {
     logger.info(`${this.name} GET: ${path}`)
     try {
       const result = await superagent
@@ -66,7 +78,8 @@ export default class RestClient {
         .responseType(responseType)
         .timeout(this.timeoutConfig())
 
-      return raw ? result : result.body
+      if (raw) return result
+      return result.body as TBody
     } catch (error) {
       const sanitisedError = sanitiseError(error)
       logger.warn({ ...sanitisedError }, `Error calling ${this.name}, path: '${path}', verb: 'GET'`)
@@ -74,10 +87,17 @@ export default class RestClient {
     }
   }
 
-  private async requestWithBody<Response = unknown>(
+  private async requestWithBody<TBody = unknown>(
+    method: 'patch' | 'post' | 'put',
+    req: RequestWithBodyBase,
+  ): Promise<TBody>
+
+  private async requestWithBody(method: 'patch' | 'post' | 'put', req: RequestWithBodyRaw): Promise<SuperagentResponse>
+
+  private async requestWithBody<TBody = unknown>(
     method: 'patch' | 'post' | 'put',
     { path, query = {}, headers = {}, responseType = '', data = {}, raw = false, retry = false }: RequestWithBody,
-  ): Promise<Response> {
+  ): Promise<TBody | SuperagentResponse> {
     logger.info(`${this.name} ${method.toUpperCase()}: ${path}`)
     try {
       const result = await superagent[method](`${this.apiUrl()}${path}`)
@@ -97,7 +117,8 @@ export default class RestClient {
         .responseType(responseType)
         .timeout(this.timeoutConfig())
 
-      return raw ? result : result.body
+      if (raw) return result
+      return result.body as TBody
     } catch (error) {
       const sanitisedError = sanitiseError(error)
       logger.warn({ ...sanitisedError }, `Error calling ${this.name}, path: '${path}', verb: '${method.toUpperCase()}'`)
@@ -105,25 +126,50 @@ export default class RestClient {
     }
   }
 
-  async patch<Response = unknown>(request: RequestWithBody): Promise<Response> {
-    return this.requestWithBody('patch', request)
+  async patch<TBody = unknown>(request: RequestWithBodyBase): Promise<TBody>
+
+  async patch(request: RequestWithBodyRaw): Promise<SuperagentResponse>
+
+  async patch<TBody = unknown>(request: RequestWithBodyAny): Promise<TBody | SuperagentResponse> {
+    if (request.raw === true) {
+      return this.requestWithBody('patch', request) // matches RequestWithBodyRaw overload
+    }
+    return this.requestWithBody<TBody>('patch', request) // matches RequestWithBodyBase overload
   }
 
-  async post<Response = unknown>(request: RequestWithBody): Promise<Response> {
-    return this.requestWithBody('post', request)
+  async post<TBody = unknown>(request: Omit<RequestWithBody, 'raw'> & { raw?: false }): Promise<TBody>
+
+  async post(request: Omit<RequestWithBody, 'raw'> & { raw: true }): Promise<SuperagentResponse>
+
+  async post<TBody = unknown>(request: RequestWithBodyAny): Promise<TBody | SuperagentResponse> {
+    if (request.raw === true) {
+      return this.requestWithBody('post', request) // matches RequestWithBodyRaw overload
+    }
+    return this.requestWithBody<TBody>('post', request) // matches RequestWithBodyBase overload
   }
 
-  async put<Response = unknown>(request: RequestWithBody): Promise<Response> {
-    return this.requestWithBody('put', request)
+  async put<TBody = unknown>(request: Omit<RequestWithBody, 'raw'> & { raw?: false }): Promise<TBody>
+
+  async put(request: Omit<RequestWithBody, 'raw'> & { raw: true }): Promise<SuperagentResponse>
+
+  async put<TBody = unknown>(request: RequestWithBodyAny): Promise<TBody | SuperagentResponse> {
+    if (request.raw === true) {
+      return this.requestWithBody('put', request) // matches RequestWithBodyRaw overload
+    }
+    return this.requestWithBody<TBody>('put', request) // matches RequestWithBodyBase overload
   }
 
-  async delete<Response = unknown>({
+  async delete<TBody = unknown>(req: RequestBase): Promise<TBody>
+
+  async delete(req: RequestRaw): Promise<SuperagentResponse>
+
+  async delete<TBody = unknown>({
     path,
     query = {},
     headers = {},
     responseType = '',
     raw = false,
-  }: Request): Promise<Response> {
+  }: RequestAny): Promise<TBody | SuperagentResponse> {
     logger.info(`${this.name} DELETE: ${path}`)
     try {
       const result = await superagent
@@ -140,7 +186,8 @@ export default class RestClient {
         .responseType(responseType)
         .timeout(this.timeoutConfig())
 
-      return raw ? result : result.body
+      if (raw === true) return result
+      return result.body as TBody
     } catch (error) {
       const sanitisedError = sanitiseError(error)
       logger.warn({ ...sanitisedError }, `Error calling ${this.name}, path: '${path}', verb: 'DELETE'`)
