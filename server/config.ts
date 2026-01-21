@@ -69,6 +69,7 @@ export default {
     hmppsAuth: {
       url: get('HMPPS_AUTH_URL', 'http://localhost:9090/auth', requiredInProduction),
       externalUrl: get('HMPPS_AUTH_EXTERNAL_URL', get('HMPPS_AUTH_URL', 'http://localhost:9090/auth')),
+      healthPath: '/health/ping',
       timeout: {
         response: Number(get('HMPPS_AUTH_TIMEOUT_RESPONSE', 10000)),
         deadline: Number(get('HMPPS_AUTH_TIMEOUT_DEADLINE', 10000)),
@@ -79,12 +80,9 @@ export default {
       systemClientId: get('SYSTEM_CLIENT_ID', 'clientid', requiredInProduction),
       systemClientSecret: get('SYSTEM_CLIENT_SECRET', 'clientsecret', requiredInProduction),
     },
-    hmppsAudit: {
-      enabled: get('AUDIT_ENABLED', 'false') === 'true',
-      auditServiceName: get('AUDIT_SERVICE_NAME', 'hmpps-jobs-board-ui'),
-    },
     nomisUserRolesApi: {
       url: get('NOMIS_USER_ROLES_API_URL', 'http://localhost:8082', requiredInProduction),
+      healthPath: '/health/ping',
       timeout: {
         response: Number(get('NOMIS_USER_ROLES_TIMEOUT_RESPONSE', 10000)),
         deadline: Number(get('NOMIS_USER_ROLES_TIMEOUT_DEADLINE', 10000)),
@@ -93,6 +91,7 @@ export default {
     },
     manageUsersApi: {
       url: get('MANAGE_USERS_API_URL', 'http://localhost:9091', requiredInProduction),
+      healthPath: '/health/ping',
       timeout: {
         response: Number(get('MANAGE_USERS_API_TIMEOUT_RESPONSE', 10000)),
         deadline: Number(get('MANAGE_USERS_API_TIMEOUT_DEADLINE', 10000)),
@@ -101,6 +100,7 @@ export default {
     },
     tokenVerification: {
       url: get('TOKEN_VERIFICATION_API_URL', 'http://localhost:8100', requiredInProduction),
+      healthPath: '/health/ping',
       timeout: {
         response: Number(get('TOKEN_VERIFICATION_API_TIMEOUT_RESPONSE', 5000)),
         deadline: Number(get('TOKEN_VERIFICATION_API_TIMEOUT_DEADLINE', 5000)),
@@ -110,6 +110,7 @@ export default {
     },
     frontendComponents: {
       url: get('COMPONENT_API_URL', 'http://localhost:8083', requiredInProduction),
+      healthPath: '/ping',
       timeout: {
         response: Number(get('COMPONENT_API_URL', 10000)),
         deadline: Number(get('COMPONENT_API_URL', 10000)),
@@ -118,6 +119,7 @@ export default {
     },
     jobApi: {
       url: get('JOB_API_URL', 'http://localhost:8083', requiredInProduction),
+      healthPath: '/health/ping',
       timeout: {
         response: Number(get('JOB_API_URL', 10000)),
         deadline: Number(get('JOB_API_URL', 10000)),
@@ -136,6 +138,10 @@ export default {
     googleAnalyticsId: get('GOOGLE_ANALYTICS_ID', '', requiredInProduction),
   },
   appInsightsConnectionString,
+  hmppsAudit: {
+    enabled: get('AUDIT_ENABLED', 'false') === 'true',
+    auditServiceName: get('AUDIT_SERVICE_NAME', 'hmpps-jobs-board-ui'),
+  },
   featureToggles: {
     filterJobsCreatedByMeEnabled: systemPhase === 'DEV',
     nationalJobs: toBoolean(get('FEATURE_FLAG_NATIONAL_JOBS', false)),
