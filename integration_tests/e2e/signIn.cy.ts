@@ -24,48 +24,54 @@ context('Sign In', () => {
 
   it('User name visible in header', () => {
     cy.signIn()
-    const indexPage = new IndexPage('Add jobs and employers')
-    indexPage.headerUserName().should('contain.text', 'T. Smith')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedTitle = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      const indexPage = new IndexPage(expectedTitle)
+
+      indexPage.headerUserName().should('contain.text', 'T. Smith')
+    })
   })
 
   it('User can sign out', () => {
     cy.signIn()
-    const indexPage = new IndexPage('Add jobs and employers')
-    indexPage.signOut().click()
-    Page.verifyOnPage(AuthSignInPage)
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedTitle = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      const indexPage = new IndexPage(expectedTitle)
+
+      indexPage.signOut().click()
+      Page.verifyOnPage(AuthSignInPage)
+    })
   })
 
   it('User can manage their details', () => {
     cy.signIn()
     cy.task('stubAuthManageDetails')
-    const indexPage = new IndexPage('Add jobs and employers')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedTitle = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      const indexPage = new IndexPage(expectedTitle)
 
-    indexPage.manageDetails().get('a').invoke('removeAttr', 'target')
-    indexPage.manageDetails().click()
-    Page.verifyOnPage(AuthManageDetailsPage)
-  })
-
-  it('Token verification failure takes user to sign in page', () => {
-    cy.signIn()
-    const indexPage = new IndexPage('Add jobs and employers')
-    cy.task('stubVerifyToken', false)
-
-    // can't do a visit here as cypress requires only one domain
-    cy.request('/').its('body').should('contain', 'Sign in')
+      indexPage.manageDetails().get('a').invoke('removeAttr', 'target')
+      indexPage.manageDetails().click()
+      Page.verifyOnPage(AuthManageDetailsPage)
+    })
   })
 
   it('Token verification failure clears user session', () => {
     cy.signIn()
-    const indexPage = new IndexPage('Add jobs and employers')
-    cy.task('stubVerifyToken', false)
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedTitle = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      const indexPage = new IndexPage(expectedTitle)
 
-    // can't do a visit here as cypress requires only one domain
-    cy.request('/').its('body').should('contain', 'Sign in')
+      cy.task('stubVerifyToken', false)
 
-    cy.task('stubVerifyToken', true)
-    cy.task('stubManageUser', 'icy water')
-    cy.signIn()
+      // can't do a visit here as cypress requires only one domain
+      cy.request('/').its('body').should('contain', 'Sign in')
 
-    indexPage.headerUserName().contains('I. Water')
+      cy.task('stubVerifyToken', true)
+      cy.task('stubManageUser', 'icy water')
+      cy.signIn()
+
+      indexPage.headerUserName().contains('I. Water')
+    })
   })
 })

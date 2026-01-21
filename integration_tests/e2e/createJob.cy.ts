@@ -263,7 +263,10 @@ context('Sign In', () => {
 
     jobReviewPage.submitButton().click()
 
-    const indexPage = new IndexPage('Add jobs and employers')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedTitle = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      const indexPage = new IndexPage(expectedTitle)
+    })
   })
 
   it('Create job flow - with national jobs', () => {
@@ -373,7 +376,10 @@ context('Sign In', () => {
 
     jobReviewPage.submitButton().click()
 
-    const indexPage = new IndexPage('Add jobs and employers')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedTitle = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      const indexPage = new IndexPage(expectedTitle)
+    })
   })
 
   it('Create job - change links flow - without national jobs', () => {

@@ -27,7 +27,10 @@ context('Sign In', () => {
 
     employerReviewPage.submitButton().click()
 
-    const indexPage = new IndexPage('Add jobs and employers')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedTitle = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      const indexPage = new IndexPage(expectedTitle)
+    })
   })
 
   it('Update employer - change links flow', () => {

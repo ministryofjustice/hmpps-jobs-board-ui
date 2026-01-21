@@ -18,102 +18,122 @@ context('Sign In', () => {
   })
 
   it('Add job flow', () => {
-    cy.checkFeatureToggle('nationalJobs', isEnabled => {
-      cy.wrap(isEnabled).as('nationalJobsEnabled')
+    const jobListPage = new JobListPage('Expected Heading')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedHeading = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      cy.checkFeatureToggle('nationalJobs', isEnabled => {
+        cy.wrap(isEnabled).as('nationalJobsEnabled')
+      })
+      jobListPage.heading().contains(expectedHeading)
+
+      jobListPage.addJobButton().click()
+
+      const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
+      cy.get('@nationalJobsEnabled').then(isEnabled => {
+        if (isEnabled) {
+          jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 6')
+        } else {
+          jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 5')
+        }
+      })
+
+      jobRoleUpdatePage.backLink().click()
+
+      jobListPage.heading().contains(expectedHeading)
     })
-    const jobListPage = new JobListPage('Add jobs and employers')
-
-    jobListPage.addJobButton().click()
-
-    const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
-    cy.get('@nationalJobsEnabled').then(isEnabled => {
-      if (isEnabled) {
-        jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 6')
-      } else {
-        jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 5')
-      }
-    })
-
-    jobRoleUpdatePage.backLink().click()
-
-    jobListPage.heading().contains('Add jobs and employers')
   })
 
   it('Update job flow', () => {
-    cy.checkFeatureToggle('nationalJobs', isEnabled => {
-      cy.wrap(isEnabled).as('nationalJobsEnabled')
-    })
-    const jobListPage = new JobListPage('Add jobs and employers')
+    const jobListPage = new JobListPage('Expected Heading')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedHeading = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      cy.checkFeatureToggle('nationalJobs', isEnabled => {
+        cy.wrap(isEnabled).as('nationalJobsEnabled')
+      })
+      jobListPage.heading().contains(expectedHeading)
 
-    jobListPage.jobLink(1).click()
+      jobListPage.jobLink(1).click()
 
-    const jobReviewPage = new JobReviewPage('Warehouse operator')
-    cy.get('@nationalJobsEnabled').then(isEnabled => {
-      if (isEnabled) {
-        jobReviewPage.headerCaption().contains('Update a job - step 6 of 6')
-      } else {
-        jobReviewPage.headerCaption().contains('Update a job - step 5 of 5')
-      }
+      const jobReviewPage = new JobReviewPage('Warehouse operator')
+      cy.get('@nationalJobsEnabled').then(isEnabled => {
+        if (isEnabled) {
+          jobReviewPage.headerCaption().contains('Update a job - step 6 of 6')
+        } else {
+          jobReviewPage.headerCaption().contains('Update a job - step 5 of 5')
+        }
+      })
     })
   })
 
   it('Check pagination', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
+    const jobListPage = new JobListPage('Expected Heading')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedHeading = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      jobListPage.heading().contains(expectedHeading)
 
-    jobListPage.nextLink().contains('Next')
+      jobListPage.nextLink().contains('Next')
 
-    jobListPage.paginationResults().contains('Showing 1 to 20 of 40 results')
+      jobListPage.paginationResults().contains('Showing 1 to 20 of 40 results')
 
-    cy.task('getJobs', { page: 2 })
+      cy.task('getJobs', { page: 2 })
 
-    jobListPage.nextLink().click()
+      jobListPage.nextLink().click()
 
-    jobListPage.previousLink().contains('Previous')
+      jobListPage.previousLink().contains('Previous')
 
-    jobListPage.paginationResults().contains('Showing 21 to 40 of 40 results')
+      jobListPage.paginationResults().contains('Showing 21 to 40 of 40 results')
+    })
   })
 
   it('Filter validation messages', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
+    const jobListPage = new JobListPage('Expected Heading')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedHeading = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      jobListPage.heading().contains(expectedHeading)
 
-    jobListPage.jobTitleOrEmployerNameFilterField().type('a')
+      jobListPage.jobTitleOrEmployerNameFilterField().type('a')
 
-    jobListPage.applyFiltersButton().click()
+      jobListPage.applyFiltersButton().click()
 
-    jobListPage
-      .jobTitleOrEmployerNameFilterPageErrorMessage()
-      .contains('Job title or employer name must be 3 characters or more')
+      jobListPage
+        .jobTitleOrEmployerNameFilterPageErrorMessage()
+        .contains('Job title or employer name must be 3 characters or more')
+    })
   })
 
   it('No records found messages', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
+    const jobListPage = new JobListPage('Expected Heading')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedHeading = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      jobListPage.heading().contains(expectedHeading)
 
-    jobListPage.jobTitleOrEmployerNameFilterField().type('adsds')
+      jobListPage.jobTitleOrEmployerNameFilterField().type('adsds')
 
-    jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck({ force: true })
-    cy.task('getJobs', { page: 1, jobTitleOrEmployerNameFilter: 'adsds', myOwnJobsFilter: false })
+      jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck({ force: true })
+      cy.task('getJobs', { page: 1, jobTitleOrEmployerNameFilter: 'adsds', myOwnJobsFilter: false })
 
-    jobListPage.applyFiltersButton().click()
+      jobListPage.applyFiltersButton().click()
 
-    jobListPage.noResultsMessage().contains(`0 results for "adsds" in job title or employer name`)
+      jobListPage.noResultsMessage().contains(`0 results for "adsds" in job title or employer name`)
 
-    jobListPage.clearFiltersLink().click()
+      jobListPage.clearFiltersLink().click()
 
-    jobListPage.jobTitleOrEmployerNameFilterField().type('adsds')
+      jobListPage.jobTitleOrEmployerNameFilterField().type('adsds')
 
-    jobListPage.jobSectorFilterField().select('RETAIL')
+      jobListPage.jobSectorFilterField().select('RETAIL')
 
-    jobListPage.applyFiltersButton().click()
+      jobListPage.applyFiltersButton().click()
 
-    jobListPage.noResultsMessage().contains(`0 results for "adsds" in Retail and sales`)
+      jobListPage.noResultsMessage().contains(`0 results for "adsds" in Retail and sales`)
 
-    jobListPage.clearFiltersLink().click()
+      jobListPage.clearFiltersLink().click()
 
-    jobListPage.jobSectorFilterField().select('RETAIL')
+      jobListPage.jobSectorFilterField().select('RETAIL')
 
-    jobListPage.applyFiltersButton().click()
+      jobListPage.applyFiltersButton().click()
 
-    jobListPage.noResultsMessage().contains(`0 results in Retail and sales`)
+      jobListPage.noResultsMessage().contains(`0 results in Retail and sales`)
+    })
   })
 })
 
@@ -139,18 +159,19 @@ context('Job status column - dependent on broker iteration flag', () => {
       brokerIterationEnabled: true,
     })
 
-    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedTitle = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      const jobListPage = new JobListPage(expectedTitle)
 
-    cy.visit('/jobs')
+      // Check first job status
+      jobListPage.jobStatuses().eq(0).contains('CLOSED')
 
-    // Check first job status
-    jobListPage.jobStatuses().eq(0).contains('CLOSED')
+      // Check second job status
+      jobListPage.jobStatuses().eq(1).contains('LIVE')
 
-    // Check second job status
-    jobListPage.jobStatuses().eq(1).contains('LIVE')
-
-    // Check third job status
-    jobListPage.jobStatuses().eq(2).contains('LIVE')
+      // Check third job status
+      jobListPage.jobStatuses().eq(2).contains('LIVE')
+    })
   })
 
   it('Does NOT display job status column, brokerIterationEnabled = false', () => {
@@ -158,7 +179,7 @@ context('Job status column - dependent on broker iteration flag', () => {
       brokerIterationEnabled: false,
     })
 
-    const jobListPage = new JobListPage('Add jobs and employers')
+    const jobListPage = new JobListPage('Manage jobs and employers')
 
     cy.visit('/jobs')
 

@@ -10,6 +10,7 @@ import JobDuplicatePage from '../pages/jobs/jobDuplicate'
 import JobCheckDetailsPage from '../pages/jobs/jobCheckDetails'
 import jobCheckDetails from '../../server/routes/jobs/jobCheckDetails'
 import JobListPage from '../pages/jobs/jobList'
+import IndexPage from '../pages'
 
 context('Sign In', () => {
   beforeEach(() => {
@@ -92,7 +93,10 @@ context('Sign In', () => {
 
     jobCheckDetailsPage.submitButton().click()
     cy.url().should('include', '/jobs')
-    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedTitle = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      const jobListPage = new JobListPage(expectedTitle)
+    })
   })
 
   it('Duplicate job flow - check loaded content - national job', () => {
@@ -154,7 +158,10 @@ context('Sign In', () => {
 
     jobCheckDetailsPage.submitButton().click()
     cy.url().should('include', '/jobs')
-    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.task('getBrokerIterationEnabled').then(flagValue => {
+      const expectedTitle = flagValue ? 'Manage jobs and employers' : 'Add jobs and employers'
+      const jobListPage = new JobListPage(expectedTitle)
+    })
   })
 
   it('Duplicate job - change links flow - without national jobs', () => {

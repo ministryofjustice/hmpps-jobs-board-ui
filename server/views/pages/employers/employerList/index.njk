@@ -11,7 +11,11 @@
 
 {% set employers = employerListResults.content %}
 {% set activeStatus = filterStatus %}
-{% set title = 'Add jobs and employers' %}
+{% if brokerIterationEnabled %}
+  Manage jobs and employers
+{% else %}
+  Add jobs and employers
+{% endif %}
 
 {% block beforeContent %}
     {{ govukBreadcrumbs({
