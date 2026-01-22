@@ -8,7 +8,6 @@ declare namespace Cypress {
 
     /**
      * Custom command to check if a feature is enabled.
-     * @example cy.checkFeatureToggle('filterJobsCreatedByMeEnabled', (isEnabled) => { ... })
      */
     checkFeatureToggle(featureName: string, callback: (isEnabled: boolean) => void): Chainable<void>
   }

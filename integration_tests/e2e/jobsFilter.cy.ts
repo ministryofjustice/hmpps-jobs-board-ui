@@ -1,9 +1,8 @@
-// integration_tests/e2e/jobsFilter.cy.ts
 import JobListPage from '../pages/jobs/jobList'
+import mockFeatureFlags from '../mockApis/featureFlagMock'
 
 context('Feature flag enabled', () => {
   beforeEach(() => {
-    Cypress.env('FILTER_JOBS_CREATED_BY_ME_ENABLED', true)
     cy.task('reset')
     cy.task('stubSignIn')
     cy.task('stubManageUser')
@@ -49,7 +48,9 @@ context('Feature flag enabled', () => {
 
 context('Feature flag disabled', () => {
   beforeEach(() => {
-    Cypress.env('FILTER_JOBS_CREATED_BY_ME_ENABLED', false)
+    mockFeatureFlags({
+      brokerIterationEnabled: false,
+    })
     cy.visit('/jobs')
   })
 
