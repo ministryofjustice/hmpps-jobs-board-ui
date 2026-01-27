@@ -7,11 +7,18 @@ import logger from '../../../../logger'
 
 export default class JobRoleUpdateController {
   public get: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id, mode } = req.params
+    let { id } = req.params
+    const { mode } = req.params
     const { allEmployers = [] } = req.context
 
     try {
-      const job = getSessionData(req, ['job', id])
+      // If the job id is 'start', don't attempt to get the job from session.
+      // This avoids potentially loading data from a previous 'add job' flow that was canceled.
+      const job = id === 'start' ? {} : getSessionData(req, ['job', id])
+      if (id === 'start') {
+        id = 'new'
+      }
+
       if (!job && mode === modeValue.update) {
         logger.error('Error rendering page - Job role - No record found in session')
         res.redirect(addressLookup.jobs.jobRoleUpdate('new'))
@@ -53,7 +60,8 @@ export default class JobRoleUpdateController {
   }
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id, mode } = req.params
+    let { id } = req.params
+    const { mode } = req.params
     const {
       employerId,
       jobTitle,
@@ -64,7 +72,9 @@ export default class JobRoleUpdateController {
       sourceSecondary,
       charityName,
     } = req.body
-
+    if (id === 'start') {
+      id = 'new'
+    }
     try {
       // If validation errors render errors
       const data = getSessionData(req, ['jobRoleUpdate', id, 'data'])
