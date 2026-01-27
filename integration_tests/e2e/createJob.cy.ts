@@ -8,7 +8,6 @@ import JobHowToApplyPage from '../pages/jobs/jobContractHowToApply'
 import JobReviewPage from '../pages/jobs/jobReview'
 import IndexPage from '../pages'
 import JobListPage from '../pages/jobs/jobList'
-import JobDuplicatePage from '../pages/jobs/jobDuplicate'
 
 context('Sign In', () => {
   beforeEach(() => {
