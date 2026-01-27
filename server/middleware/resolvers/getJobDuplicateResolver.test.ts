@@ -36,6 +36,13 @@ describe('getJobDuplicateResolver Middleware', () => {
   it('should call next if job data is in session', async () => {
     ;(getSessionData as jest.Mock).mockReturnValue(true)
 
+    req = {
+      params: {
+        id: 'new',
+      },
+      context: {},
+    }
+
     const middleware = getJobDuplicateResolver(jobService)
     await middleware(req as Request, res as Response, next)
 
@@ -50,7 +57,6 @@ describe('getJobDuplicateResolver Middleware', () => {
       isRollingOpportunity: false,
       isOnlyForPrisonLeavers: true,
       id: 'new',
-      sourceJobId: '123',
     }
     ;(getSessionData as jest.Mock).mockReturnValue(false)
     jobService.getJob.mockResolvedValue(mockJob as any)
@@ -58,7 +64,6 @@ describe('getJobDuplicateResolver Middleware', () => {
     const middleware = getJobDuplicateResolver(jobService)
     await middleware(req as Request, res as Response, next)
 
-    expect(getSessionData).toHaveBeenCalledWith(req, ['job', 'new'])
     expect(jobService.getJob).toHaveBeenCalledWith('testuser', '123')
     expect(setSessionData).toHaveBeenCalledWith(req, ['job', 'new'], {
       ...mockJob,
@@ -78,7 +83,6 @@ describe('getJobDuplicateResolver Middleware', () => {
     const middleware = getJobDuplicateResolver(jobService)
     await middleware(req as Request, res as Response, next)
 
-    expect(getSessionData).toHaveBeenCalledWith(req, ['job', 'new'])
     expect(jobService.getJob).toHaveBeenCalledWith('testuser', '123')
     expect(next).toHaveBeenCalledWith(error)
   })

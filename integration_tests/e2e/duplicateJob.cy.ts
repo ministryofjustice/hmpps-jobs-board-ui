@@ -546,8 +546,11 @@ context('Sign In', () => {
       skipOn(!isEnabled)
     })
     cy.task('getJob')
+    cy.task('getJobIndex5')
 
-    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e')
+    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.visit('/jobs')
+    jobListPage.jobLink(1).click()
     const jobReviewPage = new JobReviewPage('Warehouse operator')
 
     // Click the duplicate button
@@ -563,14 +566,47 @@ context('Sign In', () => {
     jobRoleUpdatePage.submitButton().click()
     jobDuplicatePage.jobTitle().contains('A different job')
 
-    // Cancel the duplication - return to the review page of the original job
+    // Cancel the duplication - return to the jobs list
     jobDuplicatePage.cancelButton().click()
-    cy.url().should('include', '/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e')
-    jobReviewPage.headerCaption().contains('Update a job - step 6 of 6')
 
-    // Click 'Duplicate' button again - creates a fresh duplicate job, previous changes have been lost.
+    // Select a different job, click the 'Duplicate' button again - creates a fresh duplicate job; previous changes have been lost.
+    jobListPage.jobLink(5).click()
+    const job2ReviewPage = new JobReviewPage('Beautician')
+    job2ReviewPage.duplicateJobButton().click()
+    cy.url().should('include', '/jobs/job/01907e1e-bb85-7bb7-9018-33a2070a367e/duplicate')
+    jobDuplicatePage.jobTitle().contains('Beautician')
+  })
+
+  it('Duplicate job - browser back button', () => {
+    // Skip tests if broker iteration is not enabled
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      skipOn(!isEnabled)
+    })
+    // Skip this test if national jobs not enabled.
+    cy.checkFeatureToggle('nationalJobs', isEnabled => {
+      skipOn(!isEnabled)
+    })
+    cy.task('getJob')
+    cy.task('getJobIndex5')
+
+    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.visit('/jobs')
+    jobListPage.jobLink(1).click()
+    const jobReviewPage = new JobReviewPage('Warehouse operator')
+
+    // Click the duplicate button
     jobReviewPage.duplicateJobButton().click()
-    cy.url().should('include', '/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/duplicate')
-    jobDuplicatePage.jobTitle().contains('Warehouse operator')
+    const jobDuplicatePage = new JobDuplicatePage('Warehouse operator')
+
+    // Click the browser back button twice to return to the jobs list
+    cy.go('back')
+    cy.go('back')
+
+    // Select a different job, click the 'Duplicate' button again - creates a fresh duplicate job; previous changes have been lost.
+    jobListPage.jobLink(5).click()
+    const job2ReviewPage = new JobReviewPage('Beautician')
+    job2ReviewPage.duplicateJobButton().click()
+    cy.url().should('include', '/jobs/job/01907e1e-bb85-7bb7-9018-33a2070a367e/duplicate')
+    jobDuplicatePage.jobTitle().contains('Beautician')
   })
 })

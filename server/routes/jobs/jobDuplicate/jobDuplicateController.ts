@@ -19,13 +19,6 @@ export default class JobDuplicateController {
         return
       }
 
-      const { sourceJobId } = job
-      if (!sourceJobId) {
-        logger.error('Error rendering page - Job duplicate - No source job record found in session')
-        res.redirect(addressLookup.jobs.jobList())
-        return
-      }
-
       const errors = validateFormSchema(job, validationSchema())
 
       // Render data
@@ -36,7 +29,6 @@ export default class JobDuplicateController {
         closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
         employerName: (allEmployers.find((p: { id: string }) => p.id === job.employerId) || {}).name,
         errors,
-        sourceJobId,
       }
 
       // Set page data in session
@@ -51,14 +43,13 @@ export default class JobDuplicateController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const id = 'new'
-    const data = getSessionData(req, ['jobDuplicate', id, 'data'])
 
     try {
       if (Object.prototype.hasOwnProperty.call(req.body, 'cancel-duplicate-button')) {
         // Clear session data for duplicate job
         deleteSessionData(req, ['job', id])
         deleteSessionData(req, ['jobDuplicate', id, 'data'])
-        res.redirect(addressLookup.jobs.jobReview(data.sourceJobId as string))
+        res.redirect(addressLookup.jobs.jobList())
         return
       }
 

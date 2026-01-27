@@ -68,7 +68,6 @@ describe('JobDuplicateController', () => {
     employerName: 'ASDA',
     closingDate: '1 February 2025',
     startDate: '31 May 2025',
-    sourceJobId: '6693548f-0edd-490b-9a1a-c2b3fee528a0',
   }
 
   setSessionData(req, ['job', id], job)

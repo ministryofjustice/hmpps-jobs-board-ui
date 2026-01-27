@@ -13,26 +13,23 @@ const getJobDuplicateResolver =
     const { username } = res.locals.user
 
     try {
-      // Check if session contains the new job being created.
-      if (getSessionData(req, ['job', 'new'])) {
-        next()
-        return
+      if (id !== 'new') {
+        // We have the id of the source job, so load the source job data from the API
+        const job = await jobService.getJob(username, id)
+
+        // Set it in session as a new job
+        setSessionData(req, ['job', 'new'], {
+          ...job,
+          isPayingAtLeastNationalMinimumWage: job.isPayingAtLeastNationalMinimumWage ? YesNoValue.YES : YesNoValue.NO,
+          isRollingOpportunity: job.isRollingOpportunity ? YesNoValue.YES : YesNoValue.NO,
+          isOnlyForPrisonLeavers: job.isOnlyForPrisonLeavers ? YesNoValue.YES : YesNoValue.NO,
+          isNational: job.isNational ? YesNoValue.YES : YesNoValue.NO,
+          id: 'new',
+        })
+      } else {
+        // Otherwise, we expect the new job to already exist in the session.
+        getSessionData(req, ['job', 'new'])
       }
-
-      // Get job to be duplicated from API
-      const job = await jobService.getJob(username, id)
-
-      // Set it in session as a new job
-      setSessionData(req, ['job', 'new'], {
-        ...job,
-        isPayingAtLeastNationalMinimumWage: job.isPayingAtLeastNationalMinimumWage ? YesNoValue.YES : YesNoValue.NO,
-        isRollingOpportunity: job.isRollingOpportunity ? YesNoValue.YES : YesNoValue.NO,
-        isOnlyForPrisonLeavers: job.isOnlyForPrisonLeavers ? YesNoValue.YES : YesNoValue.NO,
-        isNational: job.isNational ? YesNoValue.YES : YesNoValue.NO,
-        sourceJobId: id,
-        id: 'new',
-      })
-
       next()
     } catch (err) {
       logger.error('Error getting data - Job')

@@ -166,7 +166,7 @@ export default class JobListController {
 
     try {
       if (Object.prototype.hasOwnProperty.call(req.body, 'addJobButton')) {
-        res.redirect(addressLookup.jobs.jobRoleUpdate('new'))
+        res.redirect(addressLookup.jobs.jobRoleUpdate('start'))
         return
       }
 

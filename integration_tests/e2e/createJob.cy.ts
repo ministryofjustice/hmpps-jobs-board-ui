@@ -7,6 +7,7 @@ import JobRequirementsUpdatePage from '../pages/jobs/jobRequirementsUpdate'
 import JobHowToApplyPage from '../pages/jobs/jobContractHowToApply'
 import JobReviewPage from '../pages/jobs/jobReview'
 import IndexPage from '../pages'
+import JobListPage from '../pages/jobs/jobList'
 
 context('Sign In', () => {
   beforeEach(() => {
@@ -821,5 +822,43 @@ context('Sign In', () => {
     jobHowToApplyPage.submitButton().click()
     jobReviewPage.supportingDocumentationRequired().contains('CV')
     jobReviewPage.supportingDocumentationRequired().contains('Some more text')
+  })
+
+  it('Create job - back links', () => {
+    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.visit('/jobs')
+    jobListPage.addJobButton().click()
+    const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
+
+    // Fill in the job role and source page
+    jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 6')
+
+    jobRoleUpdatePage.employerIdField().type('ASDA')
+    jobRoleUpdatePage.employerIdFieldOption(0).click()
+    jobRoleUpdatePage.jobTitleField().type('Test job')
+    jobRoleUpdatePage.sectorField().select('OFFICE')
+    jobRoleUpdatePage.industrySectorField().select('ADMIN_SUPPORT')
+    jobRoleUpdatePage.numberOfVacanciesField().type('1')
+    jobRoleUpdatePage.sourcePrimaryField().select('NFN')
+    jobRoleUpdatePage.sourceSecondaryField().select('PEL')
+    jobRoleUpdatePage.charityNameField().type('Test charity')
+
+    jobRoleUpdatePage.submitButton().click()
+
+    // Click 'back' from national jobs page.
+    const jobIsNationalUpdatePage = new JobIsNationalUpdatePage('Is this a national job?')
+    jobIsNationalUpdatePage.headerCaption().contains('Add a job - step 2 of 6')
+    jobIsNationalUpdatePage.backLink().click()
+    jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 6')
+
+    // Filled in data should still be present in the role page.
+    jobRoleUpdatePage.jobTitleField().should('have.value', 'Test job')
+
+    // Click 'back' from job role page, to return to the jobs list.
+    jobRoleUpdatePage.backLink().click()
+
+    // CLick 'add job' again. This should load a new blank job role page, and should not display previously filled-in data.
+    jobListPage.addJobButton().click()
+    jobRoleUpdatePage.jobTitleField().should('have.value', '')
   })
 })
