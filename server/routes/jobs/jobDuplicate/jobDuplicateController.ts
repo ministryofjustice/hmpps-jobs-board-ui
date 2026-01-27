@@ -43,7 +43,6 @@ export default class JobDuplicateController {
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const id = 'new'
-    const data = getSessionData(req, ['jobDuplicate', id, 'data'])
 
     try {
       if (Object.prototype.hasOwnProperty.call(req.body, 'cancel-duplicate-button')) {

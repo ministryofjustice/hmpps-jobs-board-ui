@@ -1,7 +1,7 @@
 import type { RequestHandler } from 'express'
 
 import JobService from '../../services/jobService'
-import { deleteSessionData, getSessionData, setSessionData } from '../../utils/index'
+import { getSessionData, setSessionData } from '../../utils/index'
 import YesNoValue from '../../enums/yesNoValue'
 import logger from '../../../logger'
 
