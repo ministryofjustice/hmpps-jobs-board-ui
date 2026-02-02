@@ -2,7 +2,7 @@
 import IndexPage from '../pages/index'
 import EmployerUpdatePage from '../pages/employers/employerUpdate'
 import EmployerReviewPage from '../pages/employers/employerReview'
-import EmployerListPage from '../pages/employers/employerList'
+
 
 context('Sign In', () => {
   beforeEach(() => {
