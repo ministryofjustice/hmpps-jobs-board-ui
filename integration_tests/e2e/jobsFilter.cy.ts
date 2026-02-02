@@ -14,35 +14,75 @@ context('Feature flag enabled', () => {
   })
 
   it('Should display the "Show only my jobs" checkbox', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
-    jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').should('exist')
-    jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').should('not.be.checked')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled
+        ? 'Manage jobs and employers'
+        : 'Add jobs and employers'
+
+      const jobListPage = new JobListPage(expectedTitle);
+
+      jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').should('exist')
+      jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').should('not.be.checked')
+    })
   })
 
   it('Should toggle the checkbox on and off', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
-    jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').check().should('be.checked')
-    jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck().should('not.be.checked')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled
+        ? 'Manage jobs and employers'
+        : 'Add jobs and employers'
+
+      const jobListPage = new JobListPage(expectedTitle);
+
+      jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').check().should('be.checked')
+      jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck().should('not.be.checked')
+    })
   })
 
   it('Should include myOwnJobsFilter in the query when checked', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
-    cy.intercept('GET', '/jobs*').as('getJobs')
-    jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').check()
-    jobListPage.applyFiltersButton().click()
-    cy.wait('@getJobs').its('request.url').should('include', 'myOwnJobsFilter=true')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled
+        ? 'Manage jobs and employers'
+        : 'Add jobs and employers'
+
+      const jobListPage = new JobListPage(expectedTitle);
+
+      cy.intercept('GET', '/jobs*').as('getJobs')
+      jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').check()
+      jobListPage.applyFiltersButton().click()
+      cy.wait('@getJobs').its('request.url').should('include', 'myOwnJobsFilter=true')
+    })
   })
 
   it('Should not include myOwnJobsFilter in the query when unchecked', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
-    cy.intercept('GET', '/jobs*').as('getJobs')
-    jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck()
-    jobListPage.applyFiltersButton().click()
-    cy.wait('@getJobs').its('request.url').should('not.include', 'myOwnJobsFilter=true')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled
+        ? 'Manage jobs and employers'
+        : 'Add jobs and employers'
+
+      const jobListPage = new JobListPage(expectedTitle);
+
+      cy.intercept('GET', '/jobs*').as('getJobs')
+      jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck()
+      jobListPage.applyFiltersButton().click()
+      cy.wait('@getJobs').its('request.url').should('not.include', 'myOwnJobsFilter=true')
+    })
   })
 })
 

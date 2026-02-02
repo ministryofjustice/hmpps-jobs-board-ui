@@ -31,6 +31,9 @@ context('Sign In', () => {
     cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
       skipOn(!isEnabled)
     })
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
     cy.task('getJob')
     cy.checkFeatureToggle('nationalJobs', isEnabled => {
@@ -92,7 +95,13 @@ context('Sign In', () => {
 
     jobCheckDetailsPage.submitButton().click()
     cy.url().should('include', '/jobs')
-    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled
+        ? 'Manage jobs and employers'
+        : 'Add jobs and employers'
+
+      const jobListPage = new JobListPage(expectedTitle);
+    })
   })
 
   it('Duplicate job flow - check loaded content - national job', () => {
@@ -103,6 +112,12 @@ context('Sign In', () => {
     // Skip this test if national jobs is not enabled
     cy.checkFeatureToggle('nationalJobs', isEnabled => {
       skipOn(!isEnabled)
+    })
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
     })
 
     cy.task('getNationalJob')
@@ -154,7 +169,13 @@ context('Sign In', () => {
 
     jobCheckDetailsPage.submitButton().click()
     cy.url().should('include', '/jobs')
-    const jobListPage = new JobListPage('Add jobs and employers')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled
+        ? 'Manage jobs and employers'
+        : 'Add jobs and employers'
+
+      const jobListPage = new JobListPage(expectedTitle);
+    })
   })
 
   it('Duplicate job - change links flow - without national jobs', () => {
@@ -545,36 +566,46 @@ context('Sign In', () => {
     cy.checkFeatureToggle('nationalJobs', isEnabled => {
       skipOn(!isEnabled)
     })
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
     cy.task('getJob')
     cy.task('getJobIndex5')
 
-    const jobListPage = new JobListPage('Add jobs and employers')
-    cy.visit('/jobs')
-    jobListPage.jobLink(1).click()
-    const jobReviewPage = new JobReviewPage('Warehouse operator')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled
+        ? 'Manage jobs and employers'
+        : 'Add jobs and employers'
 
-    // Click the duplicate button
-    jobReviewPage.duplicateJobButton().click()
-    const jobDuplicatePage = new JobDuplicatePage('Warehouse operator')
+      const jobListPage = new JobListPage(expectedTitle);
 
-    // Update the job details
-    jobDuplicatePage.jobTitleLink().click()
-    const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
-    jobRoleUpdatePage.headerCaption().contains('Update a job - step 1 of 6')
+      cy.visit('/jobs')
+      jobListPage.jobLink(1).click()
+      const jobReviewPage = new JobReviewPage('Warehouse operator')
 
-    jobRoleUpdatePage.jobTitleField().clear().type('A different job')
-    jobRoleUpdatePage.submitButton().click()
-    jobDuplicatePage.jobTitle().contains('A different job')
+      // Click the duplicate button
+      jobReviewPage.duplicateJobButton().click()
+      const jobDuplicatePage = new JobDuplicatePage('Warehouse operator')
 
-    // Cancel the duplication - return to the jobs list
-    jobDuplicatePage.cancelButton().click()
+      // Update the job details
+      jobDuplicatePage.jobTitleLink().click()
+      const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
+      jobRoleUpdatePage.headerCaption().contains('Update a job - step 1 of 6')
 
-    // Select a different job, click the 'Duplicate' button again - creates a fresh duplicate job; previous changes have been lost.
-    jobListPage.jobLink(5).click()
-    const job2ReviewPage = new JobReviewPage('Beautician')
-    job2ReviewPage.duplicateJobButton().click()
-    cy.url().should('include', '/jobs/job/01907e1e-bb85-7bb7-9018-33a2070a367e/duplicate')
-    jobDuplicatePage.jobTitle().contains('Beautician')
+      jobRoleUpdatePage.jobTitleField().clear().type('A different job')
+      jobRoleUpdatePage.submitButton().click()
+      jobDuplicatePage.jobTitle().contains('A different job')
+
+      // Cancel the duplication - return to the jobs list
+      jobDuplicatePage.cancelButton().click()
+
+      // Select a different job, click the 'Duplicate' button again - creates a fresh duplicate job; previous changes have been lost.
+      jobListPage.jobLink(5).click()
+      const job2ReviewPage = new JobReviewPage('Beautician')
+      job2ReviewPage.duplicateJobButton().click()
+      cy.url().should('include', '/jobs/job/01907e1e-bb85-7bb7-9018-33a2070a367e/duplicate')
+      jobDuplicatePage.jobTitle().contains('Beautician')
+    })
   })
 
   it('Duplicate job - browser back button', () => {
@@ -586,27 +617,36 @@ context('Sign In', () => {
     cy.checkFeatureToggle('nationalJobs', isEnabled => {
       skipOn(!isEnabled)
     })
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
     cy.task('getJob')
     cy.task('getJobIndex5')
 
-    const jobListPage = new JobListPage('Add jobs and employers')
-    cy.visit('/jobs')
-    jobListPage.jobLink(1).click()
-    const jobReviewPage = new JobReviewPage('Warehouse operator')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled
+        ? 'Manage jobs and employers'
+        : 'Add jobs and employers'
 
-    // Click the duplicate button
-    jobReviewPage.duplicateJobButton().click()
-    const jobDuplicatePage = new JobDuplicatePage('Warehouse operator')
+      const jobListPage = new JobListPage(expectedTitle);
+      cy.visit('/jobs')
+      jobListPage.jobLink(1).click()
+      const jobReviewPage = new JobReviewPage('Warehouse operator')
 
-    // Click the browser back button twice to return to the jobs list
-    cy.go('back')
-    cy.go('back')
+      // Click the duplicate button
+      jobReviewPage.duplicateJobButton().click()
+      const jobDuplicatePage = new JobDuplicatePage('Warehouse operator')
 
-    // Select a different job, click the 'Duplicate' button again - creates a fresh duplicate job; previous changes have been lost.
-    jobListPage.jobLink(5).click()
-    const job2ReviewPage = new JobReviewPage('Beautician')
-    job2ReviewPage.duplicateJobButton().click()
-    cy.url().should('include', '/jobs/job/01907e1e-bb85-7bb7-9018-33a2070a367e/duplicate')
-    jobDuplicatePage.jobTitle().contains('Beautician')
+      // Click the browser back button twice to return to the jobs list
+      cy.go('back')
+      cy.go('back')
+
+      // Select a different job, click the 'Duplicate' button again - creates a fresh duplicate job; previous changes have been lost.
+      jobListPage.jobLink(5).click()
+      const job2ReviewPage = new JobReviewPage('Beautician')
+      job2ReviewPage.duplicateJobButton().click()
+      cy.url().should('include', '/jobs/job/01907e1e-bb85-7bb7-9018-33a2070a367e/duplicate')
+      jobDuplicatePage.jobTitle().contains('Beautician')
+    })
   })
 })
