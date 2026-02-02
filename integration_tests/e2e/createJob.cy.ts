@@ -168,6 +168,10 @@ context('Sign In', () => {
     cy.checkFeatureToggle('nationalJobs', isEnabled => {
       skipOn(isEnabled)
     })
+    // check broker iteration to allow title change in test
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
     cy.visit('/jobs/job/new/role/add')
 
@@ -264,13 +268,21 @@ context('Sign In', () => {
 
     jobReviewPage.submitButton().click()
 
-    const indexPage = new IndexPage('Add jobs and employers')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
+
+      const indexPage = new IndexPage(expectedTitle)
+    })
   })
 
   it('Create job flow - with national jobs', () => {
     // Skip this test if national jobs is not enabled
     cy.checkFeatureToggle('nationalJobs', isEnabled => {
       skipOn(!isEnabled)
+    })
+    // check broker iteration to allow title change in test
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
     })
 
     cy.visit('/jobs/job/new/role/add')
@@ -374,7 +386,11 @@ context('Sign In', () => {
 
     jobReviewPage.submitButton().click()
 
-    const indexPage = new IndexPage('Add jobs and employers')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
+
+      const indexPage = new IndexPage(expectedTitle)
+    })
   })
 
   it('Create job - change links flow - without national jobs', () => {
@@ -825,40 +841,49 @@ context('Sign In', () => {
   })
 
   it('Create job - back links', () => {
-    const jobListPage = new JobListPage('Add jobs and employers')
-    cy.visit('/jobs')
-    jobListPage.addJobButton().click()
-    const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
+    // check broker iteration to allow title change in test
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-    // Fill in the job role and source page
-    jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 6')
+      const jobListPage = new JobListPage(expectedTitle)
 
-    jobRoleUpdatePage.employerIdField().type('ASDA')
-    jobRoleUpdatePage.employerIdFieldOption(0).click()
-    jobRoleUpdatePage.jobTitleField().type('Test job')
-    jobRoleUpdatePage.sectorField().select('OFFICE')
-    jobRoleUpdatePage.industrySectorField().select('ADMIN_SUPPORT')
-    jobRoleUpdatePage.numberOfVacanciesField().type('1')
-    jobRoleUpdatePage.sourcePrimaryField().select('NFN')
-    jobRoleUpdatePage.sourceSecondaryField().select('PEL')
-    jobRoleUpdatePage.charityNameField().type('Test charity')
+      cy.visit('/jobs')
+      jobListPage.addJobButton().click()
+      const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
 
-    jobRoleUpdatePage.submitButton().click()
+      // Fill in the job role and source page
+      jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 6')
 
-    // Click 'back' from national jobs page.
-    const jobIsNationalUpdatePage = new JobIsNationalUpdatePage('Is this a national job?')
-    jobIsNationalUpdatePage.headerCaption().contains('Add a job - step 2 of 6')
-    jobIsNationalUpdatePage.backLink().click()
-    jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 6')
+      jobRoleUpdatePage.employerIdField().type('ASDA')
+      jobRoleUpdatePage.employerIdFieldOption(0).click()
+      jobRoleUpdatePage.jobTitleField().type('Test job')
+      jobRoleUpdatePage.sectorField().select('OFFICE')
+      jobRoleUpdatePage.industrySectorField().select('ADMIN_SUPPORT')
+      jobRoleUpdatePage.numberOfVacanciesField().type('1')
+      jobRoleUpdatePage.sourcePrimaryField().select('NFN')
+      jobRoleUpdatePage.sourceSecondaryField().select('PEL')
+      jobRoleUpdatePage.charityNameField().type('Test charity')
 
-    // Filled in data should still be present in the role page.
-    jobRoleUpdatePage.jobTitleField().should('have.value', 'Test job')
+      jobRoleUpdatePage.submitButton().click()
 
-    // Click 'back' from job role page, to return to the jobs list.
-    jobRoleUpdatePage.backLink().click()
+      // Click 'back' from national jobs page.
+      const jobIsNationalUpdatePage = new JobIsNationalUpdatePage('Is this a national job?')
+      jobIsNationalUpdatePage.headerCaption().contains('Add a job - step 2 of 6')
+      jobIsNationalUpdatePage.backLink().click()
+      jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 6')
 
-    // CLick 'add job' again. This should load a new blank job role page, and should not display previously filled-in data.
-    jobListPage.addJobButton().click()
-    jobRoleUpdatePage.jobTitleField().should('have.value', '')
+      // Filled in data should still be present in the role page.
+      jobRoleUpdatePage.jobTitleField().should('have.value', 'Test job')
+
+      // Click 'back' from job role page, to return to the jobs list.
+      jobRoleUpdatePage.backLink().click()
+
+      // CLick 'add job' again. This should load a new blank job role page, and should not display previously filled-in data.
+      jobListPage.addJobButton().click()
+      jobRoleUpdatePage.jobTitleField().should('have.value', '')
+    })
   })
 })

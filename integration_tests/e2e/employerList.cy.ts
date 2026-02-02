@@ -2,6 +2,7 @@
 import EmployerUpdatePage from '../pages/employers/employerUpdate'
 import EmployerReviewPage from '../pages/employers/employerReview'
 import EmployerListPage from '../pages/employers/employerList'
+import JobListPage from '../pages/jobs/jobList'
 
 context('Sign In', () => {
   beforeEach(() => {
@@ -15,82 +16,122 @@ context('Sign In', () => {
   })
 
   it('Add employer flow', () => {
-    const employerListPage = new EmployerListPage('Add jobs and employers')
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
-    employerListPage.addEmployerButton().click()
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-    const employerUpdatePage = new EmployerUpdatePage('Employer details')
-    employerUpdatePage.headerCaption().contains('Add an employer - step 1 of 2')
+      const employerListPage = new EmployerListPage(expectedTitle)
 
-    employerUpdatePage.backLink().click()
+      employerListPage.addEmployerButton().click()
 
-    employerListPage.heading().contains('Add jobs and employers')
+      const employerUpdatePage = new EmployerUpdatePage('Employer details')
+      employerUpdatePage.headerCaption().contains('Add an employer - step 1 of 2')
+
+      employerUpdatePage.backLink().click()
+
+      employerListPage.heading().contains(expectedTitle)
+    })
   })
 
   it('Update employer flow', () => {
-    const employerListPage = new EmployerListPage('Add jobs and employers')
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
-    employerListPage.employerLink(1).click()
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-    const employerUpdatePage = new EmployerReviewPage('ASDA')
-    employerUpdatePage.headerCaption().contains('Update an employer - step 2 of 2')
+      const employerListPage = new EmployerListPage(expectedTitle)
+
+      employerListPage.employerLink(1).click()
+
+      const employerUpdatePage = new EmployerReviewPage('ASDA')
+      employerUpdatePage.headerCaption().contains('Update an employer - step 2 of 2')
+    })
   })
 
   it('Check pagination', () => {
-    const employerListPage = new EmployerListPage('Add jobs and employers')
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
-    employerListPage.nextLink().contains('Next')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-    employerListPage.paginationResults().contains('Showing 1 to 20 of 39 results')
+      const employerListPage = new EmployerListPage(expectedTitle)
 
-    cy.task('getEmployers', { page: 2 })
+      employerListPage.nextLink().contains('Next')
 
-    employerListPage.nextLink().click()
+      employerListPage.paginationResults().contains('Showing 1 to 20 of 39 results')
 
-    employerListPage.previousLink().contains('Previous')
+      cy.task('getEmployers', { page: 2 })
 
-    employerListPage.paginationResults().contains('Showing 21 to 39 of 39 results')
+      employerListPage.nextLink().click()
+
+      employerListPage.previousLink().contains('Previous')
+
+      employerListPage.paginationResults().contains('Showing 21 to 39 of 39 results')
+    })
   })
 
   it('Filter validation messages', () => {
-    const employerListPage = new EmployerListPage('Add jobs and employers')
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
-    employerListPage.employerNameFilterField().type('a')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-    employerListPage.applyFiltersButton().click()
+      const employerListPage = new EmployerListPage(expectedTitle)
 
-    employerListPage.employerNameFilterPageErrorMessage().contains('Employer name must be 2 characters or more')
+      employerListPage.employerNameFilterField().type('a')
+
+      employerListPage.applyFiltersButton().click()
+
+      employerListPage.employerNameFilterPageErrorMessage().contains('Employer name must be 2 characters or more')
+    })
   })
 
   it('No records found messages', () => {
-    const employerListPage = new EmployerListPage('Add jobs and employers')
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
-    employerListPage.employerNameFilterField().type('adsds')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-    cy.task('getEmployers', { page: 1, employerNameFilter: 'adsds' })
+      const employerListPage = new EmployerListPage(expectedTitle)
 
-    employerListPage.applyFiltersButton().click()
+      employerListPage.employerNameFilterField().type('adsds')
 
-    employerListPage.noResultsMessage().contains(`0 results for "adsds" in employers's name`)
+      cy.task('getEmployers', { page: 1, employerNameFilter: 'adsds' })
 
-    employerListPage.clearFiltersLink().click()
+      employerListPage.applyFiltersButton().click()
 
-    employerListPage.employerNameFilterField().type('adsds')
+      employerListPage.noResultsMessage().contains(`0 results for "adsds" in employers's name`)
 
-    employerListPage.employerSectorFilterField().select('RETAIL')
+      employerListPage.clearFiltersLink().click()
 
-    employerListPage.applyFiltersButton().click()
+      employerListPage.employerNameFilterField().type('adsds')
 
-    employerListPage
-      .noResultsMessage()
-      .contains(`0 results for "adsds" in Retail (includes wholesale and motor vehicle repair)`)
+      employerListPage.employerSectorFilterField().select('RETAIL')
 
-    employerListPage.clearFiltersLink().click()
+      employerListPage.applyFiltersButton().click()
 
-    employerListPage.employerSectorFilterField().select('RETAIL')
+      employerListPage
+        .noResultsMessage()
+        .contains(`0 results for "adsds" in Retail (includes wholesale and motor vehicle repair)`)
 
-    employerListPage.applyFiltersButton().click()
+      employerListPage.clearFiltersLink().click()
 
-    employerListPage.noResultsMessage().contains(`0 results in Retail (includes wholesale and motor vehicle repair)`)
+      employerListPage.employerSectorFilterField().select('RETAIL')
+
+      employerListPage.applyFiltersButton().click()
+
+      employerListPage.noResultsMessage().contains(`0 results in Retail (includes wholesale and motor vehicle repair)`)
+    })
   })
 })

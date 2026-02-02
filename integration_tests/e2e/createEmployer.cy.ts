@@ -39,6 +39,9 @@ context('Sign In', () => {
   })
 
   it('Create employer flow', () => {
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
     cy.visit('/employers/employer/new/form/add')
 
     const employerUpdatePage = new EmployerUpdatePage('Employer details')
@@ -61,7 +64,11 @@ context('Sign In', () => {
 
     employerUpdatePage.submitButton().click()
 
-    const indexPage = new IndexPage('Add jobs and employers')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
+
+      const indexPage = new IndexPage(expectedTitle)
+    })
   })
 
   it('Create employer - change links flow', () => {

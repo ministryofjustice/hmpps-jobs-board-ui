@@ -16,6 +16,9 @@ context('Sign In', () => {
 
   it('Update employer flow', () => {
     cy.visit('/employers/employer/01907e1e-bb85-7bb7-9018-33a2070a367d')
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
 
     const employerReviewPage = new EmployerReviewPage('ASDA')
     employerReviewPage.headerCaption().contains('Update an employer - step 2 of 2')
@@ -27,7 +30,11 @@ context('Sign In', () => {
 
     employerReviewPage.submitButton().click()
 
-    const indexPage = new IndexPage('Add jobs and employers')
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
+
+      const indexPage = new IndexPage(expectedTitle)
+    })
   })
 
   it('Update employer - change links flow', () => {
