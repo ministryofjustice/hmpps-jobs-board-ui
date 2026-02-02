@@ -269,11 +269,9 @@ context('Sign In', () => {
     jobReviewPage.submitButton().click()
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const indexPage = new IndexPage(expectedTitle);
+      const indexPage = new IndexPage(expectedTitle)
     })
   })
 
@@ -389,11 +387,9 @@ context('Sign In', () => {
     jobReviewPage.submitButton().click()
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const indexPage = new IndexPage(expectedTitle);
+      const indexPage = new IndexPage(expectedTitle)
     })
   })
 
@@ -850,11 +846,9 @@ context('Sign In', () => {
       cy.wrap(isEnabled).as('brokerIterationEnabled')
     })
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
 
       cy.visit('/jobs')
       jobListPage.addJobButton().click()

@@ -27,11 +27,9 @@ context('Sign In', () => {
     })
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
 
       jobListPage.addJobButton().click()
 
@@ -59,11 +57,9 @@ context('Sign In', () => {
     })
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
 
       jobListPage.jobLink(1).click()
 
@@ -84,11 +80,9 @@ context('Sign In', () => {
     })
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
 
       jobListPage.nextLink().contains('Next')
 
@@ -110,11 +104,9 @@ context('Sign In', () => {
     })
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
 
       jobListPage.jobTitleOrEmployerNameFilterField().type('a')
 
@@ -132,11 +124,9 @@ context('Sign In', () => {
     })
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
 
       jobListPage.jobTitleOrEmployerNameFilterField().type('adsds')
 

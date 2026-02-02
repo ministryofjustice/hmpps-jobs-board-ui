@@ -19,11 +19,9 @@ context('Feature flag enabled', () => {
     })
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
 
       jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').should('exist')
       jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').should('not.be.checked')
@@ -36,11 +34,9 @@ context('Feature flag enabled', () => {
     })
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
 
       jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').check().should('be.checked')
       jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck().should('not.be.checked')
@@ -53,11 +49,9 @@ context('Feature flag enabled', () => {
     })
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
 
       cy.intercept('GET', '/jobs*').as('getJobs')
       jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').check()
@@ -72,11 +66,9 @@ context('Feature flag enabled', () => {
     })
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
 
       cy.intercept('GET', '/jobs*').as('getJobs')
       jobListPage.myOwnJobsFilterCheckBox('SHOW_ONLY_MY_JOBS').uncheck()

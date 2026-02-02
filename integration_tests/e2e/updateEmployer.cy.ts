@@ -3,7 +3,6 @@ import IndexPage from '../pages/index'
 import EmployerUpdatePage from '../pages/employers/employerUpdate'
 import EmployerReviewPage from '../pages/employers/employerReview'
 
-
 context('Sign In', () => {
   beforeEach(() => {
     cy.task('reset')
@@ -32,11 +31,9 @@ context('Sign In', () => {
     employerReviewPage.submitButton().click()
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const indexPage = new IndexPage(expectedTitle);
+      const indexPage = new IndexPage(expectedTitle)
     })
   })
 

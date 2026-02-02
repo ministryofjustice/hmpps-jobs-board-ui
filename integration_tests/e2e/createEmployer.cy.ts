@@ -65,11 +65,9 @@ context('Sign In', () => {
     employerUpdatePage.submitButton().click()
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const indexPage = new IndexPage(expectedTitle);
+      const indexPage = new IndexPage(expectedTitle)
     })
   })
 

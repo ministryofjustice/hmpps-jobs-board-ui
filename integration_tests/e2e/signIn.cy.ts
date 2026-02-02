@@ -29,11 +29,9 @@ context('Sign In', () => {
     })
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const indexPage = new IndexPage(expectedTitle);
+      const indexPage = new IndexPage(expectedTitle)
       indexPage.headerUserName().should('contain.text', 'T. Smith')
     })
   })
@@ -44,11 +42,9 @@ context('Sign In', () => {
       cy.wrap(isEnabled).as('brokerIterationEnabled')
     })
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const indexPage = new IndexPage(expectedTitle);
+      const indexPage = new IndexPage(expectedTitle)
       indexPage.signOut().click()
       Page.verifyOnPage(AuthSignInPage)
     })
@@ -61,11 +57,9 @@ context('Sign In', () => {
       cy.wrap(isEnabled).as('brokerIterationEnabled')
     })
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const indexPage = new IndexPage(expectedTitle);
+      const indexPage = new IndexPage(expectedTitle)
 
       indexPage.manageDetails().get('a').invoke('removeAttr', 'target')
       indexPage.manageDetails().click()
@@ -79,11 +73,9 @@ context('Sign In', () => {
       cy.wrap(isEnabled).as('brokerIterationEnabled')
     })
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const indexPage = new IndexPage(expectedTitle);
+      const indexPage = new IndexPage(expectedTitle)
       cy.task('stubVerifyToken', false)
 
       // can't do a visit here as cypress requires only one domain
@@ -97,11 +89,9 @@ context('Sign In', () => {
       cy.wrap(isEnabled).as('brokerIterationEnabled')
     })
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const indexPage = new IndexPage(expectedTitle);
+      const indexPage = new IndexPage(expectedTitle)
       cy.task('stubVerifyToken', false)
 
       // can't do a visit here as cypress requires only one domain

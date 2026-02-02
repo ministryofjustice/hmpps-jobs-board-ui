@@ -96,11 +96,9 @@ context('Sign In', () => {
     jobCheckDetailsPage.submitButton().click()
     cy.url().should('include', '/jobs')
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
     })
   })
 
@@ -170,11 +168,9 @@ context('Sign In', () => {
     jobCheckDetailsPage.submitButton().click()
     cy.url().should('include', '/jobs')
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
     })
   })
 
@@ -573,11 +569,9 @@ context('Sign In', () => {
     cy.task('getJobIndex5')
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
 
       cy.visit('/jobs')
       jobListPage.jobLink(1).click()
@@ -624,11 +618,9 @@ context('Sign In', () => {
     cy.task('getJobIndex5')
 
     cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
-      const expectedTitle = brokerIterationEnabled
-        ? 'Manage jobs and employers'
-        : 'Add jobs and employers'
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
 
-      const jobListPage = new JobListPage(expectedTitle);
+      const jobListPage = new JobListPage(expectedTitle)
       cy.visit('/jobs')
       jobListPage.jobLink(1).click()
       const jobReviewPage = new JobReviewPage('Warehouse operator')
