@@ -111,7 +111,7 @@ context('Sign In', () => {
 
       employerListPage.applyFiltersButton().click()
 
-      employerListPage.noResultsMessage().contains(`0 results for "adsds" in employers's name`)
+      employerListPage.noResultsMessage().contains(`0 results for "adsds" in employer's name`)
 
       employerListPage.clearFiltersLink().click()
 
