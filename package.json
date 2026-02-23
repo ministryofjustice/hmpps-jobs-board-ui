@@ -108,7 +108,7 @@
     "accessible-autocomplete": "^3.0.1",
     "agentkeepalive": "^4.6.0",
     "applicationinsights": "^2.9.7",
-    "axios": "1.12.0",
+    "axios": "^1.12.0",
     "body-parser": "^1.20.2",
     "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
@@ -217,6 +217,10 @@
     },
     "mocha": {
       "diff": "8.0.3"
+    },
+    "minimatch": "^10.2.1",
+    "@ministryofjustice/hmpps-audit-client": {
+      "fast-xml-parser": "^5.3.6"
     }
   }
 }
