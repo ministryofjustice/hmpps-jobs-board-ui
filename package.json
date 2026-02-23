@@ -218,7 +218,9 @@
     "mocha": {
       "diff": "8.0.3"
     },
-    "minimatch": "^10.2.1",
+    "glob": {
+      "minimatch": "^10.2.1"
+    },
     "@ministryofjustice/hmpps-audit-client": {
       "fast-xml-parser": "^5.3.6"
     }
