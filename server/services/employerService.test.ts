@@ -18,7 +18,7 @@ describe('employerService', () => {
     employerName: 'mock_employerName',
     employerDescription: 'mock_employerDescription',
     employerSector: EmployerSector.CONSTRUCTION,
-    employerStatus: EmployerStatus.GOLD,
+    employerStatus: EmployerStatus.REGIONAL_PLATINUM,
   }
 
   beforeEach(() => {

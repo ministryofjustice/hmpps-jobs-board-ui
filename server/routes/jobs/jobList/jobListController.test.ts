@@ -75,7 +75,7 @@ describe('EmployerListController', () => {
         name: 'ASDA',
         description: 'Some text',
         sector: 'RETAIL',
-        status: 'GOLD',
+        status: 'REGIONAL_PLATINUM',
         createdAt: '2024-07-04T15:21:02.497176',
         // createdBy: 'MOCK_USER',
       },

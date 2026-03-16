@@ -95,7 +95,7 @@ describe('EmployerUpdateController', () => {
     it('On success - Sets session and redirects to employerReview', async () => {
       req.body.employerName = 'Some name'
       req.body.employerSector = EmployerSector.MINING
-      req.body.employerStatus = EmployerStatus.KEY_PARTNER
+      req.body.employerStatus = EmployerStatus.NATIONAL_PLATINUM
       req.body.employerDescription = 'Some description'
 
       controller.post(req, res, next)
