@@ -51,7 +51,7 @@ const getEmployer = () =>
       jsonBody: {
         name: 'ASDA',
         sector: 'ARTS_ENTERTAINMENT',
-        status: 'GOLD',
+        status: 'REGIONAL_PLATINUM',
         description: 'Some employer information and bio',
       },
     },

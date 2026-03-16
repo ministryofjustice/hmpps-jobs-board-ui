@@ -25,7 +25,7 @@ context('Sign In', () => {
 
     employerReviewPage.employerName().contains('ASDA')
     employerReviewPage.employerSector().contains('Arts and entertainment')
-    employerReviewPage.employerStatus().contains('Gold')
+    employerReviewPage.employerStatus().contains('Regional Platinum')
     employerReviewPage.employerDescription().contains('Some employer information and bio')
 
     employerReviewPage.submitButton().click()
@@ -58,9 +58,9 @@ context('Sign In', () => {
     employerReviewPage.employerSector().contains('Retail (includes wholesale and motor vehicle repair)')
 
     employerReviewPage.employerStatusLink().click()
-    employerUpdatePage.employerStatusField().select('SILVER')
+    employerUpdatePage.employerStatusField().select('EMPLOYER_PARTNER')
     employerUpdatePage.submitButton().click()
-    employerReviewPage.employerStatus().contains('Silver')
+    employerReviewPage.employerStatus().contains('Employer Partner')
 
     employerReviewPage.employerDescriptionLink().click()
     employerUpdatePage.employerDescriptionField().clear().type('A different test company description')

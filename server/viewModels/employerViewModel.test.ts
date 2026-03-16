@@ -7,7 +7,7 @@ const testData: any = {
   name: 'ASDA',
   description: 'Some text\r\nSome more text',
   sector: 'RETAIL',
-  status: 'GOLD',
+  status: 'REGIONAL_PLATINUM',
   createdAt: '2024-07-04T15:21:02.497176',
   createdBy: 'TEST_USER',
 }

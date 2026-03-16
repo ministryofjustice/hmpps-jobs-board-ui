@@ -44,7 +44,7 @@ export default function validationSchema(): ObjectSchema {
     employerStatus: joi
       .string()
       .empty('')
-      .valid(EmployerStatus.GOLD, EmployerStatus.KEY_PARTNER, EmployerStatus.SILVER)
+      .valid(EmployerStatus.REGIONAL_PLATINUM, EmployerStatus.NATIONAL_PLATINUM, EmployerStatus.EMPLOYER_PARTNER)
       .required()
       .messages({
         'any.only': 'Select an employer status',

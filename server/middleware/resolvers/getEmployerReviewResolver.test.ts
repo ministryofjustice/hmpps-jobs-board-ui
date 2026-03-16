@@ -47,7 +47,7 @@ describe('getEmployerReviewResolver Middleware', () => {
     const mockEmployer = {
       name: 'ASDA',
       sector: 'RETAIL',
-      status: 'GOLD',
+      status: 'REGIONAL_PLATINUM',
       description: 'Some text',
     }
     ;(getSessionData as jest.Mock).mockReturnValue(false)
@@ -61,7 +61,7 @@ describe('getEmployerReviewResolver Middleware', () => {
     expect(setSessionData).toHaveBeenCalledWith(req, ['employer', '123'], {
       employerName: 'ASDA',
       employerSector: 'RETAIL',
-      employerStatus: 'GOLD',
+      employerStatus: 'REGIONAL_PLATINUM',
       employerDescription: 'Some text',
     })
     expect(next).toHaveBeenCalled()

@@ -49,7 +49,7 @@ context('Sign In', () => {
 
     employerUpdatePage.employerNameField().type('Test company')
     employerUpdatePage.employerSectorField().select('ADMIN_SUPPORT')
-    employerUpdatePage.employerStatusField().select('GOLD')
+    employerUpdatePage.employerStatusField().select('REGIONAL_PLATINUM')
     employerUpdatePage.employerDescriptionField().type('Test company description')
 
     employerUpdatePage.submitButton().click()
@@ -59,7 +59,7 @@ context('Sign In', () => {
 
     employerReviewPage.employerName().contains('Test company')
     employerReviewPage.employerSector().contains('Administration and support services')
-    employerReviewPage.employerStatus().contains('Gold')
+    employerReviewPage.employerStatus().contains('Regional Platinum')
     employerReviewPage.employerDescription().contains('Test company description')
 
     employerUpdatePage.submitButton().click()
@@ -79,7 +79,7 @@ context('Sign In', () => {
 
     employerUpdatePage.employerNameField().type('Test company')
     employerUpdatePage.employerSectorField().select('ADMIN_SUPPORT')
-    employerUpdatePage.employerStatusField().select('GOLD')
+    employerUpdatePage.employerStatusField().select('REGIONAL_PLATINUM')
     employerUpdatePage.employerDescriptionField().type('Test company description')
 
     employerUpdatePage.submitButton().click()
@@ -89,7 +89,7 @@ context('Sign In', () => {
 
     employerReviewPage.employerName().contains('Test company')
     employerReviewPage.employerSector().contains('Administration and support services')
-    employerReviewPage.employerStatus().contains('Gold')
+    employerReviewPage.employerStatus().contains('Regional Platinum')
     employerReviewPage.employerDescription().contains('Test company description')
 
     employerReviewPage.employerNameLink().click()
@@ -103,9 +103,9 @@ context('Sign In', () => {
     employerReviewPage.employerSector().contains('Retail (includes wholesale and motor vehicle repair)')
 
     employerReviewPage.employerStatusLink().click()
-    employerUpdatePage.employerStatusField().select('SILVER')
+    employerUpdatePage.employerStatusField().select('EMPLOYER_PARTNER')
     employerUpdatePage.submitButton().click()
-    employerReviewPage.employerStatus().contains('Silver')
+    employerReviewPage.employerStatus().contains('Employer Partner')
 
     employerReviewPage.employerDescriptionLink().click()
     employerUpdatePage.employerDescriptionField().type('A different test company description')
@@ -124,7 +124,7 @@ context('Sign In', () => {
 
     employerUpdatePage.employerNameField().type('Test company')
     employerUpdatePage.employerSectorField().select('ADMIN_SUPPORT')
-    employerUpdatePage.employerStatusField().select('GOLD')
+    employerUpdatePage.employerStatusField().select('REGIONAL_PLATINUM')
     employerUpdatePage.employerDescriptionField().type('Test company description')
 
     employerUpdatePage.submitButton().click()
