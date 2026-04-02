@@ -28,6 +28,7 @@ import sanitizeQuery from './middleware/sanitizeQuery'
 import { appInsightsMiddleware } from './utils/azureAppInsights'
 import config from './config'
 import logger from '../logger'
+import navigationMiddleware from './middleware/navigationMiddleware'
 
 export default function createApp(services: Services, applicationInfo: ApplicationInfo): express.Application {
   const app = express()
@@ -66,6 +67,7 @@ export default function createApp(services: Services, applicationInfo: Applicati
 
   // Check for authorised roles
   app.use(authorisationMiddleware(getAuthorisedRoles()))
+  app.use(navigationMiddleware)
 
   app.use(routes(services))
 
