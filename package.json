@@ -178,7 +178,7 @@
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "audit-ci": "^6.6.1",
-    "brace-expansion": "^4.0.1",
+    "brace-expansion": "5.0.5",
     "concurrently": "^8.2.2",
     "cookie-session": "^2.1.0",
     "cross-env": "^10.0.0",
@@ -219,12 +219,14 @@
       "diff": "8.0.3",
       "serialize-javascript": "^7.0.3"
     },
-    "minimatch": "^10.2.3",
+    "minimatch": "^10.2.5",
     "eslint": {
-      "minimatch": "^3.1.4"
+      "minimatch": "^3.1.4",
+      "brace-expansion": "^1.1.13"
     },
     "eslint-plugin-import": {
-      "minimatch": "^3.1.4"
+      "minimatch": "^3.1.4",
+      "brace-expansion": "^1.1.13"
     },
     "@ministryofjustice/hmpps-audit-client": {
       "fast-xml-parser": "5.5.8"
