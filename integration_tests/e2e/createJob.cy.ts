@@ -8,6 +8,7 @@ import JobHowToApplyPage from '../pages/jobs/jobContractHowToApply'
 import JobReviewPage from '../pages/jobs/jobReview'
 import IndexPage from '../pages'
 import JobListPage from '../pages/jobs/jobList'
+import EmployerUpdatePage from '../pages/employers/employerUpdate'
 
 context('Sign In', () => {
   beforeEach(() => {
@@ -884,6 +885,57 @@ context('Sign In', () => {
       // CLick 'add job' again. This should load a new blank job role page, and should not display previously filled-in data.
       jobListPage.addJobButton().click()
       jobRoleUpdatePage.jobTitleField().should('have.value', '')
+    })
+  })
+
+  it("Create job - back button on the ‘add an employer' page", () => {
+    // check broker iteration to allow title change in test
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      cy.wrap(isEnabled).as('brokerIterationEnabled')
+    })
+
+    cy.get('@brokerIterationEnabled').then(brokerIterationEnabled => {
+      const expectedTitle = brokerIterationEnabled ? 'Manage jobs and employers' : 'Add jobs and employers'
+
+      const jobListPage = new JobListPage(expectedTitle)
+
+      cy.visit('/jobs')
+      jobListPage.addJobButton().click()
+      const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
+
+      // Fill in the job role and source page
+      jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 6')
+
+      cy.contains('add the employer')
+        .should('have.attr', 'href')
+        .then(href => {
+          // Optional: assert `from` param exists
+          expect(href).to.include('/employers/employer/new/form/add')
+          expect(href).to.include('from=')
+
+          cy.contains('add the employer')
+          // Expand details properly
+          cy.get('details summary').contains('The employer is not listed').click()
+
+          // Ensure it's open
+          cy.get('details').should('have.attr', 'open')
+
+          // Now safely interact with the link
+          cy.get('[data-qa="add-employer-link"]')
+            .should('be.visible')
+            .should('have.attr', 'href')
+            .and('include', 'from=')
+
+          cy.get('[data-qa="add-employer-link"]').click()
+
+          // Assert redirected to employer add page
+          cy.url().should('include', '/employers/employer/new/form/add')
+
+          const employerUpdatePage = new EmployerUpdatePage('Employer details')
+          employerUpdatePage.backLink().click()
+
+          jobRoleUpdatePage.headerCaption().contains('Add a job - step 1 of 6')
+        })
     })
   })
 })
