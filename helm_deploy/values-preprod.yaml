@@ -24,6 +24,7 @@ generic-service:
     SYSTEM_PHASE: PREPROD
     FEATURE_FLAG_NATIONAL_JOBS: true
     FEATURE_FLAG_BROKER_ITERATION: true
+    AUDIT_ENABLED: 'true'
 
   scheduledDowntime:
     enabled: true
