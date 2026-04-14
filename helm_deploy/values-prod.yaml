@@ -22,6 +22,8 @@ generic-service:
     SYSTEM_PHASE: PROD
     FEATURE_FLAG_NATIONAL_JOBS: true
     FEATURE_FLAG_BROKER_ITERATION: true
+    AUDIT_ENABLED: 'true'
+
 
 generic-prometheus-alerts:
   alertSeverity: education-alerts
