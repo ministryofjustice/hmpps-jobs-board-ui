@@ -139,5 +139,20 @@ describe('jobRoleUpdateController', () => {
 
       expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobContractUpdate(id))
     })
+
+    it('On success - jobTitle has special chars, sets session and redirects to jobContractUpdate', async () => {
+      req.body.employerId = 'test id'
+      req.body.jobTitle = "test job title's special"
+      req.body.sector = 'OUTDOOR'
+      req.body.industrySector = 'RETAIL'
+      req.body.numberOfVacancies = '1'
+      req.body.sourcePrimary = 'DWP'
+      req.body.sourceSecondary = 'EAB'
+      req.body.charityName = 'Test chrity'
+
+      controller.post(req, res, next)
+
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobContractUpdate(id))
+    })
   })
 })
