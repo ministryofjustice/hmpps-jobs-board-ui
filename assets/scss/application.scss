@@ -1,4 +1,4 @@
-@use "govuk-frontend/dist/govuk" as * with (
+@use "govuk-frontend/dist/govuk/index" as * with (
   $govuk-global-styles: true,
   $govuk-page-width: 1170px
 );
@@ -50,4 +50,44 @@
 
 .button-float-right {
   float: right;
+}
+
+.govuk-pagination {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  margin-bottom: govuk-spacing(4);
+}
+
+.govuk-pagination__prev,
+.govuk-pagination__next,
+.govuk-pagination__list {
+  margin-bottom: 0;
+}
+
+.govuk-pagination__list {
+  display: flex;
+  align-items: center;
+}
+
+.govuk-pagination__item--current {
+  background-color: govuk-colour("blue");
+}
+
+.govuk-pagination__item--current .govuk-pagination__link {
+  color: govuk-colour("white");
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.govuk-pagination__item--current .govuk-pagination__link:focus {
+  color: govuk-colour("black");
+}
+
+.moj-pagination__results {
+  margin: 0 0 0 auto;
+  padding: 0;
+  white-space: nowrap;
+  text-align: right;
 }

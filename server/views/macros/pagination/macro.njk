@@ -1,38 +1,53 @@
 {% macro pagination(params) %}
-    <nav class="moj-pagination {{- ' ' + params.classes if params.classes }}" aria-label="Pagination navigation">
+    <nav class="govuk-pagination {{- ' ' + params.classes if params.classes }}" aria-label="Pagination">
 
-        <ul class="moj-pagination__list">
-            {%- if params.previous %}
-                <li class="moj-pagination__item  moj-pagination__item--prev">
-                    <a class="moj-pagination__link" href="{{ params.previous.href }}">{{ params.previous.text }}<span
-                                class="govuk-visually-hidden"> page</span></a>
-                </li>
-            {% endif -%}
+        {%- if params.previous %}
+            <div class="govuk-pagination__prev">
+                <a class="govuk-link govuk-pagination__link" href="{{ params.previous.href }}" rel="prev">
+                    <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                        <path d="m6.7.3-6 6 6 6 1.4-1.4-3.6-3.6H15v-2H4.5l3.6-3.6z"></path>
+                    </svg>
+                    <span class="govuk-pagination__link-title">
+                        {{ params.previous.text }}<span class="govuk-visually-hidden"> page</span>
+                    </span>
+                </a>
+            </div>
+        {% endif -%}
 
+        <ul class="govuk-pagination__list">
             {%- for item in params.items %}
                 {%- if item.type == 'dots' %}
-                    <li class="moj-pagination__item moj-pagination__item--dots">…</li>
+                    <li class="govuk-pagination__item govuk-pagination__item--ellipses">…</li>
                 {% else %}
                     {%- if item.selected %}
-                        <li class="moj-pagination__item moj-pagination__item--active"
-                            aria-label="Page {{ item.text }} of {{ params.results.count }}"
-                            aria-current="page">{{ item.text }}</li>
+                        <li class="govuk-pagination__item govuk-pagination__item--current">
+                            <a class="govuk-link govuk-pagination__link" href="{{ item.href }}" aria-label="Page {{ item.text }}" aria-current="page">
+                                {{ item.text }}
+                            </a>
+                        </li>
                     {% else %}
-                        <li class="moj-pagination__item">
-                            <a class="moj-pagination__link" href="{{ item.href }}">{{ item.text }}
-                                <span class="govuk-visually-hidden"> page</span></a>
+                        <li class="govuk-pagination__item">
+                            <a class="govuk-link govuk-pagination__link" href="{{ item.href }}" aria-label="Page {{ item.text }}">
+                                {{ item.text }}
+                            </a>
                         </li>
                     {% endif -%}
                 {% endif -%}
             {% endfor -%}
-
-            {%- if params.next %}
-                <li class="moj-pagination__item  moj-pagination__item--next">
-                    <a class="moj-pagination__link" href="{{ params.next.href }}">{{ params.next.text }}<span
-                                class="govuk-visually-hidden"> page</span></a>
-                </li>
-            {% endif -%}
         </ul>
+
+        {%- if params.next %}
+            <div class="govuk-pagination__next">
+                <a class="govuk-link govuk-pagination__link" href="{{ params.next.href }}" rel="next">
+                    <span class="govuk-pagination__link-title">
+                        {{ params.next.text }}<span class="govuk-visually-hidden"> page</span>
+                    </span>
+                    <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                        <path d="m8.3.3 6 6-6 6-1.4-1.4 3.6-3.6H0v-2h10.5L6.9 1.7z"></path>
+                    </svg>
+                </a>
+            </div>
+        {% endif -%}
 
         {%- if params.results %}
             <p class="moj-pagination__results">Showing <b>{{ params.results.from }}</b> to
@@ -41,5 +56,4 @@
         {% endif -%}
 
     </nav>
-
 {% endmacro %}
