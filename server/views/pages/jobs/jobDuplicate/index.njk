@@ -4,7 +4,7 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "moj/components/pagination/macro.njk" import mojPagination %}
+{%- from "moj/components/pagination/macro.njk" import mojPagination -%}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "../../../macros/error-summary/macro.njk" import errorSummary %}
 
@@ -56,7 +56,7 @@
           {{
             govukButton({
               text: "Cancel and return to jobs list",
-              classes: "govuk-button--secondary",
+              classes: "govuk-button govuk-button--secondary",
               id: "cancel-duplicate-button",
               name: "cancel-duplicate-button",
               attributes: {

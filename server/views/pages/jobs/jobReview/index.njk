@@ -4,7 +4,7 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "moj/components/pagination/macro.njk" import mojPagination %}
+{%- from "moj/components/pagination/macro.njk" import mojPagination -%}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "../../../macros/error-summary/macro.njk" import errorSummary %}
 
@@ -27,7 +27,7 @@
             text: "Duplicate job",
             id: "duplicateJobButton",
             name: "duplicateJobButton",
-            classes: "govuk-button--secondary button-float-right",
+            classes: "govuk-button govuk-button--secondary button-float-right",
             attributes: {
               "data-qa": "duplicate-button"
             }

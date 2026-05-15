@@ -13,11 +13,12 @@
 @import './components/accessible-autocomplete';
 @import './components/invalid-summary-field';
 @import 'assets/scss/local';
+@import './components/sortable-table';
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
 
 .filter-box {
-  background-color: govuk-colour("light-grey");
+  background-color: govuk-colour("black", $variant: "tint-95");
   padding: 30px 10px 30px 10px;
 }
 
@@ -50,44 +51,4 @@
 
 .button-float-right {
   float: right;
-}
-
-.govuk-pagination {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  margin-bottom: govuk-spacing(4);
-}
-
-.govuk-pagination__prev,
-.govuk-pagination__next,
-.govuk-pagination__list {
-  margin-bottom: 0;
-}
-
-.govuk-pagination__list {
-  display: flex;
-  align-items: center;
-}
-
-.govuk-pagination__item--current {
-  background-color: govuk-colour("blue");
-}
-
-.govuk-pagination__item--current .govuk-pagination__link {
-  color: govuk-colour("white");
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.govuk-pagination__item--current .govuk-pagination__link:focus {
-  color: govuk-colour("black");
-}
-
-.moj-pagination__results {
-  margin: 0 0 0 auto;
-  padding: 0;
-  white-space: nowrap;
-  text-align: right;
 }
