@@ -65,7 +65,7 @@ context('Sign In', () => {
 
       employerListPage.nextLink().contains('Next')
 
-      employerListPage.paginationResults().contains('Showing 1 to 20 of 39 results')
+      employerListPage.paginationResults().contains('Showing 1 to 20 of 39 total results')
 
       cy.task('getEmployers', { page: 2 })
 
@@ -73,7 +73,7 @@ context('Sign In', () => {
 
       employerListPage.previousLink().contains('Previous')
 
-      employerListPage.paginationResults().contains('Showing 21 to 39 of 39 results')
+      employerListPage.paginationResults().contains('Showing 21 to 39 of 39 total results')
     })
   })
 
