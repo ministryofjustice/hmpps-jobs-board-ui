@@ -6,9 +6,9 @@ export default class JobListPage extends Page {
   jobLink = (index: number) => cy.get(`#job-link-${index}`)
 
   // pagination
-  nextLink = () => cy.get('.moj-pagination__item--next')
+  nextLink = () => cy.get('.govuk-pagination__next')
 
-  previousLink = () => cy.get('.moj-pagination__item--prev')
+  previousLink = () => cy.get('.govuk-pagination__prev')
 
   paginationResults = () => cy.get('.moj-pagination__results')
 

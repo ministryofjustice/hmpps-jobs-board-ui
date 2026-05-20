@@ -1,4 +1,4 @@
-@import 'govuk/all';
+@use "govuk-frontend/dist/govuk" as *;
 
 .autocomplete__option {
   @extend .govuk-body;

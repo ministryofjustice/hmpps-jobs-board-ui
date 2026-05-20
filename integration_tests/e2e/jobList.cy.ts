@@ -86,7 +86,7 @@ context('Sign In', () => {
 
       jobListPage.nextLink().contains('Next')
 
-      jobListPage.paginationResults().contains('Showing 1 to 20 of 40 results')
+      jobListPage.paginationResults().contains('Showing 1 to 20 of 40 total results')
 
       cy.task('getJobs', { page: 2 })
 
@@ -94,7 +94,7 @@ context('Sign In', () => {
 
       jobListPage.previousLink().contains('Previous')
 
-      jobListPage.paginationResults().contains('Showing 21 to 40 of 40 results')
+      jobListPage.paginationResults().contains('Showing 21 to 40 of 40 total results')
     })
   })
 

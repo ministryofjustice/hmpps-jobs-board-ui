@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import express from 'express'
-import dpsComponents from '@ministryofjustice/hmpps-connect-dps-components'
+import { getFrontendComponents } from '@ministryofjustice/hmpps-connect-dps-components'
 
 import path from 'path'
 import createError from 'http-errors'
@@ -59,7 +59,10 @@ export default function createApp(services: Services, applicationInfo: Applicati
 
   // Get front end components for DPS header
   app.use(
-    dpsComponents.getPageComponents({
+    /^(?!\/api).*/,
+    getFrontendComponents({
+      componentApiConfig: config.apis.frontendComponents,
+      requestOptions: { includeSharedData: true },
       dpsUrl: config.dpsHomeUrl,
       logger,
     }),

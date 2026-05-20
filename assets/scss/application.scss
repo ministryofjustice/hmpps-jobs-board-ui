@@ -1,11 +1,10 @@
-$govuk-global-styles: true;
-$path: "/assets/images/";
+@use "govuk-frontend/dist/govuk/index" as * with (
+  $govuk-global-styles: true,
+  $govuk-page-width: 1170px
+);
 
-$moj-page-width: 1170px;
-$govuk-page-width: $moj-page-width;
+@use "@ministryofjustice/frontend/moj/all";
 
-@import 'govuk/all';
-@import 'moj/all';
 /* stylelint-disable scss/at-import-partial-extension */
 @import '../../node_modules/accessible-autocomplete/dist/accessible-autocomplete.min';
 @import '../../node_modules/@ministryofjustice/hmpps-connect-dps-components/dist/assets/footer';
@@ -14,11 +13,12 @@ $govuk-page-width: $moj-page-width;
 @import './components/accessible-autocomplete';
 @import './components/invalid-summary-field';
 @import 'assets/scss/local';
+@import './components/sortable-table';
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
 
 .filter-box {
-  background-color: govuk-colour("light-grey");
+  background-color: govuk-colour("black", $variant: "tint-95");
   padding: 30px 10px 30px 10px;
 }
 
