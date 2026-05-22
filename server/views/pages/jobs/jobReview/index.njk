@@ -7,6 +7,7 @@
 {%- from "moj/components/pagination/macro.njk" import mojPagination -%}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+{% from "moj/components/alert/macro.njk" import mojAlert %}
 
 {% set title = "Check your answers before adding job" if id === 'new' else jobTitle %}
 
@@ -19,20 +20,20 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <span class="govuk-caption-l" data-qa="headerCaption">{{ 'Add' if id === 'new' else 'Update' }} a job - step {{ '6 of 6' if useNationalJobs else '5 of 5' }}</span>
-      {% if brokerIterationEnabled === true and id !== 'new' %}
-      <form class="form" method="post" novalidate="">
-        <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
-          {{ govukButton({
-            text: "Duplicate job",
-            id: "duplicateJobButton",
-            name: "duplicateJobButton",
-            classes: "govuk-button govuk-button--secondary button-float-right",
-            attributes: {
-              "data-qa": "duplicate-button"
-            }
-          }) }}
-        </form>
+        {% if mode == "update" and id != "new" %}
+            {{ mojAlert({
+                  variant: "information",
+                  title: "Updating " + jobTitle,
+                  showTitleAsHeading: true,
+                  dismissible: false,
+                  html: 'Update the details below before saving.'
+                })
+            }}
+        {% endif %}
+      {% if id == "new" %}
+        <span class="govuk-caption-l" data-qa="headerCaption">Add a job - step {{ '6 of 6' if useNationalJobs else '5 of 5' }}</span>
+      {% elif mode == "update" %}
+        <span class="govuk-caption-l" data-qa="headerCaption">Update a job</span>
       {% endif %}
       <h1 class="govuk-heading-l">
         {{ title }}
@@ -51,17 +52,56 @@
       {% include './partials/_howToApplySection.njk' %}
 
       <form class="form" method="post" novalidate="">
-        <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
-        {{  
-          govukButton({
-            text: "Add job and save" if id === 'new' else "Update job and save" ,
-            type: "submit",
-            attributes: {
-              "data-qa": "submit-button",
-              "data-ga-category": "submit-selected-data"
-            }
-          }) 
-        }}
+        {% if mode == "manage" %}
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+            {{
+              govukButton({
+                text: "Update job" ,
+                id: "updateJobButton",
+                name: "updateJobButton",
+                classes: "govuk-button",
+                attributes: {
+                  "data-qa": "update-button"
+                }
+              })
+            }}
+        {% else %}
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+            {{
+              govukButton({
+                text: "Add job and save" if id == "new" else "Update job and save" ,
+                type: "submit",
+                attributes: {
+                  "data-qa": "submit-button",
+                  "data-ga-category": "submit-selected-data"
+                }
+              })
+            }}
+        {% endif %}
+        {% if brokerIterationEnabled === true and mode == "manage" %}
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+              {{ govukButton({
+                text: "Duplicate job",
+                id: "duplicateJobButton",
+                name: "duplicateJobButton",
+                classes: "govuk-button govuk-button--secondary",
+                attributes: {
+                  "data-qa": "duplicate-button"
+                }
+              }) }}
+        {% endif %}
+        {% if mode == "update" and id != "new" %}
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+              {{ govukButton({
+                text: "Cancel and return to jobs list",
+                id: "cancelUpdateButton",
+                name: "cancelUpdateButton",
+                classes: "govuk-button govuk-button--secondary",
+                attributes: {
+                  "data-qa": "cancel-update-button"
+                }
+              }) }}
+        {% endif %}
       </form>
     </div>
   </div>

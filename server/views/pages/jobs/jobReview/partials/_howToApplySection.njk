@@ -7,11 +7,13 @@
     <dd class="govuk-summary-list__value" data-qa="isRollingOpportunity">
       {{ contentLookup.yesNo[isRollingOpportunity] }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#isRollingOpportunity' }}" data-qa="isRollingOpportunityLink">
-        Change<span class="govuk-visually-hidden"> rolling opportunity?</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#isRollingOpportunity' }}" data-qa="isRollingOpportunityLink">
+            Change<span class="govuk-visually-hidden"> rolling opportunity?</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   {% if isRollingOpportunity === 'NO' %}
     <div class="govuk-summary-list__row">
@@ -21,11 +23,13 @@
       <dd class="govuk-summary-list__value" data-qa="closingDate">
         {{ closingDate }}
       </dd>
-      <dd class="govuk-summary-list__actions">
-        <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#closingDate' }}" data-qa="closingDateLink">
-          Change<span class="govuk-visually-hidden"> closing date</span>
-        </a>
-      </dd>
+      {% if mode !== "manage" %}
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#closingDate' }}" data-qa="closingDateLink">
+              Change<span class="govuk-visually-hidden"> closing date</span>
+            </a>
+          </dd>
+      {% endif %}
     </div>
   {% endif %}
   <div class="govuk-summary-list__row">
@@ -35,11 +39,13 @@
     <dd class="govuk-summary-list__value" data-qa="isOnlyForPrisonLeavers">
       {{ contentLookup.yesNo[isOnlyForPrisonLeavers] }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#isOnlyForPrisonLeavers' }}" data-qa="isOnlyForPrisonLeaversLink">
-        Change<span class="govuk-visually-hidden"> job only for prison leavers?</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#isOnlyForPrisonLeavers' }}" data-qa="isOnlyForPrisonLeaversLink">
+            Change<span class="govuk-visually-hidden"> job only for prison leavers?</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -48,11 +54,13 @@
     <dd class="govuk-summary-list__value" data-qa="startDate">
       {{ startDate if startDate else 'Not provided' }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#startDate' }}" data-qa="startDateLink">
-        Change<span class="govuk-visually-hidden"> job start date (optional)</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#startDate' }}" data-qa="startDateLink">
+            Change<span class="govuk-visually-hidden"> job start date (optional)</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -61,11 +69,13 @@
     <dd class="govuk-summary-list__value" data-qa="howToApply">
       {{ howToApply | nl2br | safe }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#howToApply' }}" data-qa="howToApplyLink">
-        Change<span class="govuk-visually-hidden"> how to apply</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#howToApply' }}" data-qa="howToApplyLink">
+            Change<span class="govuk-visually-hidden"> how to apply</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -80,10 +90,12 @@
         Not provided
       {% endif %}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#supportingDocumentationRequired' }}" data-qa="supportingDocumentationRequiredLink">
-        Change<span class="govuk-visually-hidden"> supporting documentation required</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobHowToApplysUpdate(id, 'update') + '#supportingDocumentationRequired' }}" data-qa="supportingDocumentationRequiredLink">
+            Change<span class="govuk-visually-hidden"> supporting documentation required</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
 </dl>
