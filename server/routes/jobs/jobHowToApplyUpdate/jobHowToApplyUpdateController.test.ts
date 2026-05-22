@@ -151,7 +151,7 @@ describe('jobHowToApplyUpdateController', () => {
 
       controller.post(req, res, next)
 
-      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobReview(id))
+      expect(res.redirect).toHaveBeenCalledWith(addressLookup.jobs.jobReview(id, mode))
     })
   })
 })

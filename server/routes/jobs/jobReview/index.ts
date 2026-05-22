@@ -9,10 +9,10 @@ export default (router: Router, services: Services) => {
   const controller = new JobReviewController(services.jobService)
 
   router.get(
-    '/jobs/job/:id',
+    '/jobs/job/:id/review/:mode',
     [getJobReviewResolver(services.jobService), getAllEmployersResolver(services.employerService)],
     controller.get,
   )
 
-  router.post('/jobs/job/:id', controller.post)
+  router.post('/jobs/job/:id/review/:mode', controller.post)
 }

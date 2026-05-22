@@ -24,7 +24,7 @@ context('Sign In', () => {
       cy.wrap(isEnabled).as('nationalJobsEnabled')
     })
 
-    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e')
+    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/update')
 
     const jobReviewPage = new JobReviewPage('Warehouse operator')
 
@@ -88,7 +88,7 @@ context('Sign In', () => {
 
     cy.task('getNationalJob')
 
-    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e')
+    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/update')
 
     const jobReviewPage = new JobReviewPage('National Warehouse operator')
     jobReviewPage.headerCaption().contains('Update a job - step 6 of 6')
@@ -137,7 +137,7 @@ context('Sign In', () => {
 
     cy.task('getJob')
 
-    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e')
+    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/update')
 
     const jobReviewPage = new JobReviewPage('Warehouse operator')
     jobReviewPage.headerCaption().contains('Update a job - step 5 of 5')
@@ -314,7 +314,7 @@ context('Sign In', () => {
     })
     cy.task('getJob')
 
-    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e')
+    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/update')
 
     const jobReviewPage = new JobReviewPage('Warehouse operator')
     jobReviewPage.headerCaption().contains('Update a job - step 6 of 6')

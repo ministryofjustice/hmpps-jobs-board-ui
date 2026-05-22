@@ -6,7 +6,7 @@ export default {
   },
   jobs: {
     jobList: () => '/jobs',
-    jobReview: (id: string) => `/jobs/job/${id}`,
+    jobReview: (id: string, mode = 'add') => `/jobs/job/${id}/review/${mode}`,
     jobRoleUpdate: (id: string, mode = 'add') => `/jobs/job/${id}/role/${mode}`,
     jobIsNationalUpdate: (id: string, mode = 'add') => `/jobs/job/${id}/is-this-national-job/${mode}`,
     jobContractUpdate: (id: string, mode = 'add') => `/jobs/job/${id}/contract/${mode}`,

@@ -43,6 +43,7 @@ export default class JobReviewController {
       // Render data
       const data = {
         id,
+        mode,
         ...job,
         startDate: job.startDate && formatShortDate(new Date(job.startDate)),
         closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
@@ -61,7 +62,7 @@ export default class JobReviewController {
   }
 
   public post: RequestHandler = async (req, res, next): Promise<void> => {
-    const { id } = req.params
+    const { id, mode } = req.params
 
     if (Object.prototype.hasOwnProperty.call(req.body, 'duplicateJobButton')) {
       res.redirect(addressLookup.jobs.jobDuplicate(id))
@@ -76,6 +77,7 @@ export default class JobReviewController {
       if (errors) {
         res.render('pages/jobs/jobReview/index', {
           id,
+          mode,
           ...job,
           employerName: (req.context.allEmployers || []).find((p: { id: string }) => p.id === job.employerId)?.name,
           startDate: job.startDate && formatShortDate(new Date(job.startDate)),
