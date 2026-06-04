@@ -7,6 +7,7 @@
 {%- from "moj/components/pagination/macro.njk" import mojPagination -%}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+{% from "moj/components/alert/macro.njk" import mojAlert %}
 
 {% block content %}
   {{ errorSummary(errors, "You must fix these problems before updates can be saved") }}
@@ -21,6 +22,7 @@
             html: 'Update the details below before saving.'
           })
       }}
+      <span class="govuk-caption-l" data-qa="headerCaption">Duplicate a job</span>
       <h1 class="govuk-heading-l">
         {{ jobTitle }}
       </h1>

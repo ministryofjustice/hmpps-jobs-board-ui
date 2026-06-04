@@ -69,6 +69,7 @@ describe('JobReviewController', () => {
     employerName: 'ASDA',
     closingDate: '1 February 2025',
     startDate: '31 May 2025',
+    backLocation: '/jobs',
   }
 
   setSessionData(req, ['job', id], job)

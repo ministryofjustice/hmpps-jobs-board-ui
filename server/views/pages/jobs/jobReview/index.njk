@@ -12,7 +12,9 @@
 {% set title = "Check your answers before adding job" if id === 'new' else jobTitle %}
 
 {% block beforeContent %}
-
+    {% if mode == "manage" %}
+        {{ govukBackLink({ text: "Back", href: backLocation }) }}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -52,8 +54,8 @@
       {% include './partials/_howToApplySection.njk' %}
 
       <form class="form" method="post" novalidate="">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
         {% if mode == "manage" %}
-            <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
             {{
               govukButton({
                 text: "Update job" ,
@@ -66,7 +68,6 @@
               })
             }}
         {% else %}
-            <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
             {{
               govukButton({
                 text: "Add job and save" if id == "new" else "Update job and save" ,
@@ -79,7 +80,6 @@
             }}
         {% endif %}
         {% if brokerIterationEnabled === true and mode == "manage" %}
-            <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
               {{ govukButton({
                 text: "Duplicate job",
                 id: "duplicateJobButton",
@@ -91,7 +91,6 @@
               }) }}
         {% endif %}
         {% if mode == "update" and id != "new" %}
-            <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
               {{ govukButton({
                 text: "Cancel and return to jobs list",
                 id: "cancelUpdateButton",

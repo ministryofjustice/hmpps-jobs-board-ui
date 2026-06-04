@@ -3,7 +3,7 @@ import { v7 as uuidv7 } from 'uuid'
 import _ from 'lodash'
 
 import { auditService } from '@ministryofjustice/hmpps-audit-client'
-import { deleteSessionData, formatShortDate, getSessionData, setSessionData } from '../../../utils/index'
+import { deleteSessionData, formatShortDate, getSessionData, modeValue, setSessionData } from '../../../utils/index'
 import addressLookup from '../../addressLookup'
 import JobService from '../../../services/jobService'
 import JobSector from '../../../enums/jobSector'
@@ -38,7 +38,7 @@ export default class JobReviewController {
         return
       }
 
-      const errors = validateFormSchema(job, validationSchema())
+      const errors = mode === modeValue.manage ? null : validateFormSchema(job, validationSchema())
 
       // Render data
       const data = {
@@ -49,6 +49,7 @@ export default class JobReviewController {
         closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
         employerName: (allEmployers.find((p: { id: string }) => p.id === job.employerId) || {}).name,
         errors,
+        backLocation: addressLookup.jobs.jobList(),
       }
 
       // Set page data in session
@@ -64,8 +65,18 @@ export default class JobReviewController {
   public post: RequestHandler = async (req, res, next): Promise<void> => {
     const { id, mode } = req.params
 
+    if (Object.prototype.hasOwnProperty.call(req.body, 'updateJobButton')) {
+      res.redirect(addressLookup.jobs.jobReview(id, 'update'))
+      return
+    }
     if (Object.prototype.hasOwnProperty.call(req.body, 'duplicateJobButton')) {
       res.redirect(addressLookup.jobs.jobDuplicate(id))
+      return
+    }
+    if (Object.prototype.hasOwnProperty.call(req.body, 'cancelUpdateButton')) {
+      // Clear any unsaved changes made to the job
+      deleteSessionData(req, ['job', id])
+      res.redirect(addressLookup.jobs.jobList())
       return
     }
 
