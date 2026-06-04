@@ -48,7 +48,7 @@ context('Sign In', () => {
     })
   })
 
-  it('Update job flow', () => {
+  it('Manage job flow', () => {
     cy.checkFeatureToggle('nationalJobs', isEnabled => {
       cy.wrap(isEnabled).as('nationalJobsEnabled')
     })
@@ -64,13 +64,6 @@ context('Sign In', () => {
       jobListPage.jobLink(1).click()
 
       const jobReviewPage = new JobReviewPage('Warehouse operator')
-      cy.get('@nationalJobsEnabled').then(isEnabled => {
-        if (isEnabled) {
-          jobReviewPage.headerCaption().contains('Update a job - step 6 of 6')
-        } else {
-          jobReviewPage.headerCaption().contains('Update a job - step 5 of 5')
-        }
-      })
     })
   })
 

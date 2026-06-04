@@ -192,7 +192,7 @@ context('Sign In', () => {
 
     jobDuplicatePage.employerIdLink().click()
     const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
-    jobRoleUpdatePage.headerCaption().contains('Update a job - step 1 of 5')
+    jobRoleUpdatePage.headerCaption().contains('Duplicate a job')
 
     jobRoleUpdatePage.employerIdField().clear().type('Tesco')
     jobRoleUpdatePage.employerIdFieldOption(0).click()
@@ -237,7 +237,7 @@ context('Sign In', () => {
     // Contract page changes
     jobDuplicatePage.postCodeLink().click()
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
-    jobContractUpdatePage.headerCaption().contains('Update a job - step 2 of 5')
+    jobContractUpdatePage.headerCaption().contains('Duplicate a job')
 
     jobContractUpdatePage.postCodeField().clear().type('NE35 6DR')
     jobContractUpdatePage.submitButton().click()
@@ -291,7 +291,7 @@ context('Sign In', () => {
     // Requirements page changes
     jobDuplicatePage.essentialCriteriaLink().click()
     const jobRequirementsUpdatePage = new JobRequirementsUpdatePage('Requirements and job description')
-    jobContractUpdatePage.headerCaption().contains('Update a job - step 3 of 5')
+    jobRequirementsUpdatePage.headerCaption().contains('Duplicate a job')
 
     jobRequirementsUpdatePage.essentialCriteriaField().clear().type('Some essential text')
     jobRequirementsUpdatePage.submitButton().click()
@@ -317,7 +317,7 @@ context('Sign In', () => {
     // How to apply page changes
     jobDuplicatePage.closingDateLink().click()
     const jobHowToApplyPage = new JobHowToApplyPage('How to apply')
-    jobHowToApplyPage.headerCaption().contains('Update a job - step 4 of 5')
+    jobHowToApplyPage.headerCaption().contains('Duplicate a job')
 
     jobHowToApplyPage.closingDateField.day().clear().type('3')
     jobHowToApplyPage.closingDateField.month().clear().type('4')
@@ -372,7 +372,7 @@ context('Sign In', () => {
 
     jobDuplicatePage.employerIdLink().click()
     const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
-    jobRoleUpdatePage.headerCaption().contains('Update a job - step 1 of 6')
+    jobRoleUpdatePage.headerCaption().contains('Duplicate a job')
 
     jobRoleUpdatePage.employerIdField().clear().type('Tesco')
     jobRoleUpdatePage.employerIdFieldOption(0).click()
@@ -417,7 +417,7 @@ context('Sign In', () => {
     // National job page changes
     jobDuplicatePage.isNationalLink().click()
     const jobIsNationalUpdatePage = new JobIsNationalUpdatePage('Is this a national job?')
-    jobIsNationalUpdatePage.headerCaption().contains('Update a job - step 2 of 6')
+    jobIsNationalUpdatePage.headerCaption().contains('Duplicate a job')
 
     // Non-national to National
     jobIsNationalUpdatePage.isNationalFieldYes().click()
@@ -430,7 +430,7 @@ context('Sign In', () => {
     jobIsNationalUpdatePage.submitButton().click()
     // Should go to the contract page next, for the user to fill in postcode details
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
-    jobContractUpdatePage.headerCaption().contains('Update a job - step 3 of 6')
+    jobContractUpdatePage.headerCaption().contains('Duplicate a job')
     jobContractUpdatePage.postCodeField().clear().type('NE35 8DR')
     jobContractUpdatePage.submitButton().click()
     jobDuplicatePage.postCode().contains('NE35 8DR')
@@ -490,7 +490,7 @@ context('Sign In', () => {
     // Requirements page changes
     jobDuplicatePage.essentialCriteriaLink().click()
     const jobRequirementsUpdatePage = new JobRequirementsUpdatePage('Requirements and job description')
-    jobContractUpdatePage.headerCaption().contains('Update a job - step 4 of 6')
+    jobRequirementsUpdatePage.headerCaption().contains('Duplicate a job')
 
     jobRequirementsUpdatePage.essentialCriteriaField().clear().type('Some essential text')
     jobRequirementsUpdatePage.submitButton().click()
@@ -516,7 +516,7 @@ context('Sign In', () => {
     // How to apply page changes
     jobDuplicatePage.closingDateLink().click()
     const jobHowToApplyPage = new JobHowToApplyPage('How to apply')
-    jobHowToApplyPage.headerCaption().contains('Update a job - step 5 of 6')
+    jobHowToApplyPage.headerCaption().contains('Duplicate a job')
     jobHowToApplyPage.closingDateField.day().clear().type('3')
     jobHowToApplyPage.closingDateField.month().clear().type('4')
     jobHowToApplyPage.closingDateField.year().clear().type('2027')
@@ -584,7 +584,7 @@ context('Sign In', () => {
       // Update the job details
       jobDuplicatePage.jobTitleLink().click()
       const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
-      jobRoleUpdatePage.headerCaption().contains('Update a job - step 1 of 6')
+      jobRoleUpdatePage.headerCaption().contains('Duplicate a job')
 
       jobRoleUpdatePage.jobTitleField().clear().type('A different job')
       jobRoleUpdatePage.submitButton().click()

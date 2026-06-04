@@ -6,6 +6,7 @@ import JobRequirementsUpdatePage from '../pages/jobs/jobRequirementsUpdate'
 import JobReviewPage from '../pages/jobs/jobReview'
 import JobRoleUpdatePage from '../pages/jobs/jobRoleUpdate'
 import JobIsNationalUpdatePage from '../pages/jobs/jobIsNationalUpdate'
+import JobListPage from '../pages/jobs/jobList'
 
 context('Sign In', () => {
   beforeEach(() => {
@@ -24,17 +25,13 @@ context('Sign In', () => {
       cy.wrap(isEnabled).as('nationalJobsEnabled')
     })
 
-    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/update')
+    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/manage')
 
     const jobReviewPage = new JobReviewPage('Warehouse operator')
 
-    cy.get('@nationalJobsEnabled').then(isEnabled => {
-      if (isEnabled) {
-        jobReviewPage.headerCaption().contains('Update a job - step 6 of 6')
-      } else {
-        jobReviewPage.headerCaption().contains('Update a job - step 5 of 5')
-      }
-    })
+    jobReviewPage.updateJobButton().click()
+
+    jobReviewPage.headerCaption().contains('Update a job')
 
     jobReviewPage.employerId().contains('ASDA')
     jobReviewPage.jobTitle().contains('Warehouse operator')
@@ -88,10 +85,13 @@ context('Sign In', () => {
 
     cy.task('getNationalJob')
 
-    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/update')
+    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/manage')
 
     const jobReviewPage = new JobReviewPage('National Warehouse operator')
-    jobReviewPage.headerCaption().contains('Update a job - step 6 of 6')
+
+    jobReviewPage.updateJobButton().click()
+
+    jobReviewPage.headerCaption().contains('Update a job')
 
     jobReviewPage.employerId().contains('ASDA')
     jobReviewPage.jobTitle().contains('Warehouse operator')
@@ -137,14 +137,16 @@ context('Sign In', () => {
 
     cy.task('getJob')
 
-    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/update')
+    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/manage')
 
     const jobReviewPage = new JobReviewPage('Warehouse operator')
-    jobReviewPage.headerCaption().contains('Update a job - step 5 of 5')
+    jobReviewPage.updateJobButton().click()
+
+    jobReviewPage.headerCaption().contains('Update a job')
 
     jobReviewPage.employerIdLink().click()
     const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
-    jobRoleUpdatePage.headerCaption().contains('Update a job - step 1 of 5')
+    jobRoleUpdatePage.headerCaption().contains('Update a job')
 
     jobRoleUpdatePage.employerIdField().clear().type('Tesco')
     jobRoleUpdatePage.employerIdFieldOption(0).click()
@@ -189,7 +191,7 @@ context('Sign In', () => {
     // Contract page changes
     jobReviewPage.postCodeLink().click()
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
-    jobContractUpdatePage.headerCaption().contains('Update a job - step 2 of 5')
+    jobContractUpdatePage.headerCaption().contains('Update a job')
 
     jobContractUpdatePage.postCodeField().clear().type('NE35 6DR')
     jobContractUpdatePage.submitButton().click()
@@ -243,7 +245,7 @@ context('Sign In', () => {
     // Requirements page changes
     jobReviewPage.essentialCriteriaLink().click()
     const jobRequirementsUpdatePage = new JobRequirementsUpdatePage('Requirements and job description')
-    jobContractUpdatePage.headerCaption().contains('Update a job - step 3 of 5')
+    jobRequirementsUpdatePage.headerCaption().contains('Update a job')
 
     jobRequirementsUpdatePage.essentialCriteriaField().clear().type('Some essential text')
     jobRequirementsUpdatePage.submitButton().click()
@@ -269,7 +271,7 @@ context('Sign In', () => {
     // How to apply page changes
     jobReviewPage.closingDateLink().click()
     const jobHowToApplyPage = new JobHowToApplyPage('How to apply')
-    jobHowToApplyPage.headerCaption().contains('Update a job - step 4 of 5')
+    jobHowToApplyPage.headerCaption().contains('Update a job')
 
     jobHowToApplyPage.closingDateField.day().clear().type('3')
     jobHowToApplyPage.closingDateField.month().clear().type('4')
@@ -314,14 +316,16 @@ context('Sign In', () => {
     })
     cy.task('getJob')
 
-    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/update')
+    cy.visit('/jobs/job/0190a227-be75-7009-8ad6-c6b068b6754e/review/manage')
 
     const jobReviewPage = new JobReviewPage('Warehouse operator')
-    jobReviewPage.headerCaption().contains('Update a job - step 6 of 6')
+    jobReviewPage.updateJobButton().click()
+
+    jobReviewPage.headerCaption().contains('Update a job')
 
     jobReviewPage.employerIdLink().click()
     const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
-    jobRoleUpdatePage.headerCaption().contains('Update a job - step 1 of 6')
+    jobRoleUpdatePage.headerCaption().contains('Update a job')
 
     jobRoleUpdatePage.employerIdField().clear().type('Tesco')
     jobRoleUpdatePage.employerIdFieldOption(0).click()
@@ -366,7 +370,7 @@ context('Sign In', () => {
     // National job page changes
     jobReviewPage.isNationalLink().click()
     const jobIsNationalUpdatePage = new JobIsNationalUpdatePage('Is this a national job?')
-    jobIsNationalUpdatePage.headerCaption().contains('Update a job - step 2 of 6')
+    jobIsNationalUpdatePage.headerCaption().contains('Update a job')
 
     // Non-national to National
     jobIsNationalUpdatePage.isNationalFieldYes().click()
@@ -379,7 +383,7 @@ context('Sign In', () => {
     jobIsNationalUpdatePage.submitButton().click()
     // Should go to the contract page next, for the user to fill in postcode details
     const jobContractUpdatePage = new JobContractUpdatePage('Job location and contract')
-    jobContractUpdatePage.headerCaption().contains('Update a job - step 3 of 6')
+    jobContractUpdatePage.headerCaption().contains('Update a job')
     jobContractUpdatePage.postCodeField().clear().type('NE35 8DR')
     jobContractUpdatePage.submitButton().click()
     jobReviewPage.postCode().contains('NE35 8DR')
@@ -439,7 +443,7 @@ context('Sign In', () => {
     // Requirements page changes
     jobReviewPage.essentialCriteriaLink().click()
     const jobRequirementsUpdatePage = new JobRequirementsUpdatePage('Requirements and job description')
-    jobContractUpdatePage.headerCaption().contains('Update a job - step 4 of 6')
+    jobRequirementsUpdatePage.headerCaption().contains('Update a job')
 
     jobRequirementsUpdatePage.essentialCriteriaField().clear().type('Some essential text')
     jobRequirementsUpdatePage.submitButton().click()
@@ -465,7 +469,7 @@ context('Sign In', () => {
     // How to apply page changes
     jobReviewPage.closingDateLink().click()
     const jobHowToApplyPage = new JobHowToApplyPage('How to apply')
-    jobHowToApplyPage.headerCaption().contains('Update a job - step 5 of 6')
+    jobHowToApplyPage.headerCaption().contains('Update a job')
 
     jobHowToApplyPage.closingDateField.day().clear().type('3')
     jobHowToApplyPage.closingDateField.month().clear().type('4')
@@ -501,5 +505,40 @@ context('Sign In', () => {
     jobHowToApplyPage.submitButton().click()
     jobReviewPage.supportingDocumentationRequired().contains('Disclosure letter')
     jobReviewPage.supportingDocumentationRequired().contains('Some more text')
+  })
+
+  it('Update job - cancel flow', () => {
+    // Skip tests if broker iteration is not enabled
+    cy.checkFeatureToggle('brokerIterationEnabled', isEnabled => {
+      skipOn(!isEnabled)
+    })
+
+    cy.task('getJob')
+
+    const jobListPage = new JobListPage('Manage jobs and employers')
+
+    cy.visit('/jobs')
+    jobListPage.jobLink(1).click()
+    const jobReviewPage = new JobReviewPage('Warehouse operator')
+
+    // Click the update button
+    jobReviewPage.updateJobButton().click()
+
+    // Update the job details
+    jobReviewPage.jobTitleLink().click()
+    const jobRoleUpdatePage = new JobRoleUpdatePage('Job role and source')
+    jobRoleUpdatePage.headerCaption().contains('Update a job')
+
+    jobRoleUpdatePage.jobTitleField().clear().type('A different job')
+    jobRoleUpdatePage.submitButton().click()
+    jobReviewPage.jobTitle().contains('A different job')
+
+    // Cancel the update - return to the jobs list
+    jobReviewPage.cancelButton().click()
+
+    // Select the job again, click the 'Update' button again - previous changes have been lost.
+    jobListPage.jobLink(1).click()
+    jobReviewPage.updateJobButton().click()
+    jobReviewPage.jobTitle().contains('Warehouse operator')
   })
 })
