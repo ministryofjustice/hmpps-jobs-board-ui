@@ -7,23 +7,22 @@
 {%- from "moj/components/pagination/macro.njk" import mojPagination -%}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "../../../macros/error-summary/macro.njk" import errorSummary %}
+{% from "moj/components/alert/macro.njk" import mojAlert %}
 
 {% block content %}
   {{ errorSummary(errors, "You must fix these problems before updates can be saved") }}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-            Important
-          </h2>
-        </div>
-        <div class="govuk-notification-banner__content">
-          <h3 class="govuk-notification-banner__heading">Duplicating {{ jobTitle }}</h3>
-          <p class="govuk-body">Update the details below before saving.</p>
-        </div>
-      </div>
+      {{ mojAlert({
+            variant: "information",
+            title: "Duplicating " + jobTitle,
+            showTitleAsHeading: true,
+            dismissible: false,
+            html: 'Update the details below before saving.'
+          })
+      }}
+      <span class="govuk-caption-l" data-qa="headerCaption">Duplicate a job</span>
       <h1 class="govuk-heading-l">
         {{ jobTitle }}
       </h1>

@@ -7,6 +7,10 @@ export default class JobReviewPage extends Page {
 
   duplicateJobButton = (): PageElement => cy.get('[data-qa=duplicate-button]')
 
+  updateJobButton = (): PageElement => cy.get('[data-qa=update-button]')
+
+  cancelButton = (): PageElement => cy.get('[data-qa=cancel-update-button]')
+
   // Values
   employerId = (): PageElement => cy.get('[data-qa=employerId]')
 

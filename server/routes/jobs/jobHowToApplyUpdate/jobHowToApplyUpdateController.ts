@@ -37,7 +37,7 @@ export default class jobHowToApplyUpdateController {
       } else if (mode === modeValue.duplicate) {
         backLocation = addressLookup.jobs.jobDuplicate(id)
       } else {
-        backLocation = addressLookup.jobs.jobReview(id)
+        backLocation = addressLookup.jobs.jobReview(id, mode)
       }
 
       // Render data
@@ -116,7 +116,7 @@ export default class jobHowToApplyUpdateController {
 
       // Redirect to next page in flow
       res.redirect(
-        mode === modeValue.duplicate ? addressLookup.jobs.jobDuplicate(id) : addressLookup.jobs.jobReview(id),
+        mode === modeValue.duplicate ? addressLookup.jobs.jobDuplicate(id) : addressLookup.jobs.jobReview(id, mode),
       )
     } catch (err) {
       logger.error('Error posting form - How to apply')

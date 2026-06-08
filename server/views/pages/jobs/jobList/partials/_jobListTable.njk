@@ -46,7 +46,7 @@
             {% for item in jobs %}
                 <tr class="govuk-table__row {{ rowClass.next() }}">
                     <td class="govuk-table__cell" width="25%">
-                        <a href="{{ addressLookup.jobs.jobReview(item.id, 'update') }}"
+                        <a href="{{ addressLookup.jobs.jobReview(item.id, 'manage') }}"
                            rel="noopener noreferrer"
                            data-qa="quick-look-link"
                            aria-label="Job link for {{ item.jobTitle  }}"

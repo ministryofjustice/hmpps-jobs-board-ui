@@ -50,7 +50,7 @@ export default class JobContractUpdateController {
         backLocation =
           res.locals.useNationalJobs === true && job.isNationalChanged
             ? addressLookup.jobs.jobIsNationalUpdate(id, mode)
-            : addressLookup.jobs.jobReview(id)
+            : addressLookup.jobs.jobReview(id, mode)
       }
 
       // Render data
@@ -125,7 +125,7 @@ export default class JobContractUpdateController {
       if (mode === modeValue.duplicate) {
         nextPage = addressLookup.jobs.jobDuplicate(id)
       } else if (mode === modeValue.update) {
-        nextPage = addressLookup.jobs.jobReview(id)
+        nextPage = addressLookup.jobs.jobReview(id, mode)
       } else {
         nextPage = addressLookup.jobs.jobRequirementsUpdate(id)
       }

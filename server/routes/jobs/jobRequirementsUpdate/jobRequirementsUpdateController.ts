@@ -32,7 +32,7 @@ export default class JobRequirementsUpdateController {
       } else if (mode === modeValue.duplicate) {
         backLocation = addressLookup.jobs.jobDuplicate(id)
       } else {
-        backLocation = addressLookup.jobs.jobReview(id)
+        backLocation = addressLookup.jobs.jobReview(id, mode)
       }
 
       // Render data
@@ -90,7 +90,7 @@ export default class JobRequirementsUpdateController {
       if (mode === modeValue.duplicate) {
         nextPage = addressLookup.jobs.jobDuplicate(id)
       } else if (mode === modeValue.update) {
-        nextPage = addressLookup.jobs.jobReview(id)
+        nextPage = addressLookup.jobs.jobReview(id, mode)
       } else {
         nextPage = addressLookup.jobs.jobHowToApplysUpdate(id)
       }

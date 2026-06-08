@@ -8,11 +8,13 @@
         <dd class="govuk-summary-list__value" data-qa="postCode">
           {{ postCode }}
         </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#postCode' }}" data-qa="postCodeLink">
-            Change<span class="govuk-visually-hidden"> job location</span>
-          </a>
-        </dd>
+        {% if mode !== "manage" %}
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#postCode' }}" data-qa="postCodeLink">
+                Change<span class="govuk-visually-hidden"> job location</span>
+              </a>
+            </dd>
+        {% endif %}
       </div>
   {% endif %}
   <div class="govuk-summary-list__row">
@@ -22,11 +24,13 @@
     <dd class="govuk-summary-list__value" data-qa="salaryFrom">
       £{{ salaryFrom | fixed }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#salaryFrom' }}" data-qa="salaryFromLink">
-        Change<span class="govuk-visually-hidden"> salary from</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#salaryFrom' }}" data-qa="salaryFromLink">
+            Change<span class="govuk-visually-hidden"> salary from</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -35,11 +39,13 @@
     <dd class="govuk-summary-list__value" data-qa="salaryTo">
       {{ ('£'+(salaryTo | fixed)) if salaryTo else 'Not provided' }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#salaryTo' }}" data-qa="salaryToLink">
-        Change<span class="govuk-visually-hidden"> salary to (optional)</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#salaryTo' }}" data-qa="salaryToLink">
+            Change<span class="govuk-visually-hidden"> salary to (optional)</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -48,11 +54,13 @@
     <dd class="govuk-summary-list__value" data-qa="salaryPeriod">
       {{ contentLookup.salaryPeriod[salaryPeriod] }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#salaryPeriod' }}" data-qa="salaryPeriodLink">
-        Change<span class="govuk-visually-hidden"> salary period</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#salaryPeriod' }}" data-qa="salaryPeriodLink">
+            Change<span class="govuk-visually-hidden"> salary period</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -61,11 +69,13 @@
     <dd class="govuk-summary-list__value" data-qa="additionalSalaryInformation">
       {{ (additionalSalaryInformation | safe) if additionalSalaryInformation else 'Not provided' }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#additionalSalaryInformation' }}" data-qa="additionalSalaryInformationLink">
-        Change<span class="govuk-visually-hidden"> additional salary information  (optional)</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#additionalSalaryInformation' }}" data-qa="additionalSalaryInformationLink">
+            Change<span class="govuk-visually-hidden"> additional salary information  (optional)</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -74,11 +84,13 @@
     <dd class="govuk-summary-list__value" data-qa="isPayingAtLeastNationalMinimumWage">
       {{ contentLookup.yesNo[isPayingAtLeastNationalMinimumWage] }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#isPayingAtLeastNationalMinimumWage' }}" data-qa="isPayingAtLeastNationalMinimumWageLink">
-        Change<span class="govuk-visually-hidden"> pays at least minimum wage?</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#isPayingAtLeastNationalMinimumWage' }}" data-qa="isPayingAtLeastNationalMinimumWageLink">
+            Change<span class="govuk-visually-hidden"> pays at least minimum wage?</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -87,11 +99,13 @@
     <dd class="govuk-summary-list__value" data-qa="workPattern">
       {{ contentLookup.workPattern[workPattern] }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#workPattern' }}" data-qa="workPatternLink">
-        Change<span class="govuk-visually-hidden"> work pattern</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#workPattern' }}" data-qa="workPatternLink">
+            Change<span class="govuk-visually-hidden"> work pattern</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -100,11 +114,13 @@
     <dd class="govuk-summary-list__value" data-qa="hoursPerWeek">
       {{ contentLookup.hours[hoursPerWeek] }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#hoursPerWeek' }}" data-qa="hoursPerWeekLink">
-        Change<span class="govuk-visually-hidden"> hours per week</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#hoursPerWeek' }}" data-qa="hoursPerWeekLink">
+            Change<span class="govuk-visually-hidden"> hours per week</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -113,11 +129,13 @@
     <dd class="govuk-summary-list__value" data-qa="contractType">
       {{ contentLookup.contractType[contractType] }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#contractType' }}" data-qa="contractTypeLink">
-        Change<span class="govuk-visually-hidden"> contract type</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#contractType' }}" data-qa="contractTypeLink">
+            Change<span class="govuk-visually-hidden"> contract type</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -126,10 +144,12 @@
     <dd class="govuk-summary-list__value" data-qa="baseLocation">
       {{ contentLookup.baseLocation[baseLocation] if baseLocation else 'Not provided' }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#baseLocation' }}" data-qa="baseLocationLink">
-        Change<span class="govuk-visually-hidden"> base location (optional)</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobContractUpdate(id, 'update') + '#baseLocation' }}" data-qa="baseLocationLink">
+            Change<span class="govuk-visually-hidden"> base location (optional)</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
 </dl>

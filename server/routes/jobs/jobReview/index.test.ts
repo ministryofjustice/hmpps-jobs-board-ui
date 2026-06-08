@@ -31,7 +31,7 @@ describe('jobReview routes', () => {
     routes(router, services)
 
     expect(router.get).toHaveBeenCalledWith(
-      '/jobs/job/:id',
+      '/jobs/job/:id/review/:mode',
       [
         expect.any(Function), // getJobReviewResolver
         expect.any(Function), // getAllEmployersResolver
@@ -44,7 +44,7 @@ describe('jobReview routes', () => {
     routes(router, services)
 
     expect(router.post).toHaveBeenCalledWith(
-      '/jobs/job/:id',
+      '/jobs/job/:id/review/:mode',
       expect.any(Function), // controller.get
     )
   })

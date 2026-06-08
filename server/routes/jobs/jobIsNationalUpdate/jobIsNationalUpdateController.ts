@@ -24,7 +24,7 @@ export default class JobIsNationalUpdateController {
       } else if (mode === modeValue.duplicate) {
         backLocation = addressLookup.jobs.jobDuplicate(id)
       } else {
-        backLocation = addressLookup.jobs.jobReview(id)
+        backLocation = addressLookup.jobs.jobReview(id, mode)
       }
       // Render data
       const data = {
@@ -71,7 +71,7 @@ export default class JobIsNationalUpdateController {
         // Changing job from national to regional - need to update postcode info on the contract page.
         nextPage = addressLookup.jobs.jobContractUpdate(id, mode)
       } else if (mode === modeValue.update) {
-        nextPage = addressLookup.jobs.jobReview(id)
+        nextPage = addressLookup.jobs.jobReview(id, mode)
       } else {
         nextPage = addressLookup.jobs.jobDuplicate(id)
       }

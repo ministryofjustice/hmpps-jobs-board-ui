@@ -7,11 +7,13 @@
     <dd class="govuk-summary-list__value" data-qa="employerId">
       {{ employerName }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#employerId' }}" data-qa="employerIdLink">
-        Change<span class="govuk-visually-hidden"> employer name</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#employerId' }}" data-qa="employerIdLink">
+            Change<span class="govuk-visually-hidden"> employer name</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -20,11 +22,13 @@
     <dd class="govuk-summary-list__value" data-qa="jobTitle">
       {{ jobTitle | safe }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#jobTitle' }}" data-qa="jobTitleLink">
-        Change<span class="govuk-visually-hidden"> job title</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#jobTitle' }}" data-qa="jobTitleLink">
+            Change<span class="govuk-visually-hidden"> job title</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -33,11 +37,13 @@
     <dd class="govuk-summary-list__value" data-qa="sector">
       {{ contentLookup.jobSector[sector] }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#sector' }}" data-qa="sectorLink">
-        Change<span class="govuk-visually-hidden"> job sector</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#sector' }}" data-qa="sectorLink">
+            Change<span class="govuk-visually-hidden"> job sector</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -46,11 +52,13 @@
     <dd class="govuk-summary-list__value" data-qa="industrySector">
       {{ contentLookup.employerSector[industrySector] }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#industrySector' }}" data-qa="industrySectorLink">
-        Change<span class="govuk-visually-hidden"> HMPPS reporting industry sector</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#industrySector' }}" data-qa="industrySectorLink">
+            Change<span class="govuk-visually-hidden"> HMPPS reporting industry sector</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -66,12 +74,13 @@
         {{ numberOfVacancies }}
       </dd>
     {% endif %}
-
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#numberOfVacancies' }}" data-qa="numberOfVacanciesLink">
-        Change<span class="govuk-visually-hidden"> number of vacancies</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#numberOfVacancies' }}" data-qa="numberOfVacanciesLink">
+            Change<span class="govuk-visually-hidden"> number of vacancies</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -80,11 +89,13 @@
     <dd class="govuk-summary-list__value" data-qa="sourcePrimary">
       {{ contentLookup.jobSource[sourcePrimary] }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#sourcePrimary' }}" data-qa="sourcePrimaryLink">
-        Change<span class="govuk-visually-hidden"> job source</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#sourcePrimary' }}" data-qa="sourcePrimaryLink">
+            Change<span class="govuk-visually-hidden"> job source</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row" id="sourceSecondary">
     <dt class="govuk-summary-list__key {% if errors.sourceSecondary %}govuk-summary-list__key--invalid{% endif %}">
@@ -98,11 +109,13 @@
         {% endif %}
       {{ contentLookup.jobSource[sourceSecondary] if sourceSecondary else 'Not provided' }}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#sourceSecondary' }}" data-qa="sourceSecondaryLink">
-        Change<span class="govuk-visually-hidden"> job source 2 (optional)</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#sourceSecondary' }}" data-qa="sourceSecondaryLink">
+            Change<span class="govuk-visually-hidden"> job source 2 (optional)</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -111,10 +124,12 @@
     <dd class="govuk-summary-list__value" data-qa="charityName">
       {{ (charityName | safe) if charityName else 'Not provided'}}
     </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#charityName' }}" data-qa="charityNameLink">
-        Change<span class="govuk-visually-hidden"> supported by a charity? (optional)</span>
-      </a>
-    </dd>
+    {% if mode !== "manage" %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ addressLookup.jobs.jobRoleUpdate(id, 'update') + '#charityName' }}" data-qa="charityNameLink">
+            Change<span class="govuk-visually-hidden"> supported by a charity? (optional)</span>
+          </a>
+        </dd>
+    {% endif %}
   </div>
 </dl>
