@@ -44,6 +44,7 @@ export default function setUpWebSecurity(): Router {
           ],
           fontSrc: ["'self'", config.apis.frontendComponents.url],
           formAction: [`'self' ${config.apis.hmppsAuth.externalUrl}`],
+          ...(config.production ? {} : { upgradeInsecureRequests: null }),
           connectSrc: [
             '*.google-analytics.com',
             '*.googletagmanager.com',
