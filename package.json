@@ -232,9 +232,6 @@
       "minimatch": "^3.1.4",
       "brace-expansion": "^1.1.13"
     },
-    "@ministryofjustice/hmpps-audit-client": {
-      "fast-xml-parser": "5.7.0"
-    },
     "@istanbuljs/load-nyc-config": {
       "js-yaml": "4.2.0"
     }
