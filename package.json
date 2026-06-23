@@ -182,7 +182,7 @@
     "concurrently": "^8.2.2",
     "cookie-session": "^2.1.0",
     "cross-env": "^10.0.0",
-    "cypress": "14.5.4",
+    "cypress": "15.17.0",
     "cypress-multi-reporters": "^2.0.5",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -214,7 +214,6 @@
     "jest-junit": {
       "uuid": "11.1.1"
     },
-    "tmp": "0.2.6",
     "@nevware21/ts-utils": "0.14.0",
     "qs": "6.15.2",
     "csurf": {
@@ -233,8 +232,8 @@
       "minimatch": "^3.1.4",
       "brace-expansion": "^1.1.13"
     },
-    "@ministryofjustice/hmpps-audit-client": {
-      "fast-xml-parser": "5.7.0"
+    "@istanbuljs/load-nyc-config": {
+      "js-yaml": "4.2.0"
     }
   }
 }
