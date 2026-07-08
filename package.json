@@ -234,6 +234,7 @@
     },
     "@istanbuljs/load-nyc-config": {
       "js-yaml": "4.2.0"
-    }
+    },
+    "@opentelemetry/core": "^2.8.0"
   }
 }
