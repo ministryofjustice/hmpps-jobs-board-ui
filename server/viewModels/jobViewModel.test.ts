@@ -57,7 +57,10 @@ describe('JobViewModel', () => {
   })
 
   it('should return LIVE status if closingDate is not set', () => {
-    const job = plainToClass(JobViewModel, baseData)
+    const job = plainToClass(JobViewModel, {
+      ...baseData,
+      closingDate: undefined,
+    })
     expect(job.jobStatus).toBe(JobStatus.LIVE)
   })
 
