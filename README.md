@@ -52,7 +52,7 @@ NFN role
 
 ## Requirements
 
-This application is built for node 18 and docker will be needed to run it locally.
+This application is built for node 18.
 [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm)
 can be used to install appropriate node versions.
 
@@ -63,22 +63,23 @@ Additional tools are required to manage deployment: kubectl and helm.
 run `nvm install --latest-npm` within the repository folder to use the correct version of node, and the latest version
 of npm. This matches the `engines` config in `package.json` and the CircleCI build config.
 
-## Running the app
-
-The easiest way to run the app is to use docker compose to create the service and all dependencies.
+## Running the app locally
 
 The app requires:
 
 * hmpps-auth - for authentication
 * redis - session store and token caching
 
-### Running the app in `dev` environment
+### Running the app for development
 
 This is probably the easiest way to run and develop on your machine: by hooking into services that already exist
 in the `dev` environment.
 A user account is needed in hmpps-auth with the appropriate roles.
 
-Create a `.env` file and complete the following values:
+Create an environment file by copying `.env.example` -> `.env` and updating the secrets from kubernetes.
+Environment variables set in here will be available when running `start:dev`
+
+Environment variables can be seen here, or in the `example.env` file: 
 
 | Environment variable            | Value                                                                              |
 |:--------------------------------|:-----------------------------------------------------------------------------------|
@@ -97,15 +98,9 @@ Create a `.env` file and complete the following values:
 | MANAGE_USERS_API_URL            | https://manage-users-api-dev.hmpps.service.justice.gov.uk                          |
 | WORK_AFTER_RELEASE_URL          | https://get-ready-for-work-dev.hmpps.service.justice.gov.uk                        |
 
-Run the application in development mode, in separate shell sessions:
+#### Install dependencies
 
-```shell
-docker-compose pull
-
-docker-compose up --scale=app=0
-
-npm run setup (to install all required dependencies)
-```
+Install dependencies using `npm run setup`, ensuring you are using node v24
 
 This will automatically restart it if server code or front-end assets are modified.
 
@@ -113,7 +108,7 @@ This will automatically restart it if server code or front-end assets are modifi
 
 `npm run test`
 
-And then, to build the assets and start the app with nodemon:
+#### Build assets and start app with nodemon
 
 `npm run start:dev`
 
