@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import express from 'express'
 import { getFrontendComponents } from '@ministryofjustice/hmpps-connect-dps-components'
+import { telemetryMiddleware } from '@ministryofjustice/hmpps-azure-telemetry'
 
 import path from 'path'
 import createError from 'http-errors'
@@ -25,7 +26,6 @@ import setUpCurrentUser from './middleware/setUpCurrentUser'
 import { ApplicationInfo } from './applicationInfo'
 import sanitizeBody from './middleware/sanitizeBody'
 import sanitizeQuery from './middleware/sanitizeQuery'
-import { appInsightsMiddleware } from './utils/azureAppInsights'
 import config from './config'
 import logger from '../logger'
 import navigationMiddleware from './middleware/navigationMiddleware'
@@ -48,14 +48,12 @@ export default function createApp(services: Services, applicationInfo: Applicati
   app.use(setUpLocals())
   app.use(setUpCsrf())
   app.use(setUpCurrentUser(services))
+  app.use(telemetryMiddleware.addUserMetadataToTelemetry())
   app.use(expressContext())
 
   // Sanitize user input
   app.use(sanitizeBody)
   app.use(sanitizeQuery)
-
-  // App insight event emitter
-  app.use(appInsightsMiddleware())
 
   // Get front end components for DPS header
   app.use(
