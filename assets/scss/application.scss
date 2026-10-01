@@ -1,9 +1,9 @@
-@use "govuk-frontend/dist/govuk/index" as * with (
-  $govuk-global-styles: true,
-  $govuk-page-width: 1170px
-);
+$govuk-global-styles: true;
+$moj-page-width: 1170px;
+$govuk-page-width: $moj-page-width;
 
-@use "@ministryofjustice/frontend/moj/all";
+@import "govuk-frontend/dist/govuk/index";
+@import "@ministryofjustice/frontend/moj/all";
 
 /* stylelint-disable scss/at-import-partial-extension */
 @import '../../node_modules/accessible-autocomplete/dist/accessible-autocomplete.min';
