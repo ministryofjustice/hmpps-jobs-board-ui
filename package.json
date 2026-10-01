@@ -225,11 +225,11 @@
     },
     "eslint": {
       "minimatch": "^3.1.5",
-      "brace-expansion": "^5.0.12"
+      "brace-expansion": "^1.1.21"
     },
     "eslint-plugin-import": {
       "minimatch": "^3.1.5",
-      "brace-expansion": "^5.0.12"
+      "brace-expansion": "^1.1.21"
     },
     "@istanbuljs/load-nyc-config@1.1.0": {
       "js-yaml": "^3.14.1"
