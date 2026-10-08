@@ -64,6 +64,27 @@ context('Sign In', () => {
       jobListPage.jobLink(1).click()
 
       const jobReviewPage = new JobReviewPage('Warehouse operator')
+
+      // check back link works as expected
+
+      jobReviewPage.backLink().click()
+
+      const SHOW_ONLY_MY_JOBS = 'SHOW_ONLY_MY_JOBS'
+
+      jobListPage.myOwnJobsFilterCheckBox(SHOW_ONLY_MY_JOBS).check({ force: true })
+
+      jobListPage.jobTitleOrEmployerNameFilterField().type('Warehouse operator')
+
+      jobListPage.applyFiltersButton().click()
+
+      jobListPage.jobLink(1).click()
+
+      jobReviewPage.backLink().click()
+
+      const myJobsCheckbox = jobListPage.myOwnJobsFilterCheckBox(SHOW_ONLY_MY_JOBS)
+      myJobsCheckbox.should('be.checked')
+
+      jobListPage.jobTitleOrEmployerNameFilterField().should('have.value', 'Warehouse operator')
     })
   })
 
