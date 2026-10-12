@@ -213,5 +213,13 @@ describe('JobReviewController', () => {
         errors,
       })
     })
+    it('Uses the back location function to preserve the users chosen filters', async () => {
+      const backLocation =
+        '/jobs?sort=jobTitle&order=ascending&myOwnJobsFilter=true&jobTitleOrEmployerNameFilter=jobTitle&jobSectorFilter=ADMIN_SUPPORT'
+      setSessionData(req, ['from', 'jobReview', id], backLocation)
+      controller.get(req, res, next)
+
+      expect(res.render).toHaveBeenCalledWith('pages/jobs/jobReview/index', expect.objectContaining({ backLocation }))
+    })
   })
 })
