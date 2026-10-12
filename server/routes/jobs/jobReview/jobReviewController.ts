@@ -3,7 +3,14 @@ import { v7 as uuidv7 } from 'uuid'
 import _ from 'lodash'
 
 import { auditService } from '@ministryofjustice/hmpps-audit-client'
-import { deleteSessionData, formatShortDate, getSessionData, modeValue, setSessionData } from '../../../utils/index'
+import {
+  deleteSessionData,
+  formatShortDate,
+  getBackLocation,
+  getSessionData,
+  modeValue,
+  setSessionData,
+} from '../../../utils/index'
 import addressLookup from '../../addressLookup'
 import JobService from '../../../services/jobService'
 import JobSector from '../../../enums/jobSector'
@@ -49,7 +56,12 @@ export default class JobReviewController {
         closingDate: job.closingDate && formatShortDate(new Date(job.closingDate)),
         employerName: (allEmployers.find((p: { id: string }) => p.id === job.employerId) || {}).name,
         errors,
-        backLocation: addressLookup.jobs.jobList(),
+        backLocation: getBackLocation({
+          req,
+          defaultRoute: addressLookup.jobs.jobList(),
+          page: 'jobReview',
+          uid: id,
+        }),
       }
 
       // Set page data in session
