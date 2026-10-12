@@ -10,6 +10,7 @@
     {
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["!govuk-frontend", "!@ministryofjustice/frontend"],
       "groupName": "all non major NPM dependencies",
       "groupSlug": "all-npm-minor-patch",
       "minimumReleaseAge": "7 days"
@@ -39,6 +40,20 @@
     {
       "matchManagers": ["pre-commit"],
       "groupName": "all pre-commit dependencies"
+    },
+    {
+      "matchPackageNames": ["govuk-frontend"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Gov.UK frontend",
+      "groupSlug": "govuk-frontend-minor-patch",
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "matchPackageNames": ["@ministryofjustice/frontend"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "MoJ frontend",
+      "groupSlug": "moj-frontend-minor-patch",
+      "minimumReleaseAge": "7 days"
     }
   ],
   "vulnerabilityAlerts": {
