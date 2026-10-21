@@ -125,7 +125,7 @@
     "express": "^4.21.0",
     "express-prom-bundle": "^7.0.0",
     "express-session": "^1.18.0",
-    "follow-redirects": "^1.16.0",
+    "follow-redirects": "^1.16.1",
     "formidable": "^3.5.4",
     "govuk-frontend": "6.1.0",
     "helmet": "^7.1.0",
