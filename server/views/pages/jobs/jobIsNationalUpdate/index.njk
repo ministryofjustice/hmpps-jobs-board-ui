@@ -24,11 +24,11 @@
         {% if mode == "duplicate" %}
           <span class="govuk-caption-l" data-qa="headerCaption">Duplicate a job</span>
         {% elif id == "new" %}
-          <span class="govuk-caption-l" data-qa="headerCaption">Add a job - step 2 of 6 }}</span>
+          <span class="govuk-caption-l" data-qa="headerCaption">Add a job - step 2 of 6</span>
         {% else %}
            <span class="govuk-caption-l" data-qa="headerCaption">Update a job</span>
         {% endif %}
-            <h1 class="govuk-heading-l">
+            <h1 class="govuk-heading-l" id="isThisNational">
                 {{ title }}
             </h1>
 
@@ -37,6 +37,9 @@
 
                 {{ govukRadios({
                     name: "isNational",
+                    fieldset: {
+                        describedBy: "isThisNational"
+                    },
                     hint: {
                         text: "National jobs do not have a single hiring location. Select no if you know the postcode for the job."
                     },
