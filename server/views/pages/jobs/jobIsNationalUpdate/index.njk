@@ -28,47 +28,50 @@
         {% else %}
            <span class="govuk-caption-l" data-qa="headerCaption">Update a job</span>
         {% endif %}
-            <h1 class="govuk-heading-l" id="isThisNational">
-                {{ title }}
-            </h1>
-
             <form class="form" method="post" novalidate="">
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" aria-describedby="isNational">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-heading-l" id="isNational">
+                                {{ title }}
+                            </h1>
+                        </legend>
 
-                {{ govukRadios({
-                    name: "isNational",
-                    fieldset: {
-                        describedBy: "isThisNational"
-                    },
-                    hint: {
-                        text: "National jobs do not have a single hiring location. Select no if you know the postcode for the job."
-                    },
-                    items: [
-                        {
-                            value: "YES",
-                            text: contentLookup.yesNo["YES"] + ", this is a national job",
-                            checked: isNational === "YES"
-                        },
-                        {
-                            value: "NO",
-                            text: contentLookup.yesNo["NO"] + ", the job has a specific hiring location",
-                            checked: isNational === "NO"
-                        }
-                    ],
-                    errorMessage: errors.isNational
-                }) }}
+                
 
-                {{ govukButton({
-                    text: "Continue",
-                    type: "submit",
-                    attributes: {
-                        "data-qa": "submit-button",
-                        "data-ga-category": "submit-selected-data"
-                    }
-                }) }}
+                        {{ govukRadios({
+                            name: "isNational",
+                            
+                            hint: {
+                                text: "National jobs do not have a single hiring location. Select no if you know the postcode for the job."
+                            },
+                            items: [
+                                {
+                                    value: "YES",
+                                    text: contentLookup.yesNo["YES"] + ", this is a national job",
+                                    checked: isNational === "YES"
+                                },
+                                {
+                                    value: "NO",
+                                    text: contentLookup.yesNo["NO"] + ", the job has a specific hiring location",
+                                    checked: isNational === "NO"
+                                }
+                            ],
+                            errorMessage: errors.isNational
+                        }) }}
 
+                        {{ govukButton({
+                            text: "Continue",
+                            type: "submit",
+                            attributes: {
+                                "data-qa": "submit-button",
+                                "data-ga-category": "submit-selected-data"
+                            }
+                        }) }}
+                    </fieldset>
+                </div>
             </form>
-
         </div>
     </div>
 {% endblock %}
