@@ -31,18 +31,15 @@
             <form class="form" method="post" novalidate="">
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" aria-describedby="isNational">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                            <h1 class="govuk-heading-l" id="isNational">
-                                {{ title }}
-                            </h1>
-                        </legend>
-
-                
-
                         {{ govukRadios({
                             name: "isNational",
-                            
+                            fieldset: {
+                                legend: {
+                                  text: title,
+                                  isPageHeading: true,
+                                  classes: "govuk-fieldset__legend--l"
+                                }
+                              },
                             hint: {
                                 text: "National jobs do not have a single hiring location. Select no if you know the postcode for the job."
                             },
@@ -60,7 +57,7 @@
                             ],
                             errorMessage: errors.isNational
                         }) }}
-                    </fieldset>
+                </div>
                      {{ govukButton({
                             text: "Continue",
                             type: "submit",
@@ -69,7 +66,6 @@
                                 "data-ga-category": "submit-selected-data"
                             }
                      }) }}
-                </div>
             </form>
         </div>
     </div>
